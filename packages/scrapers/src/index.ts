@@ -15,9 +15,10 @@ async function main() {
   const db = client.db(dbName);
   //const styleSubCategories = await parseStyles();
 
-  //const stylesCollection = db.collection("styles");
-  //await stylesCollection.drop();
-  //const styles = bjcp2021();
+  const stylesCollection = db.collection("styles");
+  await stylesCollection.drop();
+  const styles = bjcp2021();
+  await stylesCollection.insertMany(styles);
 
   //const styleSubCategoriesCollection = db.collection("stylesubcategories");
   //await styleSubCategoriesCollection.drop();
@@ -28,16 +29,17 @@ async function main() {
   //)
   //.flat();
   //console.log(styles);
-  //await stylesCollection.insertMany(styles);
 
-  const collection = db.collection("fermentableIngredients");
-  //if (collection) await collection.drop();
-  //const hopData = await fetchHopData();
+  const hopcollection = db.collection("hopingredients");
+  const fermcollection = db.collection("fermentableingredients");
+  if (hopcollection) await hopcollection.drop();
+  if (fermcollection) await fermcollection.drop();
+  const hopData = await fetchHopData();
   const grainData = await fetchGrainData();
   //console.log(hopData);
 
-  //await collection.insertMany(hopData);
-  await collection.insertMany(grainData);
+  await hopcollection.insertMany(hopData);
+  await fermcollection.insertMany(grainData);
   // the following code examples can be pasted here...
 
   return "done.";

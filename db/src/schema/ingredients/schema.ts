@@ -24,22 +24,23 @@ export const YeastIngredient = mongoose.model(
   "YeastIngredient",
   YeastIngredientSchema
 );
-
-export const HopIngredientTC = composeMongoose<Document<typeof HopIngredient>>(
-  HopIngredient as any,
-  {}
-);
-export const FermentableIngredientTC = composeMongoose<
-  Document<typeof FermentableIngredient>
->(FermentableIngredient as any, {});
-export const OtherIngredientTC = composeMongoose<
-  Document<typeof OtherIngredient>
->(OtherIngredient as any, {});
-export const YeastIngredientTC = composeMongoose<
-  Document<typeof YeastIngredient>
->(YeastIngredient as any, {});
-
 export const IngredientComposer = (composer: SchemaComposer) => {
+  const HopIngredientTC = composeMongoose<Document<typeof HopIngredient>>(
+    HopIngredient as any,
+    {}
+  );
+  const FermentableIngredientTC = composeMongoose<
+    Document<typeof FermentableIngredient>
+  >(FermentableIngredient as any, {});
+  const OtherIngredientTC = composeMongoose<Document<typeof OtherIngredient>>(
+    OtherIngredient as any,
+    {}
+  );
+  const YeastIngredientTC = composeMongoose<Document<typeof YeastIngredient>>(
+    YeastIngredient as any,
+    {}
+  );
+
   HopIngredientTC.addFields({
     urlString: {
       type: "String",

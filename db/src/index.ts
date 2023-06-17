@@ -38,15 +38,15 @@ db.then(async (d) => {
     cors<cors.CorsRequest>(),
     bodyParser.json(),
 
-    (req, res, next) => {
-      auth({
-        audience: process.env.AUTH0_AUDIENCE,
-        issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}/`,
-      })(req, res, (e) => {
-        if (e) console.log(e);
-        next();
-      });
-    },
+    //(req, res, next) => {
+    //auth({
+    //audience: process.env.AUTH0_AUDIENCE,
+    //issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}/`,
+    //})(req, res, (e) => {
+    //if (e) console.log(e);
+    //next();
+    //});
+    //},
     expressMiddleware(server, {
       context: async ({ req }) => ({
         //req,
