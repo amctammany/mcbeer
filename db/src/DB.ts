@@ -13,7 +13,6 @@ class DB {
   }
 
   static async connect(url?: string): Promise<Connection> {
-    console.log(config.databaseUrl);
     this.mongoose = mongoose;
     await this.mongoose
       .connect(url || config.databaseUrl, {

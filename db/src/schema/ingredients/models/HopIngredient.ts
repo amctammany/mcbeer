@@ -1,10 +1,10 @@
 import mongoose, { Schema } from "mongoose";
 import { NumberType, RangeType } from "src/schema/common";
-//import {
-//HopSensoryPanel as HopSensoryPanelType,
-//HopIngredient,
-//HopVariant,
-//} from "@lnk/types";
+import {
+  //HopSensoryPanel as HopSensoryPanelType,
+  HopIngredient,
+  //HopVariant,
+} from "@mcbeer/types";
 type HopSensoryPanelType = any;
 type HopIngredientType = any;
 type HopVariant = any;
@@ -43,7 +43,7 @@ export const HopVariantSchema = new Schema<HopVariant>({
   manufacturer: String,
 });
 
-export const HopIngredientSchema = new Schema<HopIngredientType>({
+export const HopIngredientSchema = new Schema<HopIngredient>({
   name: { type: String, required: true },
   country: String,
   description: String,

@@ -1,8 +1,7 @@
 import mongoose, { Schema } from "mongoose";
-//import { OtherIngredient } from "@lnk/types";
-type OtherIngredientType = any;
+import { OtherIngredient } from "@mcbeer/types";
 
-export const OtherIngredientSchema = new Schema<OtherIngredientType>({
+export const OtherIngredientSchema = new Schema<OtherIngredient>({
   name: { type: String, required: true },
   country: String,
   description: String,
