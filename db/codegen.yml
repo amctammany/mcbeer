@@ -1,0 +1,13 @@
+#watch: true
+overwrite: true
+schema: http://localhost:4000
+generates:
+   ../packages/types/src/index.ts:
+    config:
+      useIndexSignature: true
+      constEnums: true
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-resolvers
+

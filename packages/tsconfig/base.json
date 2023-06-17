@@ -7,14 +7,23 @@
     "declarationMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
     "inlineSources": false,
+    "strictFunctionTypes": false,
+    "resolveJsonModule": true,
     "isolatedModules": true,
     "moduleResolution": "node",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "pretty": true,
+    "preserveSymlinks": true,
     "preserveWatchOutput": true,
     "skipLibCheck": true,
-    "strict": true
+    "strictNullChecks": true,
+    "strict": false
   },
   "exclude": ["node_modules"]
 }

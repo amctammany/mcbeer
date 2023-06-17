@@ -1,0 +1,25 @@
+{
+  "extends": "@mcbeer/tsconfig/base.json",
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+
+  "compilerOptions": {
+    "rootDir": ".",
+    "declaration": true,
+    "preserveSymlinks": true,
+    "outDir": "./build",
+    "module": "CommonJS",
+    "target": "es6",
+    "lib": ["es6", "ESNext"],
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["./src/*"]
+    },
+    "types": ["node", "jest", "mocha"]
+  },
+  "include": ["./src/**/*.ts", "./build.ts"],
+  "exclude": ["dist", "build", ".yarn", "node_modules"]
+}
