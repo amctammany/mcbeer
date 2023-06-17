@@ -20,6 +20,8 @@ describe("Style", () => {
     const sub = await StyleSubCategory.findOne({
       identifier: subcat.identifier,
     }).populate("styles");
-    expect(sub?.styles.map(({ id }) => id)).toContain(style.id);
+    expect(sub?.styles.map(({ _id }) => _id.toString())).toContain(
+      style._id.toString()
+    );
   });
 });
