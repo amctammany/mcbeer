@@ -14,11 +14,12 @@ describe("Style", () => {
       //subcategory: subcat,
       subcategoryId: subcat.identifier,
     }).save();
+    style.populate("subcategory");
     expect(!!style).toBe(true);
     expect(style.subcategoryId).toBe(subcat.identifier);
     const sub = await StyleSubCategory.findOne({
       identifier: subcat.identifier,
     }).populate("styles");
-    expect(sub.styles.map(({ id }) => id)).toContain(style.id);
+    expect(sub?.styles.map(({ id }) => id)).toContain(style.id);
   });
 });

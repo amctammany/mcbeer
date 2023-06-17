@@ -1,14 +1,11 @@
 import mongoose, { Document, Schema } from "mongoose";
-//import StyleSubCategory,
-// HopStyleIngredient as HopStyleIngredientType,
-//"@mcbeer/types";
+import { StyleSubCategory as StyleSubCategoryType } from "@mcbeer/types";
 import slugify from "slugify";
 import autopopulate from "mongoose-autopopulate";
-type StyleSubCategoryType = any;
 
 const StyleSubCategorySchema = new Schema<StyleSubCategoryType>(
   {
-    name: String,
+    name: { type: String, required: true },
     identifier: String,
     slug: String,
     category: { type: String, enum: ["beer", "mead", "cider"] },
@@ -25,7 +22,7 @@ StyleSubCategorySchema.virtual("styles", {
 StyleSubCategorySchema.plugin(autopopulate);
 
 StyleSubCategorySchema.pre("save", async function preSave(next) {
-  this.slug = slugify(this.name, { lower: true });
+  this.slug = slugify(this.name || "", { lower: true });
   // const Style = mongoose.model("Style");
   // const styles = await Promise.all(
   // this.styles.map(async (style) => {
@@ -41,7 +38,7 @@ StyleSubCategorySchema.pre("save", async function preSave(next) {
   next();
 });
 
-export const StyleSubCategory = mongoose.model<StyleSubCategoryType>(
+export const StyleSubCategory = mongoose.model(
   "StyleSubCategory",
   StyleSubCategorySchema
 );

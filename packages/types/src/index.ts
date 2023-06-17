@@ -51,7 +51,7 @@ export type CreateOneStylePayload = {
 export type CreateOneStyleSubCategoryInput = {
   category?: InputMaybe<EnumStyleSubCategoryCategory>;
   identifier?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
   slug?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -600,7 +600,7 @@ export type StyleSubCategory = {
   _id: Scalars['MongoID']['output'];
   category?: Maybe<EnumStyleSubCategoryCategory>;
   identifier?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
   slug?: Maybe<Scalars['String']['output']>;
   styles: Array<Style>;
   /** url */
@@ -1135,7 +1135,7 @@ export type StyleSubCategoryResolvers<ContextType = any, ParentType extends Reso
   _id?: Resolver<ResolversTypes['MongoID'], ParentType, ContextType>;
   category?: Resolver<Maybe<ResolversTypes['EnumStyleSubCategoryCategory']>, ParentType, ContextType>;
   identifier?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   slug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   styles?: Resolver<Array<ResolversTypes['Style']>, ParentType, ContextType, RequireFields<StyleSubCategoryStylesArgs, 'limit'>>;
   urlString?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

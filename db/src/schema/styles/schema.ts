@@ -15,7 +15,7 @@ export const StyleTC = composeMongoose<Document<StyleType & any>>(
 export const StyleSubCategoryTC = composeMongoose<
   Document<StyleSubCategoryType>
 >(StyleSubCategory as any, {
-  removeFields: ["styles"],
+  //removeFields: ["styles"],
   inputType: {
     name: "StyleSubCategoryInput",
   },
