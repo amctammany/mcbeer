@@ -1,4 +1,4 @@
-import { Style, StyleSubCategory } from "./models";
+import { Style, StyleSubCategory } from "../schema/styles/models";
 
 describe("Style", () => {
   it("should be true", async () => {
@@ -20,7 +20,7 @@ describe("Style", () => {
     const sub = await StyleSubCategory.findOne({
       identifier: subcat.identifier,
     }).populate("styles");
-    expect(sub?.styles.map(({ _id }) => _id.toString())).toContain(
+    expect((sub?.styles || []).map(({ _id }) => _id.toString())).toContain(
       style._id.toString()
     );
   });
