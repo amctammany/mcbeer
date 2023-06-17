@@ -19,6 +19,75 @@ export type Scalars = {
   RegExpAsString: { input: any; output: any; }
 };
 
+export type CreateOneFermentableIngredientInput = {
+  color?: InputMaybe<Scalars['Float']['input']>;
+  maxUsage?: InputMaybe<Scalars['Float']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  potential?: InputMaybe<Scalars['Float']['input']>;
+  power?: InputMaybe<Scalars['Float']['input']>;
+  stability?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CreateOneFermentableIngredientPayload = {
+  __typename?: 'CreateOneFermentableIngredientPayload';
+  /** Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response. */
+  error?: Maybe<ErrorInterface>;
+  /** Created document */
+  record?: Maybe<FermentableIngredient>;
+  /** Document ID */
+  recordId?: Maybe<Scalars['MongoID']['output']>;
+};
+
+export type CreateOneHopIngredientInput = {
+  alpha?: InputMaybe<Scalars['Float']['input']>;
+  alphaRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  beta?: InputMaybe<Scalars['Float']['input']>;
+  betaRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  caryophyllene?: InputMaybe<Scalars['Float']['input']>;
+  caryophylleneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  cohumulone?: InputMaybe<Scalars['Float']['input']>;
+  cohumuloneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  farnesene?: InputMaybe<Scalars['Float']['input']>;
+  farneseneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  flavor?: InputMaybe<Scalars['String']['input']>;
+  humulene?: InputMaybe<Scalars['Float']['input']>;
+  humuleneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  myrcene?: InputMaybe<Scalars['Float']['input']>;
+  myrceneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  notes?: InputMaybe<Scalars['String']['input']>;
+  purpose?: InputMaybe<Scalars['String']['input']>;
+  sensoryPanels?: InputMaybe<Array<InputMaybe<HopIngredientSensoryPanelsInput>>>;
+  styles?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  substitutes?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  totalOil?: InputMaybe<Scalars['Float']['input']>;
+  totalOilRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  variants?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type CreateOneHopIngredientPayload = {
+  __typename?: 'CreateOneHopIngredientPayload';
+  /** Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response. */
+  error?: Maybe<ErrorInterface>;
+  /** Created document */
+  record?: Maybe<HopIngredient>;
+  /** Document ID */
+  recordId?: Maybe<Scalars['MongoID']['output']>;
+};
+
+export type CreateOneOtherIngredientInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CreateOneOtherIngredientPayload = {
+  __typename?: 'CreateOneOtherIngredientPayload';
+  /** Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response. */
+  error?: Maybe<ErrorInterface>;
+  /** Created document */
+  record?: Maybe<OtherIngredient>;
+  /** Document ID */
+  recordId?: Maybe<Scalars['MongoID']['output']>;
+};
+
 export type CreateOneStyleInput = {
   appearance?: InputMaybe<Scalars['String']['input']>;
   aroma?: InputMaybe<Scalars['String']['input']>;
@@ -65,6 +134,22 @@ export type CreateOneStyleSubCategoryPayload = {
   recordId?: Maybe<Scalars['MongoID']['output']>;
 };
 
+export type CreateOneYeastIngredientInput = {
+  attenuation?: InputMaybe<Scalars['Float']['input']>;
+  flocculation?: InputMaybe<EnumYeastIngredientFlocculation>;
+  tolerance?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type CreateOneYeastIngredientPayload = {
+  __typename?: 'CreateOneYeastIngredientPayload';
+  /** Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response. */
+  error?: Maybe<ErrorInterface>;
+  /** Created document */
+  record?: Maybe<YeastIngredient>;
+  /** Document ID */
+  recordId?: Maybe<Scalars['MongoID']['output']>;
+};
+
 export const enum EnumStyleCategory {
   Beer = 'beer',
   Cider = 'cider',
@@ -77,9 +162,151 @@ export const enum EnumStyleSubCategoryCategory {
   Mead = 'mead'
 };
 
+export const enum EnumYeastIngredientFlocculation {
+  High = 'high',
+  Low = 'low',
+  Medium = 'medium'
+};
+
 export type ErrorInterface = {
   /** Generic error message */
   message?: Maybe<Scalars['String']['output']>;
+};
+
+export type FermentableIngredient = {
+  __typename?: 'FermentableIngredient';
+  _id: Scalars['MongoID']['output'];
+  color?: Maybe<Scalars['Float']['output']>;
+  maxUsage?: Maybe<Scalars['Float']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  potential?: Maybe<Scalars['Float']['output']>;
+  power?: Maybe<Scalars['Float']['output']>;
+  stability?: Maybe<Scalars['String']['output']>;
+  /** URL */
+  urlString?: Maybe<Scalars['String']['output']>;
+};
+
+export type FilterFindManyFermentableIngredientInput = {
+  AND?: InputMaybe<Array<FilterFindManyFermentableIngredientInput>>;
+  OR?: InputMaybe<Array<FilterFindManyFermentableIngredientInput>>;
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  /** List of *indexed* fields that can be filtered via operators. */
+  _operators?: InputMaybe<FilterFindManyFermentableIngredientOperatorsInput>;
+  color?: InputMaybe<Scalars['Float']['input']>;
+  maxUsage?: InputMaybe<Scalars['Float']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  potential?: InputMaybe<Scalars['Float']['input']>;
+  power?: InputMaybe<Scalars['Float']['input']>;
+  stability?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterFindManyFermentableIngredientOperatorsInput = {
+  _id?: InputMaybe<FilterFindManyFermentableIngredient_IdOperatorsInput>;
+};
+
+export type FilterFindManyFermentableIngredient_IdOperatorsInput = {
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  gt?: InputMaybe<Scalars['MongoID']['input']>;
+  gte?: InputMaybe<Scalars['MongoID']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  lt?: InputMaybe<Scalars['MongoID']['input']>;
+  lte?: InputMaybe<Scalars['MongoID']['input']>;
+  ne?: InputMaybe<Scalars['MongoID']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type FilterFindManyHopIngredientInput = {
+  AND?: InputMaybe<Array<FilterFindManyHopIngredientInput>>;
+  OR?: InputMaybe<Array<FilterFindManyHopIngredientInput>>;
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  /** List of *indexed* fields that can be filtered via operators. */
+  _operators?: InputMaybe<FilterFindManyHopIngredientOperatorsInput>;
+  alpha?: InputMaybe<Scalars['Float']['input']>;
+  alphaRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  beta?: InputMaybe<Scalars['Float']['input']>;
+  betaRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  caryophyllene?: InputMaybe<Scalars['Float']['input']>;
+  caryophylleneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  cohumulone?: InputMaybe<Scalars['Float']['input']>;
+  cohumuloneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  farnesene?: InputMaybe<Scalars['Float']['input']>;
+  farneseneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  flavor?: InputMaybe<Scalars['String']['input']>;
+  humulene?: InputMaybe<Scalars['Float']['input']>;
+  humuleneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  myrcene?: InputMaybe<Scalars['Float']['input']>;
+  myrceneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  notes?: InputMaybe<Scalars['String']['input']>;
+  purpose?: InputMaybe<Scalars['String']['input']>;
+  sensoryPanels?: InputMaybe<Array<InputMaybe<FilterFindManyHopIngredientSensoryPanelsInput>>>;
+  styles?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  substitutes?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  totalOil?: InputMaybe<Scalars['Float']['input']>;
+  totalOilRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  variants?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterFindManyHopIngredientOperatorsInput = {
+  _id?: InputMaybe<FilterFindManyHopIngredient_IdOperatorsInput>;
+};
+
+export type FilterFindManyHopIngredientSensoryPanelsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  author?: InputMaybe<Scalars['String']['input']>;
+  berry?: InputMaybe<Scalars['Float']['input']>;
+  citrus?: InputMaybe<Scalars['Float']['input']>;
+  earthy?: InputMaybe<Scalars['Float']['input']>;
+  floral?: InputMaybe<Scalars['Float']['input']>;
+  grassy?: InputMaybe<Scalars['Float']['input']>;
+  herbal?: InputMaybe<Scalars['Float']['input']>;
+  melon?: InputMaybe<Scalars['Float']['input']>;
+  notes?: InputMaybe<Scalars['String']['input']>;
+  pomme?: InputMaybe<Scalars['Float']['input']>;
+  spicy?: InputMaybe<Scalars['Float']['input']>;
+  stoneFruit?: InputMaybe<Scalars['Float']['input']>;
+  sweetAromatic?: InputMaybe<Scalars['Float']['input']>;
+  tropical?: InputMaybe<Scalars['Float']['input']>;
+  vegetal?: InputMaybe<Scalars['Float']['input']>;
+  woody?: InputMaybe<Scalars['Float']['input']>;
+  year?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type FilterFindManyHopIngredient_IdOperatorsInput = {
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  gt?: InputMaybe<Scalars['MongoID']['input']>;
+  gte?: InputMaybe<Scalars['MongoID']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  lt?: InputMaybe<Scalars['MongoID']['input']>;
+  lte?: InputMaybe<Scalars['MongoID']['input']>;
+  ne?: InputMaybe<Scalars['MongoID']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type FilterFindManyOtherIngredientInput = {
+  AND?: InputMaybe<Array<FilterFindManyOtherIngredientInput>>;
+  OR?: InputMaybe<Array<FilterFindManyOtherIngredientInput>>;
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  /** List of *indexed* fields that can be filtered via operators. */
+  _operators?: InputMaybe<FilterFindManyOtherIngredientOperatorsInput>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterFindManyOtherIngredientOperatorsInput = {
+  _id?: InputMaybe<FilterFindManyOtherIngredient_IdOperatorsInput>;
+};
+
+export type FilterFindManyOtherIngredient_IdOperatorsInput = {
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  gt?: InputMaybe<Scalars['MongoID']['input']>;
+  gte?: InputMaybe<Scalars['MongoID']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  lt?: InputMaybe<Scalars['MongoID']['input']>;
+  lte?: InputMaybe<Scalars['MongoID']['input']>;
+  ne?: InputMaybe<Scalars['MongoID']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
 };
 
 export type FilterFindManyStyleInput = {
@@ -191,6 +418,156 @@ export type FilterFindManyStyleVitalsSrmInput = {
 };
 
 export type FilterFindManyStyle_IdOperatorsInput = {
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  gt?: InputMaybe<Scalars['MongoID']['input']>;
+  gte?: InputMaybe<Scalars['MongoID']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  lt?: InputMaybe<Scalars['MongoID']['input']>;
+  lte?: InputMaybe<Scalars['MongoID']['input']>;
+  ne?: InputMaybe<Scalars['MongoID']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type FilterFindManyYeastIngredientInput = {
+  AND?: InputMaybe<Array<FilterFindManyYeastIngredientInput>>;
+  OR?: InputMaybe<Array<FilterFindManyYeastIngredientInput>>;
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  /** List of *indexed* fields that can be filtered via operators. */
+  _operators?: InputMaybe<FilterFindManyYeastIngredientOperatorsInput>;
+  attenuation?: InputMaybe<Scalars['Float']['input']>;
+  flocculation?: InputMaybe<EnumYeastIngredientFlocculation>;
+  tolerance?: InputMaybe<Scalars['Float']['input']>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterFindManyYeastIngredientOperatorsInput = {
+  _id?: InputMaybe<FilterFindManyYeastIngredient_IdOperatorsInput>;
+};
+
+export type FilterFindManyYeastIngredient_IdOperatorsInput = {
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  gt?: InputMaybe<Scalars['MongoID']['input']>;
+  gte?: InputMaybe<Scalars['MongoID']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  lt?: InputMaybe<Scalars['MongoID']['input']>;
+  lte?: InputMaybe<Scalars['MongoID']['input']>;
+  ne?: InputMaybe<Scalars['MongoID']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type FilterFindOneFermentableIngredientInput = {
+  AND?: InputMaybe<Array<FilterFindOneFermentableIngredientInput>>;
+  OR?: InputMaybe<Array<FilterFindOneFermentableIngredientInput>>;
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  /** List of *indexed* fields that can be filtered via operators. */
+  _operators?: InputMaybe<FilterFindOneFermentableIngredientOperatorsInput>;
+  color?: InputMaybe<Scalars['Float']['input']>;
+  maxUsage?: InputMaybe<Scalars['Float']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  potential?: InputMaybe<Scalars['Float']['input']>;
+  power?: InputMaybe<Scalars['Float']['input']>;
+  stability?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterFindOneFermentableIngredientOperatorsInput = {
+  _id?: InputMaybe<FilterFindOneFermentableIngredient_IdOperatorsInput>;
+};
+
+export type FilterFindOneFermentableIngredient_IdOperatorsInput = {
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  gt?: InputMaybe<Scalars['MongoID']['input']>;
+  gte?: InputMaybe<Scalars['MongoID']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  lt?: InputMaybe<Scalars['MongoID']['input']>;
+  lte?: InputMaybe<Scalars['MongoID']['input']>;
+  ne?: InputMaybe<Scalars['MongoID']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type FilterFindOneHopIngredientInput = {
+  AND?: InputMaybe<Array<FilterFindOneHopIngredientInput>>;
+  OR?: InputMaybe<Array<FilterFindOneHopIngredientInput>>;
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  /** List of *indexed* fields that can be filtered via operators. */
+  _operators?: InputMaybe<FilterFindOneHopIngredientOperatorsInput>;
+  alpha?: InputMaybe<Scalars['Float']['input']>;
+  alphaRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  beta?: InputMaybe<Scalars['Float']['input']>;
+  betaRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  caryophyllene?: InputMaybe<Scalars['Float']['input']>;
+  caryophylleneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  cohumulone?: InputMaybe<Scalars['Float']['input']>;
+  cohumuloneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  farnesene?: InputMaybe<Scalars['Float']['input']>;
+  farneseneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  flavor?: InputMaybe<Scalars['String']['input']>;
+  humulene?: InputMaybe<Scalars['Float']['input']>;
+  humuleneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  myrcene?: InputMaybe<Scalars['Float']['input']>;
+  myrceneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  notes?: InputMaybe<Scalars['String']['input']>;
+  purpose?: InputMaybe<Scalars['String']['input']>;
+  sensoryPanels?: InputMaybe<Array<InputMaybe<FilterFindOneHopIngredientSensoryPanelsInput>>>;
+  styles?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  substitutes?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  totalOil?: InputMaybe<Scalars['Float']['input']>;
+  totalOilRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  variants?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterFindOneHopIngredientOperatorsInput = {
+  _id?: InputMaybe<FilterFindOneHopIngredient_IdOperatorsInput>;
+};
+
+export type FilterFindOneHopIngredientSensoryPanelsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  author?: InputMaybe<Scalars['String']['input']>;
+  berry?: InputMaybe<Scalars['Float']['input']>;
+  citrus?: InputMaybe<Scalars['Float']['input']>;
+  earthy?: InputMaybe<Scalars['Float']['input']>;
+  floral?: InputMaybe<Scalars['Float']['input']>;
+  grassy?: InputMaybe<Scalars['Float']['input']>;
+  herbal?: InputMaybe<Scalars['Float']['input']>;
+  melon?: InputMaybe<Scalars['Float']['input']>;
+  notes?: InputMaybe<Scalars['String']['input']>;
+  pomme?: InputMaybe<Scalars['Float']['input']>;
+  spicy?: InputMaybe<Scalars['Float']['input']>;
+  stoneFruit?: InputMaybe<Scalars['Float']['input']>;
+  sweetAromatic?: InputMaybe<Scalars['Float']['input']>;
+  tropical?: InputMaybe<Scalars['Float']['input']>;
+  vegetal?: InputMaybe<Scalars['Float']['input']>;
+  woody?: InputMaybe<Scalars['Float']['input']>;
+  year?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type FilterFindOneHopIngredient_IdOperatorsInput = {
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  gt?: InputMaybe<Scalars['MongoID']['input']>;
+  gte?: InputMaybe<Scalars['MongoID']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  lt?: InputMaybe<Scalars['MongoID']['input']>;
+  lte?: InputMaybe<Scalars['MongoID']['input']>;
+  ne?: InputMaybe<Scalars['MongoID']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type FilterFindOneOtherIngredientInput = {
+  AND?: InputMaybe<Array<FilterFindOneOtherIngredientInput>>;
+  OR?: InputMaybe<Array<FilterFindOneOtherIngredientInput>>;
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  /** List of *indexed* fields that can be filtered via operators. */
+  _operators?: InputMaybe<FilterFindOneOtherIngredientOperatorsInput>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterFindOneOtherIngredientOperatorsInput = {
+  _id?: InputMaybe<FilterFindOneOtherIngredient_IdOperatorsInput>;
+};
+
+export type FilterFindOneOtherIngredient_IdOperatorsInput = {
   exists?: InputMaybe<Scalars['Boolean']['input']>;
   gt?: InputMaybe<Scalars['MongoID']['input']>;
   gte?: InputMaybe<Scalars['MongoID']['input']>;
@@ -320,6 +697,156 @@ export type FilterFindOneStyle_IdOperatorsInput = {
   nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
 };
 
+export type FilterFindOneYeastIngredientInput = {
+  AND?: InputMaybe<Array<FilterFindOneYeastIngredientInput>>;
+  OR?: InputMaybe<Array<FilterFindOneYeastIngredientInput>>;
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  /** List of *indexed* fields that can be filtered via operators. */
+  _operators?: InputMaybe<FilterFindOneYeastIngredientOperatorsInput>;
+  attenuation?: InputMaybe<Scalars['Float']['input']>;
+  flocculation?: InputMaybe<EnumYeastIngredientFlocculation>;
+  tolerance?: InputMaybe<Scalars['Float']['input']>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterFindOneYeastIngredientOperatorsInput = {
+  _id?: InputMaybe<FilterFindOneYeastIngredient_IdOperatorsInput>;
+};
+
+export type FilterFindOneYeastIngredient_IdOperatorsInput = {
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  gt?: InputMaybe<Scalars['MongoID']['input']>;
+  gte?: InputMaybe<Scalars['MongoID']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  lt?: InputMaybe<Scalars['MongoID']['input']>;
+  lte?: InputMaybe<Scalars['MongoID']['input']>;
+  ne?: InputMaybe<Scalars['MongoID']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type FilterUpdateOneFermentableIngredientInput = {
+  AND?: InputMaybe<Array<FilterUpdateOneFermentableIngredientInput>>;
+  OR?: InputMaybe<Array<FilterUpdateOneFermentableIngredientInput>>;
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  /** List of *indexed* fields that can be filtered via operators. */
+  _operators?: InputMaybe<FilterUpdateOneFermentableIngredientOperatorsInput>;
+  color?: InputMaybe<Scalars['Float']['input']>;
+  maxUsage?: InputMaybe<Scalars['Float']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  potential?: InputMaybe<Scalars['Float']['input']>;
+  power?: InputMaybe<Scalars['Float']['input']>;
+  stability?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterUpdateOneFermentableIngredientOperatorsInput = {
+  _id?: InputMaybe<FilterUpdateOneFermentableIngredient_IdOperatorsInput>;
+};
+
+export type FilterUpdateOneFermentableIngredient_IdOperatorsInput = {
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  gt?: InputMaybe<Scalars['MongoID']['input']>;
+  gte?: InputMaybe<Scalars['MongoID']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  lt?: InputMaybe<Scalars['MongoID']['input']>;
+  lte?: InputMaybe<Scalars['MongoID']['input']>;
+  ne?: InputMaybe<Scalars['MongoID']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type FilterUpdateOneHopIngredientInput = {
+  AND?: InputMaybe<Array<FilterUpdateOneHopIngredientInput>>;
+  OR?: InputMaybe<Array<FilterUpdateOneHopIngredientInput>>;
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  /** List of *indexed* fields that can be filtered via operators. */
+  _operators?: InputMaybe<FilterUpdateOneHopIngredientOperatorsInput>;
+  alpha?: InputMaybe<Scalars['Float']['input']>;
+  alphaRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  beta?: InputMaybe<Scalars['Float']['input']>;
+  betaRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  caryophyllene?: InputMaybe<Scalars['Float']['input']>;
+  caryophylleneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  cohumulone?: InputMaybe<Scalars['Float']['input']>;
+  cohumuloneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  farnesene?: InputMaybe<Scalars['Float']['input']>;
+  farneseneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  flavor?: InputMaybe<Scalars['String']['input']>;
+  humulene?: InputMaybe<Scalars['Float']['input']>;
+  humuleneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  myrcene?: InputMaybe<Scalars['Float']['input']>;
+  myrceneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  notes?: InputMaybe<Scalars['String']['input']>;
+  purpose?: InputMaybe<Scalars['String']['input']>;
+  sensoryPanels?: InputMaybe<Array<InputMaybe<FilterUpdateOneHopIngredientSensoryPanelsInput>>>;
+  styles?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  substitutes?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  totalOil?: InputMaybe<Scalars['Float']['input']>;
+  totalOilRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  variants?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterUpdateOneHopIngredientOperatorsInput = {
+  _id?: InputMaybe<FilterUpdateOneHopIngredient_IdOperatorsInput>;
+};
+
+export type FilterUpdateOneHopIngredientSensoryPanelsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  author?: InputMaybe<Scalars['String']['input']>;
+  berry?: InputMaybe<Scalars['Float']['input']>;
+  citrus?: InputMaybe<Scalars['Float']['input']>;
+  earthy?: InputMaybe<Scalars['Float']['input']>;
+  floral?: InputMaybe<Scalars['Float']['input']>;
+  grassy?: InputMaybe<Scalars['Float']['input']>;
+  herbal?: InputMaybe<Scalars['Float']['input']>;
+  melon?: InputMaybe<Scalars['Float']['input']>;
+  notes?: InputMaybe<Scalars['String']['input']>;
+  pomme?: InputMaybe<Scalars['Float']['input']>;
+  spicy?: InputMaybe<Scalars['Float']['input']>;
+  stoneFruit?: InputMaybe<Scalars['Float']['input']>;
+  sweetAromatic?: InputMaybe<Scalars['Float']['input']>;
+  tropical?: InputMaybe<Scalars['Float']['input']>;
+  vegetal?: InputMaybe<Scalars['Float']['input']>;
+  woody?: InputMaybe<Scalars['Float']['input']>;
+  year?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type FilterUpdateOneHopIngredient_IdOperatorsInput = {
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  gt?: InputMaybe<Scalars['MongoID']['input']>;
+  gte?: InputMaybe<Scalars['MongoID']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  lt?: InputMaybe<Scalars['MongoID']['input']>;
+  lte?: InputMaybe<Scalars['MongoID']['input']>;
+  ne?: InputMaybe<Scalars['MongoID']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type FilterUpdateOneOtherIngredientInput = {
+  AND?: InputMaybe<Array<FilterUpdateOneOtherIngredientInput>>;
+  OR?: InputMaybe<Array<FilterUpdateOneOtherIngredientInput>>;
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  /** List of *indexed* fields that can be filtered via operators. */
+  _operators?: InputMaybe<FilterUpdateOneOtherIngredientOperatorsInput>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterUpdateOneOtherIngredientOperatorsInput = {
+  _id?: InputMaybe<FilterUpdateOneOtherIngredient_IdOperatorsInput>;
+};
+
+export type FilterUpdateOneOtherIngredient_IdOperatorsInput = {
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  gt?: InputMaybe<Scalars['MongoID']['input']>;
+  gte?: InputMaybe<Scalars['MongoID']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  lt?: InputMaybe<Scalars['MongoID']['input']>;
+  lte?: InputMaybe<Scalars['MongoID']['input']>;
+  ne?: InputMaybe<Scalars['MongoID']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
 export type FilterUpdateOneStyleInput = {
   AND?: InputMaybe<Array<FilterUpdateOneStyleInput>>;
   OR?: InputMaybe<Array<FilterUpdateOneStyleInput>>;
@@ -439,6 +966,106 @@ export type FilterUpdateOneStyle_IdOperatorsInput = {
   nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
 };
 
+export type FilterUpdateOneYeastIngredientInput = {
+  AND?: InputMaybe<Array<FilterUpdateOneYeastIngredientInput>>;
+  OR?: InputMaybe<Array<FilterUpdateOneYeastIngredientInput>>;
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  /** List of *indexed* fields that can be filtered via operators. */
+  _operators?: InputMaybe<FilterUpdateOneYeastIngredientOperatorsInput>;
+  attenuation?: InputMaybe<Scalars['Float']['input']>;
+  flocculation?: InputMaybe<EnumYeastIngredientFlocculation>;
+  tolerance?: InputMaybe<Scalars['Float']['input']>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterUpdateOneYeastIngredientOperatorsInput = {
+  _id?: InputMaybe<FilterUpdateOneYeastIngredient_IdOperatorsInput>;
+};
+
+export type FilterUpdateOneYeastIngredient_IdOperatorsInput = {
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  gt?: InputMaybe<Scalars['MongoID']['input']>;
+  gte?: InputMaybe<Scalars['MongoID']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  lt?: InputMaybe<Scalars['MongoID']['input']>;
+  lte?: InputMaybe<Scalars['MongoID']['input']>;
+  ne?: InputMaybe<Scalars['MongoID']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type HopIngredient = {
+  __typename?: 'HopIngredient';
+  _id: Scalars['MongoID']['output'];
+  alpha?: Maybe<Scalars['Float']['output']>;
+  alphaRange?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  beta?: Maybe<Scalars['Float']['output']>;
+  betaRange?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  caryophyllene?: Maybe<Scalars['Float']['output']>;
+  caryophylleneRange?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  cohumulone?: Maybe<Scalars['Float']['output']>;
+  cohumuloneRange?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  farnesene?: Maybe<Scalars['Float']['output']>;
+  farneseneRange?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  flavor?: Maybe<Scalars['String']['output']>;
+  humulene?: Maybe<Scalars['Float']['output']>;
+  humuleneRange?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  myrcene?: Maybe<Scalars['Float']['output']>;
+  myrceneRange?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  notes?: Maybe<Scalars['String']['output']>;
+  purpose?: Maybe<Scalars['String']['output']>;
+  sensoryPanels?: Maybe<Array<Maybe<HopIngredientSensoryPanels>>>;
+  styles?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  substitutes?: Maybe<Array<Maybe<Scalars['MongoID']['output']>>>;
+  totalOil?: Maybe<Scalars['Float']['output']>;
+  totalOilRange?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  /** URL */
+  urlString?: Maybe<Scalars['String']['output']>;
+  variants?: Maybe<Array<Maybe<Scalars['MongoID']['output']>>>;
+};
+
+export type HopIngredientSensoryPanels = {
+  __typename?: 'HopIngredientSensoryPanels';
+  _id?: Maybe<Scalars['MongoID']['output']>;
+  author?: Maybe<Scalars['String']['output']>;
+  berry?: Maybe<Scalars['Float']['output']>;
+  citrus?: Maybe<Scalars['Float']['output']>;
+  earthy?: Maybe<Scalars['Float']['output']>;
+  floral?: Maybe<Scalars['Float']['output']>;
+  grassy?: Maybe<Scalars['Float']['output']>;
+  herbal?: Maybe<Scalars['Float']['output']>;
+  melon?: Maybe<Scalars['Float']['output']>;
+  notes?: Maybe<Scalars['String']['output']>;
+  pomme?: Maybe<Scalars['Float']['output']>;
+  spicy?: Maybe<Scalars['Float']['output']>;
+  stoneFruit?: Maybe<Scalars['Float']['output']>;
+  sweetAromatic?: Maybe<Scalars['Float']['output']>;
+  tropical?: Maybe<Scalars['Float']['output']>;
+  vegetal?: Maybe<Scalars['Float']['output']>;
+  woody?: Maybe<Scalars['Float']['output']>;
+  year?: Maybe<Scalars['Float']['output']>;
+};
+
+export type HopIngredientSensoryPanelsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  author?: InputMaybe<Scalars['String']['input']>;
+  berry?: InputMaybe<Scalars['Float']['input']>;
+  citrus?: InputMaybe<Scalars['Float']['input']>;
+  earthy?: InputMaybe<Scalars['Float']['input']>;
+  floral?: InputMaybe<Scalars['Float']['input']>;
+  grassy?: InputMaybe<Scalars['Float']['input']>;
+  herbal?: InputMaybe<Scalars['Float']['input']>;
+  melon?: InputMaybe<Scalars['Float']['input']>;
+  notes?: InputMaybe<Scalars['String']['input']>;
+  pomme?: InputMaybe<Scalars['Float']['input']>;
+  spicy?: InputMaybe<Scalars['Float']['input']>;
+  stoneFruit?: InputMaybe<Scalars['Float']['input']>;
+  sweetAromatic?: InputMaybe<Scalars['Float']['input']>;
+  tropical?: InputMaybe<Scalars['Float']['input']>;
+  vegetal?: InputMaybe<Scalars['Float']['input']>;
+  woody?: InputMaybe<Scalars['Float']['input']>;
+  year?: InputMaybe<Scalars['Float']['input']>;
+};
+
 export type MongoError = ErrorInterface & {
   __typename?: 'MongoError';
   /** MongoDB error code */
@@ -450,6 +1077,18 @@ export type MongoError = ErrorInterface & {
 export type Mutation = {
   __typename?: 'Mutation';
   /** Create one document with mongoose defaults, setters, hooks and validation */
+  fermentableCreateOne?: Maybe<CreateOneFermentableIngredientPayload>;
+  /** Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it. */
+  fermentableUpdateOne?: Maybe<UpdateOneFermentableIngredientPayload>;
+  /** Create one document with mongoose defaults, setters, hooks and validation */
+  hopCreateOne?: Maybe<CreateOneHopIngredientPayload>;
+  /** Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it. */
+  hopUpdateOne?: Maybe<UpdateOneHopIngredientPayload>;
+  /** Create one document with mongoose defaults, setters, hooks and validation */
+  otherCreateOne?: Maybe<CreateOneOtherIngredientPayload>;
+  /** Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it. */
+  otherUpdateOne?: Maybe<UpdateOneOtherIngredientPayload>;
+  /** Create one document with mongoose defaults, setters, hooks and validation */
   styleCreateOne?: Maybe<CreateOneStylePayload>;
   /** Create one document with mongoose defaults, setters, hooks and validation */
   styleSubCategoryCreateOne?: Maybe<CreateOneStyleSubCategoryPayload>;
@@ -457,6 +1096,49 @@ export type Mutation = {
   styleSubCategoryUpdateOne?: Maybe<UpdateOneStyleSubCategoryPayload>;
   /** Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it. */
   styleUpdateOne?: Maybe<UpdateOneStylePayload>;
+  /** Create one document with mongoose defaults, setters, hooks and validation */
+  yeastCreateOne?: Maybe<CreateOneYeastIngredientPayload>;
+  /** Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it. */
+  yeastUpdateOne?: Maybe<UpdateOneYeastIngredientPayload>;
+};
+
+
+export type MutationFermentableCreateOneArgs = {
+  record: CreateOneFermentableIngredientInput;
+};
+
+
+export type MutationFermentableUpdateOneArgs = {
+  filter?: InputMaybe<FilterUpdateOneFermentableIngredientInput>;
+  record: UpdateOneFermentableIngredientInput;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortUpdateOneFermentableIngredientInput>;
+};
+
+
+export type MutationHopCreateOneArgs = {
+  record: CreateOneHopIngredientInput;
+};
+
+
+export type MutationHopUpdateOneArgs = {
+  filter?: InputMaybe<FilterUpdateOneHopIngredientInput>;
+  record: UpdateOneHopIngredientInput;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortUpdateOneHopIngredientInput>;
+};
+
+
+export type MutationOtherCreateOneArgs = {
+  record: CreateOneOtherIngredientInput;
+};
+
+
+export type MutationOtherUpdateOneArgs = {
+  filter?: InputMaybe<FilterUpdateOneOtherIngredientInput>;
+  record: UpdateOneOtherIngredientInput;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortUpdateOneOtherIngredientInput>;
 };
 
 
@@ -485,12 +1167,86 @@ export type MutationStyleUpdateOneArgs = {
   sort?: InputMaybe<SortUpdateOneStyleInput>;
 };
 
+
+export type MutationYeastCreateOneArgs = {
+  record: CreateOneYeastIngredientInput;
+};
+
+
+export type MutationYeastUpdateOneArgs = {
+  filter?: InputMaybe<FilterUpdateOneYeastIngredientInput>;
+  record: UpdateOneYeastIngredientInput;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortUpdateOneYeastIngredientInput>;
+};
+
+export type OtherIngredient = {
+  __typename?: 'OtherIngredient';
+  _id: Scalars['MongoID']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  /** URL */
+  urlString?: Maybe<Scalars['String']['output']>;
+};
+
 export type Query = {
   __typename?: 'Query';
+  fermentable?: Maybe<FermentableIngredient>;
+  fermentables: Array<FermentableIngredient>;
+  hop?: Maybe<HopIngredient>;
+  hops: Array<HopIngredient>;
+  other?: Maybe<OtherIngredient>;
+  others: Array<OtherIngredient>;
   style?: Maybe<Style>;
   styles: Array<Style>;
   stylesubcategories: Array<StyleSubCategory>;
   stylesubcategory?: Maybe<StyleSubCategory>;
+  yeast?: Maybe<YeastIngredient>;
+  yeasts: Array<YeastIngredient>;
+};
+
+
+export type QueryFermentableArgs = {
+  filter?: InputMaybe<FilterFindOneFermentableIngredientInput>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortFindOneFermentableIngredientInput>;
+};
+
+
+export type QueryFermentablesArgs = {
+  filter?: InputMaybe<FilterFindManyFermentableIngredientInput>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortFindManyFermentableIngredientInput>;
+};
+
+
+export type QueryHopArgs = {
+  filter?: InputMaybe<FilterFindOneHopIngredientInput>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortFindOneHopIngredientInput>;
+};
+
+
+export type QueryHopsArgs = {
+  filter?: InputMaybe<FilterFindManyHopIngredientInput>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortFindManyHopIngredientInput>;
+};
+
+
+export type QueryOtherArgs = {
+  filter?: InputMaybe<FilterFindOneOtherIngredientInput>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortFindOneOtherIngredientInput>;
+};
+
+
+export type QueryOthersArgs = {
+  filter?: InputMaybe<FilterFindManyOtherIngredientInput>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortFindManyOtherIngredientInput>;
 };
 
 
@@ -523,10 +1279,40 @@ export type QueryStylesubcategoryArgs = {
   sort?: InputMaybe<SortFindOneStyleSubCategoryInput>;
 };
 
+
+export type QueryYeastArgs = {
+  filter?: InputMaybe<FilterFindOneYeastIngredientInput>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortFindOneYeastIngredientInput>;
+};
+
+
+export type QueryYeastsArgs = {
+  filter?: InputMaybe<FilterFindManyYeastIngredientInput>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortFindManyYeastIngredientInput>;
+};
+
 export type RuntimeError = ErrorInterface & {
   __typename?: 'RuntimeError';
   /** Runtime error message */
   message?: Maybe<Scalars['String']['output']>;
+};
+
+export const enum SortFindManyFermentableIngredientInput {
+  IdAsc = '_ID_ASC',
+  IdDesc = '_ID_DESC'
+};
+
+export const enum SortFindManyHopIngredientInput {
+  IdAsc = '_ID_ASC',
+  IdDesc = '_ID_DESC'
+};
+
+export const enum SortFindManyOtherIngredientInput {
+  IdAsc = '_ID_ASC',
+  IdDesc = '_ID_DESC'
 };
 
 export const enum SortFindManyStyleInput {
@@ -537,6 +1323,26 @@ export const enum SortFindManyStyleInput {
 };
 
 export const enum SortFindManyStyleSubCategoryInput {
+  IdAsc = '_ID_ASC',
+  IdDesc = '_ID_DESC'
+};
+
+export const enum SortFindManyYeastIngredientInput {
+  IdAsc = '_ID_ASC',
+  IdDesc = '_ID_DESC'
+};
+
+export const enum SortFindOneFermentableIngredientInput {
+  IdAsc = '_ID_ASC',
+  IdDesc = '_ID_DESC'
+};
+
+export const enum SortFindOneHopIngredientInput {
+  IdAsc = '_ID_ASC',
+  IdDesc = '_ID_DESC'
+};
+
+export const enum SortFindOneOtherIngredientInput {
   IdAsc = '_ID_ASC',
   IdDesc = '_ID_DESC'
 };
@@ -553,6 +1359,26 @@ export const enum SortFindOneStyleSubCategoryInput {
   IdDesc = '_ID_DESC'
 };
 
+export const enum SortFindOneYeastIngredientInput {
+  IdAsc = '_ID_ASC',
+  IdDesc = '_ID_DESC'
+};
+
+export const enum SortUpdateOneFermentableIngredientInput {
+  IdAsc = '_ID_ASC',
+  IdDesc = '_ID_DESC'
+};
+
+export const enum SortUpdateOneHopIngredientInput {
+  IdAsc = '_ID_ASC',
+  IdDesc = '_ID_DESC'
+};
+
+export const enum SortUpdateOneOtherIngredientInput {
+  IdAsc = '_ID_ASC',
+  IdDesc = '_ID_DESC'
+};
+
 export const enum SortUpdateOneStyleInput {
   SubcategoryidAsc = 'SUBCATEGORYID_ASC',
   SubcategoryidDesc = 'SUBCATEGORYID_DESC',
@@ -561,6 +1387,11 @@ export const enum SortUpdateOneStyleInput {
 };
 
 export const enum SortUpdateOneStyleSubCategoryInput {
+  IdAsc = '_ID_ASC',
+  IdDesc = '_ID_DESC'
+};
+
+export const enum SortUpdateOneYeastIngredientInput {
   IdAsc = '_ID_ASC',
   IdDesc = '_ID_DESC'
 };
@@ -696,6 +1527,96 @@ export type StyleVitalsSrmInput = {
   low?: InputMaybe<Scalars['Float']['input']>;
 };
 
+export type UpdateOneFermentableIngredientInput = {
+  color?: InputMaybe<Scalars['Float']['input']>;
+  maxUsage?: InputMaybe<Scalars['Float']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  potential?: InputMaybe<Scalars['Float']['input']>;
+  power?: InputMaybe<Scalars['Float']['input']>;
+  stability?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateOneFermentableIngredientPayload = {
+  __typename?: 'UpdateOneFermentableIngredientPayload';
+  /** Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response. */
+  error?: Maybe<ErrorInterface>;
+  /** Updated document */
+  record?: Maybe<FermentableIngredient>;
+  /** Document ID */
+  recordId?: Maybe<Scalars['MongoID']['output']>;
+};
+
+export type UpdateOneHopIngredientInput = {
+  alpha?: InputMaybe<Scalars['Float']['input']>;
+  alphaRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  beta?: InputMaybe<Scalars['Float']['input']>;
+  betaRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  caryophyllene?: InputMaybe<Scalars['Float']['input']>;
+  caryophylleneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  cohumulone?: InputMaybe<Scalars['Float']['input']>;
+  cohumuloneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  farnesene?: InputMaybe<Scalars['Float']['input']>;
+  farneseneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  flavor?: InputMaybe<Scalars['String']['input']>;
+  humulene?: InputMaybe<Scalars['Float']['input']>;
+  humuleneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  myrcene?: InputMaybe<Scalars['Float']['input']>;
+  myrceneRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  notes?: InputMaybe<Scalars['String']['input']>;
+  purpose?: InputMaybe<Scalars['String']['input']>;
+  sensoryPanels?: InputMaybe<Array<InputMaybe<UpdateOneHopIngredientSensoryPanelsInput>>>;
+  styles?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  substitutes?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  totalOil?: InputMaybe<Scalars['Float']['input']>;
+  totalOilRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  variants?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type UpdateOneHopIngredientPayload = {
+  __typename?: 'UpdateOneHopIngredientPayload';
+  /** Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response. */
+  error?: Maybe<ErrorInterface>;
+  /** Updated document */
+  record?: Maybe<HopIngredient>;
+  /** Document ID */
+  recordId?: Maybe<Scalars['MongoID']['output']>;
+};
+
+export type UpdateOneHopIngredientSensoryPanelsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  author?: InputMaybe<Scalars['String']['input']>;
+  berry?: InputMaybe<Scalars['Float']['input']>;
+  citrus?: InputMaybe<Scalars['Float']['input']>;
+  earthy?: InputMaybe<Scalars['Float']['input']>;
+  floral?: InputMaybe<Scalars['Float']['input']>;
+  grassy?: InputMaybe<Scalars['Float']['input']>;
+  herbal?: InputMaybe<Scalars['Float']['input']>;
+  melon?: InputMaybe<Scalars['Float']['input']>;
+  notes?: InputMaybe<Scalars['String']['input']>;
+  pomme?: InputMaybe<Scalars['Float']['input']>;
+  spicy?: InputMaybe<Scalars['Float']['input']>;
+  stoneFruit?: InputMaybe<Scalars['Float']['input']>;
+  sweetAromatic?: InputMaybe<Scalars['Float']['input']>;
+  tropical?: InputMaybe<Scalars['Float']['input']>;
+  vegetal?: InputMaybe<Scalars['Float']['input']>;
+  woody?: InputMaybe<Scalars['Float']['input']>;
+  year?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type UpdateOneOtherIngredientInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateOneOtherIngredientPayload = {
+  __typename?: 'UpdateOneOtherIngredientPayload';
+  /** Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response. */
+  error?: Maybe<ErrorInterface>;
+  /** Updated document */
+  record?: Maybe<OtherIngredient>;
+  /** Document ID */
+  recordId?: Maybe<Scalars['MongoID']['output']>;
+};
+
 export type UpdateOneStyleInput = {
   appearance?: InputMaybe<Scalars['String']['input']>;
   aroma?: InputMaybe<Scalars['String']['input']>;
@@ -780,6 +1701,22 @@ export type UpdateOneStyleVitalsSrmInput = {
   low?: InputMaybe<Scalars['Float']['input']>;
 };
 
+export type UpdateOneYeastIngredientInput = {
+  attenuation?: InputMaybe<Scalars['Float']['input']>;
+  flocculation?: InputMaybe<EnumYeastIngredientFlocculation>;
+  tolerance?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type UpdateOneYeastIngredientPayload = {
+  __typename?: 'UpdateOneYeastIngredientPayload';
+  /** Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response. */
+  error?: Maybe<ErrorInterface>;
+  /** Updated document */
+  record?: Maybe<YeastIngredient>;
+  /** Document ID */
+  recordId?: Maybe<Scalars['MongoID']['output']>;
+};
+
 export type ValidationError = ErrorInterface & {
   __typename?: 'ValidationError';
   /** List of validator errors */
@@ -798,6 +1735,16 @@ export type ValidatorError = {
   path?: Maybe<Scalars['String']['output']>;
   /** Field value which occurs the validation error */
   value?: Maybe<Scalars['JSON']['output']>;
+};
+
+export type YeastIngredient = {
+  __typename?: 'YeastIngredient';
+  _id: Scalars['MongoID']['output'];
+  attenuation?: Maybe<Scalars['Float']['output']>;
+  flocculation?: Maybe<EnumYeastIngredientFlocculation>;
+  tolerance?: Maybe<Scalars['Float']['output']>;
+  /** URL */
+  urlString?: Maybe<Scalars['String']['output']>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -877,13 +1824,33 @@ export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> = R
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  CreateOneFermentableIngredientInput: CreateOneFermentableIngredientInput;
+  CreateOneFermentableIngredientPayload: ResolverTypeWrapper<CreateOneFermentableIngredientPayload>;
+  CreateOneHopIngredientInput: CreateOneHopIngredientInput;
+  CreateOneHopIngredientPayload: ResolverTypeWrapper<CreateOneHopIngredientPayload>;
+  CreateOneOtherIngredientInput: CreateOneOtherIngredientInput;
+  CreateOneOtherIngredientPayload: ResolverTypeWrapper<CreateOneOtherIngredientPayload>;
   CreateOneStyleInput: CreateOneStyleInput;
   CreateOneStylePayload: ResolverTypeWrapper<CreateOneStylePayload>;
   CreateOneStyleSubCategoryInput: CreateOneStyleSubCategoryInput;
   CreateOneStyleSubCategoryPayload: ResolverTypeWrapper<CreateOneStyleSubCategoryPayload>;
+  CreateOneYeastIngredientInput: CreateOneYeastIngredientInput;
+  CreateOneYeastIngredientPayload: ResolverTypeWrapper<CreateOneYeastIngredientPayload>;
   EnumStyleCategory: EnumStyleCategory;
   EnumStyleSubCategoryCategory: EnumStyleSubCategoryCategory;
+  EnumYeastIngredientFlocculation: EnumYeastIngredientFlocculation;
   ErrorInterface: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['ErrorInterface']>;
+  FermentableIngredient: ResolverTypeWrapper<FermentableIngredient>;
+  FilterFindManyFermentableIngredientInput: FilterFindManyFermentableIngredientInput;
+  FilterFindManyFermentableIngredientOperatorsInput: FilterFindManyFermentableIngredientOperatorsInput;
+  FilterFindManyFermentableIngredient_idOperatorsInput: FilterFindManyFermentableIngredient_IdOperatorsInput;
+  FilterFindManyHopIngredientInput: FilterFindManyHopIngredientInput;
+  FilterFindManyHopIngredientOperatorsInput: FilterFindManyHopIngredientOperatorsInput;
+  FilterFindManyHopIngredientSensoryPanelsInput: FilterFindManyHopIngredientSensoryPanelsInput;
+  FilterFindManyHopIngredient_idOperatorsInput: FilterFindManyHopIngredient_IdOperatorsInput;
+  FilterFindManyOtherIngredientInput: FilterFindManyOtherIngredientInput;
+  FilterFindManyOtherIngredientOperatorsInput: FilterFindManyOtherIngredientOperatorsInput;
+  FilterFindManyOtherIngredient_idOperatorsInput: FilterFindManyOtherIngredient_IdOperatorsInput;
   FilterFindManyStyleInput: FilterFindManyStyleInput;
   FilterFindManyStyleOperatorsInput: FilterFindManyStyleOperatorsInput;
   FilterFindManyStyleSubCategoryInput: FilterFindManyStyleSubCategoryInput;
@@ -897,6 +1864,19 @@ export type ResolversTypes = ResolversObject<{
   FilterFindManyStyleVitalsOgInput: FilterFindManyStyleVitalsOgInput;
   FilterFindManyStyleVitalsSrmInput: FilterFindManyStyleVitalsSrmInput;
   FilterFindManyStyle_idOperatorsInput: FilterFindManyStyle_IdOperatorsInput;
+  FilterFindManyYeastIngredientInput: FilterFindManyYeastIngredientInput;
+  FilterFindManyYeastIngredientOperatorsInput: FilterFindManyYeastIngredientOperatorsInput;
+  FilterFindManyYeastIngredient_idOperatorsInput: FilterFindManyYeastIngredient_IdOperatorsInput;
+  FilterFindOneFermentableIngredientInput: FilterFindOneFermentableIngredientInput;
+  FilterFindOneFermentableIngredientOperatorsInput: FilterFindOneFermentableIngredientOperatorsInput;
+  FilterFindOneFermentableIngredient_idOperatorsInput: FilterFindOneFermentableIngredient_IdOperatorsInput;
+  FilterFindOneHopIngredientInput: FilterFindOneHopIngredientInput;
+  FilterFindOneHopIngredientOperatorsInput: FilterFindOneHopIngredientOperatorsInput;
+  FilterFindOneHopIngredientSensoryPanelsInput: FilterFindOneHopIngredientSensoryPanelsInput;
+  FilterFindOneHopIngredient_idOperatorsInput: FilterFindOneHopIngredient_IdOperatorsInput;
+  FilterFindOneOtherIngredientInput: FilterFindOneOtherIngredientInput;
+  FilterFindOneOtherIngredientOperatorsInput: FilterFindOneOtherIngredientOperatorsInput;
+  FilterFindOneOtherIngredient_idOperatorsInput: FilterFindOneOtherIngredient_IdOperatorsInput;
   FilterFindOneStyleInput: FilterFindOneStyleInput;
   FilterFindOneStyleOperatorsInput: FilterFindOneStyleOperatorsInput;
   FilterFindOneStyleSubCategoryInput: FilterFindOneStyleSubCategoryInput;
@@ -910,6 +1890,19 @@ export type ResolversTypes = ResolversObject<{
   FilterFindOneStyleVitalsOgInput: FilterFindOneStyleVitalsOgInput;
   FilterFindOneStyleVitalsSrmInput: FilterFindOneStyleVitalsSrmInput;
   FilterFindOneStyle_idOperatorsInput: FilterFindOneStyle_IdOperatorsInput;
+  FilterFindOneYeastIngredientInput: FilterFindOneYeastIngredientInput;
+  FilterFindOneYeastIngredientOperatorsInput: FilterFindOneYeastIngredientOperatorsInput;
+  FilterFindOneYeastIngredient_idOperatorsInput: FilterFindOneYeastIngredient_IdOperatorsInput;
+  FilterUpdateOneFermentableIngredientInput: FilterUpdateOneFermentableIngredientInput;
+  FilterUpdateOneFermentableIngredientOperatorsInput: FilterUpdateOneFermentableIngredientOperatorsInput;
+  FilterUpdateOneFermentableIngredient_idOperatorsInput: FilterUpdateOneFermentableIngredient_IdOperatorsInput;
+  FilterUpdateOneHopIngredientInput: FilterUpdateOneHopIngredientInput;
+  FilterUpdateOneHopIngredientOperatorsInput: FilterUpdateOneHopIngredientOperatorsInput;
+  FilterUpdateOneHopIngredientSensoryPanelsInput: FilterUpdateOneHopIngredientSensoryPanelsInput;
+  FilterUpdateOneHopIngredient_idOperatorsInput: FilterUpdateOneHopIngredient_IdOperatorsInput;
+  FilterUpdateOneOtherIngredientInput: FilterUpdateOneOtherIngredientInput;
+  FilterUpdateOneOtherIngredientOperatorsInput: FilterUpdateOneOtherIngredientOperatorsInput;
+  FilterUpdateOneOtherIngredient_idOperatorsInput: FilterUpdateOneOtherIngredient_IdOperatorsInput;
   FilterUpdateOneStyleInput: FilterUpdateOneStyleInput;
   FilterUpdateOneStyleOperatorsInput: FilterUpdateOneStyleOperatorsInput;
   FilterUpdateOneStyleSubCategoryInput: FilterUpdateOneStyleSubCategoryInput;
@@ -923,21 +1916,40 @@ export type ResolversTypes = ResolversObject<{
   FilterUpdateOneStyleVitalsOgInput: FilterUpdateOneStyleVitalsOgInput;
   FilterUpdateOneStyleVitalsSrmInput: FilterUpdateOneStyleVitalsSrmInput;
   FilterUpdateOneStyle_idOperatorsInput: FilterUpdateOneStyle_IdOperatorsInput;
+  FilterUpdateOneYeastIngredientInput: FilterUpdateOneYeastIngredientInput;
+  FilterUpdateOneYeastIngredientOperatorsInput: FilterUpdateOneYeastIngredientOperatorsInput;
+  FilterUpdateOneYeastIngredient_idOperatorsInput: FilterUpdateOneYeastIngredient_IdOperatorsInput;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
+  HopIngredient: ResolverTypeWrapper<HopIngredient>;
+  HopIngredientSensoryPanels: ResolverTypeWrapper<HopIngredientSensoryPanels>;
+  HopIngredientSensoryPanelsInput: HopIngredientSensoryPanelsInput;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   JSON: ResolverTypeWrapper<Scalars['JSON']['output']>;
   MongoError: ResolverTypeWrapper<MongoError>;
   MongoID: ResolverTypeWrapper<Scalars['MongoID']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
+  OtherIngredient: ResolverTypeWrapper<OtherIngredient>;
   Query: ResolverTypeWrapper<{}>;
   RegExpAsString: ResolverTypeWrapper<Scalars['RegExpAsString']['output']>;
   RuntimeError: ResolverTypeWrapper<RuntimeError>;
+  SortFindManyFermentableIngredientInput: SortFindManyFermentableIngredientInput;
+  SortFindManyHopIngredientInput: SortFindManyHopIngredientInput;
+  SortFindManyOtherIngredientInput: SortFindManyOtherIngredientInput;
   SortFindManyStyleInput: SortFindManyStyleInput;
   SortFindManyStyleSubCategoryInput: SortFindManyStyleSubCategoryInput;
+  SortFindManyYeastIngredientInput: SortFindManyYeastIngredientInput;
+  SortFindOneFermentableIngredientInput: SortFindOneFermentableIngredientInput;
+  SortFindOneHopIngredientInput: SortFindOneHopIngredientInput;
+  SortFindOneOtherIngredientInput: SortFindOneOtherIngredientInput;
   SortFindOneStyleInput: SortFindOneStyleInput;
   SortFindOneStyleSubCategoryInput: SortFindOneStyleSubCategoryInput;
+  SortFindOneYeastIngredientInput: SortFindOneYeastIngredientInput;
+  SortUpdateOneFermentableIngredientInput: SortUpdateOneFermentableIngredientInput;
+  SortUpdateOneHopIngredientInput: SortUpdateOneHopIngredientInput;
+  SortUpdateOneOtherIngredientInput: SortUpdateOneOtherIngredientInput;
   SortUpdateOneStyleInput: SortUpdateOneStyleInput;
   SortUpdateOneStyleSubCategoryInput: SortUpdateOneStyleSubCategoryInput;
+  SortUpdateOneYeastIngredientInput: SortUpdateOneYeastIngredientInput;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Style: ResolverTypeWrapper<Style>;
   StyleSubCategory: ResolverTypeWrapper<StyleSubCategory>;
@@ -953,6 +1965,13 @@ export type ResolversTypes = ResolversObject<{
   StyleVitalsOgInput: StyleVitalsOgInput;
   StyleVitalsSrm: ResolverTypeWrapper<StyleVitalsSrm>;
   StyleVitalsSrmInput: StyleVitalsSrmInput;
+  UpdateOneFermentableIngredientInput: UpdateOneFermentableIngredientInput;
+  UpdateOneFermentableIngredientPayload: ResolverTypeWrapper<UpdateOneFermentableIngredientPayload>;
+  UpdateOneHopIngredientInput: UpdateOneHopIngredientInput;
+  UpdateOneHopIngredientPayload: ResolverTypeWrapper<UpdateOneHopIngredientPayload>;
+  UpdateOneHopIngredientSensoryPanelsInput: UpdateOneHopIngredientSensoryPanelsInput;
+  UpdateOneOtherIngredientInput: UpdateOneOtherIngredientInput;
+  UpdateOneOtherIngredientPayload: ResolverTypeWrapper<UpdateOneOtherIngredientPayload>;
   UpdateOneStyleInput: UpdateOneStyleInput;
   UpdateOneStylePayload: ResolverTypeWrapper<UpdateOneStylePayload>;
   UpdateOneStyleSubCategoryInput: UpdateOneStyleSubCategoryInput;
@@ -963,18 +1982,40 @@ export type ResolversTypes = ResolversObject<{
   UpdateOneStyleVitalsInput: UpdateOneStyleVitalsInput;
   UpdateOneStyleVitalsOgInput: UpdateOneStyleVitalsOgInput;
   UpdateOneStyleVitalsSrmInput: UpdateOneStyleVitalsSrmInput;
+  UpdateOneYeastIngredientInput: UpdateOneYeastIngredientInput;
+  UpdateOneYeastIngredientPayload: ResolverTypeWrapper<UpdateOneYeastIngredientPayload>;
   ValidationError: ResolverTypeWrapper<ValidationError>;
   ValidatorError: ResolverTypeWrapper<ValidatorError>;
+  YeastIngredient: ResolverTypeWrapper<YeastIngredient>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean']['output'];
+  CreateOneFermentableIngredientInput: CreateOneFermentableIngredientInput;
+  CreateOneFermentableIngredientPayload: CreateOneFermentableIngredientPayload;
+  CreateOneHopIngredientInput: CreateOneHopIngredientInput;
+  CreateOneHopIngredientPayload: CreateOneHopIngredientPayload;
+  CreateOneOtherIngredientInput: CreateOneOtherIngredientInput;
+  CreateOneOtherIngredientPayload: CreateOneOtherIngredientPayload;
   CreateOneStyleInput: CreateOneStyleInput;
   CreateOneStylePayload: CreateOneStylePayload;
   CreateOneStyleSubCategoryInput: CreateOneStyleSubCategoryInput;
   CreateOneStyleSubCategoryPayload: CreateOneStyleSubCategoryPayload;
+  CreateOneYeastIngredientInput: CreateOneYeastIngredientInput;
+  CreateOneYeastIngredientPayload: CreateOneYeastIngredientPayload;
   ErrorInterface: ResolversInterfaceTypes<ResolversParentTypes>['ErrorInterface'];
+  FermentableIngredient: FermentableIngredient;
+  FilterFindManyFermentableIngredientInput: FilterFindManyFermentableIngredientInput;
+  FilterFindManyFermentableIngredientOperatorsInput: FilterFindManyFermentableIngredientOperatorsInput;
+  FilterFindManyFermentableIngredient_idOperatorsInput: FilterFindManyFermentableIngredient_IdOperatorsInput;
+  FilterFindManyHopIngredientInput: FilterFindManyHopIngredientInput;
+  FilterFindManyHopIngredientOperatorsInput: FilterFindManyHopIngredientOperatorsInput;
+  FilterFindManyHopIngredientSensoryPanelsInput: FilterFindManyHopIngredientSensoryPanelsInput;
+  FilterFindManyHopIngredient_idOperatorsInput: FilterFindManyHopIngredient_IdOperatorsInput;
+  FilterFindManyOtherIngredientInput: FilterFindManyOtherIngredientInput;
+  FilterFindManyOtherIngredientOperatorsInput: FilterFindManyOtherIngredientOperatorsInput;
+  FilterFindManyOtherIngredient_idOperatorsInput: FilterFindManyOtherIngredient_IdOperatorsInput;
   FilterFindManyStyleInput: FilterFindManyStyleInput;
   FilterFindManyStyleOperatorsInput: FilterFindManyStyleOperatorsInput;
   FilterFindManyStyleSubCategoryInput: FilterFindManyStyleSubCategoryInput;
@@ -988,6 +2029,19 @@ export type ResolversParentTypes = ResolversObject<{
   FilterFindManyStyleVitalsOgInput: FilterFindManyStyleVitalsOgInput;
   FilterFindManyStyleVitalsSrmInput: FilterFindManyStyleVitalsSrmInput;
   FilterFindManyStyle_idOperatorsInput: FilterFindManyStyle_IdOperatorsInput;
+  FilterFindManyYeastIngredientInput: FilterFindManyYeastIngredientInput;
+  FilterFindManyYeastIngredientOperatorsInput: FilterFindManyYeastIngredientOperatorsInput;
+  FilterFindManyYeastIngredient_idOperatorsInput: FilterFindManyYeastIngredient_IdOperatorsInput;
+  FilterFindOneFermentableIngredientInput: FilterFindOneFermentableIngredientInput;
+  FilterFindOneFermentableIngredientOperatorsInput: FilterFindOneFermentableIngredientOperatorsInput;
+  FilterFindOneFermentableIngredient_idOperatorsInput: FilterFindOneFermentableIngredient_IdOperatorsInput;
+  FilterFindOneHopIngredientInput: FilterFindOneHopIngredientInput;
+  FilterFindOneHopIngredientOperatorsInput: FilterFindOneHopIngredientOperatorsInput;
+  FilterFindOneHopIngredientSensoryPanelsInput: FilterFindOneHopIngredientSensoryPanelsInput;
+  FilterFindOneHopIngredient_idOperatorsInput: FilterFindOneHopIngredient_IdOperatorsInput;
+  FilterFindOneOtherIngredientInput: FilterFindOneOtherIngredientInput;
+  FilterFindOneOtherIngredientOperatorsInput: FilterFindOneOtherIngredientOperatorsInput;
+  FilterFindOneOtherIngredient_idOperatorsInput: FilterFindOneOtherIngredient_IdOperatorsInput;
   FilterFindOneStyleInput: FilterFindOneStyleInput;
   FilterFindOneStyleOperatorsInput: FilterFindOneStyleOperatorsInput;
   FilterFindOneStyleSubCategoryInput: FilterFindOneStyleSubCategoryInput;
@@ -1001,6 +2055,19 @@ export type ResolversParentTypes = ResolversObject<{
   FilterFindOneStyleVitalsOgInput: FilterFindOneStyleVitalsOgInput;
   FilterFindOneStyleVitalsSrmInput: FilterFindOneStyleVitalsSrmInput;
   FilterFindOneStyle_idOperatorsInput: FilterFindOneStyle_IdOperatorsInput;
+  FilterFindOneYeastIngredientInput: FilterFindOneYeastIngredientInput;
+  FilterFindOneYeastIngredientOperatorsInput: FilterFindOneYeastIngredientOperatorsInput;
+  FilterFindOneYeastIngredient_idOperatorsInput: FilterFindOneYeastIngredient_IdOperatorsInput;
+  FilterUpdateOneFermentableIngredientInput: FilterUpdateOneFermentableIngredientInput;
+  FilterUpdateOneFermentableIngredientOperatorsInput: FilterUpdateOneFermentableIngredientOperatorsInput;
+  FilterUpdateOneFermentableIngredient_idOperatorsInput: FilterUpdateOneFermentableIngredient_IdOperatorsInput;
+  FilterUpdateOneHopIngredientInput: FilterUpdateOneHopIngredientInput;
+  FilterUpdateOneHopIngredientOperatorsInput: FilterUpdateOneHopIngredientOperatorsInput;
+  FilterUpdateOneHopIngredientSensoryPanelsInput: FilterUpdateOneHopIngredientSensoryPanelsInput;
+  FilterUpdateOneHopIngredient_idOperatorsInput: FilterUpdateOneHopIngredient_IdOperatorsInput;
+  FilterUpdateOneOtherIngredientInput: FilterUpdateOneOtherIngredientInput;
+  FilterUpdateOneOtherIngredientOperatorsInput: FilterUpdateOneOtherIngredientOperatorsInput;
+  FilterUpdateOneOtherIngredient_idOperatorsInput: FilterUpdateOneOtherIngredient_IdOperatorsInput;
   FilterUpdateOneStyleInput: FilterUpdateOneStyleInput;
   FilterUpdateOneStyleOperatorsInput: FilterUpdateOneStyleOperatorsInput;
   FilterUpdateOneStyleSubCategoryInput: FilterUpdateOneStyleSubCategoryInput;
@@ -1014,12 +2081,19 @@ export type ResolversParentTypes = ResolversObject<{
   FilterUpdateOneStyleVitalsOgInput: FilterUpdateOneStyleVitalsOgInput;
   FilterUpdateOneStyleVitalsSrmInput: FilterUpdateOneStyleVitalsSrmInput;
   FilterUpdateOneStyle_idOperatorsInput: FilterUpdateOneStyle_IdOperatorsInput;
+  FilterUpdateOneYeastIngredientInput: FilterUpdateOneYeastIngredientInput;
+  FilterUpdateOneYeastIngredientOperatorsInput: FilterUpdateOneYeastIngredientOperatorsInput;
+  FilterUpdateOneYeastIngredient_idOperatorsInput: FilterUpdateOneYeastIngredient_IdOperatorsInput;
   Float: Scalars['Float']['output'];
+  HopIngredient: HopIngredient;
+  HopIngredientSensoryPanels: HopIngredientSensoryPanels;
+  HopIngredientSensoryPanelsInput: HopIngredientSensoryPanelsInput;
   Int: Scalars['Int']['output'];
   JSON: Scalars['JSON']['output'];
   MongoError: MongoError;
   MongoID: Scalars['MongoID']['output'];
   Mutation: {};
+  OtherIngredient: OtherIngredient;
   Query: {};
   RegExpAsString: Scalars['RegExpAsString']['output'];
   RuntimeError: RuntimeError;
@@ -1038,6 +2112,13 @@ export type ResolversParentTypes = ResolversObject<{
   StyleVitalsOgInput: StyleVitalsOgInput;
   StyleVitalsSrm: StyleVitalsSrm;
   StyleVitalsSrmInput: StyleVitalsSrmInput;
+  UpdateOneFermentableIngredientInput: UpdateOneFermentableIngredientInput;
+  UpdateOneFermentableIngredientPayload: UpdateOneFermentableIngredientPayload;
+  UpdateOneHopIngredientInput: UpdateOneHopIngredientInput;
+  UpdateOneHopIngredientPayload: UpdateOneHopIngredientPayload;
+  UpdateOneHopIngredientSensoryPanelsInput: UpdateOneHopIngredientSensoryPanelsInput;
+  UpdateOneOtherIngredientInput: UpdateOneOtherIngredientInput;
+  UpdateOneOtherIngredientPayload: UpdateOneOtherIngredientPayload;
   UpdateOneStyleInput: UpdateOneStyleInput;
   UpdateOneStylePayload: UpdateOneStylePayload;
   UpdateOneStyleSubCategoryInput: UpdateOneStyleSubCategoryInput;
@@ -1048,8 +2129,32 @@ export type ResolversParentTypes = ResolversObject<{
   UpdateOneStyleVitalsInput: UpdateOneStyleVitalsInput;
   UpdateOneStyleVitalsOgInput: UpdateOneStyleVitalsOgInput;
   UpdateOneStyleVitalsSrmInput: UpdateOneStyleVitalsSrmInput;
+  UpdateOneYeastIngredientInput: UpdateOneYeastIngredientInput;
+  UpdateOneYeastIngredientPayload: UpdateOneYeastIngredientPayload;
   ValidationError: ValidationError;
   ValidatorError: ValidatorError;
+  YeastIngredient: YeastIngredient;
+}>;
+
+export type CreateOneFermentableIngredientPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateOneFermentableIngredientPayload'] = ResolversParentTypes['CreateOneFermentableIngredientPayload']> = ResolversObject<{
+  error?: Resolver<Maybe<ResolversTypes['ErrorInterface']>, ParentType, ContextType>;
+  record?: Resolver<Maybe<ResolversTypes['FermentableIngredient']>, ParentType, ContextType>;
+  recordId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CreateOneHopIngredientPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateOneHopIngredientPayload'] = ResolversParentTypes['CreateOneHopIngredientPayload']> = ResolversObject<{
+  error?: Resolver<Maybe<ResolversTypes['ErrorInterface']>, ParentType, ContextType>;
+  record?: Resolver<Maybe<ResolversTypes['HopIngredient']>, ParentType, ContextType>;
+  recordId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CreateOneOtherIngredientPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateOneOtherIngredientPayload'] = ResolversParentTypes['CreateOneOtherIngredientPayload']> = ResolversObject<{
+  error?: Resolver<Maybe<ResolversTypes['ErrorInterface']>, ParentType, ContextType>;
+  record?: Resolver<Maybe<ResolversTypes['OtherIngredient']>, ParentType, ContextType>;
+  recordId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type CreateOneStylePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateOneStylePayload'] = ResolversParentTypes['CreateOneStylePayload']> = ResolversObject<{
@@ -1066,9 +2171,79 @@ export type CreateOneStyleSubCategoryPayloadResolvers<ContextType = any, ParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type CreateOneYeastIngredientPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateOneYeastIngredientPayload'] = ResolversParentTypes['CreateOneYeastIngredientPayload']> = ResolversObject<{
+  error?: Resolver<Maybe<ResolversTypes['ErrorInterface']>, ParentType, ContextType>;
+  record?: Resolver<Maybe<ResolversTypes['YeastIngredient']>, ParentType, ContextType>;
+  recordId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type ErrorInterfaceResolvers<ContextType = any, ParentType extends ResolversParentTypes['ErrorInterface'] = ResolversParentTypes['ErrorInterface']> = ResolversObject<{
   __resolveType: TypeResolveFn<'MongoError' | 'RuntimeError' | 'ValidationError', ParentType, ContextType>;
   message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+}>;
+
+export type FermentableIngredientResolvers<ContextType = any, ParentType extends ResolversParentTypes['FermentableIngredient'] = ResolversParentTypes['FermentableIngredient']> = ResolversObject<{
+  _id?: Resolver<ResolversTypes['MongoID'], ParentType, ContextType>;
+  color?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  maxUsage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  potential?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  power?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  stability?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  urlString?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type HopIngredientResolvers<ContextType = any, ParentType extends ResolversParentTypes['HopIngredient'] = ResolversParentTypes['HopIngredient']> = ResolversObject<{
+  _id?: Resolver<ResolversTypes['MongoID'], ParentType, ContextType>;
+  alpha?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  alphaRange?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
+  beta?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  betaRange?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
+  caryophyllene?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  caryophylleneRange?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
+  cohumulone?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  cohumuloneRange?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
+  farnesene?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  farneseneRange?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
+  flavor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  humulene?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  humuleneRange?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
+  myrcene?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  myrceneRange?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
+  notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  purpose?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  sensoryPanels?: Resolver<Maybe<Array<Maybe<ResolversTypes['HopIngredientSensoryPanels']>>>, ParentType, ContextType>;
+  styles?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  substitutes?: Resolver<Maybe<Array<Maybe<ResolversTypes['MongoID']>>>, ParentType, ContextType>;
+  totalOil?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  totalOilRange?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
+  urlString?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  variants?: Resolver<Maybe<Array<Maybe<ResolversTypes['MongoID']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type HopIngredientSensoryPanelsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HopIngredientSensoryPanels'] = ResolversParentTypes['HopIngredientSensoryPanels']> = ResolversObject<{
+  _id?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  author?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  berry?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  citrus?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  earthy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  floral?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  grassy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  herbal?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  melon?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pomme?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  spicy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  stoneFruit?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  sweetAromatic?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  tropical?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  vegetal?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  woody?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  year?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
@@ -1086,17 +2261,40 @@ export interface MongoIdScalarConfig extends GraphQLScalarTypeConfig<ResolversTy
 }
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  fermentableCreateOne?: Resolver<Maybe<ResolversTypes['CreateOneFermentableIngredientPayload']>, ParentType, ContextType, RequireFields<MutationFermentableCreateOneArgs, 'record'>>;
+  fermentableUpdateOne?: Resolver<Maybe<ResolversTypes['UpdateOneFermentableIngredientPayload']>, ParentType, ContextType, RequireFields<MutationFermentableUpdateOneArgs, 'record'>>;
+  hopCreateOne?: Resolver<Maybe<ResolversTypes['CreateOneHopIngredientPayload']>, ParentType, ContextType, RequireFields<MutationHopCreateOneArgs, 'record'>>;
+  hopUpdateOne?: Resolver<Maybe<ResolversTypes['UpdateOneHopIngredientPayload']>, ParentType, ContextType, RequireFields<MutationHopUpdateOneArgs, 'record'>>;
+  otherCreateOne?: Resolver<Maybe<ResolversTypes['CreateOneOtherIngredientPayload']>, ParentType, ContextType, RequireFields<MutationOtherCreateOneArgs, 'record'>>;
+  otherUpdateOne?: Resolver<Maybe<ResolversTypes['UpdateOneOtherIngredientPayload']>, ParentType, ContextType, RequireFields<MutationOtherUpdateOneArgs, 'record'>>;
   styleCreateOne?: Resolver<Maybe<ResolversTypes['CreateOneStylePayload']>, ParentType, ContextType, RequireFields<MutationStyleCreateOneArgs, 'record'>>;
   styleSubCategoryCreateOne?: Resolver<Maybe<ResolversTypes['CreateOneStyleSubCategoryPayload']>, ParentType, ContextType, RequireFields<MutationStyleSubCategoryCreateOneArgs, 'record'>>;
   styleSubCategoryUpdateOne?: Resolver<Maybe<ResolversTypes['UpdateOneStyleSubCategoryPayload']>, ParentType, ContextType, RequireFields<MutationStyleSubCategoryUpdateOneArgs, 'record'>>;
   styleUpdateOne?: Resolver<Maybe<ResolversTypes['UpdateOneStylePayload']>, ParentType, ContextType, RequireFields<MutationStyleUpdateOneArgs, 'record'>>;
+  yeastCreateOne?: Resolver<Maybe<ResolversTypes['CreateOneYeastIngredientPayload']>, ParentType, ContextType, RequireFields<MutationYeastCreateOneArgs, 'record'>>;
+  yeastUpdateOne?: Resolver<Maybe<ResolversTypes['UpdateOneYeastIngredientPayload']>, ParentType, ContextType, RequireFields<MutationYeastUpdateOneArgs, 'record'>>;
+}>;
+
+export type OtherIngredientResolvers<ContextType = any, ParentType extends ResolversParentTypes['OtherIngredient'] = ResolversParentTypes['OtherIngredient']> = ResolversObject<{
+  _id?: Resolver<ResolversTypes['MongoID'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  urlString?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  fermentable?: Resolver<Maybe<ResolversTypes['FermentableIngredient']>, ParentType, ContextType, Partial<QueryFermentableArgs>>;
+  fermentables?: Resolver<Array<ResolversTypes['FermentableIngredient']>, ParentType, ContextType, RequireFields<QueryFermentablesArgs, 'limit'>>;
+  hop?: Resolver<Maybe<ResolversTypes['HopIngredient']>, ParentType, ContextType, Partial<QueryHopArgs>>;
+  hops?: Resolver<Array<ResolversTypes['HopIngredient']>, ParentType, ContextType, RequireFields<QueryHopsArgs, 'limit'>>;
+  other?: Resolver<Maybe<ResolversTypes['OtherIngredient']>, ParentType, ContextType, Partial<QueryOtherArgs>>;
+  others?: Resolver<Array<ResolversTypes['OtherIngredient']>, ParentType, ContextType, RequireFields<QueryOthersArgs, 'limit'>>;
   style?: Resolver<Maybe<ResolversTypes['Style']>, ParentType, ContextType, Partial<QueryStyleArgs>>;
   styles?: Resolver<Array<ResolversTypes['Style']>, ParentType, ContextType, RequireFields<QueryStylesArgs, 'limit'>>;
   stylesubcategories?: Resolver<Array<ResolversTypes['StyleSubCategory']>, ParentType, ContextType, RequireFields<QueryStylesubcategoriesArgs, 'limit'>>;
   stylesubcategory?: Resolver<Maybe<ResolversTypes['StyleSubCategory']>, ParentType, ContextType, Partial<QueryStylesubcategoryArgs>>;
+  yeast?: Resolver<Maybe<ResolversTypes['YeastIngredient']>, ParentType, ContextType, Partial<QueryYeastArgs>>;
+  yeasts?: Resolver<Array<ResolversTypes['YeastIngredient']>, ParentType, ContextType, RequireFields<QueryYeastsArgs, 'limit'>>;
 }>;
 
 export interface RegExpAsStringScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['RegExpAsString'], any> {
@@ -1186,6 +2384,27 @@ export type StyleVitalsSrmResolvers<ContextType = any, ParentType extends Resolv
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type UpdateOneFermentableIngredientPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateOneFermentableIngredientPayload'] = ResolversParentTypes['UpdateOneFermentableIngredientPayload']> = ResolversObject<{
+  error?: Resolver<Maybe<ResolversTypes['ErrorInterface']>, ParentType, ContextType>;
+  record?: Resolver<Maybe<ResolversTypes['FermentableIngredient']>, ParentType, ContextType>;
+  recordId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type UpdateOneHopIngredientPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateOneHopIngredientPayload'] = ResolversParentTypes['UpdateOneHopIngredientPayload']> = ResolversObject<{
+  error?: Resolver<Maybe<ResolversTypes['ErrorInterface']>, ParentType, ContextType>;
+  record?: Resolver<Maybe<ResolversTypes['HopIngredient']>, ParentType, ContextType>;
+  recordId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type UpdateOneOtherIngredientPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateOneOtherIngredientPayload'] = ResolversParentTypes['UpdateOneOtherIngredientPayload']> = ResolversObject<{
+  error?: Resolver<Maybe<ResolversTypes['ErrorInterface']>, ParentType, ContextType>;
+  record?: Resolver<Maybe<ResolversTypes['OtherIngredient']>, ParentType, ContextType>;
+  recordId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type UpdateOneStylePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateOneStylePayload'] = ResolversParentTypes['UpdateOneStylePayload']> = ResolversObject<{
   error?: Resolver<Maybe<ResolversTypes['ErrorInterface']>, ParentType, ContextType>;
   record?: Resolver<Maybe<ResolversTypes['Style']>, ParentType, ContextType>;
@@ -1196,6 +2415,13 @@ export type UpdateOneStylePayloadResolvers<ContextType = any, ParentType extends
 export type UpdateOneStyleSubCategoryPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateOneStyleSubCategoryPayload'] = ResolversParentTypes['UpdateOneStyleSubCategoryPayload']> = ResolversObject<{
   error?: Resolver<Maybe<ResolversTypes['ErrorInterface']>, ParentType, ContextType>;
   record?: Resolver<Maybe<ResolversTypes['StyleSubCategory']>, ParentType, ContextType>;
+  recordId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type UpdateOneYeastIngredientPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateOneYeastIngredientPayload'] = ResolversParentTypes['UpdateOneYeastIngredientPayload']> = ResolversObject<{
+  error?: Resolver<Maybe<ResolversTypes['ErrorInterface']>, ParentType, ContextType>;
+  record?: Resolver<Maybe<ResolversTypes['YeastIngredient']>, ParentType, ContextType>;
   recordId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -1214,14 +2440,31 @@ export type ValidatorErrorResolvers<ContextType = any, ParentType extends Resolv
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type YeastIngredientResolvers<ContextType = any, ParentType extends ResolversParentTypes['YeastIngredient'] = ResolversParentTypes['YeastIngredient']> = ResolversObject<{
+  _id?: Resolver<ResolversTypes['MongoID'], ParentType, ContextType>;
+  attenuation?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  flocculation?: Resolver<Maybe<ResolversTypes['EnumYeastIngredientFlocculation']>, ParentType, ContextType>;
+  tolerance?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  urlString?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type Resolvers<ContextType = any> = ResolversObject<{
+  CreateOneFermentableIngredientPayload?: CreateOneFermentableIngredientPayloadResolvers<ContextType>;
+  CreateOneHopIngredientPayload?: CreateOneHopIngredientPayloadResolvers<ContextType>;
+  CreateOneOtherIngredientPayload?: CreateOneOtherIngredientPayloadResolvers<ContextType>;
   CreateOneStylePayload?: CreateOneStylePayloadResolvers<ContextType>;
   CreateOneStyleSubCategoryPayload?: CreateOneStyleSubCategoryPayloadResolvers<ContextType>;
+  CreateOneYeastIngredientPayload?: CreateOneYeastIngredientPayloadResolvers<ContextType>;
   ErrorInterface?: ErrorInterfaceResolvers<ContextType>;
+  FermentableIngredient?: FermentableIngredientResolvers<ContextType>;
+  HopIngredient?: HopIngredientResolvers<ContextType>;
+  HopIngredientSensoryPanels?: HopIngredientSensoryPanelsResolvers<ContextType>;
   JSON?: GraphQLScalarType;
   MongoError?: MongoErrorResolvers<ContextType>;
   MongoID?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
+  OtherIngredient?: OtherIngredientResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   RegExpAsString?: GraphQLScalarType;
   RuntimeError?: RuntimeErrorResolvers<ContextType>;
@@ -1233,9 +2476,14 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   StyleVitalsIbu?: StyleVitalsIbuResolvers<ContextType>;
   StyleVitalsOg?: StyleVitalsOgResolvers<ContextType>;
   StyleVitalsSrm?: StyleVitalsSrmResolvers<ContextType>;
+  UpdateOneFermentableIngredientPayload?: UpdateOneFermentableIngredientPayloadResolvers<ContextType>;
+  UpdateOneHopIngredientPayload?: UpdateOneHopIngredientPayloadResolvers<ContextType>;
+  UpdateOneOtherIngredientPayload?: UpdateOneOtherIngredientPayloadResolvers<ContextType>;
   UpdateOneStylePayload?: UpdateOneStylePayloadResolvers<ContextType>;
   UpdateOneStyleSubCategoryPayload?: UpdateOneStyleSubCategoryPayloadResolvers<ContextType>;
+  UpdateOneYeastIngredientPayload?: UpdateOneYeastIngredientPayloadResolvers<ContextType>;
   ValidationError?: ValidationErrorResolvers<ContextType>;
   ValidatorError?: ValidatorErrorResolvers<ContextType>;
+  YeastIngredient?: YeastIngredientResolvers<ContextType>;
 }>;
 
