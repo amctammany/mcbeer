@@ -7,11 +7,12 @@ import {
   OtherIngredientSchema,
   YeastIngredientSchema,
 } from "./models";
+import { HopIngredient as HopIngredientType } from "@mcbeer/types";
 export const FermentableIngredient = mongoose.model(
   "FermentableIngredient",
   FermentableIngredientSchema
 );
-export const HopIngredient = mongoose.model(
+export const HopIngredient = mongoose.model<HopIngredientType>(
   "HopIngredient",
   HopIngredientSchema
 );

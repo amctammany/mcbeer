@@ -3,7 +3,10 @@ import mongoose, { Schema } from "mongoose";
 type OtherIngredientType = any;
 
 export const OtherIngredientSchema = new Schema<OtherIngredientType>({
-  name: String,
+  name: { type: String, required: true },
+  country: String,
+  description: String,
+  slug: String,
 });
 
 export default OtherIngredientSchema;

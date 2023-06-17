@@ -44,6 +44,10 @@ export const HopVariantSchema = new Schema<HopVariant>({
 });
 
 export const HopIngredientSchema = new Schema<HopIngredientType>({
+  name: { type: String, required: true },
+  country: String,
+  description: String,
+  slug: String,
   alphaRange: RangeType(50),
   betaRange: RangeType(30),
   caryophylleneRange: RangeType(40),

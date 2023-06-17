@@ -3,7 +3,11 @@ import mongoose, { Schema } from "mongoose";
 type FermentableIngredientType = any;
 export const FermentableIngredientSchema =
   new Schema<FermentableIngredientType>({
-    name: String,
+    name: { type: String, required: true },
+    country: String,
+    description: String,
+    slug: String,
+
     power: Number,
     maxUsage: Number,
     color: Number,
