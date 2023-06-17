@@ -1,0 +1,27 @@
+{
+  "extends": "@lnk/tsconfig/base",
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./dist",
+    "target": "es6",
+    "lib": ["DOM", "es6", "ESNext"],
+    "moduleResolution": "Node",
+    "baseUrl": "src",
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "composite": true,
+    "allowJs": false,
+    "declaration": true,
+    "declarationMap": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "types": ["node"]
+  },
+  "include": ["./**/*.ts", "./**/*.xml", "./styles2021.json"],
+  "exclude": ["dist"]
+}
