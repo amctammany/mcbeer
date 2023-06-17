@@ -2,16 +2,20 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "test": "turbo run test",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "precommit": "turbo run lint && turbo run test",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@turbo/gen": "^1.9.7",
     "eslint": "^7.32.0",
     "eslint-config-mcbeer": "workspace:*",
     "prettier": "^2.5.1",
-    "turbo": "latest"
+    "turbo": "latest",
+    "husky": "^8.0.0"
   },
   "packageManager": "pnpm@7.15.0",
   "name": "mcbeer",
