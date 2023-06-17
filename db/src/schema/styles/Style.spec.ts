@@ -18,7 +18,7 @@ describe("Style", () => {
     expect(style.subcategoryId).toBe(subcat.identifier);
     const sub = await StyleSubCategory.findOne({
       identifier: subcat.identifier,
-    });
+    }).populate("styles");
     expect(sub.styles.map(({ id }) => id)).toContain(style.id);
   });
 });
