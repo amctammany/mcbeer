@@ -39,7 +39,7 @@
     "@types/mocha": "^10.0.1",
     "@types/node": "^17.0.12",
     "esbuild": "^0.18.4",
-    "eslint-config-custom": "workspace:*",
+    "eslint-config-mcbeer": "workspace:*",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",
     "tsx": "^3.12.7",

@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ["next","custom"],
+  extends: ["next","mcbeer"],
   parserOptions: {
     tsconfigRootDir: __dirname,
     project: ["./tsconfig.json"],

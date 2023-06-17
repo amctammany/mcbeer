@@ -1,11 +1,8 @@
 module.exports = {
   root: true,
-  extends: ['custom'],
+  extends: ["mcbeer"],
   parserOptions: {
-    project: ["/home/alex/@mcbeer/packages/ui/tsconfig.json"]
+    project: ["/home/alex/@mcbeer/packages/ui/tsconfig.json"],
   },
-  ignorePatterns: [
-    "turbo/*"
-  ]
-
-}
+  ignorePatterns: ["turbo/*"],
+};
