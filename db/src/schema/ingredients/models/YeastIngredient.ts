@@ -3,7 +3,7 @@ import mongoose, { Document, Schema } from "mongoose";
 type Ingredient = any;
 type YeastIngredientType = any;
 
-const YeastIngredientSchema = new Schema<YeastIngredientType>({
+export const YeastIngredientSchema = new Schema<YeastIngredientType>({
   tolerance: Number,
   attenuation: Number,
   flocculation: {
@@ -12,8 +12,4 @@ const YeastIngredientSchema = new Schema<YeastIngredientType>({
   },
 });
 
-export const YeastIngredient = mongoose.model(
-  "YeastIngredient",
-  YeastIngredientSchema
-);
-export default YeastIngredient;
+export default YeastIngredientSchema;

@@ -1,4 +1,4 @@
-import { HopIngredient } from "../schema/ingredients/models";
+import { HopIngredient } from "../schema/ingredients/";
 
 describe("Ingredients", () => {
   it("should do stuff", async () => {

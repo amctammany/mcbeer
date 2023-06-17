@@ -43,7 +43,7 @@ export const HopVariantSchema = new Schema<HopVariant>({
   manufacturer: String,
 });
 
-const HopIngredientSchema = new Schema<HopIngredientType>({
+export const HopIngredientSchema = new Schema<HopIngredientType>({
   alphaRange: RangeType(50),
   betaRange: RangeType(30),
   caryophylleneRange: RangeType(40),
@@ -80,8 +80,4 @@ HopIngredientSchema.method("getVariants", async function getVariants() {
 //next()
 //);
 
-export const HopIngredient = mongoose.model(
-  "HopIngredient",
-  HopIngredientSchema
-);
 export default HopIngredientSchema;

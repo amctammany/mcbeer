@@ -1,12 +1,28 @@
 import { composeMongoose } from "graphql-compose-mongoose";
-import { Document } from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { SchemaComposer } from "graphql-compose";
 import {
-  HopIngredient,
-  FermentableIngredient,
-  OtherIngredient,
-  YeastIngredient,
+  HopIngredientSchema,
+  FermentableIngredientSchema,
+  OtherIngredientSchema,
+  YeastIngredientSchema,
 } from "./models";
+export const FermentableIngredient = mongoose.model(
+  "FermentableIngredient",
+  FermentableIngredientSchema
+);
+export const HopIngredient = mongoose.model(
+  "HopIngredient",
+  HopIngredientSchema
+);
+export const OtherIngredient = mongoose.model(
+  "OtherIngredient",
+  OtherIngredientSchema
+);
+export const YeastIngredient = mongoose.model(
+  "YeastIngredient",
+  YeastIngredientSchema
+);
 
 export const HopIngredientTC = composeMongoose<Document<typeof HopIngredient>>(
   HopIngredient as any,

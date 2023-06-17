@@ -6,8 +6,4 @@ export const OtherIngredientSchema = new Schema<OtherIngredientType>({
   name: String,
 });
 
-export const OtherIngredient = mongoose.model(
-  "OtherIngredient",
-  OtherIngredientSchema
-);
 export default OtherIngredientSchema;
