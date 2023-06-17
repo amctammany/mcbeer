@@ -20,7 +20,7 @@ StyleSubCategorySchema.virtual("styles", {
   ref: "Style",
   localField: "identifier",
   foreignField: "subcategoryId",
-  autopopulate: true,
+  autopopulate: false,
 });
 StyleSubCategorySchema.plugin(autopopulate);
 

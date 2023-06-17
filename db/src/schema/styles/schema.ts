@@ -1,20 +1,36 @@
 import { composeMongoose } from "graphql-compose-mongoose";
 import { Document } from "mongoose";
-//import Style from "./models/Style";
-
-//export default StyleTC;
 import { SchemaComposer } from "graphql-compose";
+import {
+  type Style as StyleType,
+  type StyleSubCategory as StyleSubCategoryType,
+} from "@mcbeer/types";
 import { Style, StyleSubCategory } from "./models";
-export const StyleTC = composeMongoose<Document<typeof Style>>(Style as any);
+export const StyleTC = composeMongoose<Document<StyleType & any>>(
+  Style as any,
+  {
+    //removeFields: ["subcategory"],
+  }
+);
 export const StyleSubCategoryTC = composeMongoose<
-  Document<typeof StyleSubCategory>
+  Document<StyleSubCategoryType>
 >(StyleSubCategory as any, {
+  removeFields: ["styles"],
   inputType: {
     name: "StyleSubCategoryInput",
   },
 });
 
 export const StyleComposer = (composer: SchemaComposer) => {
+  StyleTC.addRelation("subcategory", {
+    resolver: () => StyleSubCategoryTC.mongooseResolvers.findOne(),
+    prepareArgs: {
+      filter: (src: any) => ({
+        identifier: src.subcategoryId,
+      }),
+    },
+    projection: { subcategoryId: 1 },
+  });
   StyleTC.addFields({
     urlString: {
       type: "String",
@@ -27,14 +43,18 @@ export const StyleComposer = (composer: SchemaComposer) => {
       description: "url",
     },
   });
+  StyleSubCategoryTC.addRelation("styles", {
+    resolver: () => StyleTC.mongooseResolvers.findMany(),
+    prepareArgs: {
+      filter: (src: any) => ({
+        subcategoryId: src.identifier,
+      }),
+    },
+    projection: {
+      identifier: 1,
+    },
+  });
   composer.Query.addFields({
-    //style: {
-    //type: StyleTC,
-    //args: { id: "String!" },
-    //resolve: async (source, args, context, info) => {
-    //return Style.findOne({ identifier: args.id });
-    //},
-    //},
     style: StyleTC.mongooseResolvers.findOne(),
     styles: StyleTC.mongooseResolvers.findMany({
       limit: { defaultValue: 300 },

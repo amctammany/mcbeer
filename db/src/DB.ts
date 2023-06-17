@@ -37,8 +37,8 @@ class DB {
     const collections = (
       (await this.db?.listCollections().toArray()) ?? []
     ).map(({ name }) => name);
-    if (!list) {
-      return this.dropCollection(collections);
+    if (list.length == 0) {
+      return this.dropCollection(...collections);
     }
     return Promise.all(
       list.map(async (l) => {

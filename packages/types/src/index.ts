@@ -582,10 +582,17 @@ export type Style = {
   mouthfeel?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   slug?: Maybe<Scalars['String']['output']>;
+  subcategory?: Maybe<StyleSubCategory>;
   subcategoryId: Scalars['String']['output'];
   /** url */
   urlString?: Maybe<Scalars['String']['output']>;
   vitals?: Maybe<StyleVitals>;
+};
+
+
+export type StyleSubcategoryArgs = {
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortFindOneStyleSubCategoryInput>;
 };
 
 export type StyleSubCategory = {
@@ -595,8 +602,16 @@ export type StyleSubCategory = {
   identifier?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
+  styles: Array<Style>;
   /** url */
   urlString?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type StyleSubCategoryStylesArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortFindManyStyleInput>;
 };
 
 export type StyleVitals = {
@@ -1109,6 +1124,7 @@ export type StyleResolvers<ContextType = any, ParentType extends ResolversParent
   mouthfeel?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   slug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subcategory?: Resolver<Maybe<ResolversTypes['StyleSubCategory']>, ParentType, ContextType, Partial<StyleSubcategoryArgs>>;
   subcategoryId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   urlString?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   vitals?: Resolver<Maybe<ResolversTypes['StyleVitals']>, ParentType, ContextType>;
@@ -1121,6 +1137,7 @@ export type StyleSubCategoryResolvers<ContextType = any, ParentType extends Reso
   identifier?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   slug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  styles?: Resolver<Array<ResolversTypes['Style']>, ParentType, ContextType, RequireFields<StyleSubCategoryStylesArgs, 'limit'>>;
   urlString?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;

@@ -4,8 +4,9 @@ import DB from "./DB";
 
 import config from "./config";
 
-beforeAll(() => {
-  DB.connect(config.testDatabaseUrl);
+beforeAll(async () => {
+  await DB.connect(config.testDatabaseUrl);
+  await DB.dropCollection();
 });
 afterAll(() => {
   DB.close();

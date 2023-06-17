@@ -2,10 +2,11 @@ import mongoose, { Document, Schema } from "mongoose";
 import slugify from "slugify";
 import autopopulate from "mongoose-autopopulate";
 
-//import { type Style as StyleType2 } from "@mcbeer/types";
+import { type Style as StyleType } from "@mcbeer/types";
+import StyleSubCategory from "./StyleSubCategory";
 //type StyleType = any;
 const Vital = { flexible: Boolean, low: Number, high: Number };
-export const StyleSchema = new Schema(
+export const StyleSchema = new Schema<StyleType>(
   {
     name: { type: String, required: true },
     category: { type: String, enum: ["beer", "mead", "cider"] },
@@ -35,13 +36,16 @@ export const StyleSchema = new Schema(
       abv: Vital,
     },
   },
-  { toJSON: { virtuals: true }, toObject: { virtuals: true } }
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 );
 StyleSchema.virtual("subcategory", {
   ref: "StyleSubCategory",
   localField: "subcategoryId",
   foreignField: "identifier",
-  autopopulate: true,
+  autopopulate: false,
   justOne: true,
 });
 
