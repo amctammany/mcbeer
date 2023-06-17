@@ -104,6 +104,7 @@ export type CreateOneStyleInput = {
   name: Scalars['String']['input'];
   slug?: InputMaybe<Scalars['String']['input']>;
   subcategoryId: Scalars['String']['input'];
+  time?: InputMaybe<TimeFieldInput>;
   vitals?: InputMaybe<StyleVitalsInput>;
 };
 
@@ -160,6 +161,13 @@ export const enum EnumStyleSubCategoryCategory {
   Beer = 'beer',
   Cider = 'cider',
   Mead = 'mead'
+};
+
+export const enum EnumTimeFieldUnit {
+  Day = 'day',
+  Hour = 'hour',
+  Min = 'min',
+  Sec = 'sec'
 };
 
 export const enum EnumYeastIngredientFlocculation {
@@ -330,6 +338,7 @@ export type FilterFindManyStyleInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   subcategoryId?: InputMaybe<Scalars['String']['input']>;
+  time?: InputMaybe<FilterFindManyTimeFieldInput>;
   vitals?: InputMaybe<FilterFindManyStyleVitalsInput>;
 };
 
@@ -426,6 +435,11 @@ export type FilterFindManyStyle_IdOperatorsInput = {
   lte?: InputMaybe<Scalars['MongoID']['input']>;
   ne?: InputMaybe<Scalars['MongoID']['input']>;
   nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type FilterFindManyTimeFieldInput = {
+  duration?: InputMaybe<Scalars['Float']['input']>;
+  unit?: InputMaybe<EnumTimeFieldUnit>;
 };
 
 export type FilterFindManyYeastIngredientInput = {
@@ -599,6 +613,7 @@ export type FilterFindOneStyleInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   subcategoryId?: InputMaybe<Scalars['String']['input']>;
+  time?: InputMaybe<FilterFindOneTimeFieldInput>;
   vitals?: InputMaybe<FilterFindOneStyleVitalsInput>;
 };
 
@@ -695,6 +710,11 @@ export type FilterFindOneStyle_IdOperatorsInput = {
   lte?: InputMaybe<Scalars['MongoID']['input']>;
   ne?: InputMaybe<Scalars['MongoID']['input']>;
   nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type FilterFindOneTimeFieldInput = {
+  duration?: InputMaybe<Scalars['Float']['input']>;
+  unit?: InputMaybe<EnumTimeFieldUnit>;
 };
 
 export type FilterFindOneYeastIngredientInput = {
@@ -868,6 +888,7 @@ export type FilterUpdateOneStyleInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   subcategoryId?: InputMaybe<Scalars['String']['input']>;
+  time?: InputMaybe<FilterUpdateOneTimeFieldInput>;
   vitals?: InputMaybe<FilterUpdateOneStyleVitalsInput>;
 };
 
@@ -964,6 +985,11 @@ export type FilterUpdateOneStyle_IdOperatorsInput = {
   lte?: InputMaybe<Scalars['MongoID']['input']>;
   ne?: InputMaybe<Scalars['MongoID']['input']>;
   nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type FilterUpdateOneTimeFieldInput = {
+  duration?: InputMaybe<Scalars['Float']['input']>;
+  unit?: InputMaybe<EnumTimeFieldUnit>;
 };
 
 export type FilterUpdateOneYeastIngredientInput = {
@@ -1415,6 +1441,7 @@ export type Style = {
   slug?: Maybe<Scalars['String']['output']>;
   subcategory?: Maybe<StyleSubCategory>;
   subcategoryId: Scalars['String']['output'];
+  time?: Maybe<TimeField>;
   /** url */
   urlString?: Maybe<Scalars['String']['output']>;
   vitals?: Maybe<StyleVitals>;
@@ -1527,6 +1554,17 @@ export type StyleVitalsSrmInput = {
   low?: InputMaybe<Scalars['Float']['input']>;
 };
 
+export type TimeField = {
+  __typename?: 'TimeField';
+  duration?: Maybe<Scalars['Float']['output']>;
+  unit?: Maybe<EnumTimeFieldUnit>;
+};
+
+export type TimeFieldInput = {
+  duration?: InputMaybe<Scalars['Float']['input']>;
+  unit?: InputMaybe<EnumTimeFieldUnit>;
+};
+
 export type UpdateOneFermentableIngredientInput = {
   color?: InputMaybe<Scalars['Float']['input']>;
   maxUsage?: InputMaybe<Scalars['Float']['input']>;
@@ -1633,6 +1671,7 @@ export type UpdateOneStyleInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   subcategoryId?: InputMaybe<Scalars['String']['input']>;
+  time?: InputMaybe<UpdateOneTimeFieldInput>;
   vitals?: InputMaybe<UpdateOneStyleVitalsInput>;
 };
 
@@ -1699,6 +1738,11 @@ export type UpdateOneStyleVitalsSrmInput = {
   flexible?: InputMaybe<Scalars['Boolean']['input']>;
   high?: InputMaybe<Scalars['Float']['input']>;
   low?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type UpdateOneTimeFieldInput = {
+  duration?: InputMaybe<Scalars['Float']['input']>;
+  unit?: InputMaybe<EnumTimeFieldUnit>;
 };
 
 export type UpdateOneYeastIngredientInput = {
@@ -1838,6 +1882,7 @@ export type ResolversTypes = ResolversObject<{
   CreateOneYeastIngredientPayload: ResolverTypeWrapper<CreateOneYeastIngredientPayload>;
   EnumStyleCategory: EnumStyleCategory;
   EnumStyleSubCategoryCategory: EnumStyleSubCategoryCategory;
+  EnumTimeFieldUnit: EnumTimeFieldUnit;
   EnumYeastIngredientFlocculation: EnumYeastIngredientFlocculation;
   ErrorInterface: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['ErrorInterface']>;
   FermentableIngredient: ResolverTypeWrapper<FermentableIngredient>;
@@ -1864,6 +1909,7 @@ export type ResolversTypes = ResolversObject<{
   FilterFindManyStyleVitalsOgInput: FilterFindManyStyleVitalsOgInput;
   FilterFindManyStyleVitalsSrmInput: FilterFindManyStyleVitalsSrmInput;
   FilterFindManyStyle_idOperatorsInput: FilterFindManyStyle_IdOperatorsInput;
+  FilterFindManyTimeFieldInput: FilterFindManyTimeFieldInput;
   FilterFindManyYeastIngredientInput: FilterFindManyYeastIngredientInput;
   FilterFindManyYeastIngredientOperatorsInput: FilterFindManyYeastIngredientOperatorsInput;
   FilterFindManyYeastIngredient_idOperatorsInput: FilterFindManyYeastIngredient_IdOperatorsInput;
@@ -1890,6 +1936,7 @@ export type ResolversTypes = ResolversObject<{
   FilterFindOneStyleVitalsOgInput: FilterFindOneStyleVitalsOgInput;
   FilterFindOneStyleVitalsSrmInput: FilterFindOneStyleVitalsSrmInput;
   FilterFindOneStyle_idOperatorsInput: FilterFindOneStyle_IdOperatorsInput;
+  FilterFindOneTimeFieldInput: FilterFindOneTimeFieldInput;
   FilterFindOneYeastIngredientInput: FilterFindOneYeastIngredientInput;
   FilterFindOneYeastIngredientOperatorsInput: FilterFindOneYeastIngredientOperatorsInput;
   FilterFindOneYeastIngredient_idOperatorsInput: FilterFindOneYeastIngredient_IdOperatorsInput;
@@ -1916,6 +1963,7 @@ export type ResolversTypes = ResolversObject<{
   FilterUpdateOneStyleVitalsOgInput: FilterUpdateOneStyleVitalsOgInput;
   FilterUpdateOneStyleVitalsSrmInput: FilterUpdateOneStyleVitalsSrmInput;
   FilterUpdateOneStyle_idOperatorsInput: FilterUpdateOneStyle_IdOperatorsInput;
+  FilterUpdateOneTimeFieldInput: FilterUpdateOneTimeFieldInput;
   FilterUpdateOneYeastIngredientInput: FilterUpdateOneYeastIngredientInput;
   FilterUpdateOneYeastIngredientOperatorsInput: FilterUpdateOneYeastIngredientOperatorsInput;
   FilterUpdateOneYeastIngredient_idOperatorsInput: FilterUpdateOneYeastIngredient_IdOperatorsInput;
@@ -1965,6 +2013,8 @@ export type ResolversTypes = ResolversObject<{
   StyleVitalsOgInput: StyleVitalsOgInput;
   StyleVitalsSrm: ResolverTypeWrapper<StyleVitalsSrm>;
   StyleVitalsSrmInput: StyleVitalsSrmInput;
+  TimeField: ResolverTypeWrapper<TimeField>;
+  TimeFieldInput: TimeFieldInput;
   UpdateOneFermentableIngredientInput: UpdateOneFermentableIngredientInput;
   UpdateOneFermentableIngredientPayload: ResolverTypeWrapper<UpdateOneFermentableIngredientPayload>;
   UpdateOneHopIngredientInput: UpdateOneHopIngredientInput;
@@ -1982,6 +2032,7 @@ export type ResolversTypes = ResolversObject<{
   UpdateOneStyleVitalsInput: UpdateOneStyleVitalsInput;
   UpdateOneStyleVitalsOgInput: UpdateOneStyleVitalsOgInput;
   UpdateOneStyleVitalsSrmInput: UpdateOneStyleVitalsSrmInput;
+  UpdateOneTimeFieldInput: UpdateOneTimeFieldInput;
   UpdateOneYeastIngredientInput: UpdateOneYeastIngredientInput;
   UpdateOneYeastIngredientPayload: ResolverTypeWrapper<UpdateOneYeastIngredientPayload>;
   ValidationError: ResolverTypeWrapper<ValidationError>;
@@ -2029,6 +2080,7 @@ export type ResolversParentTypes = ResolversObject<{
   FilterFindManyStyleVitalsOgInput: FilterFindManyStyleVitalsOgInput;
   FilterFindManyStyleVitalsSrmInput: FilterFindManyStyleVitalsSrmInput;
   FilterFindManyStyle_idOperatorsInput: FilterFindManyStyle_IdOperatorsInput;
+  FilterFindManyTimeFieldInput: FilterFindManyTimeFieldInput;
   FilterFindManyYeastIngredientInput: FilterFindManyYeastIngredientInput;
   FilterFindManyYeastIngredientOperatorsInput: FilterFindManyYeastIngredientOperatorsInput;
   FilterFindManyYeastIngredient_idOperatorsInput: FilterFindManyYeastIngredient_IdOperatorsInput;
@@ -2055,6 +2107,7 @@ export type ResolversParentTypes = ResolversObject<{
   FilterFindOneStyleVitalsOgInput: FilterFindOneStyleVitalsOgInput;
   FilterFindOneStyleVitalsSrmInput: FilterFindOneStyleVitalsSrmInput;
   FilterFindOneStyle_idOperatorsInput: FilterFindOneStyle_IdOperatorsInput;
+  FilterFindOneTimeFieldInput: FilterFindOneTimeFieldInput;
   FilterFindOneYeastIngredientInput: FilterFindOneYeastIngredientInput;
   FilterFindOneYeastIngredientOperatorsInput: FilterFindOneYeastIngredientOperatorsInput;
   FilterFindOneYeastIngredient_idOperatorsInput: FilterFindOneYeastIngredient_IdOperatorsInput;
@@ -2081,6 +2134,7 @@ export type ResolversParentTypes = ResolversObject<{
   FilterUpdateOneStyleVitalsOgInput: FilterUpdateOneStyleVitalsOgInput;
   FilterUpdateOneStyleVitalsSrmInput: FilterUpdateOneStyleVitalsSrmInput;
   FilterUpdateOneStyle_idOperatorsInput: FilterUpdateOneStyle_IdOperatorsInput;
+  FilterUpdateOneTimeFieldInput: FilterUpdateOneTimeFieldInput;
   FilterUpdateOneYeastIngredientInput: FilterUpdateOneYeastIngredientInput;
   FilterUpdateOneYeastIngredientOperatorsInput: FilterUpdateOneYeastIngredientOperatorsInput;
   FilterUpdateOneYeastIngredient_idOperatorsInput: FilterUpdateOneYeastIngredient_IdOperatorsInput;
@@ -2112,6 +2166,8 @@ export type ResolversParentTypes = ResolversObject<{
   StyleVitalsOgInput: StyleVitalsOgInput;
   StyleVitalsSrm: StyleVitalsSrm;
   StyleVitalsSrmInput: StyleVitalsSrmInput;
+  TimeField: TimeField;
+  TimeFieldInput: TimeFieldInput;
   UpdateOneFermentableIngredientInput: UpdateOneFermentableIngredientInput;
   UpdateOneFermentableIngredientPayload: UpdateOneFermentableIngredientPayload;
   UpdateOneHopIngredientInput: UpdateOneHopIngredientInput;
@@ -2129,6 +2185,7 @@ export type ResolversParentTypes = ResolversObject<{
   UpdateOneStyleVitalsInput: UpdateOneStyleVitalsInput;
   UpdateOneStyleVitalsOgInput: UpdateOneStyleVitalsOgInput;
   UpdateOneStyleVitalsSrmInput: UpdateOneStyleVitalsSrmInput;
+  UpdateOneTimeFieldInput: UpdateOneTimeFieldInput;
   UpdateOneYeastIngredientInput: UpdateOneYeastIngredientInput;
   UpdateOneYeastIngredientPayload: UpdateOneYeastIngredientPayload;
   ValidationError: ValidationError;
@@ -2324,6 +2381,7 @@ export type StyleResolvers<ContextType = any, ParentType extends ResolversParent
   slug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   subcategory?: Resolver<Maybe<ResolversTypes['StyleSubCategory']>, ParentType, ContextType, Partial<StyleSubcategoryArgs>>;
   subcategoryId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  time?: Resolver<Maybe<ResolversTypes['TimeField']>, ParentType, ContextType>;
   urlString?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   vitals?: Resolver<Maybe<ResolversTypes['StyleVitals']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -2381,6 +2439,12 @@ export type StyleVitalsSrmResolvers<ContextType = any, ParentType extends Resolv
   flexible?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   high?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   low?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type TimeFieldResolvers<ContextType = any, ParentType extends ResolversParentTypes['TimeField'] = ResolversParentTypes['TimeField']> = ResolversObject<{
+  duration?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  unit?: Resolver<Maybe<ResolversTypes['EnumTimeFieldUnit']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -2476,6 +2540,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   StyleVitalsIbu?: StyleVitalsIbuResolvers<ContextType>;
   StyleVitalsOg?: StyleVitalsOgResolvers<ContextType>;
   StyleVitalsSrm?: StyleVitalsSrmResolvers<ContextType>;
+  TimeField?: TimeFieldResolvers<ContextType>;
   UpdateOneFermentableIngredientPayload?: UpdateOneFermentableIngredientPayloadResolvers<ContextType>;
   UpdateOneHopIngredientPayload?: UpdateOneHopIngredientPayloadResolvers<ContextType>;
   UpdateOneOtherIngredientPayload?: UpdateOneOtherIngredientPayloadResolvers<ContextType>;

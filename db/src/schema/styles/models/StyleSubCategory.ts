@@ -3,7 +3,7 @@ import { StyleSubCategory as StyleSubCategoryType } from "@mcbeer/types";
 import slugify from "slugify";
 import autopopulate from "mongoose-autopopulate";
 
-const StyleSubCategorySchema = new Schema<StyleSubCategoryType>(
+export const StyleSubCategorySchema = new Schema<StyleSubCategoryType>(
   {
     name: { type: String, required: true },
     identifier: String,
@@ -38,9 +38,9 @@ StyleSubCategorySchema.pre("save", async function preSave(next) {
   next();
 });
 
-export const StyleSubCategory = mongoose.model(
-  "StyleSubCategory",
-  StyleSubCategorySchema
-);
+//export const StyleSubCategory = mongoose.model(
+//"StyleSubCategory",
+//StyleSubCategorySchema
+//);
 
-export default StyleSubCategory;
+export default StyleSubCategorySchema;

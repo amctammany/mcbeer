@@ -1,11 +1,18 @@
 import { composeMongoose } from "graphql-compose-mongoose";
-import { Document } from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { SchemaComposer } from "graphql-compose";
 import {
   type Style as StyleType,
   type StyleSubCategory as StyleSubCategoryType,
 } from "@mcbeer/types";
-import { Style, StyleSubCategory } from "./models";
+import { StyleSchema, StyleSubCategorySchema } from "./models";
+
+export const Style = mongoose.model<StyleType>("Style", StyleSchema);
+export const StyleSubCategory = mongoose.model<StyleSubCategoryType>(
+  "StyleSubCategory",
+  StyleSubCategorySchema
+);
+
 export const StyleTC = composeMongoose<Document<StyleType & any>>(
   Style as any,
   {

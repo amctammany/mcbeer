@@ -4,9 +4,10 @@ import autopopulate from "mongoose-autopopulate";
 
 import { type Style as StyleType } from "@mcbeer/types";
 import StyleSubCategory from "./StyleSubCategory";
+import { TimeSchema } from "src/schema/common";
 //type StyleType = any;
 const Vital = { flexible: Boolean, low: Number, high: Number };
-export const StyleSchema = new Schema<StyleType>(
+export const StyleSchema = new Schema<StyleType & any>(
   {
     name: { type: String, required: true },
     category: { type: String, enum: ["beer", "mead", "cider"] },
@@ -16,6 +17,7 @@ export const StyleSchema = new Schema<StyleType>(
     // ref: "StyleSubCategory",
     // foreignField: "subcategoryId",
     // },
+    time: TimeSchema,
     identifier: String,
     description: String,
     slug: String,
@@ -60,6 +62,6 @@ StyleSchema.virtual("urlString").get(function getUrlString() {
   return `/styles/${this.identifier}`;
 });
 
-export const Style = mongoose.model("Style", StyleSchema);
+//export const Style = mongoose.model("Style", StyleSchema);
 
-export default Style;
+export default StyleSchema;

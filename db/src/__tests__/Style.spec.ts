@@ -1,4 +1,4 @@
-import { Style, StyleSubCategory } from "../schema/styles/models";
+import { Style, StyleSubCategory } from "../schema/styles";
 
 describe("Style", () => {
   it("should be true", async () => {

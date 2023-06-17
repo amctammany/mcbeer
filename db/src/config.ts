@@ -1,13 +1,13 @@
-export const name = "@lnk/db";
+export const name = "@mcbeer/db";
 export const port = process.env.PORT || 4000;
-export const jwtSecret = "lnkbeer";
+export const jwtSecret = "mcbeer";
 export const clientUrl = process.env.API_CLIENT_URL || "";
 export const serverUrl =
   process.env.API_SERVER_URL || `http://127.0.0.1:${process.env.PORT || 4000}`;
 export const databaseUrl =
-  process.env.DATABASE_URL || "mongodb://127.0.0.1:27017/lnk";
+  process.env.DATABASE_URL || "mongodb://127.0.0.1:27017/mcbeer";
 export const testDatabaseUrl =
-  process.env.TEST_DATABASE_URL || "mongodb://127.0.0.1:27017/lnk-test";
+  process.env.TEST_DATABASE_URL || "mongodb://127.0.0.1:27017/mcbeer-test";
 export default {
   name,
   // Node.js app
