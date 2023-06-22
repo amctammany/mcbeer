@@ -98,6 +98,25 @@ export type CreateOneOtherIngredientPayload = {
   recordId?: Maybe<Scalars['MongoID']['output']>;
 };
 
+export type CreateOneRecipeInput = {
+  authorEmail?: InputMaybe<Scalars['String']['input']>;
+  fermentableIngredients?: InputMaybe<Array<InputMaybe<RecipeFermentableIngredientsInput>>>;
+  hopIngredients?: InputMaybe<Array<InputMaybe<RecipeHopIngredientsInput>>>;
+  name: Scalars['String']['input'];
+  otherIngredients?: InputMaybe<Array<InputMaybe<RecipeOtherIngredientsInput>>>;
+  yeastIngredients?: InputMaybe<Array<InputMaybe<RecipeYeastIngredientsInput>>>;
+};
+
+export type CreateOneRecipePayload = {
+  __typename?: 'CreateOneRecipePayload';
+  /** Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response. */
+  error?: Maybe<ErrorInterface>;
+  /** Created document */
+  record?: Maybe<Recipe>;
+  /** Document ID */
+  recordId?: Maybe<Scalars['MongoID']['output']>;
+};
+
 export type CreateOneStyleInput = {
   appearance?: InputMaybe<Scalars['String']['input']>;
   aroma?: InputMaybe<Scalars['String']['input']>;
@@ -163,6 +182,30 @@ export type CreateOneYeastIngredientPayload = {
   record?: Maybe<YeastIngredient>;
   /** Document ID */
   recordId?: Maybe<Scalars['MongoID']['output']>;
+};
+
+export const enum EnumRecipeFermentableIngredientsUsage {
+  Mash = 'Mash',
+  Steep = 'Steep'
+};
+
+export const enum EnumRecipeHopIngredientsUsage {
+  Boil = 'Boil',
+  DryHop = 'DryHop',
+  FirstWort = 'FirstWort',
+  Mash = 'Mash',
+  Secondary = 'Secondary',
+  Whirlpool = 'Whirlpool'
+};
+
+export const enum EnumRecipeOtherIngredientsUsage {
+  Boil = 'Boil',
+  Bottling = 'Bottling',
+  Mash = 'Mash',
+  Primary = 'Primary',
+  Secondary = 'Secondary',
+  Sparge = 'Sparge',
+  Whirlpool = 'Whirlpool'
 };
 
 export const enum EnumStyleCategory {
@@ -334,6 +377,71 @@ export type FilterFindManyOtherIngredientOperatorsInput = {
 };
 
 export type FilterFindManyOtherIngredient_IdOperatorsInput = {
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  gt?: InputMaybe<Scalars['MongoID']['input']>;
+  gte?: InputMaybe<Scalars['MongoID']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  lt?: InputMaybe<Scalars['MongoID']['input']>;
+  lte?: InputMaybe<Scalars['MongoID']['input']>;
+  ne?: InputMaybe<Scalars['MongoID']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
+export type FilterFindManyRecipeFermentableIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+  usage?: InputMaybe<EnumRecipeFermentableIngredientsUsage>;
+};
+
+export type FilterFindManyRecipeHopIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  alpha?: InputMaybe<Scalars['Float']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+  time?: InputMaybe<Scalars['Float']['input']>;
+  usage?: InputMaybe<EnumRecipeHopIngredientsUsage>;
+};
+
+export type FilterFindManyRecipeInput = {
+  AND?: InputMaybe<Array<FilterFindManyRecipeInput>>;
+  OR?: InputMaybe<Array<FilterFindManyRecipeInput>>;
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  /** List of *indexed* fields that can be filtered via operators. */
+  _operators?: InputMaybe<FilterFindManyRecipeOperatorsInput>;
+  authorEmail?: InputMaybe<Scalars['String']['input']>;
+  fermentableIngredients?: InputMaybe<Array<InputMaybe<FilterFindManyRecipeFermentableIngredientsInput>>>;
+  hopIngredients?: InputMaybe<Array<InputMaybe<FilterFindManyRecipeHopIngredientsInput>>>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  otherIngredients?: InputMaybe<Array<InputMaybe<FilterFindManyRecipeOtherIngredientsInput>>>;
+  yeastIngredients?: InputMaybe<Array<InputMaybe<FilterFindManyRecipeYeastIngredientsInput>>>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterFindManyRecipeOperatorsInput = {
+  _id?: InputMaybe<FilterFindManyRecipe_IdOperatorsInput>;
+};
+
+export type FilterFindManyRecipeOtherIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+  time?: InputMaybe<Scalars['Float']['input']>;
+  usage?: InputMaybe<EnumRecipeOtherIngredientsUsage>;
+};
+
+export type FilterFindManyRecipeYeastIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  attenuation?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+};
+
+export type FilterFindManyRecipe_IdOperatorsInput = {
   exists?: InputMaybe<Scalars['Boolean']['input']>;
   gt?: InputMaybe<Scalars['MongoID']['input']>;
   gte?: InputMaybe<Scalars['MongoID']['input']>;
@@ -633,6 +741,71 @@ export type FilterFindOneOtherIngredient_IdOperatorsInput = {
   nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
 };
 
+export type FilterFindOneRecipeFermentableIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+  usage?: InputMaybe<EnumRecipeFermentableIngredientsUsage>;
+};
+
+export type FilterFindOneRecipeHopIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  alpha?: InputMaybe<Scalars['Float']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+  time?: InputMaybe<Scalars['Float']['input']>;
+  usage?: InputMaybe<EnumRecipeHopIngredientsUsage>;
+};
+
+export type FilterFindOneRecipeInput = {
+  AND?: InputMaybe<Array<FilterFindOneRecipeInput>>;
+  OR?: InputMaybe<Array<FilterFindOneRecipeInput>>;
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  /** List of *indexed* fields that can be filtered via operators. */
+  _operators?: InputMaybe<FilterFindOneRecipeOperatorsInput>;
+  authorEmail?: InputMaybe<Scalars['String']['input']>;
+  fermentableIngredients?: InputMaybe<Array<InputMaybe<FilterFindOneRecipeFermentableIngredientsInput>>>;
+  hopIngredients?: InputMaybe<Array<InputMaybe<FilterFindOneRecipeHopIngredientsInput>>>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  otherIngredients?: InputMaybe<Array<InputMaybe<FilterFindOneRecipeOtherIngredientsInput>>>;
+  yeastIngredients?: InputMaybe<Array<InputMaybe<FilterFindOneRecipeYeastIngredientsInput>>>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterFindOneRecipeOperatorsInput = {
+  _id?: InputMaybe<FilterFindOneRecipe_IdOperatorsInput>;
+};
+
+export type FilterFindOneRecipeOtherIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+  time?: InputMaybe<Scalars['Float']['input']>;
+  usage?: InputMaybe<EnumRecipeOtherIngredientsUsage>;
+};
+
+export type FilterFindOneRecipeYeastIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  attenuation?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+};
+
+export type FilterFindOneRecipe_IdOperatorsInput = {
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  gt?: InputMaybe<Scalars['MongoID']['input']>;
+  gte?: InputMaybe<Scalars['MongoID']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  lt?: InputMaybe<Scalars['MongoID']['input']>;
+  lte?: InputMaybe<Scalars['MongoID']['input']>;
+  ne?: InputMaybe<Scalars['MongoID']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
 export type FilterFindOneStyleInput = {
   AND?: InputMaybe<Array<FilterFindOneStyleInput>>;
   OR?: InputMaybe<Array<FilterFindOneStyleInput>>;
@@ -922,6 +1095,71 @@ export type FilterUpdateOneOtherIngredient_IdOperatorsInput = {
   nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
 };
 
+export type FilterUpdateOneRecipeFermentableIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+  usage?: InputMaybe<EnumRecipeFermentableIngredientsUsage>;
+};
+
+export type FilterUpdateOneRecipeHopIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  alpha?: InputMaybe<Scalars['Float']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+  time?: InputMaybe<Scalars['Float']['input']>;
+  usage?: InputMaybe<EnumRecipeHopIngredientsUsage>;
+};
+
+export type FilterUpdateOneRecipeInput = {
+  AND?: InputMaybe<Array<FilterUpdateOneRecipeInput>>;
+  OR?: InputMaybe<Array<FilterUpdateOneRecipeInput>>;
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  /** List of *indexed* fields that can be filtered via operators. */
+  _operators?: InputMaybe<FilterUpdateOneRecipeOperatorsInput>;
+  authorEmail?: InputMaybe<Scalars['String']['input']>;
+  fermentableIngredients?: InputMaybe<Array<InputMaybe<FilterUpdateOneRecipeFermentableIngredientsInput>>>;
+  hopIngredients?: InputMaybe<Array<InputMaybe<FilterUpdateOneRecipeHopIngredientsInput>>>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  otherIngredients?: InputMaybe<Array<InputMaybe<FilterUpdateOneRecipeOtherIngredientsInput>>>;
+  yeastIngredients?: InputMaybe<Array<InputMaybe<FilterUpdateOneRecipeYeastIngredientsInput>>>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterUpdateOneRecipeOperatorsInput = {
+  _id?: InputMaybe<FilterUpdateOneRecipe_IdOperatorsInput>;
+};
+
+export type FilterUpdateOneRecipeOtherIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+  time?: InputMaybe<Scalars['Float']['input']>;
+  usage?: InputMaybe<EnumRecipeOtherIngredientsUsage>;
+};
+
+export type FilterUpdateOneRecipeYeastIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  attenuation?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+};
+
+export type FilterUpdateOneRecipe_IdOperatorsInput = {
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  gt?: InputMaybe<Scalars['MongoID']['input']>;
+  gte?: InputMaybe<Scalars['MongoID']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+  lt?: InputMaybe<Scalars['MongoID']['input']>;
+  lte?: InputMaybe<Scalars['MongoID']['input']>;
+  ne?: InputMaybe<Scalars['MongoID']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['MongoID']['input']>>>;
+};
+
 export type FilterUpdateOneStyleInput = {
   AND?: InputMaybe<Array<FilterUpdateOneStyleInput>>;
   OR?: InputMaybe<Array<FilterUpdateOneStyleInput>>;
@@ -1178,6 +1416,10 @@ export type Mutation = {
   /** Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it. */
   otherUpdateOne?: Maybe<UpdateOneOtherIngredientPayload>;
   /** Create one document with mongoose defaults, setters, hooks and validation */
+  recipeCreateOne?: Maybe<CreateOneRecipePayload>;
+  /** Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it. */
+  recipeUpdateOne?: Maybe<UpdateOneRecipePayload>;
+  /** Create one document with mongoose defaults, setters, hooks and validation */
   styleCreateOne?: Maybe<CreateOneStylePayload>;
   /** Create one document with mongoose defaults, setters, hooks and validation */
   styleSubCategoryCreateOne?: Maybe<CreateOneStyleSubCategoryPayload>;
@@ -1228,6 +1470,19 @@ export type MutationOtherUpdateOneArgs = {
   record: UpdateOneOtherIngredientInput;
   skip?: InputMaybe<Scalars['Int']['input']>;
   sort?: InputMaybe<SortUpdateOneOtherIngredientInput>;
+};
+
+
+export type MutationRecipeCreateOneArgs = {
+  record: CreateOneRecipeInput;
+};
+
+
+export type MutationRecipeUpdateOneArgs = {
+  filter?: InputMaybe<FilterUpdateOneRecipeInput>;
+  record: UpdateOneRecipeInput;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortUpdateOneRecipeInput>;
 };
 
 
@@ -1288,6 +1543,8 @@ export type Query = {
   hops: Array<HopIngredient>;
   other?: Maybe<OtherIngredient>;
   others: Array<OtherIngredient>;
+  recipe?: Maybe<Recipe>;
+  recipes: Array<Recipe>;
   style?: Maybe<Style>;
   styles: Array<Style>;
   stylesubcategories: Array<StyleSubCategory>;
@@ -1342,6 +1599,21 @@ export type QueryOthersArgs = {
 };
 
 
+export type QueryRecipeArgs = {
+  filter?: InputMaybe<FilterFindOneRecipeInput>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortFindOneRecipeInput>;
+};
+
+
+export type QueryRecipesArgs = {
+  filter?: InputMaybe<FilterFindManyRecipeInput>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<SortFindManyRecipeInput>;
+};
+
+
 export type QueryStyleArgs = {
   filter?: InputMaybe<FilterFindOneStyleInput>;
   skip?: InputMaybe<Scalars['Int']['input']>;
@@ -1386,6 +1658,93 @@ export type QueryYeastsArgs = {
   sort?: InputMaybe<SortFindManyYeastIngredientInput>;
 };
 
+export type Recipe = {
+  __typename?: 'Recipe';
+  _id: Scalars['MongoID']['output'];
+  authorEmail?: Maybe<Scalars['String']['output']>;
+  fermentableIngredients?: Maybe<Array<Maybe<RecipeFermentableIngredients>>>;
+  hopIngredients?: Maybe<Array<Maybe<RecipeHopIngredients>>>;
+  name: Scalars['String']['output'];
+  otherIngredients?: Maybe<Array<Maybe<RecipeOtherIngredients>>>;
+  /** url */
+  urlString?: Maybe<Scalars['String']['output']>;
+  yeastIngredients?: Maybe<Array<Maybe<RecipeYeastIngredients>>>;
+};
+
+export type RecipeFermentableIngredients = {
+  __typename?: 'RecipeFermentableIngredients';
+  _id?: Maybe<Scalars['MongoID']['output']>;
+  amount?: Maybe<Scalars['Float']['output']>;
+  ingredient?: Maybe<Scalars['MongoID']['output']>;
+  ingredientId?: Maybe<Scalars['MongoID']['output']>;
+  usage?: Maybe<EnumRecipeFermentableIngredientsUsage>;
+};
+
+export type RecipeFermentableIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+  usage?: InputMaybe<EnumRecipeFermentableIngredientsUsage>;
+};
+
+export type RecipeHopIngredients = {
+  __typename?: 'RecipeHopIngredients';
+  _id?: Maybe<Scalars['MongoID']['output']>;
+  alpha?: Maybe<Scalars['Float']['output']>;
+  amount?: Maybe<Scalars['Float']['output']>;
+  ingredient?: Maybe<Scalars['MongoID']['output']>;
+  ingredientId?: Maybe<Scalars['MongoID']['output']>;
+  time?: Maybe<Scalars['Float']['output']>;
+  usage?: Maybe<EnumRecipeHopIngredientsUsage>;
+};
+
+export type RecipeHopIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  alpha?: InputMaybe<Scalars['Float']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+  time?: InputMaybe<Scalars['Float']['input']>;
+  usage?: InputMaybe<EnumRecipeHopIngredientsUsage>;
+};
+
+export type RecipeOtherIngredients = {
+  __typename?: 'RecipeOtherIngredients';
+  _id?: Maybe<Scalars['MongoID']['output']>;
+  amount?: Maybe<Scalars['Float']['output']>;
+  ingredient?: Maybe<Scalars['MongoID']['output']>;
+  ingredientId?: Maybe<Scalars['MongoID']['output']>;
+  time?: Maybe<Scalars['Float']['output']>;
+  usage?: Maybe<EnumRecipeOtherIngredientsUsage>;
+};
+
+export type RecipeOtherIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+  time?: InputMaybe<Scalars['Float']['input']>;
+  usage?: InputMaybe<EnumRecipeOtherIngredientsUsage>;
+};
+
+export type RecipeYeastIngredients = {
+  __typename?: 'RecipeYeastIngredients';
+  _id?: Maybe<Scalars['MongoID']['output']>;
+  amount?: Maybe<Scalars['Float']['output']>;
+  attenuation?: Maybe<Scalars['Float']['output']>;
+  ingredient?: Maybe<Scalars['MongoID']['output']>;
+  ingredientId?: Maybe<Scalars['MongoID']['output']>;
+};
+
+export type RecipeYeastIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  attenuation?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+};
+
 export type RuntimeError = ErrorInterface & {
   __typename?: 'RuntimeError';
   /** Runtime error message */
@@ -1403,6 +1762,11 @@ export const enum SortFindManyHopIngredientInput {
 };
 
 export const enum SortFindManyOtherIngredientInput {
+  IdAsc = '_ID_ASC',
+  IdDesc = '_ID_DESC'
+};
+
+export const enum SortFindManyRecipeInput {
   IdAsc = '_ID_ASC',
   IdDesc = '_ID_DESC'
 };
@@ -1439,6 +1803,11 @@ export const enum SortFindOneOtherIngredientInput {
   IdDesc = '_ID_DESC'
 };
 
+export const enum SortFindOneRecipeInput {
+  IdAsc = '_ID_ASC',
+  IdDesc = '_ID_DESC'
+};
+
 export const enum SortFindOneStyleInput {
   SubcategoryidAsc = 'SUBCATEGORYID_ASC',
   SubcategoryidDesc = 'SUBCATEGORYID_DESC',
@@ -1467,6 +1836,11 @@ export const enum SortUpdateOneHopIngredientInput {
 };
 
 export const enum SortUpdateOneOtherIngredientInput {
+  IdAsc = '_ID_ASC',
+  IdDesc = '_ID_DESC'
+};
+
+export const enum SortUpdateOneRecipeInput {
   IdAsc = '_ID_ASC',
   IdDesc = '_ID_DESC'
 };
@@ -1731,6 +2105,60 @@ export type UpdateOneOtherIngredientPayload = {
   recordId?: Maybe<Scalars['MongoID']['output']>;
 };
 
+export type UpdateOneRecipeFermentableIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+  usage?: InputMaybe<EnumRecipeFermentableIngredientsUsage>;
+};
+
+export type UpdateOneRecipeHopIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  alpha?: InputMaybe<Scalars['Float']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+  time?: InputMaybe<Scalars['Float']['input']>;
+  usage?: InputMaybe<EnumRecipeHopIngredientsUsage>;
+};
+
+export type UpdateOneRecipeInput = {
+  authorEmail?: InputMaybe<Scalars['String']['input']>;
+  fermentableIngredients?: InputMaybe<Array<InputMaybe<UpdateOneRecipeFermentableIngredientsInput>>>;
+  hopIngredients?: InputMaybe<Array<InputMaybe<UpdateOneRecipeHopIngredientsInput>>>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  otherIngredients?: InputMaybe<Array<InputMaybe<UpdateOneRecipeOtherIngredientsInput>>>;
+  yeastIngredients?: InputMaybe<Array<InputMaybe<UpdateOneRecipeYeastIngredientsInput>>>;
+};
+
+export type UpdateOneRecipeOtherIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+  time?: InputMaybe<Scalars['Float']['input']>;
+  usage?: InputMaybe<EnumRecipeOtherIngredientsUsage>;
+};
+
+export type UpdateOneRecipePayload = {
+  __typename?: 'UpdateOneRecipePayload';
+  /** Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response. */
+  error?: Maybe<ErrorInterface>;
+  /** Updated document */
+  record?: Maybe<Recipe>;
+  /** Document ID */
+  recordId?: Maybe<Scalars['MongoID']['output']>;
+};
+
+export type UpdateOneRecipeYeastIngredientsInput = {
+  _id?: InputMaybe<Scalars['MongoID']['input']>;
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  attenuation?: InputMaybe<Scalars['Float']['input']>;
+  ingredient?: InputMaybe<Scalars['MongoID']['input']>;
+  ingredientId?: InputMaybe<Scalars['MongoID']['input']>;
+};
+
 export type UpdateOneStyleInput = {
   appearance?: InputMaybe<Scalars['String']['input']>;
   aroma?: InputMaybe<Scalars['String']['input']>;
@@ -1958,12 +2386,17 @@ export type ResolversTypes = ResolversObject<{
   CreateOneHopIngredientPayload: ResolverTypeWrapper<CreateOneHopIngredientPayload>;
   CreateOneOtherIngredientInput: CreateOneOtherIngredientInput;
   CreateOneOtherIngredientPayload: ResolverTypeWrapper<CreateOneOtherIngredientPayload>;
+  CreateOneRecipeInput: CreateOneRecipeInput;
+  CreateOneRecipePayload: ResolverTypeWrapper<CreateOneRecipePayload>;
   CreateOneStyleInput: CreateOneStyleInput;
   CreateOneStylePayload: ResolverTypeWrapper<CreateOneStylePayload>;
   CreateOneStyleSubCategoryInput: CreateOneStyleSubCategoryInput;
   CreateOneStyleSubCategoryPayload: ResolverTypeWrapper<CreateOneStyleSubCategoryPayload>;
   CreateOneYeastIngredientInput: CreateOneYeastIngredientInput;
   CreateOneYeastIngredientPayload: ResolverTypeWrapper<CreateOneYeastIngredientPayload>;
+  EnumRecipeFermentableIngredientsUsage: EnumRecipeFermentableIngredientsUsage;
+  EnumRecipeHopIngredientsUsage: EnumRecipeHopIngredientsUsage;
+  EnumRecipeOtherIngredientsUsage: EnumRecipeOtherIngredientsUsage;
   EnumStyleCategory: EnumStyleCategory;
   EnumStyleSubCategoryCategory: EnumStyleSubCategoryCategory;
   EnumTimeFieldUnit: EnumTimeFieldUnit;
@@ -1980,6 +2413,13 @@ export type ResolversTypes = ResolversObject<{
   FilterFindManyOtherIngredientInput: FilterFindManyOtherIngredientInput;
   FilterFindManyOtherIngredientOperatorsInput: FilterFindManyOtherIngredientOperatorsInput;
   FilterFindManyOtherIngredient_idOperatorsInput: FilterFindManyOtherIngredient_IdOperatorsInput;
+  FilterFindManyRecipeFermentableIngredientsInput: FilterFindManyRecipeFermentableIngredientsInput;
+  FilterFindManyRecipeHopIngredientsInput: FilterFindManyRecipeHopIngredientsInput;
+  FilterFindManyRecipeInput: FilterFindManyRecipeInput;
+  FilterFindManyRecipeOperatorsInput: FilterFindManyRecipeOperatorsInput;
+  FilterFindManyRecipeOtherIngredientsInput: FilterFindManyRecipeOtherIngredientsInput;
+  FilterFindManyRecipeYeastIngredientsInput: FilterFindManyRecipeYeastIngredientsInput;
+  FilterFindManyRecipe_idOperatorsInput: FilterFindManyRecipe_IdOperatorsInput;
   FilterFindManyStyleInput: FilterFindManyStyleInput;
   FilterFindManyStyleOperatorsInput: FilterFindManyStyleOperatorsInput;
   FilterFindManyStyleSubCategoryInput: FilterFindManyStyleSubCategoryInput;
@@ -2007,6 +2447,13 @@ export type ResolversTypes = ResolversObject<{
   FilterFindOneOtherIngredientInput: FilterFindOneOtherIngredientInput;
   FilterFindOneOtherIngredientOperatorsInput: FilterFindOneOtherIngredientOperatorsInput;
   FilterFindOneOtherIngredient_idOperatorsInput: FilterFindOneOtherIngredient_IdOperatorsInput;
+  FilterFindOneRecipeFermentableIngredientsInput: FilterFindOneRecipeFermentableIngredientsInput;
+  FilterFindOneRecipeHopIngredientsInput: FilterFindOneRecipeHopIngredientsInput;
+  FilterFindOneRecipeInput: FilterFindOneRecipeInput;
+  FilterFindOneRecipeOperatorsInput: FilterFindOneRecipeOperatorsInput;
+  FilterFindOneRecipeOtherIngredientsInput: FilterFindOneRecipeOtherIngredientsInput;
+  FilterFindOneRecipeYeastIngredientsInput: FilterFindOneRecipeYeastIngredientsInput;
+  FilterFindOneRecipe_idOperatorsInput: FilterFindOneRecipe_IdOperatorsInput;
   FilterFindOneStyleInput: FilterFindOneStyleInput;
   FilterFindOneStyleOperatorsInput: FilterFindOneStyleOperatorsInput;
   FilterFindOneStyleSubCategoryInput: FilterFindOneStyleSubCategoryInput;
@@ -2034,6 +2481,13 @@ export type ResolversTypes = ResolversObject<{
   FilterUpdateOneOtherIngredientInput: FilterUpdateOneOtherIngredientInput;
   FilterUpdateOneOtherIngredientOperatorsInput: FilterUpdateOneOtherIngredientOperatorsInput;
   FilterUpdateOneOtherIngredient_idOperatorsInput: FilterUpdateOneOtherIngredient_IdOperatorsInput;
+  FilterUpdateOneRecipeFermentableIngredientsInput: FilterUpdateOneRecipeFermentableIngredientsInput;
+  FilterUpdateOneRecipeHopIngredientsInput: FilterUpdateOneRecipeHopIngredientsInput;
+  FilterUpdateOneRecipeInput: FilterUpdateOneRecipeInput;
+  FilterUpdateOneRecipeOperatorsInput: FilterUpdateOneRecipeOperatorsInput;
+  FilterUpdateOneRecipeOtherIngredientsInput: FilterUpdateOneRecipeOtherIngredientsInput;
+  FilterUpdateOneRecipeYeastIngredientsInput: FilterUpdateOneRecipeYeastIngredientsInput;
+  FilterUpdateOneRecipe_idOperatorsInput: FilterUpdateOneRecipe_IdOperatorsInput;
   FilterUpdateOneStyleInput: FilterUpdateOneStyleInput;
   FilterUpdateOneStyleOperatorsInput: FilterUpdateOneStyleOperatorsInput;
   FilterUpdateOneStyleSubCategoryInput: FilterUpdateOneStyleSubCategoryInput;
@@ -2062,23 +2516,35 @@ export type ResolversTypes = ResolversObject<{
   Mutation: ResolverTypeWrapper<{}>;
   OtherIngredient: ResolverTypeWrapper<OtherIngredient>;
   Query: ResolverTypeWrapper<{}>;
+  Recipe: ResolverTypeWrapper<Recipe>;
+  RecipeFermentableIngredients: ResolverTypeWrapper<RecipeFermentableIngredients>;
+  RecipeFermentableIngredientsInput: RecipeFermentableIngredientsInput;
+  RecipeHopIngredients: ResolverTypeWrapper<RecipeHopIngredients>;
+  RecipeHopIngredientsInput: RecipeHopIngredientsInput;
+  RecipeOtherIngredients: ResolverTypeWrapper<RecipeOtherIngredients>;
+  RecipeOtherIngredientsInput: RecipeOtherIngredientsInput;
+  RecipeYeastIngredients: ResolverTypeWrapper<RecipeYeastIngredients>;
+  RecipeYeastIngredientsInput: RecipeYeastIngredientsInput;
   RegExpAsString: ResolverTypeWrapper<Scalars['RegExpAsString']['output']>;
   RuntimeError: ResolverTypeWrapper<RuntimeError>;
   SortFindManyFermentableIngredientInput: SortFindManyFermentableIngredientInput;
   SortFindManyHopIngredientInput: SortFindManyHopIngredientInput;
   SortFindManyOtherIngredientInput: SortFindManyOtherIngredientInput;
+  SortFindManyRecipeInput: SortFindManyRecipeInput;
   SortFindManyStyleInput: SortFindManyStyleInput;
   SortFindManyStyleSubCategoryInput: SortFindManyStyleSubCategoryInput;
   SortFindManyYeastIngredientInput: SortFindManyYeastIngredientInput;
   SortFindOneFermentableIngredientInput: SortFindOneFermentableIngredientInput;
   SortFindOneHopIngredientInput: SortFindOneHopIngredientInput;
   SortFindOneOtherIngredientInput: SortFindOneOtherIngredientInput;
+  SortFindOneRecipeInput: SortFindOneRecipeInput;
   SortFindOneStyleInput: SortFindOneStyleInput;
   SortFindOneStyleSubCategoryInput: SortFindOneStyleSubCategoryInput;
   SortFindOneYeastIngredientInput: SortFindOneYeastIngredientInput;
   SortUpdateOneFermentableIngredientInput: SortUpdateOneFermentableIngredientInput;
   SortUpdateOneHopIngredientInput: SortUpdateOneHopIngredientInput;
   SortUpdateOneOtherIngredientInput: SortUpdateOneOtherIngredientInput;
+  SortUpdateOneRecipeInput: SortUpdateOneRecipeInput;
   SortUpdateOneStyleInput: SortUpdateOneStyleInput;
   SortUpdateOneStyleSubCategoryInput: SortUpdateOneStyleSubCategoryInput;
   SortUpdateOneYeastIngredientInput: SortUpdateOneYeastIngredientInput;
@@ -2106,6 +2572,12 @@ export type ResolversTypes = ResolversObject<{
   UpdateOneHopIngredientSensoryPanelsInput: UpdateOneHopIngredientSensoryPanelsInput;
   UpdateOneOtherIngredientInput: UpdateOneOtherIngredientInput;
   UpdateOneOtherIngredientPayload: ResolverTypeWrapper<UpdateOneOtherIngredientPayload>;
+  UpdateOneRecipeFermentableIngredientsInput: UpdateOneRecipeFermentableIngredientsInput;
+  UpdateOneRecipeHopIngredientsInput: UpdateOneRecipeHopIngredientsInput;
+  UpdateOneRecipeInput: UpdateOneRecipeInput;
+  UpdateOneRecipeOtherIngredientsInput: UpdateOneRecipeOtherIngredientsInput;
+  UpdateOneRecipePayload: ResolverTypeWrapper<UpdateOneRecipePayload>;
+  UpdateOneRecipeYeastIngredientsInput: UpdateOneRecipeYeastIngredientsInput;
   UpdateOneStyleInput: UpdateOneStyleInput;
   UpdateOneStylePayload: ResolverTypeWrapper<UpdateOneStylePayload>;
   UpdateOneStyleSubCategoryInput: UpdateOneStyleSubCategoryInput;
@@ -2133,6 +2605,8 @@ export type ResolversParentTypes = ResolversObject<{
   CreateOneHopIngredientPayload: CreateOneHopIngredientPayload;
   CreateOneOtherIngredientInput: CreateOneOtherIngredientInput;
   CreateOneOtherIngredientPayload: CreateOneOtherIngredientPayload;
+  CreateOneRecipeInput: CreateOneRecipeInput;
+  CreateOneRecipePayload: CreateOneRecipePayload;
   CreateOneStyleInput: CreateOneStyleInput;
   CreateOneStylePayload: CreateOneStylePayload;
   CreateOneStyleSubCategoryInput: CreateOneStyleSubCategoryInput;
@@ -2151,6 +2625,13 @@ export type ResolversParentTypes = ResolversObject<{
   FilterFindManyOtherIngredientInput: FilterFindManyOtherIngredientInput;
   FilterFindManyOtherIngredientOperatorsInput: FilterFindManyOtherIngredientOperatorsInput;
   FilterFindManyOtherIngredient_idOperatorsInput: FilterFindManyOtherIngredient_IdOperatorsInput;
+  FilterFindManyRecipeFermentableIngredientsInput: FilterFindManyRecipeFermentableIngredientsInput;
+  FilterFindManyRecipeHopIngredientsInput: FilterFindManyRecipeHopIngredientsInput;
+  FilterFindManyRecipeInput: FilterFindManyRecipeInput;
+  FilterFindManyRecipeOperatorsInput: FilterFindManyRecipeOperatorsInput;
+  FilterFindManyRecipeOtherIngredientsInput: FilterFindManyRecipeOtherIngredientsInput;
+  FilterFindManyRecipeYeastIngredientsInput: FilterFindManyRecipeYeastIngredientsInput;
+  FilterFindManyRecipe_idOperatorsInput: FilterFindManyRecipe_IdOperatorsInput;
   FilterFindManyStyleInput: FilterFindManyStyleInput;
   FilterFindManyStyleOperatorsInput: FilterFindManyStyleOperatorsInput;
   FilterFindManyStyleSubCategoryInput: FilterFindManyStyleSubCategoryInput;
@@ -2178,6 +2659,13 @@ export type ResolversParentTypes = ResolversObject<{
   FilterFindOneOtherIngredientInput: FilterFindOneOtherIngredientInput;
   FilterFindOneOtherIngredientOperatorsInput: FilterFindOneOtherIngredientOperatorsInput;
   FilterFindOneOtherIngredient_idOperatorsInput: FilterFindOneOtherIngredient_IdOperatorsInput;
+  FilterFindOneRecipeFermentableIngredientsInput: FilterFindOneRecipeFermentableIngredientsInput;
+  FilterFindOneRecipeHopIngredientsInput: FilterFindOneRecipeHopIngredientsInput;
+  FilterFindOneRecipeInput: FilterFindOneRecipeInput;
+  FilterFindOneRecipeOperatorsInput: FilterFindOneRecipeOperatorsInput;
+  FilterFindOneRecipeOtherIngredientsInput: FilterFindOneRecipeOtherIngredientsInput;
+  FilterFindOneRecipeYeastIngredientsInput: FilterFindOneRecipeYeastIngredientsInput;
+  FilterFindOneRecipe_idOperatorsInput: FilterFindOneRecipe_IdOperatorsInput;
   FilterFindOneStyleInput: FilterFindOneStyleInput;
   FilterFindOneStyleOperatorsInput: FilterFindOneStyleOperatorsInput;
   FilterFindOneStyleSubCategoryInput: FilterFindOneStyleSubCategoryInput;
@@ -2205,6 +2693,13 @@ export type ResolversParentTypes = ResolversObject<{
   FilterUpdateOneOtherIngredientInput: FilterUpdateOneOtherIngredientInput;
   FilterUpdateOneOtherIngredientOperatorsInput: FilterUpdateOneOtherIngredientOperatorsInput;
   FilterUpdateOneOtherIngredient_idOperatorsInput: FilterUpdateOneOtherIngredient_IdOperatorsInput;
+  FilterUpdateOneRecipeFermentableIngredientsInput: FilterUpdateOneRecipeFermentableIngredientsInput;
+  FilterUpdateOneRecipeHopIngredientsInput: FilterUpdateOneRecipeHopIngredientsInput;
+  FilterUpdateOneRecipeInput: FilterUpdateOneRecipeInput;
+  FilterUpdateOneRecipeOperatorsInput: FilterUpdateOneRecipeOperatorsInput;
+  FilterUpdateOneRecipeOtherIngredientsInput: FilterUpdateOneRecipeOtherIngredientsInput;
+  FilterUpdateOneRecipeYeastIngredientsInput: FilterUpdateOneRecipeYeastIngredientsInput;
+  FilterUpdateOneRecipe_idOperatorsInput: FilterUpdateOneRecipe_IdOperatorsInput;
   FilterUpdateOneStyleInput: FilterUpdateOneStyleInput;
   FilterUpdateOneStyleOperatorsInput: FilterUpdateOneStyleOperatorsInput;
   FilterUpdateOneStyleSubCategoryInput: FilterUpdateOneStyleSubCategoryInput;
@@ -2233,6 +2728,15 @@ export type ResolversParentTypes = ResolversObject<{
   Mutation: {};
   OtherIngredient: OtherIngredient;
   Query: {};
+  Recipe: Recipe;
+  RecipeFermentableIngredients: RecipeFermentableIngredients;
+  RecipeFermentableIngredientsInput: RecipeFermentableIngredientsInput;
+  RecipeHopIngredients: RecipeHopIngredients;
+  RecipeHopIngredientsInput: RecipeHopIngredientsInput;
+  RecipeOtherIngredients: RecipeOtherIngredients;
+  RecipeOtherIngredientsInput: RecipeOtherIngredientsInput;
+  RecipeYeastIngredients: RecipeYeastIngredients;
+  RecipeYeastIngredientsInput: RecipeYeastIngredientsInput;
   RegExpAsString: Scalars['RegExpAsString']['output'];
   RuntimeError: RuntimeError;
   String: Scalars['String']['output'];
@@ -2259,6 +2763,12 @@ export type ResolversParentTypes = ResolversObject<{
   UpdateOneHopIngredientSensoryPanelsInput: UpdateOneHopIngredientSensoryPanelsInput;
   UpdateOneOtherIngredientInput: UpdateOneOtherIngredientInput;
   UpdateOneOtherIngredientPayload: UpdateOneOtherIngredientPayload;
+  UpdateOneRecipeFermentableIngredientsInput: UpdateOneRecipeFermentableIngredientsInput;
+  UpdateOneRecipeHopIngredientsInput: UpdateOneRecipeHopIngredientsInput;
+  UpdateOneRecipeInput: UpdateOneRecipeInput;
+  UpdateOneRecipeOtherIngredientsInput: UpdateOneRecipeOtherIngredientsInput;
+  UpdateOneRecipePayload: UpdateOneRecipePayload;
+  UpdateOneRecipeYeastIngredientsInput: UpdateOneRecipeYeastIngredientsInput;
   UpdateOneStyleInput: UpdateOneStyleInput;
   UpdateOneStylePayload: UpdateOneStylePayload;
   UpdateOneStyleSubCategoryInput: UpdateOneStyleSubCategoryInput;
@@ -2294,6 +2804,13 @@ export type CreateOneHopIngredientPayloadResolvers<ContextType = any, ParentType
 export type CreateOneOtherIngredientPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateOneOtherIngredientPayload'] = ResolversParentTypes['CreateOneOtherIngredientPayload']> = ResolversObject<{
   error?: Resolver<Maybe<ResolversTypes['ErrorInterface']>, ParentType, ContextType>;
   record?: Resolver<Maybe<ResolversTypes['OtherIngredient']>, ParentType, ContextType>;
+  recordId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CreateOneRecipePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateOneRecipePayload'] = ResolversParentTypes['CreateOneRecipePayload']> = ResolversObject<{
+  error?: Resolver<Maybe<ResolversTypes['ErrorInterface']>, ParentType, ContextType>;
+  record?: Resolver<Maybe<ResolversTypes['Recipe']>, ParentType, ContextType>;
   recordId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -2415,6 +2932,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   hopUpdateOne?: Resolver<Maybe<ResolversTypes['UpdateOneHopIngredientPayload']>, ParentType, ContextType, RequireFields<MutationHopUpdateOneArgs, 'record'>>;
   otherCreateOne?: Resolver<Maybe<ResolversTypes['CreateOneOtherIngredientPayload']>, ParentType, ContextType, RequireFields<MutationOtherCreateOneArgs, 'record'>>;
   otherUpdateOne?: Resolver<Maybe<ResolversTypes['UpdateOneOtherIngredientPayload']>, ParentType, ContextType, RequireFields<MutationOtherUpdateOneArgs, 'record'>>;
+  recipeCreateOne?: Resolver<Maybe<ResolversTypes['CreateOneRecipePayload']>, ParentType, ContextType, RequireFields<MutationRecipeCreateOneArgs, 'record'>>;
+  recipeUpdateOne?: Resolver<Maybe<ResolversTypes['UpdateOneRecipePayload']>, ParentType, ContextType, RequireFields<MutationRecipeUpdateOneArgs, 'record'>>;
   styleCreateOne?: Resolver<Maybe<ResolversTypes['CreateOneStylePayload']>, ParentType, ContextType, RequireFields<MutationStyleCreateOneArgs, 'record'>>;
   styleSubCategoryCreateOne?: Resolver<Maybe<ResolversTypes['CreateOneStyleSubCategoryPayload']>, ParentType, ContextType, RequireFields<MutationStyleSubCategoryCreateOneArgs, 'record'>>;
   styleSubCategoryUpdateOne?: Resolver<Maybe<ResolversTypes['UpdateOneStyleSubCategoryPayload']>, ParentType, ContextType, RequireFields<MutationStyleSubCategoryUpdateOneArgs, 'record'>>;
@@ -2440,12 +2959,65 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   hops?: Resolver<Array<ResolversTypes['HopIngredient']>, ParentType, ContextType, RequireFields<QueryHopsArgs, 'limit'>>;
   other?: Resolver<Maybe<ResolversTypes['OtherIngredient']>, ParentType, ContextType, Partial<QueryOtherArgs>>;
   others?: Resolver<Array<ResolversTypes['OtherIngredient']>, ParentType, ContextType, RequireFields<QueryOthersArgs, 'limit'>>;
+  recipe?: Resolver<Maybe<ResolversTypes['Recipe']>, ParentType, ContextType, Partial<QueryRecipeArgs>>;
+  recipes?: Resolver<Array<ResolversTypes['Recipe']>, ParentType, ContextType, RequireFields<QueryRecipesArgs, 'limit'>>;
   style?: Resolver<Maybe<ResolversTypes['Style']>, ParentType, ContextType, Partial<QueryStyleArgs>>;
   styles?: Resolver<Array<ResolversTypes['Style']>, ParentType, ContextType, RequireFields<QueryStylesArgs, 'limit'>>;
   stylesubcategories?: Resolver<Array<ResolversTypes['StyleSubCategory']>, ParentType, ContextType, RequireFields<QueryStylesubcategoriesArgs, 'limit'>>;
   stylesubcategory?: Resolver<Maybe<ResolversTypes['StyleSubCategory']>, ParentType, ContextType, Partial<QueryStylesubcategoryArgs>>;
   yeast?: Resolver<Maybe<ResolversTypes['YeastIngredient']>, ParentType, ContextType, Partial<QueryYeastArgs>>;
   yeasts?: Resolver<Array<ResolversTypes['YeastIngredient']>, ParentType, ContextType, RequireFields<QueryYeastsArgs, 'limit'>>;
+}>;
+
+export type RecipeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Recipe'] = ResolversParentTypes['Recipe']> = ResolversObject<{
+  _id?: Resolver<ResolversTypes['MongoID'], ParentType, ContextType>;
+  authorEmail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  fermentableIngredients?: Resolver<Maybe<Array<Maybe<ResolversTypes['RecipeFermentableIngredients']>>>, ParentType, ContextType>;
+  hopIngredients?: Resolver<Maybe<Array<Maybe<ResolversTypes['RecipeHopIngredients']>>>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  otherIngredients?: Resolver<Maybe<Array<Maybe<ResolversTypes['RecipeOtherIngredients']>>>, ParentType, ContextType>;
+  urlString?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  yeastIngredients?: Resolver<Maybe<Array<Maybe<ResolversTypes['RecipeYeastIngredients']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type RecipeFermentableIngredientsResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipeFermentableIngredients'] = ResolversParentTypes['RecipeFermentableIngredients']> = ResolversObject<{
+  _id?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  ingredient?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  ingredientId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  usage?: Resolver<Maybe<ResolversTypes['EnumRecipeFermentableIngredientsUsage']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type RecipeHopIngredientsResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipeHopIngredients'] = ResolversParentTypes['RecipeHopIngredients']> = ResolversObject<{
+  _id?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  alpha?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  ingredient?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  ingredientId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  time?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  usage?: Resolver<Maybe<ResolversTypes['EnumRecipeHopIngredientsUsage']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type RecipeOtherIngredientsResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipeOtherIngredients'] = ResolversParentTypes['RecipeOtherIngredients']> = ResolversObject<{
+  _id?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  ingredient?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  ingredientId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  time?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  usage?: Resolver<Maybe<ResolversTypes['EnumRecipeOtherIngredientsUsage']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type RecipeYeastIngredientsResolvers<ContextType = any, ParentType extends ResolversParentTypes['RecipeYeastIngredients'] = ResolversParentTypes['RecipeYeastIngredients']> = ResolversObject<{
+  _id?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  attenuation?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  ingredient?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  ingredientId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export interface RegExpAsStringScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['RegExpAsString'], any> {
@@ -2563,6 +3135,13 @@ export type UpdateOneOtherIngredientPayloadResolvers<ContextType = any, ParentTy
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type UpdateOneRecipePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateOneRecipePayload'] = ResolversParentTypes['UpdateOneRecipePayload']> = ResolversObject<{
+  error?: Resolver<Maybe<ResolversTypes['ErrorInterface']>, ParentType, ContextType>;
+  record?: Resolver<Maybe<ResolversTypes['Recipe']>, ParentType, ContextType>;
+  recordId?: Resolver<Maybe<ResolversTypes['MongoID']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type UpdateOneStylePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateOneStylePayload'] = ResolversParentTypes['UpdateOneStylePayload']> = ResolversObject<{
   error?: Resolver<Maybe<ResolversTypes['ErrorInterface']>, ParentType, ContextType>;
   record?: Resolver<Maybe<ResolversTypes['Style']>, ParentType, ContextType>;
@@ -2615,6 +3194,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   CreateOneFermentableIngredientPayload?: CreateOneFermentableIngredientPayloadResolvers<ContextType>;
   CreateOneHopIngredientPayload?: CreateOneHopIngredientPayloadResolvers<ContextType>;
   CreateOneOtherIngredientPayload?: CreateOneOtherIngredientPayloadResolvers<ContextType>;
+  CreateOneRecipePayload?: CreateOneRecipePayloadResolvers<ContextType>;
   CreateOneStylePayload?: CreateOneStylePayloadResolvers<ContextType>;
   CreateOneStyleSubCategoryPayload?: CreateOneStyleSubCategoryPayloadResolvers<ContextType>;
   CreateOneYeastIngredientPayload?: CreateOneYeastIngredientPayloadResolvers<ContextType>;
@@ -2628,6 +3208,11 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   Mutation?: MutationResolvers<ContextType>;
   OtherIngredient?: OtherIngredientResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Recipe?: RecipeResolvers<ContextType>;
+  RecipeFermentableIngredients?: RecipeFermentableIngredientsResolvers<ContextType>;
+  RecipeHopIngredients?: RecipeHopIngredientsResolvers<ContextType>;
+  RecipeOtherIngredients?: RecipeOtherIngredientsResolvers<ContextType>;
+  RecipeYeastIngredients?: RecipeYeastIngredientsResolvers<ContextType>;
   RegExpAsString?: GraphQLScalarType;
   RuntimeError?: RuntimeErrorResolvers<ContextType>;
   Style?: StyleResolvers<ContextType>;
@@ -2642,6 +3227,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   UpdateOneFermentableIngredientPayload?: UpdateOneFermentableIngredientPayloadResolvers<ContextType>;
   UpdateOneHopIngredientPayload?: UpdateOneHopIngredientPayloadResolvers<ContextType>;
   UpdateOneOtherIngredientPayload?: UpdateOneOtherIngredientPayloadResolvers<ContextType>;
+  UpdateOneRecipePayload?: UpdateOneRecipePayloadResolvers<ContextType>;
   UpdateOneStylePayload?: UpdateOneStylePayloadResolvers<ContextType>;
   UpdateOneStyleSubCategoryPayload?: UpdateOneStyleSubCategoryPayloadResolvers<ContextType>;
   UpdateOneYeastIngredientPayload?: UpdateOneYeastIngredientPayloadResolvers<ContextType>;

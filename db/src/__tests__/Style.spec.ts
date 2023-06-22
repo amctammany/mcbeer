@@ -14,7 +14,7 @@ describe("Style", () => {
       //subcategory: subcat,
       subcategoryId: subcat.identifier,
     }).save();
-    style.populate("subcategory");
+    await style.populate("subcategory");
     expect(!!style).toBe(true);
     expect(style.subcategoryId).toBe(subcat.identifier);
     const sub = await StyleSubCategory.findOne({
