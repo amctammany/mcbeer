@@ -14,10 +14,10 @@ const Prop = ({ label, children }) => {
   );
 };
 export const HopDisplay = ({ hop }: HopDisplayProps) => {
+  if (!hop) return <>Not Ready</>;
   return (
     <>
       <Header text={`Hop: ${hop.name}`} />
-      <Button />
       {["name", "description", "country", "alphaRange", "betaRange"].map(
         (p) => (
           <Prop key={p} label={p}>
@@ -25,6 +25,12 @@ export const HopDisplay = ({ hop }: HopDisplayProps) => {
           </Prop>
         )
       )}
+      <Prop label={"Alpha Range"}>
+        {hop?.alphaRange?.[0]} - {hop?.alphaRange?.[1]}
+      </Prop>
+      <Prop label={"Beta Range"}>
+        {hop?.betaRange?.[0]} - {hop?.betaRange?.[1]}
+      </Prop>
     </>
   );
 };
