@@ -54,10 +54,11 @@ type RecipeType = any;
 //removeFields: ["ingredient"],
 //});
 
-export const Recipe = mongoose.model<IRecipe>("Recipe", RecipeSchema);
+export const Recipe = mongoose.model("Recipe", RecipeSchema);
 export const RecipeTC = composeMongoose<Document<IRecipe>>(Recipe as any, {
   //removeFields: ["subcategory"],
 });
+//const f = await new Recipe({ name: "foo" }).save();
 
 export const RecipeComposer = (composer: SchemaComposer) => {
   //RecipeTC.addRelation("subcategory", {

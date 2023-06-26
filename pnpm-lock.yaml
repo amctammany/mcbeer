@@ -93,7 +93,7 @@ importers:
       graphql-compose-mongoose: ^9.8.0
       graphql-import-node: ^0.0.5
       jsdom: ^22.1.0
-      mongoose: ^7.3.0
+      mongoose: ^7.3.1
       mongoose-autopopulate: ^1.0.1
       nodemon: ^2.0.22
       rimraf: ^5.0.1
@@ -112,10 +112,10 @@ importers:
       express-oauth2-jwt-bearer: 1.5.0
       graphql: 16.6.0
       graphql-compose: 9.0.10_graphql@16.6.0
-      graphql-compose-mongoose: 9.8.0_zwjg5dvjbkmyyragm47rd5m5gq
+      graphql-compose-mongoose: 9.8.0_2nihozqcywrepyupixfz4czwdq
       graphql-import-node: 0.0.5_graphql@16.6.0
-      mongoose: 7.3.0
-      mongoose-autopopulate: 1.0.1_mongoose@7.3.0
+      mongoose: 7.3.1
+      mongoose-autopopulate: 1.0.1_mongoose@7.3.1
       slugify: 1.6.6
     devDependencies:
       '@graphql-codegen/cli': 4.0.1_molmumqavozas274c6g3ac2qju
@@ -5285,7 +5285,7 @@ packages:
       graphql-compose: 9.0.10_graphql@16.6.0
     dev: false
 
-  /graphql-compose-mongoose/9.8.0_zwjg5dvjbkmyyragm47rd5m5gq:
+  /graphql-compose-mongoose/9.8.0_2nihozqcywrepyupixfz4czwdq:
     resolution: {integrity: sha512-gf5ss5UkMNqOjdr3AO7K2eF5Ak5bGT8f+eO55oMWtA8CivH5klTfP7d6+p81KaCAN0ClrAyb6qDhWosD4TYL9A==}
     peerDependencies:
       graphql-compose: ^7.21.4 || ^8.0.0 || ^9.0.0
@@ -5295,7 +5295,7 @@ packages:
       graphql-compose: 9.0.10_graphql@16.6.0
       graphql-compose-connection: 8.2.1_graphql-compose@9.0.10
       graphql-compose-pagination: 8.3.0_graphql-compose@9.0.10
-      mongoose: 7.3.0
+      mongoose: 7.3.1
     dev: false
 
   /graphql-compose-pagination/8.3.0_graphql-compose@9.0.10:
@@ -6504,16 +6504,16 @@ packages:
       saslprep: 1.0.3
     dev: false
 
-  /mongoose-autopopulate/1.0.1_mongoose@7.3.0:
+  /mongoose-autopopulate/1.0.1_mongoose@7.3.1:
     resolution: {integrity: sha512-39rN0QQinA1iz/8JNVKM3MNq/zZrjStiWi8jA15diUC2nnJsvEgRXEir4L4D1azYxY+gBTuqEzLqd7Y+MC6pHQ==}
     peerDependencies:
       mongoose: 6.x || 7.x
     dependencies:
-      mongoose: 7.3.0
+      mongoose: 7.3.1
     dev: false
 
-  /mongoose/7.3.0:
-    resolution: {integrity: sha512-gvkV5qxmBkGohlk7VTeePMPM2OkQPeqVYZHvjoM4goOIK6G1eSfJMZwXV21asivXxlaz6OuP29TfGAKrKooDAg==}
+  /mongoose/7.3.1:
+    resolution: {integrity: sha512-6289bmSIhvR8xMHsYe2/CuzN7wHK+2RHcK7idDdzniCPC5zix5JH0Hc4k3CmXlr/9zQ2250gUQiUWtvDB0vF1Q==}
     engines: {node: '>=14.20.1'}
     dependencies:
       bson: 5.3.0
