@@ -5,6 +5,7 @@ import {
   HopIngredient,
   //HopVariant,
 } from "@mcbeer/types";
+import slugify from "slugify";
 type HopSensoryPanelType = any;
 type HopIngredientType = any;
 type HopVariant = any;
@@ -78,6 +79,15 @@ HopIngredientSchema.method("getVariants", async function getVariants() {
   const res = await mongoose.model("HopVariant").find({ parent: this._id });
   // console.log(res);
   return res;
+});
+HopIngredientSchema.pre("save", function preSave(next) {
+  this.slug = slugify(this.name, { lower: true });
+
+  next();
+});
+
+HopIngredientSchema.virtual("urlString").get(function getUrlString() {
+  return `/hops/${this.slug}`;
 });
 //HopIngredientSchema.pre("save", (next) =>
 //// console.log("presave");
