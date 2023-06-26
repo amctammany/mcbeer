@@ -1,9 +1,14 @@
-import { Button, Header } from "@mcbeer/ui";
-import Link from "next/link";
 import { mcfetch } from "@/lib/mcfetch";
+import HopsList from "./HopsList";
+import { Metadata } from "next";
+import { HopIngredient } from "@mcbeer/types";
+
+export const metadata: Metadata = {
+  title: "Hops List",
+};
 
 export default async function Page() {
-  const { data } = await mcfetch({
+  const { data } = await mcfetch<{ hops: [HopIngredient] }>({
     query: `query GetHops {
         hops {
         _id
@@ -13,17 +18,5 @@ export default async function Page() {
         }
     }`,
   });
-  return (
-    <>
-      <Header text="Hops" />
-      <Button />
-      <ul>
-        {(data?.hops || []).map((hop) => (
-          <li key={hop._id}>
-            <Link href={hop.urlString || ""}>{hop.name} </Link>
-          </li>
-        ))}
-      </ul>
-    </>
-  );
+  return <HopsList hops={data?.hops || []} />;
 }
