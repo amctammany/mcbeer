@@ -1,9 +1,14 @@
+import { EnumRecipeHopIngredientsUsage, HopIngredient } from "@mcbeer/types";
 import mongoose, { Document, Schema } from "mongoose";
 
-type RecipeHopIngredientType = any;
-export const RecipeHopIngredientSchema = new Schema<
-  RecipeHopIngredientType & any
->(
+export interface IHopIngredient {
+  amount: number;
+  alpha: number;
+  time: number;
+  ingredient: HopIngredient;
+  usage: EnumRecipeHopIngredientsUsage;
+}
+export const RecipeHopIngredientSchema = new Schema<IHopIngredient & any>(
   {
     ingredient: {
       type: mongoose.Schema.Types.ObjectId,

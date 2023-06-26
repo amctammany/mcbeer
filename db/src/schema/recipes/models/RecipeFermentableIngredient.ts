@@ -6,6 +6,15 @@ type RecipeFermentableIngredientType = { ingredient: FermentableIngredient };
 
 import mongoose, { Document, Schema } from "mongoose";
 
+enum EnumFermentableIngredientUsage {
+  Mash = "mash",
+  Steep = "steep",
+}
+export interface IFermentableIngredient {
+  ingredient: FermentableIngredient;
+  amount: number;
+  usage: EnumFermentableIngredientUsage;
+}
 export const RecipeFermentableIngredientSchema = new Schema<
   RecipeFermentableIngredientType & any
 >(

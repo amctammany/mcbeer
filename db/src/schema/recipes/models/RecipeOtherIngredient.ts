@@ -1,7 +1,13 @@
 //import { RecipeOtherIngredient as RecipeOtherIngredientType } from "@lnk/types";
 type RecipeOtherIngredientType = any;
+import { EnumRecipeOtherIngredientsUsage } from "@mcbeer/types";
 import mongoose, { Document, Schema } from "mongoose";
 
+export interface IOtherIngredient {
+  amount: number;
+  time: number;
+  usage: EnumRecipeOtherIngredientsUsage;
+}
 export const RecipeOtherIngredientSchema = new Schema<
   RecipeOtherIngredientType & any
 >(

@@ -1,10 +1,11 @@
-type RecipeYeastIngredientType = any;
-
+import { YeastIngredient } from "@mcbeer/types";
 import mongoose, { Document, Schema } from "mongoose";
-
-export const RecipeYeastIngredientSchema = new Schema<
-  RecipeYeastIngredientType & any
->(
+export interface IYeastIngredient {
+  ingredient: YeastIngredient;
+  amount: number;
+  attenuation: number;
+}
+export const RecipeYeastIngredientSchema = new Schema<IYeastIngredient & any>(
   {
     ingredient: {
       type: mongoose.Schema.Types.ObjectId,

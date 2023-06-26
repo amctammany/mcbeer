@@ -8,6 +8,7 @@ import {
   RecipeHopIngredientSchema,
   RecipeOtherIngredientSchema,
   RecipeYeastIngredientSchema,
+  IRecipe,
 } from "./models";
 import {} from "./models/RecipeFermentableIngredient";
 type RecipeType = any;
@@ -53,13 +54,10 @@ type RecipeType = any;
 //removeFields: ["ingredient"],
 //});
 
-export const Recipe = mongoose.model<RecipeType>("Recipe", RecipeSchema);
-export const RecipeTC = composeMongoose<Document<RecipeType & any>>(
-  Recipe as any,
-  {
-    //removeFields: ["subcategory"],
-  }
-);
+export const Recipe = mongoose.model<IRecipe>("Recipe", RecipeSchema);
+export const RecipeTC = composeMongoose<Document<IRecipe>>(Recipe as any, {
+  //removeFields: ["subcategory"],
+});
 
 export const RecipeComposer = (composer: SchemaComposer) => {
   //RecipeTC.addRelation("subcategory", {
