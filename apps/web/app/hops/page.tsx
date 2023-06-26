@@ -1,11 +1,10 @@
 import { Button, Header } from "@mcbeer/ui";
 import Link from "next/link";
+import { mcfetch } from "@/lib/mcfetch";
 
 export default async function Page() {
-  const data = await fetch("http://localhost:4000", {
-    method: "POST",
-    body: JSON.stringify({
-      query: `{
+  const { data } = await mcfetch({
+    query: `query GetHops {
         hops {
         _id
         urlString
@@ -13,18 +12,13 @@ export default async function Page() {
         name
         }
     }`,
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((res) => res.json());
-  console.log(data);
+  });
   return (
     <>
       <Header text="Hops" />
       <Button />
       <ul>
-        {(data.data.hops || []).map((hop) => (
+        {(data?.hops || []).map((hop) => (
           <li key={hop._id}>
             <Link href={hop.urlString || ""}>{hop.name} </Link>
           </li>

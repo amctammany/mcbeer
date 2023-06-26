@@ -29,6 +29,17 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": 0,
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "": "never",
+        js: "never",
+        jsx: "never",
+        ts: "never",
+        tsx: "never",
+      },
+    ],
   },
   settings: {
     //jest: { version: "detect" },
@@ -36,7 +47,7 @@ module.exports = {
     //"import/parsers": {
     //"@typescript-eslint/parser": [".ts"],
     //},
-    "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
+    //"import/extensions": [".js", ".jsx", ".ts", ".tsx"],
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"],
     },
