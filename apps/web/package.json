@@ -9,18 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "3.8.0-alpha.15",
+    "@apollo/experimental-nextjs-app-support": "^0.3.1",
+    "@mcbeer/types": "workspace:*",
+    "@mcbeer/ui": "workspace:*",
     "next": "^13.4.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@mcbeer/types": "workspace:*",
-    "@mcbeer/ui": "workspace:*"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@mcbeer/tsconfig": "workspace:*",
     "@types/node": "^17.0.12",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "eslint-config-mcbeer": "workspace:*",
-    "@mcbeer/tsconfig": "workspace:*",
     "typescript": "^4.5.3"
   }
 }
