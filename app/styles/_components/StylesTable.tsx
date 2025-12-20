@@ -24,6 +24,7 @@ const columns: ColumnDef<Style>[] = [
 
   {
     accessorKey: "name",
+    size: 200,
     header: Header<Style>,
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
   },
