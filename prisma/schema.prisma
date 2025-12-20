@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum StyleCategory {
+  beer
+  mead
+  cider
+}
+
+model Style {
+  id            Int           @id @default(autoincrement())
+  userId        String?
+  // owner         User?         @relation(fields: [userId], references: [id])
+  name          String
+  slug          String        @unique
+  //recipes       Recipe[]
+  category      StyleCategory
+  subcategoryId Int
+  identifier    String        @unique
+  overall       String?
+  aroma         String?
+  appearance    String?
+  flavor        String?
+  mouthfeel     String?
+  comments      String?
+  history       String?
+  ingredients   String?
+  comparison    String?
+  examples      String?
+  ibuLow        Float?
+  ibuHigh       Float?
+  ibuFlex       Boolean       @default(false)
+  ogLow         Float?
+  ogHigh        Float?
+  ogFlex        Boolean       @default(false)
+  fgLow         Float?
+  fgHigh        Float?
+  fgFlex        Boolean       @default(false)
+  srmLow        Float?
+  srmHigh       Float?
+  srmFlex       Boolean       @default(false)
+  abvLow        Float?
+  abvHigh       Float?
+  abvFlex       Boolean       @default(false)
+}
