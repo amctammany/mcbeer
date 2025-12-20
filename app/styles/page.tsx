@@ -1,4 +1,3 @@
-import { TopBar } from "@/components/TopBar/TopBar";
 import { getStyles } from "./queries";
 import StylesTablePage from "./_components/StylesTablePage/StylesTablePage";
 

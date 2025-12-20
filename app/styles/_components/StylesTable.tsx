@@ -1,5 +1,4 @@
 "use client";
-import { Style } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { Header } from "@/components/DataTable/Header";
 import Link from "next/link";
@@ -35,6 +34,7 @@ const columns: ColumnDef<Style>[] = [
   },
 ];
 import React from "react";
+import { Style } from "@/generated/prisma/client";
 export interface StylesTableProps {
   src: Style[];
 }

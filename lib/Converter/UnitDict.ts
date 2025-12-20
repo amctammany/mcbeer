@@ -8,7 +8,7 @@ import {
   TimeUnit,
   PercentUnit,
   UserColorPreference,
-} from "@prisma/client";
+} from "@/generated/prisma/client";
 
 export type PercentUnitType = "%" | "%%";
 export const PercentUnits: Record<PercentUnit, PercentUnitType> = {

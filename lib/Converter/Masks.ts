@@ -1,4 +1,5 @@
-import {
+/**
+ * import {
   EquipmentProfileType,
   MashProfileType,
   MashStepType,
@@ -82,3 +83,4 @@ export const YeastMask: UnitMaskType<Partial<YeastType>> = {
   tempLow: "temperature",
   tempHigh: "temperature",
 };
+*/

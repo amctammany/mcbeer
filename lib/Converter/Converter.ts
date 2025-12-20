@@ -5,7 +5,7 @@ import {
   UserColorPreference,
   UserTemperaturePreference,
   UserVolumePreference,
-} from "@prisma/client";
+} from "@/generated/prisma/client";
 import { UnitDict, UnitNames, UnitTypes } from "./UnitDict";
 
 const massConverter: Record<MassUnit, ConversionType> = {
