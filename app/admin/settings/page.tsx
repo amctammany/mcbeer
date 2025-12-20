@@ -17,6 +17,7 @@ export default async function SettingsPage() {
   if (!user) {
     throw new Error("User not found");
   }
+  console.log("User:", user);
   return (
     <div>
       <Settings user={user} action={updateUserSettings} />

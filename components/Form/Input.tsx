@@ -5,11 +5,12 @@ import { SchemaFieldError } from "@/lib/validateSchema";
 
 export type InputProps = {
   name?: string;
+  description?: string | React.ReactNode;
   label?: string | React.ReactNode;
   suffix?: string | React.ReactNode;
   defaultValue?: any;
   disabled?: boolean;
-  error?: SchemaFieldError;
+  error?: string | React.ReactNode;
   //onChange?: (e: SyntheticEvent) => void;
   //onBlur?: (e: SyntheticEvent) => void;
   value?: any;

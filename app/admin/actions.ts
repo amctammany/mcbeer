@@ -36,7 +36,9 @@ const schema = zfd.formData({
   }),
 });
 export async function updateUserSettings(prev: any, formData: FormData) {
+  console.log("FormData:", Object.fromEntries(formData.entries()));
   const v = validateSchema(formData, schema);
+  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);

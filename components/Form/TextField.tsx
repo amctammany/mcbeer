@@ -1,8 +1,19 @@
 import { Label } from "./Label";
 //import { cva } from "class-variance-authority";
-import { Input, InputProps } from "./Input";
 import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { InputProps } from "./Input";
 
 export type TextFieldProps = InputProps & VariantProps<typeof textFieldStyles>;
 const textFieldStyles = cva(
@@ -30,33 +41,20 @@ export function TextField({
   error,
   className,
   label,
+  description,
   suffix,
   variant,
   //size,
   inputSize = "full",
   ...props
 }: TextFieldProps) {
+  const id = `${name}-field`;
   return (
-    <Label
-      variant={variant}
-      suffix={suffix}
-      inputSize={inputSize}
-      error={error}
-      className={className}
-      label={label || name}
-    >
-      <Input
-        type="text"
-        className={clsx(
-          //inputStyles({ variant, suffix: !!suffix ? "active" : "default" }),
-          textFieldStyles({ variant, suffix: suffix ? "active" : "default" })
-        )}
-        name={name}
-        error={error}
-        variant={variant}
-        inputSize={inputSize}
-        {...props}
-      />
-    </Label>
+    <Field>
+      <FieldLabel htmlFor={id}>{label}</FieldLabel>
+      <Input id={id} name={name} {...props} />
+      <FieldDescription>{description}</FieldDescription>
+      <FieldError>{error}</FieldError>
+    </Field>
   );
 }

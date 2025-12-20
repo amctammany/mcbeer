@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { TopBar } from "@/components/TopBar/TopBar";
 import React from "react";
-//import { SettingsContainerForm, SettingsForm } from "./SettingsForm";
+import { SettingsContainerForm, SettingsForm } from "./SettingsForm";
 import { User } from "@/generated/prisma/client";
 
 export type SettingsProps<S = unknown> = {
@@ -10,20 +10,18 @@ export type SettingsProps<S = unknown> = {
 };
 export function Settings({ user, action }: SettingsProps) {
   return (
-    <TopBar
-      breadcrumbs={[
-        { title: "Dashboard", url: "/admin" },
-        { title: "Settings", url: "/admin/settings" },
-      ]}
-    >
-      <Button type="submit">Save</Button>
-    </TopBar>
-  );
-}
-/**
-     * <SettingsContainerForm user={user} action={action}>
+    <SettingsContainerForm user={user} action={action}>
+      <TopBar
+        breadcrumbs={[
+          { title: "Dashboard", url: "/admin" },
+          { title: "Settings", url: "/admin/settings" },
+        ]}
+      >
+        <Button type="submit">Save</Button>
+      </TopBar>
       <SettingsForm user={user} />
     </SettingsContainerForm>
-        */
+  );
+}
 
 export default Settings;
