@@ -10,7 +10,7 @@ const columns: ColumnDef<Style>[] = [
   {
     accessorKey: "identifier",
     header: Header<Style>,
-    size: 3,
+    size: 118,
     cell: ({ getValue }) => (
       <Link
         className="hover:underline w-8"
