@@ -52,12 +52,7 @@ export const authConfig = {
       });
     },
   },
-  providers: [
-    GoogleProvider({
-      clientId: process.env.AUTH_GOOGLE_ID || "",
-      clientSecret: process.env.AUTH_GOOGLE_SECRET || "",
-    }),
-  ],
+  providers: [GoogleProvider],
   //callbacks: {},
   session: { strategy: "jwt" },
   callbacks: {
