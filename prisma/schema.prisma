@@ -56,3 +56,193 @@ model Style {
   abvHigh       Float?
   abvFlex       Boolean       @default(false)
 }
+
+enum UserRoles {
+  SUPERUSER
+  ADMIN
+  USER
+}
+
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  username      String          @unique
+  email         String          @unique
+  role          UserRoles       @default(USER)
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  // Optional for WebAuthn support
+  Authenticator Authenticator[]
+
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  UserPreferences UserPreferences?
+  //  WaterProfile     WaterProfile[]
+  //  Fermentable      Fermentable[]
+  //  Yeast            Yeast[]
+  //  Hop              Hop[]
+  //  EquipmentProfile EquipmentProfile[]
+  //  OtherIngredient  OtherIngredient[]
+  //  MashProfile      MashProfile[]
+}
+
+model UserPreferences {
+  id              Int                       @id @default(autoincrement())
+  userId          String                    @unique
+  theme           String                    @default("system") // Options: light, dark, system
+  language        String                    @default("en") // ISO language code, e.g., en, es, fr
+  timezone        String? // e.g., America/New_York
+  fontSize        String                    @default("medium") // Options: small, medium, large
+  massSystem      MassSystem                @default(US)
+  color           UserColorPreference       @default(L)
+  flow            FlowUnit                  @default(gpm)
+  concentration   ConcentrationUnit         @default(ppm)
+  time            TimeUnit                  @default(min)
+  percent         PercentUnit               @default(percent)
+  volume          UserVolumePreference      @default(gal)
+  mass            UserMassPreference        @default(LbOz)
+  hopMass         UserMassPreference        @default(Oz)
+  fermentableMass UserMassPreference        @default(Lb)
+  gravity         UserGravityPreference     @default(SG)
+  temperature     UserTemperaturePreference @default(F)
+  pressure        UserPressurePreference    @default(PSI)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum MassSystem {
+  US
+  Imperial
+  Metric
+}
+
+enum MassUnit {
+  Oz
+  Lb
+  g
+  Kg
+}
+
+enum FlowUnit {
+  gpm
+  lpm
+}
+
+enum ConcentrationUnit {
+  ppm
+  ppb
+}
+
+enum TimeUnit {
+  min
+  hr
+  day
+}
+
+enum PercentUnit {
+  percent
+  percentage
+}
+
+enum UserVolumePreference {
+  L
+  gal
+  bbl
+}
+
+enum UserMassPreference {
+  g
+  LbOz
+  Lb
+  Oz
+  Kg
+}
+
+enum UserPressurePreference {
+  PSI
+  kPa
+  bar
+}
+
+enum UserEnergyPreference {
+  kJ
+  kcal
+}
+
+enum UserTemperaturePreference {
+  F
+  C
+}
+
+enum UserGravityPreference {
+  SG
+  Brix
+  Plato
+  nD
+  GCM3
+}
+
+enum UserColorPreference {
+  L
+  EBC
+  SRM
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+// Optional for WebAuthn support
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+}

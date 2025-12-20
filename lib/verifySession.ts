@@ -1,10 +1,10 @@
-//import { auth } from "@/auth";
+import { auth } from "@/auth";
 import { Route } from "next";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 
 export const cachedAuth = cache(async function () {
-  const session = await Promise.resolve({ user: null }); //auth();
+  const session = await auth();
   return session;
 });
 export const verifySession = cache(async function (redirect_url = "") {
