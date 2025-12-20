@@ -1,15 +1,8 @@
 import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LayoutDashboard,
   LayoutDashboardIcon,
   LogInIcon,
-  LogOut,
   LogOutIcon,
   SettingsIcon,
-  Sparkles,
 } from "lucide-react";
 
 import {
@@ -18,7 +11,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar";
 //import { useSession } from "next-auth/react";
 import Link from "next/link";
