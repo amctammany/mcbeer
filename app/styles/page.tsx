@@ -1,3 +1,4 @@
+import { TopBar } from "@/components/TopBar/TopBar";
 import { getStyles } from "./queries";
 
 export default async function StylesHome() {
@@ -5,7 +6,7 @@ export default async function StylesHome() {
 
   return (
     <div>
-      <h1>Styles</h1>
+      <TopBar breadcrumbs={[{ title: "Styles", isCurrent: true }]} />
       <pre>{JSON.stringify(posts, null, 2)}</pre>
     </div>
   );

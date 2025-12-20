@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "analyze": "next experimental-analyze",
     "postinstall": "prisma generate && prisma migrate deploy"
   },
   "dependencies": {
