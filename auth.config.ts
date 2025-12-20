@@ -1,7 +1,7 @@
 import type { DefaultSession, NextAuthConfig } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { prisma } from "./lib/client";
+import { prisma } from "@/lib/prisma";
 import { User, UserRoles } from "./generated/prisma/client";
 
 const PAdapter = (p: any) => {
