@@ -1,7 +1,10 @@
-import { ComponentProps } from "react";
+import { ComponentProps, useContext } from "react";
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
+import { Input as UIInput } from "@/components/ui/input";
 import { SchemaFieldError } from "@/lib/validateSchema";
+import { RevisionContext } from "@/contexts/RevisionContext";
+import { useFormContext } from "react-hook-form";
 
 export type InputProps = {
   name?: string;
@@ -61,13 +64,22 @@ export function Input({
   //label,
   //suffix,
   //defaultValue,
+  onBlur: propsOnBlur,
   variant,
   inputSize,
   //ref,
   ...props
 }: InputProps) {
+  const revisionContext = useContext(RevisionContext);
+  const formContext = useFormContext();
+  const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    revisionContext?.updateHistory(e);
+    if (propsOnBlur) {
+      propsOnBlur(e);
+    }
+  };
   return (
-    <input
+    <UIInput
       className={clsx(
         inputStyles({
           variant: error ? "error" : variant,
@@ -76,6 +88,7 @@ export function Input({
         }),
         className
       )}
+      onBlur={onBlur}
       type={props.type ?? "text"}
       {...props}
     />

@@ -66,17 +66,8 @@ export type UserType = User & { UserPreferences: UserPreferences };
 export function SettingsForm({ user }: SettingsFormProps) {
   const { register, control, getValues, formState } =
     useFormContext<UserType>();
-  const {
-    state,
-    undo,
-    redo,
-    handleRedo,
-    handleUndo,
-    updateHistory,
-    canRedo,
-    canUndo,
-    update,
-  } = useContext(RevisionContext)!;
+  const { state, undo, redo, handleRedo, handleUndo, canRedo, canUndo } =
+    useContext(RevisionContext)!;
   return (
     <div className="grid grid-cols-2 ">
       <div className="*:py-1">
@@ -89,17 +80,9 @@ export function SettingsForm({ user }: SettingsFormProps) {
         <input type="hidden" {...register("id")} />
         <input type="hidden" {...register("UserPreferences.id")} />
         <input type="hidden" {...register("UserPreferences.userId")} />
-        <TextField label="Name" {...register("name")} onBlur={updateHistory} />
-        <TextField
-          label="Username"
-          {...register("username")}
-          onBlur={updateHistory}
-        />
-        <TextField
-          label="Email"
-          {...register("email")}
-          onBlur={updateHistory}
-        />
+        <TextField label="Name" {...register("name")} />
+        <TextField label="Username" {...register("username")} />
+        <TextField label="Email" {...register("email")} />
       </div>
 
       <Button type="submit">Save</Button>
