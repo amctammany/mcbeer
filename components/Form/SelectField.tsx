@@ -34,6 +34,7 @@ import { RevisionContext } from "@/contexts/RevisionContext";
 
 export type SelectFieldProps<T extends FieldValues> = {
   register?: UseFormRegister<T>;
+  className?: string;
   control?: Control<T>;
   name: FieldPath<T>;
   description?: string | React.ReactNode;
@@ -55,6 +56,7 @@ export type SelectFieldProps<T extends FieldValues> = {
 };
 export function SelectField<T extends FieldValues>({
   name,
+  className
   description,
   label,
   placeholder,
@@ -95,12 +97,12 @@ export function SelectField<T extends FieldValues>({
               id={id}
               aria-invalid={fieldState.invalid}
               aria-label={field.value}
-              className="min-w-[120px]"
+              className={clsx("min-w-30", className)}
             >
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent position="item-aligned">
-              {Object.entries(options).map(([key, value]) => (
+              {Object.entries(options ?? {}).map(([key, value]) => (
                 <SelectItem key={key} value={value as any}>
                   <div className="grow text-center">{value as any}</div>
                 </SelectItem>
