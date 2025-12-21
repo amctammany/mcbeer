@@ -12,10 +12,11 @@ import {
   FieldSeparator,
   FieldSet,
 } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { InputProps } from "./Input";
+import { Input, InputProps } from "./Input";
+import { FieldValue, FieldValues } from "react-hook-form";
 
-export type TextFieldProps = InputProps & VariantProps<typeof textFieldStyles>;
+export type TextFieldProps<T extends FieldValues> = InputProps<T> &
+  VariantProps<typeof textFieldStyles>;
 const textFieldStyles = cva(
   "disabled:bg-slate-50 disabled:shadow-none disabled:text-slate-500 disabled:border-slate-200 bg-white",
   {
@@ -36,7 +37,7 @@ const textFieldStyles = cva(
     defaultVariants: { size: "default", variant: "default", suffix: "default" },
   }
 );
-export function TextField({
+export function TextField<T extends FieldValues>({
   name,
   error,
   className,
@@ -47,7 +48,7 @@ export function TextField({
   //size,
   inputSize = "full",
   ...props
-}: TextFieldProps) {
+}: TextFieldProps<T>) {
   const id = `${name}-field`;
   return (
     <Field>

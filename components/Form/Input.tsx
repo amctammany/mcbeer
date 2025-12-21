@@ -4,10 +4,17 @@ import clsx from "clsx";
 import { Input as UIInput } from "@/components/ui/input";
 import { SchemaFieldError } from "@/lib/validateSchema";
 import { RevisionContext } from "@/contexts/RevisionContext";
-import { useFormContext } from "react-hook-form";
+import {
+  Control,
+  FieldPath,
+  FieldValues,
+  useFormContext,
+  UseFormRegister,
+} from "react-hook-form";
 
-export type InputProps = {
-  name?: string;
+export type InputProps<T extends FieldValues> = {
+  register: UseFormRegister<T>;
+  name: FieldPath<T>;
   description?: string | React.ReactNode;
   label?: string | React.ReactNode;
   suffix?: string | React.ReactNode;
@@ -53,29 +60,30 @@ export const inputStyles = cva(
     },
   }
 );
-export function Input({
+export function Input<T extends FieldValues>({
   //name,
   //onChange,
   //onBlur,
   //value,
+  register,
   error,
   className,
   //disabled,
   //label,
   //suffix,
   //defaultValue,
-  onBlur: propsOnBlur,
   variant,
   inputSize,
   //ref,
   ...props
-}: InputProps) {
+}: InputProps<T>) {
   const revisionContext = useContext(RevisionContext);
-  const formContext = useFormContext();
+  const formContext = useFormContext<T>();
+  const { onBlur: _onBlur, ...inputProps } = register(props.name);
   const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     revisionContext?.updateHistory(e);
-    if (propsOnBlur) {
-      propsOnBlur(e);
+    if (_onBlur) {
+      _onBlur(e);
     }
   };
   return (
@@ -90,6 +98,7 @@ export function Input({
       )}
       onBlur={onBlur}
       type={props.type ?? "text"}
+      {...inputProps}
       {...props}
     />
   );
