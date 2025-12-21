@@ -5,12 +5,12 @@ import SelectInput from "@/components/Form/SelectInput";
 import TextInput from "@/components/Form/TextInput";
 */
 import { Button } from "@/components/ui/button";
-import { Form } from "react-hook-form";
-import { RevisionContext } from "@/contexts/RevisionContext";
+import { Controller, Form } from "react-hook-form";
+// import { RevisionContext } from "@/contexts/RevisionContext";
 import useRevisionHistory from "@/hooks/useRevisionHistory";
 import { get } from "@/lib/utils";
 
-import {
+import type {
   UserGravityPreference,
   User,
   UserPreferences,
@@ -26,6 +26,21 @@ import { useForm, useFormContext } from "react-hook-form";
 import HistoryForm from "@/components/Form/HistoryForm";
 import { TextField } from "@/components/Form/TextField";
 import { SelectField } from "@/components/Form/SelectField";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Field,
+  FieldContent,
+  FieldLabel,
+  FieldDescription,
+  FieldError,
+} from "@/components/ui/field";
+import { RevisionContext } from "@/contexts/RevisionContext";
 
 export type SettingsFormContainerProps<S = unknown> = {
   user: User;
@@ -86,10 +101,13 @@ export function SettingsForm({ user }: SettingsFormProps) {
         <TextField name="username" label="Username" register={register} />
         <TextField name="email" label="Email" register={register} />
         <SelectField
+          name="UserPreferences.massSystem"
           control={control}
-          label="Volume"
-          name="UserPreferences.volume"
-          options={UserVolumePreference}
+          options={{
+            Imperial: "Imperial",
+            Metric: "Metric",
+          }}
+          label="Mass System"
         />
       </div>
 

@@ -1,6 +1,7 @@
+"use client";
 import {
   RevisionContext,
-  RevisionContextType,
+  type RevisionContextType,
 } from "@/contexts/RevisionContext";
 import React from "react";
 import {

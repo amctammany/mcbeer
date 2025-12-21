@@ -1,5 +1,5 @@
 import { ChangeEventHandler, useCallback } from "react";
-import { SelectField } from "../Form/SelectField";
+import { SelectField } from "../Form/SelectField2";
 
 //eslint-disable-next-line
 export type FilterSelectProps<T = any> = {
