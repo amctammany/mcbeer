@@ -13,7 +13,8 @@ import {
 } from "react-hook-form";
 
 export type InputProps<T extends FieldValues> = {
-  register: UseFormRegister<T>;
+  register?: UseFormRegister<T>;
+  control?: Control<T>;
   name: FieldPath<T>;
   description?: string | React.ReactNode;
   label?: string | React.ReactNode;
@@ -79,7 +80,9 @@ export function Input<T extends FieldValues>({
 }: InputProps<T>) {
   const revisionContext = useContext(RevisionContext);
   const formContext = useFormContext<T>();
-  const { onBlur: _onBlur, ...inputProps } = register(props.name);
+  const { onBlur: _onBlur, ...inputProps } = register
+    ? register(props.name)
+    : formContext.register(props.name);
   const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     revisionContext?.updateHistory(e);
     if (_onBlur) {

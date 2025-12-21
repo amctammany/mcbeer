@@ -1,5 +1,5 @@
 import { ChangeEventHandler, useCallback } from "react";
-import { Select } from "../Form/Select";
+import { SelectField } from "../Form/SelectField";
 
 //eslint-disable-next-line
 export type FilterSelectProps<T = any> = {
@@ -21,7 +21,7 @@ export function FilterSelect({
   );
   return (
     <div className="">
-      <Select
+      <SelectField
         className="grow shadow-xs"
         label={name}
         name={name}

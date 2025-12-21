@@ -25,6 +25,7 @@ import React, { useActionState, useContext } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 import HistoryForm from "@/components/Form/HistoryForm";
 import { TextField } from "@/components/Form/TextField";
+import { SelectField } from "@/components/Form/SelectField";
 
 export type SettingsFormContainerProps<S = unknown> = {
   user: User;
@@ -84,6 +85,12 @@ export function SettingsForm({ user }: SettingsFormProps) {
         <TextField name="name" label="Name" register={register} />
         <TextField name="username" label="Username" register={register} />
         <TextField name="email" label="Email" register={register} />
+        <SelectField
+          control={control}
+          label="Volume"
+          name="UserPreferences.volume"
+          options={UserVolumePreference}
+        />
       </div>
 
       <Button type="submit">Save</Button>
