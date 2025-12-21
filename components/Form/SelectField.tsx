@@ -56,7 +56,7 @@ export type SelectFieldProps<T extends FieldValues> = {
 };
 export function SelectField<T extends FieldValues>({
   name,
-  className
+  className,
   description,
   label,
   placeholder,
