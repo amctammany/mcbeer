@@ -106,7 +106,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
         <SelectField
           name="UserPreferences.massSystem"
           control={control}
-          options={UserMassPreference}
+          options={MassSystem}
           label="Mass System"
         />
         <RadioGroupField
@@ -117,13 +117,13 @@ export function SettingsForm({ user }: SettingsFormProps) {
         />
         <RadioGroupField
           control={control}
-          label="Color"
+          label="Termperature"
           name="UserPreferences.temperature"
           options={makeRadioOptions(UserTemperaturePreference)}
         />
         <RadioGroupField
           control={control}
-          label="Color"
+          label="Pressure"
           name="UserPreferences.pressure"
           options={makeRadioOptions(UserPressurePreference)}
         />

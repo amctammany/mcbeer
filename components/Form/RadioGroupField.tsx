@@ -5,7 +5,6 @@ import { VariantProps, cva } from "class-variance-authority";
 //import { SchemaFieldError } from "@/lib/validateSchema";
 //import { inputStyles } from "./Input";
 import clsx from "clsx";
-import { Label } from "./Label";
 import {
   Control,
   Controller,
@@ -28,6 +27,7 @@ import {
 import { Input, InputProps } from "./Input";
 import { RevisionContext } from "@/contexts/RevisionContext";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Label } from "../ui/label";
 
 export type RadioGroupItemProps = {
   id: string;
@@ -91,37 +91,41 @@ export function RadioGroupField<T extends FieldValues>({
       name={name}
       control={control}
       render={({ field, fieldState }) => (
-        <FieldSet>
-          <FieldLegend>Plan</FieldLegend>
-          <FieldDescription>
-            You can upgrade or downgrade your plan at any time.
-          </FieldDescription>
-          <RadioGroup
-            name={field.name}
-            value={field.value}
-            onValueChange={onValueChange(field.onChange)}
-          >
-            {(options ?? []).map((opt) => (
-              <FieldLabel key={opt.id} htmlFor={`${id}-${opt.id}`}>
-                <Field
-                  orientation="horizontal"
-                  data-invalid={fieldState.invalid}
-                >
-                  <FieldContent>
-                    <FieldTitle>{opt.title}</FieldTitle>
-                    <FieldDescription>{opt.description}</FieldDescription>
-                  </FieldContent>
-                  <RadioGroupItem
-                    value={opt.id}
-                    id={`${id}-${opt.id}`}
-                    aria-invalid={fieldState.invalid}
-                  />
-                </Field>
-              </FieldLabel>
-            ))}
-          </RadioGroup>
+        <div className="flex *:first:grow">
+          <Label className="lock text-left">{label}</Label>
+          <div className="mx-auto justify-items-center flex gap-0 *:not-last:border-r-4 border-black rounded-lg border-2 ">
+            <RadioGroup
+              name={field.name}
+              value={field.value}
+              onValueChange={onValueChange(field.onChange)}
+              className={clsx(
+                "flex gap-0 *:not-last:border-r-4 border-black rounded-lg border-2",
+                className
+              )}
+            >
+              {(options ?? []).map((opt) => (
+                <Label key={opt.id} htmlFor={`${id}-${opt.id}`}>
+                  <Field
+                    orientation="horizontal"
+                    data-invalid={fieldState.invalid}
+                    className="flex items-center gap-1"
+                  >
+                    <Label className="px-4 py-2 cursor-pointer has-checked:bg-blue-500 has-checked:text-white">
+                      <RadioGroupItem
+                        value={opt.id}
+                        id={`${id}-${opt.id}`}
+                        aria-invalid={fieldState.invalid}
+                        className="hidden peer"
+                      />
+                      {opt.title}
+                    </Label>
+                  </Field>
+                </Label>
+              ))}
+            </RadioGroup>
+          </div>
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-        </FieldSet>
+        </div>
       )}
     />
   );
