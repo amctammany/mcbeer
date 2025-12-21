@@ -8,19 +8,18 @@ import { Button } from "@/components/ui/button";
 import { Controller, Form } from "react-hook-form";
 // import { RevisionContext } from "@/contexts/RevisionContext";
 import useRevisionHistory from "@/hooks/useRevisionHistory";
-import { get } from "@/lib/utils";
+//  import { get } from "@/lib/utils";
 
-import type {
+import type { User, UserPreferences } from "@/generated/prisma/client";
+import {
   UserGravityPreference,
-  User,
-  UserPreferences,
   UserPressurePreference,
   UserTemperaturePreference,
   UserMassPreference,
   MassSystem,
   UserColorPreference,
   UserVolumePreference,
-} from "@/generated/prisma/client";
+} from "@/generated/prisma/enums";
 import React, { useActionState, useContext } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 import HistoryForm from "@/components/Form/HistoryForm";
@@ -41,6 +40,10 @@ import {
   FieldError,
 } from "@/components/ui/field";
 import { RevisionContext } from "@/contexts/RevisionContext";
+import {
+  makeRadioOptions,
+  RadioGroupField,
+} from "@/components/Form/RadioGroupField";
 
 export type SettingsFormContainerProps<S = unknown> = {
   user: User;
@@ -103,11 +106,38 @@ export function SettingsForm({ user }: SettingsFormProps) {
         <SelectField
           name="UserPreferences.massSystem"
           control={control}
-          options={{
-            Imperial: "Imperial",
-            Metric: "Metric",
-          }}
+          options={UserMassPreference}
           label="Mass System"
+        />
+        <RadioGroupField
+          control={control}
+          label="Color"
+          name="UserPreferences.color"
+          options={makeRadioOptions(UserColorPreference)}
+        />
+        <RadioGroupField
+          control={control}
+          label="Color"
+          name="UserPreferences.temperature"
+          options={makeRadioOptions(UserTemperaturePreference)}
+        />
+        <RadioGroupField
+          control={control}
+          label="Color"
+          name="UserPreferences.pressure"
+          options={makeRadioOptions(UserPressurePreference)}
+        />
+        <RadioGroupField
+          control={control}
+          label="Volume"
+          name="UserPreferences.volume"
+          options={makeRadioOptions(UserVolumePreference)}
+        />
+        <RadioGroupField
+          control={control}
+          label="Gravity"
+          name="UserPreferences.gravity"
+          options={makeRadioOptions(UserGravityPreference)}
         />
       </div>
 
