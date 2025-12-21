@@ -5,7 +5,7 @@ export type DebouncedInputProps = {
   value: string | number;
   onChange: (name: string | undefined, value: string | number) => void;
   debounce?: number;
-} & TextFieldProps;
+} & TextFieldProps<any>;
 export function DebouncedInput({
   value: initialValue,
   onChange,
