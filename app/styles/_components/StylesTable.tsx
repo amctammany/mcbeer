@@ -42,9 +42,7 @@ export interface StylesTableProps {
 export const StylesTable: React.FC<StylesTableProps> = ({ src }) => {
   return (
     <div>
-      <div className="relative overscroll-contain">
-        <DataTable data={src} columns={columns} />
-      </div>
+      <DataTable columns={columns} data={src} />
     </div>
   );
 };

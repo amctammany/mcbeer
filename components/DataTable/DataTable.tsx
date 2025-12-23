@@ -139,14 +139,14 @@ DataTableProps<TData, TValue>) {
           )
         )}
       </TableSearch>
-      <div className="flex flex-col h-screen " ref={tableContainerRef}>
-        <Table className="grid w-full relative">
-          <TableHeader className="sticky grid top-0 z-1">
+      <div
+        className="overflow-auto relative h-[calc(100vh-200px)]"
+        ref={tableContainerRef}
+      >
+        <table className="grid ">
+          <TableHeader className="grid sticky  top-0 z-1 ">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow
-                key={headerGroup.id}
-                className="*:*:sticky *:*:top-0 flex w-full bg-white"
-              >
+              <TableRow key={headerGroup.id} className="flex w-full bg-white">
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead
@@ -154,12 +154,21 @@ DataTableProps<TData, TValue>) {
                       className="flex"
                       style={{ width: header.getSize() }}
                     >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                      <div
+                        {...{
+                          className: header.column.getCanSort()
+                            ? "cursor-pointer select-none"
+                            : "",
+                          onClick: header.column.getToggleSortingHandler(),
+                        }}
+                      >
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </div>
                     </TableHead>
                   );
                 })}
@@ -172,7 +181,7 @@ DataTableProps<TData, TValue>) {
               tableContainerRef as React.RefObject<HTMLDivElement>
             }
           />
-        </Table>
+        </table>
       </div>
     </div>
   );

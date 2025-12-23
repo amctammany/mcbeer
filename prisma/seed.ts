@@ -3,6 +3,7 @@ import styles from "../data/styles.json";
 import { StyleCategory } from "../generated/prisma/client";
 
 async function main() {
+  await prisma.style.deleteMany({});
   console.log("Seeding database...");
   await prisma.style.createMany({
     data: styles.map(({ category, ...style }) => ({

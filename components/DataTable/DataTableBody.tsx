@@ -34,8 +34,8 @@ export function DataTableBody({ table, tableContainerRef }: TableBodyProps) {
   });
   return tableContainerRef.current ? (
     <TableBody
-      className="grid relative overflow-auto h-[380px]"
-      style={{ height: rowVirtualizer.getTotalSize() }}
+      className="grid relative "
+      style={{ height: `${rowVirtualizer.getTotalSize()}px` }}
     >
       {table.getRowModel().rows?.length ? (
         rowVirtualizer.getVirtualItems().map((virtualRow) => {
