@@ -3,6 +3,7 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import React from "react";
 import { SettingsContainerForm, SettingsForm } from "./SettingsForm";
 import { User } from "@/generated/prisma/client";
+import SettingsFormToolbar from "./SettingsFormToolbar";
 
 export type SettingsProps<S = unknown> = {
   action: (prev: S, formData: FormData) => S | Promise<S>;
@@ -17,7 +18,7 @@ export function Settings({ user, action }: SettingsProps) {
           { title: "Settings", url: "/admin/settings" },
         ]}
       >
-        <Button type="submit">Save</Button>
+        <SettingsFormToolbar />
       </TopBar>
       <SettingsForm user={user} />
     </SettingsContainerForm>

@@ -71,7 +71,7 @@ export function SelectField<T extends FieldValues>({
       type: "SET",
       payload: {
         name,
-        prev: getFieldState(name),
+        prev: value,
         value: newValue,
       },
     });

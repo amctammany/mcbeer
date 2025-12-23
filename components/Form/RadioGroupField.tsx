@@ -79,7 +79,7 @@ export function RadioGroupField<T extends FieldValues>({
       type: "SET",
       payload: {
         name,
-        prev: getFieldState(name),
+        prev: value,
         value: newValue,
       },
     });
