@@ -93,37 +93,37 @@ export function RadioGroupField<T extends FieldValues>({
       render={({ field, fieldState }) => (
         <div className="flex *:first:grow">
           <Label className="lock text-left">{label}</Label>
-          <div className="mx-auto justify-items-center flex gap-0 *:not-last:border-r-4 border-black rounded-lg border-2 ">
-            <RadioGroup
-              name={field.name}
-              value={field.value}
-              onValueChange={onValueChange(field.onChange)}
-              className={clsx(
-                "flex gap-0 *:not-last:border-r-4 border-black rounded-lg border-2",
-                className
-              )}
+          <RadioGroup
+            name={field.name}
+            value={field.value}
+            onValueChange={onValueChange(field.onChange)}
+            className={clsx(
+              "flex gap-0 *:not-last:border-r-4 border-black rounded-lg border-2",
+              className
+            )}
+          >
+            <Field
+              orientation="horizontal"
+              data-invalid={fieldState.invalid}
+              className="flex items-center gap-1 *:first:rounded-l-md *:last:rounded-r-md"
             >
               {(options ?? []).map((opt) => (
-                <Label key={opt.id} htmlFor={`${id}-${opt.id}`}>
-                  <Field
-                    orientation="horizontal"
-                    data-invalid={fieldState.invalid}
-                    className="flex items-center gap-1"
-                  >
-                    <Label className="px-4 py-2 cursor-pointer has-checked:bg-blue-500 has-checked:text-white">
-                      <RadioGroupItem
-                        value={opt.id}
-                        id={`${id}-${opt.id}`}
-                        aria-invalid={fieldState.invalid}
-                        className="hidden peer"
-                      />
-                      {opt.title}
-                    </Label>
-                  </Field>
-                </Label>
+                <label
+                  key={opt.id}
+                  htmlFor={`${id}-${opt.id}`}
+                  className="px-4 py-2 cursor-pointer has-checked:bg-blue-500 has-checked:text-white"
+                >
+                  <RadioGroupItem
+                    value={opt.id}
+                    id={`${id}-${opt.id}`}
+                    aria-invalid={fieldState.invalid}
+                    className="hidden peer"
+                  />
+                  {opt.title}
+                </label>
               ))}
-            </RadioGroup>
-          </div>
+            </Field>
+          </RadioGroup>
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
         </div>
       )}
