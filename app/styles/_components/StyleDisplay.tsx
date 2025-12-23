@@ -1,3 +1,4 @@
+import Prop from "@/components/Prop/Prop";
 import {
   Item,
   ItemContent,
@@ -12,32 +13,7 @@ export type StyleDisplayProps = {
   style: Style;
   className?: string;
 };
-const Prop = ({
-  label,
-  value,
-  children,
-}: {
-  label: string;
-  unit?: string;
-  value?: string | number | null;
-  children?: React.ReactNode;
-}) => (
-  <Item size="sm" variant="outline" className="m-1">
-    <ItemContent>
-      <ItemTitle>{label}</ItemTitle>
-      <ItemDescription className="text-pretty">
-        {children ?? value}
-      </ItemDescription>
-    </ItemContent>
-  </Item>
-  /**
-   * 
-  <div className="flex justify-between py-2 border-b">
-    <div className="font-medium">{label}</div>
-    <div className="text-gray-600">{value}</div>
-  </div>
-   */
-);
+
 export function StyleDisplay({ style, className }: StyleDisplayProps) {
   return (
     <div className={clsx("p-4 grid lg:grid-cols-2", className)}>
@@ -56,19 +32,19 @@ export function StyleDisplay({ style, className }: StyleDisplayProps) {
         <Prop label="Ingredients" value={style.ingredients} />
       </div>
       <div>
-        <Prop label="IBU Range" unit="">
+        <Prop variant="inline" label="IBU Range" unit="">
           {style?.ibuLow} - {style?.ibuHigh}
         </Prop>
-        <Prop label="ABV Range" unit="%">
+        <Prop variant="inline" label="ABV Range" unit="%">
           {style?.abvLow} - {style?.abvHigh}
         </Prop>
-        <Prop label="OG Range" unit="">
+        <Prop variant="inline" label="OG Range" unit="">
           {style?.ogLow} - {style?.ogHigh}
         </Prop>
-        <Prop label="FG Range" unit="">
+        <Prop variant="inline" label="FG Range" unit="">
           {style?.fgLow} - {style?.fgHigh}
         </Prop>
-        <Prop label="SRM Range" unit="&deg;L">
+        <Prop variant="inline" label="SRM Range" unit="&deg;L">
           {style?.srmLow} - {style?.srmHigh}
         </Prop>
       </div>
