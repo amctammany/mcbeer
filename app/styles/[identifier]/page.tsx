@@ -28,7 +28,10 @@ export default async function StylePage({ params }: StylePageProps) {
       <TopBar
         breadcrumbs={[
           { title: "Styles", url: "/styles" },
-          { title: style.identifier, url: `/styles/${style.identifier}` },
+          {
+            title: `${style.identifier} - ${style.name}`,
+            url: `/styles/${style.identifier}`,
+          },
         ]}
       >
         <Button>Edit</Button>
