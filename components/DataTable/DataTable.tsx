@@ -139,13 +139,13 @@ DataTableProps<TData, TValue>) {
           )
         )}
       </TableSearch>
-      <div className="relative overflow-y-auto " ref={tableContainerRef}>
-        <Table className="grid relative">
+      <div className="flex flex-col h-screen " ref={tableContainerRef}>
+        <Table className="grid w-full relative">
           <TableHeader className="sticky grid top-0 z-1">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow
                 key={headerGroup.id}
-                className="*:*:sticky *:*:top-0 flex w-full"
+                className="*:*:sticky *:*:top-0 flex w-full bg-white"
               >
                 {headerGroup.headers.map((header) => {
                   return (
