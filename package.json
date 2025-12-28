@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "analyze": "next experimental-analyze",
-    "postinstall": "prisma generate "
+    "postinstall": "prisma generate && prisma migrate deploy"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.1",
