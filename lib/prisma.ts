@@ -2,7 +2,7 @@ import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../generated/prisma/client";
 
-const connectionString = `${process.env.DATABASE_URL}`;
+const connectionString = `${process.env.NEON_POSTGRES_DATABASE_URL}`;
 console.log(connectionString);
 
 const adapter = new PrismaPg({ connectionString });
