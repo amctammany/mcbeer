@@ -15,7 +15,8 @@ const eslintConfig = defineConfig([
   ]),
   {
     rules: {
-      "no-explicit-any": "warn",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "react-hooks/refs": "warn",
     },
   },
 ]);

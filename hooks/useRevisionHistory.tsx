@@ -125,7 +125,10 @@ function useRevisionHistory<T extends FieldValues>(
   const history = useRef(initialHistory);
 
   const [state, setState] = useState<T>(initialState);
-  const [historyPointer, setHistoryPointer] = useState(history.current.length);
+  const [historyPointer, setHistoryPointer] = useState(0);
+  useEffect(() => {
+    setHistoryPointer(history.current.length);
+  }, []);
 
   const update = useCallback(
     (action: RevisionActionType<T>) => {
@@ -138,7 +141,7 @@ function useRevisionHistory<T extends FieldValues>(
       updateFn(action.payload.name, action.payload.value);
       // console.log("update", newState, { action, history: history.current });
     },
-    [history, historyPointer]
+    [history, historyPointer, state, updateFn]
   );
   const undo = useCallback(() => {
     console.log("History => undo", history.current, historyPointer);
@@ -150,7 +153,7 @@ function useRevisionHistory<T extends FieldValues>(
     updateFn(previousAction.payload.name, previousAction.payload.prev!);
     setState(newState);
     setHistoryPointer(historyPointer - 1);
-  }, [history, historyPointer]);
+  }, [history, historyPointer, state, updateFn]);
   const redo = useCallback(() => {
     // console.log("current state", state, history.current, historyPointer);
     // console.log("History => redo", history.current, historyPointer);
@@ -164,7 +167,7 @@ function useRevisionHistory<T extends FieldValues>(
     setState(newState);
     //   updateFn(newState);
     setHistoryPointer(historyPointer + 1);
-  }, [history, historyPointer]);
+  }, [history, historyPointer, state, updateFn]);
   const canUndo = historyPointer > 0;
   const canRedo = historyPointer <= history.current.length - 1;
   /**
