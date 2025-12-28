@@ -6,7 +6,6 @@ export type StylesTablePageProps = {
   styles: Style[];
 };
 export default function StylesTablePage({ styles }: StylesTablePageProps) {
-  console.log(styles.length);
   return (
     <div>
       <TopBar breadcrumbs={[{ title: "Styles", isCurrent: true }]} />

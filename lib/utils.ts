@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { FieldValues, Path } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
+import { UnitValue } from "./Converter/adjustUnits";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -17,6 +18,10 @@ export type OptionalNullable<T> = {
   [K in keyof PickNullable<T>]?: Exclude<T[K], null>;
 } & {
   [K in keyof PickNotNullable<T>]: T[K];
+};
+
+export type AmountFields<S, N extends keyof S> = {
+  [P in keyof S]: P extends N ? UnitValue : S[P];
 };
 
 export function precisionRound(v: number, precision: undefined | number = 1) {

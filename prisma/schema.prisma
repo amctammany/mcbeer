@@ -231,8 +231,9 @@ model User {
   accounts        Account[]
   UserPreferences UserPreferences?
 
-  role            UserRoles? @default(USER)
-  displayUsername String?
+  role              UserRoles?         @default(USER)
+  displayUsername   String?
+  equipmentProfiles EquipmentProfile[]
 
   @@unique([email])
   @@map("user")
@@ -284,4 +285,44 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+enum MashSpargeWaterCalculations {
+  Default
+  BatchSparge
+  NoSparge
+  IgnoreExpansion
+}
+
+model EquipmentProfile {
+  id                     String                      @id @default(cuid())
+  name                   String
+  slug                   String                      @unique
+  description            String?
+  batchVolume            Float?
+  boilVolume             Float?
+  preboilVolume          Float?
+  boilTime               Float?
+  brewEfficiency         Float?
+  mashEfficiency         Float?
+  boilOffRate            Float?
+  trubLoss               Float?                      @default(0)
+  mashLoss               Float?                      @default(0)
+  fermenterLoss          Float?                      @default(0)
+  grainAbsorption        Float?                      @default(0.5)
+  waterGrainRatio        Float?                      @default(1.5)
+  mashTunVolume          Float?                      @default(100)
+  mashTunWeight          Float?                      @default(100)
+  mashTunSpecificHeat    Float?                      @default(0.12)
+  mashTunDeadSpace       Float?                      @default(0)
+  waterCalculationMethod MashSpargeWaterCalculations @default(Default)
+  boilExpansion          Float?                      @default(0.04)
+  fermenterTopOff        Float?                      @default(0)
+  forkedFrom             String?
+  origin                 EquipmentProfile?           @relation("origin", fields: [forkedFrom], references: [id])
+  forks                  EquipmentProfile[]          @relation("origin")
+  userId                 String?
+  owner                  User?                       @relation(fields: [userId], references: [id])
+  //  Recipe          Recipe[]
+  //  UserPreferences UserPreferences[]
 }
