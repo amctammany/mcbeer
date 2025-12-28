@@ -3,10 +3,10 @@ import React from "react";
 import { authClient } from "@/lib/authClient";
 import { Button } from "@/components/ui/button";
 import { redirect, useRouter } from "next/navigation";
-export type SignOutProps = {
+export type LogoutProps = {
   action: () => Promise<void>;
 };
-export default function SignOut({ action }: SignOutProps) {
+export function Logout({ action }: LogoutProps) {
   console.log(action);
   const router = useRouter();
   const handleSignout = async () => {
@@ -26,3 +26,4 @@ export default function SignOut({ action }: SignOutProps) {
     </div>
   );
 }
+export default Logout;

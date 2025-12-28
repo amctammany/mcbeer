@@ -1,9 +1,9 @@
+import LogoutButton from "@/app/(auth)/_components/LogoutButton";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
 import { User } from "@/generated/prisma/client";
 import Link from "next/link";
 import React from "react";
-import LogoutButton from "../LogoutButton";
 
 export type DashboardProps = {
   user?: User;

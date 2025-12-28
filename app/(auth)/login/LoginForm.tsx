@@ -9,7 +9,7 @@ import {
 } from "next/navigation";
 import React, { useEffect } from "react";
 
-export type SignInFormProps = {
+export type LoginFormProps = {
   signIn?: any;
 };
 
@@ -31,7 +31,7 @@ export const getCallbackURL = (
   return "/dashboard";
 };
 
-export default function SignInForm({}: SignInFormProps) {
+export function LoginForm({}: LoginFormProps) {
   const router = useRouter();
   const params = useSearchParams();
 
@@ -41,20 +41,18 @@ export default function SignInForm({}: SignInFormProps) {
   //     callbackURL: "/admin/dashboard",
   //   });
   // }, []);
-  const handleSignIn = async (e: any) => {
-    console.log(process.env);
+  const handleLogin = async (e: any) => {
     const r = await authClient.signIn.social({
       provider: "google",
       callbackURL: "/admin",
     });
-    console.log(r);
     //  await signIn();
   };
   return (
     <Button
       variant="outline"
       className={clsx("w-full gap-2 flex relative")}
-      onClick={handleSignIn}
+      onClick={handleLogin}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +77,9 @@ export default function SignInForm({}: SignInFormProps) {
           d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0C79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"
         ></path>
       </svg>
-      <span>Sign in with Google</span>
+      <span>Log in with Google</span>
     </Button>
   );
 }
+
+export default LoginForm;

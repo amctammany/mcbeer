@@ -51,14 +51,14 @@ export function NavAdmin() {
         <SidebarMenuItem>
           {session?.data?.user ? (
             <SidebarMenuButton asChild>
-              <NavLink href="/admin/signout">
+              <NavLink href="/logout">
                 <LogOutIcon />
                 Logout
               </NavLink>
             </SidebarMenuButton>
           ) : (
             <SidebarMenuButton asChild>
-              <Link href="/admin/signin">
+              <Link href="/login">
                 <LogInIcon />
                 Login
               </Link>

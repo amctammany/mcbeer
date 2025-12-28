@@ -1,7 +1,7 @@
 import React from "react";
-import SignOut from "./SignOut";
 import { auth } from "@/auth";
 import { headers } from "next/headers";
+import { Logout } from "./Logout";
 
 export default function Page() {
   const signOut = async () => {
@@ -12,7 +12,7 @@ export default function Page() {
   };
   return (
     <div>
-      <SignOut action={signOut} />
+      <Logout action={signOut} />
     </div>
   );
 }

@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/authClient";
 
-const signUpSchema = z
+const registerSchema = z
   .object({
     username: z.string().min(1, "First name is required."),
     firstName: z.string().min(1, "First name is required."),
@@ -31,21 +31,21 @@ const signUpSchema = z
     path: ["passwordConfirmation"],
   });
 
-type SignUpFormValues = z.infer<typeof signUpSchema>;
+type RegisterFormValues = z.infer<typeof registerSchema>;
 
-interface SignUpFormProps {
+interface RegisterFormProps {
   onSuccess?: () => void;
   callbackURL?: string;
 }
 
-export function SignUpForm({
+export function RegisterForm({
   onSuccess,
   callbackURL = "/dashboard",
-}: SignUpFormProps) {
+}: RegisterFormProps) {
   const [loading, startTransition] = useTransition();
 
-  const form = useForm<SignUpFormValues>({
-    resolver: zodResolver(signUpSchema),
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       username: "",
       firstName: "",
@@ -56,7 +56,7 @@ export function SignUpForm({
     },
   });
 
-  const onSubmit = (data: SignUpFormValues) => {
+  const onSubmit = (data: RegisterFormValues) => {
     startTransition(async () => {
       await authClient.signUp.email({
         username: data.username,
