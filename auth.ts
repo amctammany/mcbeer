@@ -37,7 +37,7 @@ const options = {
       },
     },
   },
-  baseURL: process.env.NEXTBASE_URL || "http://localhost:3000",
+  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false,
