@@ -2,19 +2,27 @@
 import React from "react";
 import { authClient } from "@/lib/authClient";
 import { Button } from "@/components/ui/button";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 export type SignOutProps = {
   action: () => Promise<void>;
 };
 export default function SignOut({ action }: SignOutProps) {
   console.log(action);
+  const router = useRouter();
   const handleSignout = async () => {
     await action();
-    redirect("/");
+    router.push("/");
   };
   return (
     <div>
-      <Button onClick={handleSignout}>Signout</Button>
+      <Button
+        onClick={async () => {
+          await authClient.signOut();
+          router.push("/");
+        }}
+      >
+        Signout
+      </Button>
     </div>
   );
 }

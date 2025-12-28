@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { User } from "@/generated/prisma/client";
 import Link from "next/link";
 import React from "react";
+import LogoutButton from "../LogoutButton";
 
 export type DashboardProps = {
   user?: User;
@@ -11,7 +12,7 @@ export default function Dashboard({ user }: DashboardProps) {
   return (
     <div>
       <TopBar breadcrumbs={[{ title: "Dashboard", url: "/admin" }]}>
-        <Button>Logout</Button>
+        <LogoutButton />
       </TopBar>
       <div className="p-4">
         <h1 className="text-2xl font-bold">Dashboard</h1>

@@ -9,7 +9,7 @@ export default async function AdminPage() {
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
   });
-  console.log(session);
+  console.log("admin", session);
   if (!session) {
     return unauthorized();
   }

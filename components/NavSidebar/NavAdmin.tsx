@@ -23,7 +23,6 @@ import { authClient } from "@/lib/authClient";
 import { createAuthClient } from "better-auth/react";
 export function NavAdmin() {
   const session = authClient.useSession();
-  console.log(session);
   //  const { isMobile } = useSidebar();
   //  const { data: session } = useSession();
 
