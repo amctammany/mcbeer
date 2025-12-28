@@ -1,3 +1,4 @@
+"use client";
 import {
   LayoutDashboardIcon,
   LogInIcon,
@@ -16,9 +17,13 @@ import {
 import Link from "next/link";
 import NavLink from "./NavLink";
 import { cachedAuth } from "@/lib/verifySession";
-
-export async function NavAdmin() {
-  const session = await cachedAuth();
+import { auth } from "@/auth";
+import { authClient } from "@/lib/authClient";
+//make sure you're using the react client
+import { createAuthClient } from "better-auth/react";
+export function NavAdmin() {
+  const session = authClient.useSession();
+  console.log(session);
   //  const { isMobile } = useSidebar();
   //  const { data: session } = useSession();
 
@@ -27,7 +32,7 @@ export async function NavAdmin() {
       <SidebarGroupLabel>Admin</SidebarGroupLabel>
 
       <SidebarMenu>
-        <SidebarMenuItem hidden={session?.user ? false : true}>
+        <SidebarMenuItem hidden={session?.data?.user ? false : true}>
           <SidebarMenuButton asChild>
             <NavLink href="/admin">
               <LayoutDashboardIcon />
@@ -35,7 +40,7 @@ export async function NavAdmin() {
             </NavLink>
           </SidebarMenuButton>
         </SidebarMenuItem>
-        <SidebarMenuItem hidden={session?.user ? false : true}>
+        <SidebarMenuItem hidden={session?.data?.user ? false : true}>
           <SidebarMenuButton asChild>
             <NavLink href="/admin/settings">
               <SettingsIcon />
@@ -45,16 +50,16 @@ export async function NavAdmin() {
         </SidebarMenuItem>
 
         <SidebarMenuItem>
-          {session?.user ? (
+          {session?.data?.user ? (
             <SidebarMenuButton asChild>
-              <NavLink href="/api/auth/signout">
+              <NavLink href="/admin/signout">
                 <LogOutIcon />
                 Logout
               </NavLink>
             </SidebarMenuButton>
           ) : (
             <SidebarMenuButton asChild>
-              <Link href="/api/auth/signin">
+              <Link href="/admin/signin">
                 <LogInIcon />
                 Login
               </Link>
