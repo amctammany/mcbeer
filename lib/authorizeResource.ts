@@ -8,14 +8,14 @@ export async function authorizeResource<T extends { userId?: string }>(
   fn: (...props: any[]) => Promise<T | null>,
   ...args: any[]
 ) {
-  const session = await verifySession(redirectTo);
+  const { session, user } = await verifySession(redirectTo);
   //if (session?.role !== "SUPERUSER") return forbidden();
   const resource = await fn(...args);
   //console.log(args, resource);
 
   if (!resource) return notFound();
   if (session?.role === "SUPERUSER") return resource;
-  if (resource.userId && resource.userId === session.user.id) return resource;
+  if (resource.userId && resource.userId === user.id) return resource;
   if (session?.role === "ADMIN") return resource;
   return forbidden();
 }

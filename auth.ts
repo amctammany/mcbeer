@@ -4,13 +4,14 @@ import { authConfig } from "./auth.config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth(authConfig);
 */
-import { betterAuth, email } from "better-auth";
+import { betterAuth, BetterAuthOptions, email } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 // If your Prisma file is located elsewhere, you can change the path
-import { oneTap, username } from "better-auth/plugins";
+import { customSession, oneTap, username } from "better-auth/plugins";
 import { prisma } from "./lib/prisma";
+import { inferAdditionalFields } from "better-auth/client/plugins";
 
-export const auth = betterAuth({
+const options = {
   database: prismaAdapter(prisma, {
     provider: "postgresql", // or "mysql", "postgresql", ...etc
   }),
@@ -28,7 +29,14 @@ export const auth = betterAuth({
       },
     },
   },
-  user: {},
+  user: {
+    additionalFields: {
+      role: {
+        type: ["USER", "ADMIN", "SUPERUSER"],
+        defaultValue: "USER",
+      },
+    },
+  },
   baseURL: process.env.NEXTBASE_URL || "http://localhost:3000",
   emailAndPassword: {
     enabled: true,
@@ -42,4 +50,18 @@ export const auth = betterAuth({
     },
   },
   plugins: [username()],
+} satisfies BetterAuthOptions;
+export const auth = betterAuth({
+  ...options,
+
+  plugins: [
+    ...(options.plugins || []),
+    customSession(async ({ session, user }) => {
+      console.log("custom session", session, user);
+      return {
+        session: { ...session, role: user.role },
+        user,
+      };
+    }, options),
+  ],
 });
