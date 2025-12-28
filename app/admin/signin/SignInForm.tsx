@@ -42,6 +42,7 @@ export default function SignInForm({}: SignInFormProps) {
   //   });
   // }, []);
   const handleSignIn = async (e: any) => {
+    console.log(process.env);
     authClient.signIn.social({
       provider: "google",
       callbackURL: "/admin",

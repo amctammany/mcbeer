@@ -4,7 +4,6 @@ import { authConfig } from "./auth.config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth(authConfig);
 */
-import "dotenv/config";
 import { betterAuth, BetterAuthOptions, email } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 // If your Prisma file is located elsewhere, you can change the path
@@ -39,7 +38,7 @@ const options = {
       },
     },
   },
-  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+  baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL || "http://localhost:3000",
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false,
