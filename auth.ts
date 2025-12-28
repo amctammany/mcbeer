@@ -13,6 +13,8 @@ import { inferAdditionalFields } from "better-auth/client/plugins";
 console.log(process.env.BETTER_AUTH_URL, "BETTER_AUTH_URL");
 
 const options = {
+  trustedOrigins: ["http://localhost:3000", "https://mcbeer.vercel.app"],
+
   database: prismaAdapter(prisma, {
     provider: "postgresql", // or "mysql", "postgresql", ...etc
   }),
