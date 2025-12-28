@@ -7,7 +7,6 @@ export type LogoutProps = {
   action: () => Promise<void>;
 };
 export function Logout({ action }: LogoutProps) {
-  console.log(action);
   const router = useRouter();
   const handleSignout = async () => {
     await action();

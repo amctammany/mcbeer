@@ -144,7 +144,6 @@ function useRevisionHistory<T extends FieldValues>(
     [history, historyPointer, state, updateFn]
   );
   const undo = useCallback(() => {
-    console.log("History => undo", history.current, historyPointer);
     if (history.current.length === 0) return;
     if (historyPointer <= 0) return;
     const previousAction = history.current[historyPointer - 1];
@@ -169,7 +168,11 @@ function useRevisionHistory<T extends FieldValues>(
     setHistoryPointer(historyPointer + 1);
   }, [history, historyPointer, state, updateFn]);
   const canUndo = historyPointer > 0;
-  const canRedo = historyPointer <= history.current.length - 1;
+  const [canRedo, setCanRedo] = useState(false);
+  useEffect(
+    () => setCanRedo(historyPointer <= history.current.length - 1),
+    [historyPointer]
+  );
   /**
    * 
   useEffect(() => {

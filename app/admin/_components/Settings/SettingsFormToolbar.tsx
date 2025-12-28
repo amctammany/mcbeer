@@ -12,7 +12,6 @@ export default function SettingsFormToolbar() {
   const { state, undo, redo, handleRedo, handleUndo, canRedo, canUndo } =
     useContext(RevisionContext)!;
   const router = useRouter();
-  console.log(state, canRedo, canUndo);
 
   return (
     <ButtonGroup>

@@ -66,11 +66,9 @@ export function RegisterForm({
         callbackURL,
         fetchOptions: {
           onError: (ctx) => {
-            console.log(ctx.error);
             toast.error(ctx.error.message);
           },
           onSuccess: async () => {
-            console.log("success");
             toast.success("Successfully signed up");
             onSuccess?.();
           },

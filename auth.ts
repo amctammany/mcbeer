@@ -25,7 +25,6 @@ const options = {
     user: {
       create: {
         after: async (user: any) => {
-          console.log(user);
           await prisma.userPreferences.create({
             data: {
               userId: user.id,
