@@ -10,7 +10,7 @@ import {
 import React, { useEffect } from "react";
 
 export type SignInFormProps = {
-  signIn: any;
+  signIn?: any;
 };
 
 const allowedCallbackSet: ReadonlySet<string> = new Set([
@@ -31,7 +31,7 @@ export const getCallbackURL = (
   return "/dashboard";
 };
 
-export default function SignInForm({ signIn }: SignInFormProps) {
+export default function SignInForm({}: SignInFormProps) {
   const router = useRouter();
   const params = useSearchParams();
 
@@ -42,20 +42,17 @@ export default function SignInForm({ signIn }: SignInFormProps) {
   //   });
   // }, []);
   const handleSignIn = async (e: any) => {
-    console.log(e);
-    await signIn;
+    authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/admin",
+    });
+    //  await signIn();
   };
   return (
     <Button
       variant="outline"
       className={clsx("w-full gap-2 flex relative")}
-      onClick={async () => {
-        console.log("signin");
-        await authClient.signIn.social({
-          provider: "google",
-          callbackURL: "/admin",
-        });
-      }}
+      onClick={handleSignIn}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -14,6 +14,7 @@ import { redirect } from "next/navigation";
 import z from "zod";
 import { zfd } from "zod-form-data";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@/auth";
 
 const schema = zfd.formData({
   //userId: zfd.text(),
@@ -62,3 +63,13 @@ export async function updateUserSettings(prev: any, formData: FormData) {
   return redirect("/admin");
   //  return { success: true, data: res };
 }
+
+export const signIn = async () => {
+  const res = await auth.api.signInSocial({
+    body: {
+      provider: "google",
+      callbackURL: "/admin",
+    },
+  });
+  console.log(res, "signIn response");
+};
