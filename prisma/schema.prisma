@@ -231,6 +231,7 @@ model User {
   accounts        Account[]
   UserPreferences UserPreferences?
 
+  role            UserRoles @default(USER)
   displayUsername String?
 
   @@unique([email])
