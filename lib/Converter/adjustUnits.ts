@@ -27,13 +27,13 @@ function convertUnit({
   inline = false,
   dir = true,
 }: {
-  value: number | object;
+  value: number | UnitValue;
   type: UnitTypes | object;
   unit: UnitNames;
   inline?: boolean;
   dir?: boolean;
 }) {
-  //  console.log("converUnit", { value, type, unit, inline, dir });
+  console.log("converUnit", { value, type, unit, inline, dir });
   if (typeof value === "number") {
     const convert = converters[type as UnitTypes];
     if (!convert) throw new Error("Converter not available");
@@ -53,6 +53,13 @@ function convertUnit({
         return acc;
       }, {} as any)
     );
+  if (value.unit && value.value !== undefined)
+    return convertUnit({
+      value: value.value,
+      unit: value.unit,
+      type,
+      inline: true,
+    });
 }
 export function getUnits<T extends FieldValues>(
   src: T,
@@ -96,18 +103,30 @@ export function adjustUnits<T extends FieldValues>({
         acc[k] =
           typeof v === "string"
             ? convertUnit({
-                value: src[k as keyof typeof src],
+                value: !inline
+                  ? src[k as keyof typeof src]
+                  : src[k as keyof typeof src].value,
                 type: v as UnitTypes,
-                unit: prefs[v as UnitTypes] ?? BASE_UNITS[v as UnitTypes],
+                unit:
+                  src[k as keyof typeof src].unit ??
+                  prefs[v as UnitTypes] ??
+                  BASE_UNITS[v as UnitTypes],
                 inline,
                 dir,
               })
             : src[k as keyof typeof src];
+        console.log({
+          k,
+          v,
+          res: src[k as keyof typeof src],
+          acc: acc[k as keyof typeof acc],
+        });
       }
       return acc;
     },
     { ...src } as any
   );
+  console.log("S", s);
   return s as any;
 }
 export function stripUnits<T extends Record<string, unknown>>(src: T) {

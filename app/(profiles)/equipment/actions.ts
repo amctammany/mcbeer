@@ -38,8 +38,9 @@ export async function updateEquipmentProfile(
   prev: any,
   formData: FormData
 ) {
+  console.log(Object.fromEntries(formData.entries()));
   const v = validateSchema(formData, equipmentProfileSchema);
-  console.log(v.errors);
+  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
@@ -48,7 +49,7 @@ export async function updateEquipmentProfile(
     src: v.data,
     prefs,
     mask: EquipmentProfileMask,
-    inline: true,
+    inline: false,
     dir: false,
   });
 

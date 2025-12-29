@@ -22,15 +22,17 @@ export default async function EquipmentProfileEditorPage({
 }: EquipmentProfileEditorPageProps) {
   const { slug } = await params;
   const profile = await getEquipmentProfile(slug);
+  console.log(slug, profile);
   if (!profile) notFound();
   const prefs = await getPreferences();
   const adjusted = adjustUnits({
     src: profile,
     mask: EquipmentProfileMask,
     prefs,
-    inline: true,
+    inline: false,
     dir: true,
-  }) as EquipmentProfileType;
+  }) as AdjustedEquipmentProfileType;
+  console.log(adjusted);
   return (
     <EquipmentProfileEditor
       profile={adjusted}

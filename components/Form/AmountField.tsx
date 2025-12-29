@@ -1,9 +1,15 @@
 "use client";
 import React, { useContext } from "react";
-import { Controller, FieldValues } from "react-hook-form";
+import { Controller, FieldValues, Path } from "react-hook-form";
 import { Input, InputProps } from "./Input";
 import { cva, VariantProps } from "class-variance-authority";
-import { Field, FieldDescription, FieldError, FieldLabel } from "../ui/field";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "../ui/field";
 import {
   UNITS,
   UnitTypeDict,
@@ -59,6 +65,7 @@ const amountFieldStyles = cva(
 
 export function AmountField<T extends FieldValues>({
   name,
+  register,
   label,
   error,
   amountType,
@@ -87,49 +94,70 @@ export function AmountField<T extends FieldValues>({
         value: newValue,
       },
     });
+    console.log({ name, value, newValue });
     cb(newValue);
   };
 
   return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field, fieldState }) => (
-        <Field>
-          <FieldLabel htmlFor={id}>{label}</FieldLabel>
-          <div className="grid w-full gap-2 max-w-sm">
-            <InputGroup className="gap-2">
-              <InputGroupInput id={id} name={`${name}.value`} {...props} />
-              <InputGroupAddon className="" align="inline-end">
-                <Select
+    <FieldGroup>
+      <Field>
+        <FieldLabel htmlFor={id}>
+          {value}-{label}
+        </FieldLabel>
+        <div className="grid w-full gap-2 max-w-sm">
+          <InputGroup className="gap-2">
+            <Controller
+              name={`${name}.value` as Path<T>}
+              control={control}
+              render={({ field, fieldState }) => (
+                <InputGroupInput
+                  id={id}
+                  type="number"
                   name={field.name}
                   value={field.value}
-                  onValueChange={onValueChange(field.onChange)}
-                >
-                  <SelectTrigger
-                    id={id}
-                    className="border-none outline-0"
-                    aria-invalid={fieldState.invalid}
-                    aria-label={field.value}
+                  onChange={(e) =>
+                    onValueChange(field.onChange)(parseFloat(e.target.value))
+                  }
+                  onBlur={field.onBlur}
+                />
+              )}
+            />
+
+            <InputGroupAddon className="" align="inline-end">
+              <Controller
+                name={`${name}.unit` as Path<T>}
+                control={control}
+                render={({ field, fieldState }) => (
+                  <Select
+                    name={field.name}
+                    value={field.value}
+                    onValueChange={onValueChange(field.onChange)}
                   >
-                    <SelectValue placeholder={placeholder} />
-                  </SelectTrigger>
-                  <SelectContent position="item-aligned">
-                    {Object.entries(options ?? {}).map(([key, value]) => (
-                      <SelectItem key={key} value={value as any}>
-                        <div className="grow text-center">{value as any}</div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </InputGroupAddon>
-            </InputGroup>
-          </div>
-          <FieldDescription>{description}</FieldDescription>
-          <FieldError>{error}</FieldError>
-        </Field>
-      )}
-    />
+                    <SelectTrigger
+                      //                    id={id}
+                      className="border-none outline-0"
+                      aria-invalid={fieldState.invalid}
+                      aria-label={field.value}
+                    >
+                      <SelectValue placeholder={field.value ?? placeholder} />
+                    </SelectTrigger>
+                    <SelectContent position="item-aligned">
+                      {Object.entries(options ?? {}).map(([key, value]) => (
+                        <SelectItem key={key} value={value as any}>
+                          <div className="grow text-center">{value as any}</div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </InputGroupAddon>
+          </InputGroup>
+        </div>
+        <FieldDescription>{description}</FieldDescription>
+        <FieldError>{error}</FieldError>
+      </Field>
+    </FieldGroup>
   );
 }
 

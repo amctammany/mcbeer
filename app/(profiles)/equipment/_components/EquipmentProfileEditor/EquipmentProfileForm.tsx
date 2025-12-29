@@ -10,11 +10,14 @@ import {
   type UserPreferencesType,
 } from "@/contexts/UserPreferencesContext";
 import useRevisionHistory from "@/hooks/useRevisionHistory";
-import { EquipmentProfileType } from "@/types/Profile";
+import {
+  AdjustedEquipmentProfileType,
+  EquipmentProfileType,
+} from "@/types/Profile";
 import React, { useActionState, useContext } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 export type EquipmentProfileFormContainerProps<S = unknown> = {
-  profile: EquipmentProfileType;
+  profile: AdjustedEquipmentProfileType;
   preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];

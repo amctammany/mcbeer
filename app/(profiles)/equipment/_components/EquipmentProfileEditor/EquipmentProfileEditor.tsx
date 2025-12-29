@@ -1,7 +1,10 @@
 import React from "react";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
-import { EquipmentProfileType } from "@/types/Profile";
+import {
+  AdjustedEquipmentProfileType,
+  EquipmentProfileType,
+} from "@/types/Profile";
 import Link from "next/link";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import {
@@ -10,7 +13,7 @@ import {
 } from "./EquipmentProfileForm";
 
 export type EquipmentProfileEditorProps = {
-  profile: EquipmentProfileType;
+  profile: AdjustedEquipmentProfileType;
   preferences: UserPreferencesType;
   action: any;
 };

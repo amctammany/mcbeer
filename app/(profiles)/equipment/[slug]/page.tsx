@@ -46,5 +46,4 @@ export default async function EquipmentProfileDisplayPage({
       <EquipmentProfileDisplay profile={adjusted} />
     </div>
   );
-  return <div>Equipment Profile {slug}</div>;
 }

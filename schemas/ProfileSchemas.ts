@@ -1,7 +1,9 @@
-import { $Enums } from "@/generated/prisma/client";
 import z from "zod";
 import { zfd } from "zod-form-data";
-
+const unitValueSchema = z.object({
+  value: zfd.numeric(z.number()),
+  unit: zfd.text(z.string()),
+});
 export const equipmentProfileSchema = zfd.formData({
   //userId: zfd.text(),
   id: zfd.text(z.string().optional()),
@@ -12,7 +14,8 @@ export const equipmentProfileSchema = zfd.formData({
   brewEfficiency: zfd.numeric(z.number().min(0).default(68)),
   mashEfficiency: zfd.numeric(z.number().min(0).default(68)),
   batchVolume: zfd.numeric(z.number().min(0).default(5)),
-  boilTime: zfd.numeric(z.number().min(0).default(60)),
+  boilTime: unitValueSchema,
+  // boilTime: zfd.numeric(z.number().min(0).default(60)),
   boilVolume: zfd.numeric(z.number().min(0).optional()),
   preboilVolume: zfd.numeric(z.number().min(0).optional()),
   boilOffRate: zfd.numeric(z.number().min(0).default(5)),
