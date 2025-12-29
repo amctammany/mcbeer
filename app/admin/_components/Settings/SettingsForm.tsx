@@ -44,9 +44,10 @@ import {
   makeRadioOptions,
   RadioGroupField,
 } from "@/components/Form/RadioGroupField";
+import { ExtendedUser } from "@/types/User";
 
 export type SettingsFormContainerProps<S = unknown> = {
-  user: User;
+  user: ExtendedUser;
   action: (state: S, formData: FormData) => S | Promise<S>;
   children: React.ReactNode;
 };
@@ -66,7 +67,11 @@ export function SettingsContainerForm({
   );
 
   return (
-    <HistoryForm formProps={form} historyProps={revision}>
+    <HistoryForm
+      formProps={form}
+      historyProps={revision}
+      preferences={user.UserPreferences}
+    >
       <form
         action={formAction}
         //        onSubmit={form.handleSubmit(handleAction)}

@@ -8,7 +8,7 @@ import {
   TimeUnit,
   PercentUnit,
   UserColorPreference,
-} from "@/generated/prisma/client";
+} from "@/generated/prisma/browser";
 
 export type PercentUnitType = "%" | "%%";
 export const PercentUnits: Record<PercentUnit, PercentUnitType> = {
@@ -27,7 +27,7 @@ export type UnitNames =
   | UserGravityPreference
   | UserVolumePreference
   | UserMassPreference;
-const UNITS = {
+export const UNITS = {
   time: TimeUnit,
   percent: PercentUnit,
   mass: UserMassPreference,
@@ -49,6 +49,15 @@ export const BASE_UNITS = {
 };
 export type UnitTypes = keyof typeof UNITS;
 export const UnitTypesType = Object.keys(UNITS);
+/**export const UnitTypeDict = Object.entries(UNITS).reduce((acc, [k, v]) => {
+  acc[v] = k;
+  return acc;
+}, {} as Record<UnitTypes, UnitNames>);*/
+export const UnitTypeDict = Object.entries(UNITS).reduce((acc, [k, v]) => {
+  acc[k as UnitTypes] = Object.values(v);
+
+  return acc;
+}, {} as Record<UnitTypes, UnitNames[]>);
 export const UnitDict = Object.entries(UNITS).reduce((acc, [k, v]) => {
   return Object.values(v).reduce((dict, unit) => {
     dict[unit] = k as UnitTypes;

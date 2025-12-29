@@ -1,4 +1,5 @@
 "use client";
+import AmountField from "@/components/Form/AmountField";
 import HistoryForm from "@/components/Form/HistoryForm";
 import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
@@ -6,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RevisionContext } from "@/contexts/RevisionContext";
 import {
   UserPreferencesContext,
-  UserPreferencesType,
+  type UserPreferencesType,
 } from "@/contexts/UserPreferencesContext";
 import useRevisionHistory from "@/hooks/useRevisionHistory";
 import { EquipmentProfileType } from "@/types/Profile";
@@ -34,7 +35,11 @@ export function EquipmentProfileFormContainer({
     form.setValue as any
   );
   return (
-    <HistoryForm formProps={form} historyProps={revision}>
+    <HistoryForm
+      formProps={form}
+      historyProps={revision}
+      preferences={preferences}
+    >
       <form action={formAction}>{children}</form>
     </HistoryForm>
   );
@@ -76,23 +81,25 @@ export function EquipmentProfileForm({
           <CardHeader>
             <CardTitle>Volumes</CardTitle>
           </CardHeader>
-          <CardContent>Fields </CardContent>
+          <CardContent>
+            Fields
+            <AmountField
+              amountType="time"
+              unit="min"
+              name="boilTime"
+              type="number"
+              control={control}
+              step={1}
+              label="Boil Time "
+            />
+          </CardContent>
         </Card>
       </div>
     </div>
   );
 }
 /**
- * <AmountField
-              amountType="time"
-              name="boilTime"
-              type="number"
-              step={1}
-              label="Boil Time "
-              variant="grid"
-              onBlur={updateHistory}
-            />
-            <AmountField
+ *            <AmountField
               name="batchVolume"
               type="number"
               amountType="volume"

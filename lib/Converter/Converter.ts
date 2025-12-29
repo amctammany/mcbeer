@@ -30,7 +30,6 @@ const colorConverter: Record<UserColorPreference, ConversionType> = {
   EBC: 12,
   SRM: 100,
 };
-
 const percentConverter: Record<PercentUnit, ConversionType> = {
   percentage: 1,
   percent: 100,
@@ -40,6 +39,18 @@ const tempConverter: Record<UserTemperaturePreference, ConversionType> = {
   C: 1,
   F: [(c: number) => c * (9 / 5) + 32, (f: number) => (f - 32) * (5 / 9)],
 };
+/**export const UnitTypesDict: Record<UnitTypes, UnitNames[]> = {
+  mass: Object.keys(massConverter) as UnitNames[],
+  volume: Object.keys(volumeConverter) as UnitNames[],
+  time: Object.keys(timeConverter) as UnitNames[],
+  color: Object.keys(colorConverter) as UnitNames[],
+  percent: Object.keys(percentConverter) as UnitNames[],
+  temperature: Object.keys(tempConverter) as UnitNames[],
+  pressure: Object.keys(tempConverter) as UnitNames[],
+  gravity: Object.keys(tempConverter) as UnitNames[],
+};
+*/
+
 export const converters: Partial<
   Record<UnitTypes, Record<UnitNames, ConverterType>>
 > = {

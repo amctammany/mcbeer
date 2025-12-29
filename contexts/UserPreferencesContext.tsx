@@ -1,13 +1,21 @@
 "use client";
 import { UserPreferences } from "@/generated/prisma/client";
-import { PercentUnitType } from "@/lib/Converter/UnitDict";
+import {
+  PercentUnitType,
+  UnitNames,
+  UnitTypes,
+} from "@/lib/Converter/UnitDict";
 import { createContext } from "react";
+import { FieldValues } from "react-hook-form";
 export type UserPreferencesType = Partial<UserPreferences>;
 /** 
    * 
   Omit<UserPreferences, "percent"> & { percent: PercentUnitType }
 >;
   */
-export const UserPreferencesContext = createContext<UserPreferencesType | null>(
-  null
-);
+export type UserPreferencesContextType = {
+  preferences: UserPreferencesType;
+  units: Partial<Record<UnitTypes, UnitNames[]>>;
+};
+export const UserPreferencesContext =
+  createContext<UserPreferencesContextType | null>(null);
