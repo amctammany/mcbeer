@@ -38,9 +38,8 @@ export async function updateEquipmentProfile(
   prev: any,
   formData: FormData
 ) {
-  console.log(Object.fromEntries(formData.entries()));
   const v = validateSchema(formData, equipmentProfileSchema);
-  console.log(v);
+  if (v.errors) console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);

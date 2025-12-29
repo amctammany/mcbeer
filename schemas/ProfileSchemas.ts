@@ -1,9 +1,10 @@
 import z from "zod";
 import { zfd } from "zod-form-data";
-const unitValueSchema = z.object({
-  value: zfd.numeric(z.number()),
-  unit: zfd.text(z.string()),
-});
+const unitValueSchema = (numSchema: any = z.number()) =>
+  z.object({
+    value: zfd.numeric(numSchema),
+    unit: zfd.text(z.string()),
+  });
 export const equipmentProfileSchema = zfd.formData({
   //userId: zfd.text(),
   id: zfd.text(z.string().optional()),
@@ -11,17 +12,17 @@ export const equipmentProfileSchema = zfd.formData({
   userId: zfd.text(z.string().optional()),
   name: zfd.text(),
   description: zfd.text(),
-  brewEfficiency: zfd.numeric(z.number().min(0).default(68)),
-  mashEfficiency: zfd.numeric(z.number().min(0).default(68)),
-  batchVolume: zfd.numeric(z.number().min(0).default(5)),
-  boilTime: unitValueSchema,
+  brewEfficiency: unitValueSchema(z.number().min(0).default(68)),
+  mashEfficiency: unitValueSchema(z.number().min(0).default(68)),
+  batchVolume: unitValueSchema(z.number().min(0).default(5)),
+  boilTime: unitValueSchema(),
   // boilTime: zfd.numeric(z.number().min(0).default(60)),
-  boilVolume: zfd.numeric(z.number().min(0).optional()),
-  preboilVolume: zfd.numeric(z.number().min(0).optional()),
+  boilVolume: unitValueSchema(z.number().min(0).optional()),
+  preboilVolume: unitValueSchema(z.number().min(0).optional()),
   boilOffRate: zfd.numeric(z.number().min(0).default(5)),
-  trubLoss: zfd.numeric(z.number().min(0).default(0)),
-  mashLoss: zfd.numeric(z.number().min(0).default(0)),
-  fermenterLoss: zfd.numeric(z.number().min(0).default(0)),
+  trubLoss: unitValueSchema(z.number().min(0).default(0)),
+  mashLoss: unitValueSchema(z.number().min(0).default(0)),
+  fermenterLoss: unitValueSchema(z.number().min(0).default(0)),
   grainAbsorption: zfd.numeric(z.number().min(0).default(1)),
   waterGrainRatio: zfd.numeric(z.number().min(0).default(1)),
 });

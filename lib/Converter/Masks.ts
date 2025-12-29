@@ -4,7 +4,6 @@ import { UnitMaskType } from "./adjustUnits";
 export const EquipmentProfileMask: UnitMaskType<Partial<EquipmentProfileType>> =
   {
     boilTime: "time",
-    /**
     brewEfficiency: "percent",
     mashEfficiency: "percent",
     batchVolume: "volume",
@@ -14,7 +13,6 @@ export const EquipmentProfileMask: UnitMaskType<Partial<EquipmentProfileType>> =
     mashLoss: "volume",
     fermenterLoss: "volume",
     fermenterTopOff: "volume",
- */
   };
 
 /**import { MashProfile, MashStep } from "@prisma/client";

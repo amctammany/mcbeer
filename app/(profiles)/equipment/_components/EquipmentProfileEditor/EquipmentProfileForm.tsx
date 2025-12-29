@@ -95,50 +95,47 @@ export function EquipmentProfileForm({
               step={1}
               label="Boil Time "
             />
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  );
-}
-/**
- *            <AmountField
+            <AmountField
+              name="preboilVolume"
+              type="number"
+              amountType="volume"
+              step={1}
+              label="Preboil Volume"
+            />
+            <AmountField
+              name="boilVolume"
+              type="number"
+              amountType="volume"
+              step={1}
+              label="Boil Volume"
+            />
+            <AmountField
               name="batchVolume"
               type="number"
               amountType="volume"
               step={1}
               label="Batch Volume"
-              variant="grid"
-              onBlur={updateHistory}
             />
-            <InputField
-              control={control}
+            <TextField
+              register={register}
               name="boilOffRate"
               type="number"
               step={1}
               label="Boil Off Rate"
-              onBlur={updateHistory}
-              variant="grid"
             />
-
             <AmountField
               amountType="volume"
-              onBlur={updateHistory}
               name="mashLoss"
               type="number"
               step={1}
               label="Mash Loss"
-              variant="grid"
             />
-
             <AmountField
               amountType="volume"
               name="fermenterLoss"
               type="number"
               step={1}
               label="Fermenter Loss"
-              variant="grid"
-              onBlur={updateHistory}
             />
             <AmountField
               amountType="volume"
@@ -146,8 +143,6 @@ export function EquipmentProfileForm({
               type="number"
               step={1}
               label="Trub Loss"
-              onBlur={updateHistory}
-              variant="grid"
             />
           </CardContent>
         </Card>
@@ -172,5 +167,9 @@ export function EquipmentProfileForm({
               label="Brew Efficiency "
               onBlur={updateHistory}
             />
-
- */
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}

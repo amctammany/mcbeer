@@ -79,7 +79,6 @@ export function AmountField<T extends FieldValues>({
 }: AmountFieldProps<T>) {
   const id = `${name}-field`;
   const preferenceContext = useContext(UserPreferencesContext);
-  console.log(preferenceContext?.units);
   const options = (UnitTypeDict[amountType] ?? []).reduce((acc, unit) => {
     acc[unit] = unit;
     return acc;
@@ -94,7 +93,7 @@ export function AmountField<T extends FieldValues>({
         value: newValue,
       },
     });
-    console.log({ name, value, newValue });
+    // console.log({ name, value, newValue });
     cb(newValue);
   };
 

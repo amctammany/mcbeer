@@ -25,7 +25,6 @@ export default async function EquipmentProfileDisplayPage({
     mask: EquipmentProfileMask,
     prefs,
   }) as AdjustedEquipmentProfileType;
-  console.log("adjusted", adjusted, prefs);
   return (
     <div>
       <TopBar
