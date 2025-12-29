@@ -14,7 +14,7 @@ export type UserPreferencesType = Partial<UserPreferences>;
 >;
   */
 export type UserPreferencesContextType = {
-  preferences: UserPreferencesType;
+  preferences: UserPreferencesType | null;
   units: Partial<Record<UnitTypes, UnitNames[]>>;
 };
 export const UserPreferencesContext =

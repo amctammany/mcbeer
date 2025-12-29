@@ -2,12 +2,12 @@ import { Button } from "@/components/ui/button";
 import { TopBar } from "@/components/TopBar/TopBar";
 import React from "react";
 import { SettingsContainerForm, SettingsForm } from "./SettingsForm";
-import { User } from "@/generated/prisma/client";
 import SettingsFormToolbar from "./SettingsFormToolbar";
+import { ExtendedUser } from "@/types/User";
 
 export type SettingsProps<S = unknown> = {
   action: (prev: S, formData: FormData) => S | Promise<S>;
-  user: User;
+  user: ExtendedUser;
 };
 export function Settings({ user, action }: SettingsProps) {
   return (

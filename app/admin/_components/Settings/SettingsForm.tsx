@@ -57,11 +57,11 @@ export function SettingsContainerForm({
   children,
 }: SettingsFormContainerProps) {
   const [state, formAction] = useActionState<any, FormData>(action, null);
-  const form = useForm<UserType>({
+  const form = useForm<ExtendedUser>({
     defaultValues: user,
     errors: state?.errors,
   });
-  const revision = useRevisionHistory<UserType>(
+  const revision = useRevisionHistory<ExtendedUser>(
     form.getValues() as any,
     form.setValue as any
   );
@@ -83,13 +83,12 @@ export function SettingsContainerForm({
 }
 
 export type SettingsFormProps = {
-  user: User;
+  user: ExtendedUser;
   //  action: (formData: FormData) => Promise<void>;
 };
-export type UserType = User & { UserPreferences: UserPreferences };
 export function SettingsForm({ user }: SettingsFormProps) {
   const { register, control, getValues, formState } =
-    useFormContext<UserType>();
+    useFormContext<ExtendedUser>();
   const { state, undo, redo, handleRedo, handleUndo, canRedo, canUndo } =
     useContext(RevisionContext)!;
 

@@ -2,13 +2,13 @@
 import { RevisionContext } from "@/contexts/RevisionContext";
 import React, { useContext } from "react";
 import { useFormContext } from "react-hook-form";
-import { UserType } from "./SettingsForm";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { useRouter } from "next/navigation";
+import { ExtendedUser } from "@/types/User";
 
 export default function SettingsFormToolbar() {
-  const formContext = useFormContext<UserType>();
+  const formContext = useFormContext<ExtendedUser>();
   const { state, undo, redo, handleRedo, handleUndo, canRedo, canUndo } =
     useContext(RevisionContext)!;
   const router = useRouter();
