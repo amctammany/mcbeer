@@ -1,10 +1,5 @@
 import React from "react";
-import { TopBar } from "@/components/TopBar/TopBar";
-import { Button } from "@/components/ui/button";
-import {
-  AdjustedEquipmentProfileType,
-  EquipmentProfileType,
-} from "@/types/Profile";
+import type { AdjustedEquipmentProfileType } from "@/types/Profile";
 import Link from "next/link";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import {

@@ -55,7 +55,7 @@ export function EquipmentProfileForm({
 }: EquipmentProfileFormProps) {
   const { register, control } = useFormContext<EquipmentProfileType>();
   return (
-    <div className="m-2 rounded border-2 p-2 gap-2 *:mb-2">
+    <div className="m-2 p-2 gap-2 *:mb-2">
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("userId")} />
       <input type="hidden" {...register("forkedFrom")} />
@@ -115,6 +115,7 @@ export function EquipmentProfileForm({
               {...register("boilOffRate")}
               step={1}
               label="Boil Off Rate"
+              onBlur={(e) => console.log(e.currentTarget.form)}
             />
             <AmountField
               amountType="volume"
