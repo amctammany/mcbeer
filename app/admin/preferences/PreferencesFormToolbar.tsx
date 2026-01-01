@@ -7,8 +7,7 @@ import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
 
 export default function PreferencesFormToolbar() {
-  const { state, undo, redo, handleRedo, handleUndo, canRedo, canUndo } =
-    useContext(RevisionContext)!;
+  const { undo, redo, canRedo, canUndo } = useContext(RevisionContext)!;
   const router = useRouter();
   return (
     <TopBar breadcrumbs={[{ title: "preferences" }]}>
