@@ -16,15 +16,19 @@ export default function SettingsFormToolbar() {
   return (
     <ButtonGroup>
       <ButtonGroup>
-        <Button onClick={handleUndo} disabled={!canUndo}>
+        <Button type="button" onClick={handleUndo} disabled={!canUndo}>
           Undo
         </Button>
-        <Button onClick={handleRedo} disabled={!canRedo}>
+        <Button type="button" onClick={handleRedo} disabled={!canRedo}>
           Redo
         </Button>
       </ButtonGroup>
       <ButtonGroup>
-        <Button variant="destructive" onClick={() => router.back()}>
+        <Button
+          type="button"
+          variant="destructive"
+          onClick={() => router.back()}
+        >
           Cancel
         </Button>
         <Button type="submit">Save</Button>

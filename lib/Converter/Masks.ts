@@ -3,7 +3,7 @@ import { UnitMaskType } from "./adjustUnits";
 import { PreferencesInput } from "@/app/admin/preferences/PreferencesForm";
 
 export const PreferencesMask: UnitMaskType<Partial<PreferencesInput>> = {
-  size: "volume",
+  //  size: "volume",
 };
 export const EquipmentProfileMask: UnitMaskType<Partial<EquipmentProfileType>> =
   {
