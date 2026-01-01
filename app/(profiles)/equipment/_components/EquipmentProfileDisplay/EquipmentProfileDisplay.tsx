@@ -31,6 +31,8 @@ export default function EquipmentProfileDisplay({
       <div className="grid md:grid-cols-2">
         <div>
           <AmountProp label="Boil Time" value={profile.boilTime} />
+          <AmountProp label="Preboil Volume " value={profile.preboilVolume} />
+          <AmountProp label="Boil Volume " value={profile.boilVolume} />
           <AmountProp label="Batch Size" value={profile.batchVolume} />
           <AmountProp
             label="Mash Efficiency"

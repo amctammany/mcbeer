@@ -2,6 +2,7 @@ import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { BASE_UNITS, UnitNames, UnitTypes } from "./UnitDict";
 import { FieldValues } from "react-hook-form";
 import { converters } from "./Converter";
+import { precisionRound } from "../utils";
 export type UnitMaskType<T> = {
   [K in keyof T]?: UnitTypes | undefined | object;
 };
@@ -26,41 +27,51 @@ function convertUnit({
   unit,
   inline = false,
   dir = true,
+  precision = 2,
 }: {
-  value: number | UnitValue;
+  value: number | number[];
   type: UnitTypes | object;
   unit: UnitNames;
   inline?: boolean;
   dir?: boolean;
+  precision?: number;
 }) {
-  // console.log("converUnit", { value, type, unit, inline, dir });
+  console.log("converUnit", { value, type, unit, inline, dir });
 
   if (typeof value === "number") {
     const convert = converters[type as UnitTypes];
     if (!convert) throw new Error("Converter not available");
     const baseValue = convert[unit].from(value);
     const newValue = convert[unit].to(value);
-    const v = dir ? newValue : baseValue;
+    const val = dir ? newValue : baseValue;
+    const v =
+      Math.round(val * Math.pow(10, precision)) / Math.pow(10, precision);
     return inline ? v : ({ value: v, unit } as UnitValue);
   }
   if (Array.isArray(value))
     return value.map((val) =>
       Object.entries(type).reduce((acc, [k, v]) => {
         acc[k] = convertUnit({
-          value: val[k],
+          value: val,
           type: v,
           unit: (type as any)[k] as any,
+          inline,
+          dir,
         });
         return acc;
       }, {} as any)
     );
+  /**
+   * 
   if (value?.unit && value?.value !== undefined)
     return convertUnit({
       value: value.value,
       unit: value.unit,
       type,
-      inline: true,
+      inline,
+      dir,
     });
+   */
 }
 export function getUnits<T extends FieldValues>(
   src: T,
@@ -81,12 +92,14 @@ export function adjustUnits<T extends FieldValues>({
   prefs,
   inline = false,
   dir = true,
+  precision = 2,
 }: {
-  src: T | T[];
+  src: T;
   mask: Partial<Record<keyof T, UnitTypes | object | string>>;
   prefs: UserPreferencesType;
   inline?: boolean;
   dir?: boolean;
+  precision?: number;
 }) {
   const s = Object.entries(mask).reduce(
     (acc, [k, v]) => {
@@ -98,15 +111,14 @@ export function adjustUnits<T extends FieldValues>({
             prefs,
             inline,
             dir,
+            precision,
           })
         );
       } else {
         acc[k] =
           typeof v === "string"
             ? convertUnit({
-                value: inline
-                  ? src[k as keyof typeof src]
-                  : src[k as keyof typeof src].value,
+                value: src[k as keyof typeof src],
                 type: v as UnitTypes,
                 unit:
                   src[k as keyof typeof src]?.unit ??
@@ -114,6 +126,7 @@ export function adjustUnits<T extends FieldValues>({
                   BASE_UNITS[v as UnitTypes],
                 inline,
                 dir,
+                precision,
               })
             : src[k as keyof typeof src];
       }

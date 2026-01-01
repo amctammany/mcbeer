@@ -81,7 +81,7 @@ export function AmountField<T extends FieldValues>({
   const id = `${name}-field`;
   const preferenceContext = useContext(UserPreferencesContext);
   const { register } = useFormContext();
-  const unitName = preferenceContext?.preferences?.[amountType];
+  const unitName = preferenceContext?.[amountType];
   const options = (UnitTypeDict[amountType] ?? []).reduce((acc, unit) => {
     acc[unit] = unit;
     return acc;
@@ -113,6 +113,7 @@ export function AmountField<T extends FieldValues>({
                 <InputGroupInput
                   id={id}
                   type="number"
+                  step={0.1}
                   value={field.value}
                   name={field.name}
                   onChange={(e) =>

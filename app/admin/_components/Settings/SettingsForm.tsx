@@ -62,8 +62,8 @@ export function SettingsContainerForm({
     errors: state?.errors,
   });
   const revision = useRevisionHistory<ExtendedUser>(
-    form.getValues() as any,
-    form.setValue as any
+    form.getValues(),
+    form.setValue
   );
 
   return (

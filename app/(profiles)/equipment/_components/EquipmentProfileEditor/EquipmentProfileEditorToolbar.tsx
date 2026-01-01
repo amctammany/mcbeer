@@ -28,10 +28,20 @@ export default function EquipmentProfileEditorToolbar({
           : { title: "New" },
       ]}
     >
-      <IconButton icon={Undo} onClick={handleUndo} disabled={!canUndo}>
+      <IconButton
+        type="button"
+        icon={Undo}
+        onClick={handleUndo}
+        disabled={!canUndo}
+      >
         Undo
       </IconButton>
-      <IconButton icon={Redo} onClick={handleRedo} disabled={!canRedo}>
+      <IconButton
+        type="button"
+        icon={Redo}
+        onClick={handleRedo}
+        disabled={!canRedo}
+      >
         Redo
       </IconButton>
       <Button type="submit">Save</Button>

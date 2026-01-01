@@ -26,7 +26,7 @@ export default function HistoryForm({
 }: HistoryFormProps) {
   return (
     <FormProvider {...formProps}>
-      <UserPreferencesContext value={{ preferences, units: UnitTypeDict }}>
+      <UserPreferencesContext value={preferences}>
         <RevisionContext value={historyProps}>{children}</RevisionContext>
       </UserPreferencesContext>
     </FormProvider>

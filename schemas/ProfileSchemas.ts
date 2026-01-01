@@ -1,10 +1,10 @@
 import z from "zod";
 import { zfd } from "zod-form-data";
-const unitValueSchema = (numSchema: any = z.number()) =>
-  z.object({
-    value: zfd.numeric(numSchema),
-    unit: zfd.text(z.string().optional()),
-  });
+const unitValueSchema = zfd.numeric; //(numSchema: any = z.number()) =>
+// z.object({
+// value: zfd.numeric(numSchema),
+// unit: zfd.text(z.string().optional()),
+// });
 export const equipmentProfileSchema = zfd.formData({
   //userId: zfd.text(),
   id: zfd.text(z.string().optional()),

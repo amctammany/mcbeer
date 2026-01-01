@@ -15,6 +15,8 @@ export interface EquipmentProfileType extends BaseEquipmentProfile {
 }
 type EquipmentProfileAmountFieldNames =
   | "boilTime"
+  | "boilVolume"
+  | "preboilVolume"
   | "brewEfficiency"
   | "mashEfficiency"
   | "batchVolume"

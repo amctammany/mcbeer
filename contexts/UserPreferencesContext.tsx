@@ -17,5 +17,6 @@ export type UserPreferencesContextType = {
   preferences: UserPreferencesType | null;
   units: Partial<Record<UnitTypes, UnitNames[]>>;
 };
-export const UserPreferencesContext =
-  createContext<UserPreferencesContextType | null>(null);
+export const UserPreferencesContext = createContext<UserPreferencesType | null>(
+  null
+);
