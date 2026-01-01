@@ -61,13 +61,13 @@ export function EquipmentProfileForm({
       <input type="hidden" {...register("forkedFrom")} />
       <TextField
         control={control}
-        name="name"
+        {...register("name")}
         label="Name "
         // onBlur={updateHistory}
       />
       <TextField
         control={control}
-        name="description"
+        {...register("description")}
         label="Description"
         // onBlur={updateHistory}
       />

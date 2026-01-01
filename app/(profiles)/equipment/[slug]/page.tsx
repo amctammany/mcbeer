@@ -24,6 +24,8 @@ export default async function EquipmentProfileDisplayPage({
     src: profile,
     mask: EquipmentProfileMask,
     prefs,
+    inline: false,
+    dir: false,
   }) as AdjustedEquipmentProfileType;
   return (
     <div>

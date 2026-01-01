@@ -32,7 +32,7 @@ const colorConverter: Record<UserColorPreference, ConversionType> = {
 };
 const percentConverter: Record<PercentUnit, ConversionType> = {
   percentage: 1,
-  percent: 100,
+  percent: 1,
 };
 
 const tempConverter: Record<UserTemperaturePreference, ConversionType> = {
@@ -91,10 +91,10 @@ function makeConverter(src: ConverterDict) {
   return Object.entries(src).reduce((acc, [unit, converter]) => {
     const to = Array.isArray(converter)
       ? converter[0]
-      : (v: number) => v * converter;
+      : (v: number) => v / converter;
     const from = Array.isArray(converter)
       ? converter[1]
-      : (v: number) => v / converter;
+      : (v: number) => v * converter;
     acc[unit as UnitNames] = { to, from };
     return acc;
   }, {} as Record<UnitNames, ConverterType>);

@@ -5,6 +5,7 @@ import { Input, InputProps } from "./Input";
 import { cva, VariantProps } from "class-variance-authority";
 import {
   Field,
+  FieldContent,
   FieldDescription,
   FieldError,
   FieldGroup,
@@ -101,40 +102,46 @@ export function AmountField<T extends FieldValues>({
 
   return (
     <FieldGroup>
-      <Field>
-        <FieldLabel htmlFor={id}>{label}</FieldLabel>
-        <div className="grid w-full gap-2 max-w-sm">
-          <InputGroup className="gap-2">
-            <Controller
-              name={`${name}.value` as Path<T>}
-              control={control}
-              render={({ field, fieldState }) => (
+      <Controller
+        name={`${name}.value` as Path<T>}
+        control={control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={!!fieldState.error}>
+            <FieldLabel htmlFor={id}>{label}</FieldLabel>
+            <FieldContent className="grid w-full gap-2 ">
+              <InputGroup className="gap-2" aria-invalid={!!fieldState.error}>
                 <InputGroupInput
                   id={id}
                   type="number"
-                  defaultValue={field.value}
+                  value={field.value}
                   name={field.name}
                   onChange={(e) =>
                     onValueChange(field.onChange)(parseFloat(e.target.value))
                   }
                   onBlur={field.onBlur}
                 />
-              )}
-            />
 
-            <input
-              type="hidden"
-              {...register?.(`${name}.unit` as Path<T>)}
-              value={unitName}
-            />
-            <InputGroupAddon className="" align="inline-end">
-              <InputGroupText>{unitName}</InputGroupText>
-            </InputGroupAddon>
-          </InputGroup>
-        </div>
-        <FieldDescription>{description}</FieldDescription>
-        <FieldError>{error}</FieldError>
-      </Field>
+                <input
+                  type="hidden"
+                  {...register?.(`${name}.unit` as Path<T>)}
+                  value={unitName}
+                />
+                <InputGroupAddon
+                  aria-invalid={!!fieldState.error}
+                  className=""
+                  align="inline-end"
+                >
+                  <InputGroupText aria-invalid={!!fieldState.error}>
+                    {unitName}
+                  </InputGroupText>
+                </InputGroupAddon>
+              </InputGroup>
+            </FieldContent>
+            <FieldDescription>{description}</FieldDescription>
+            <FieldError>{fieldState.error?.message}</FieldError>
+          </Field>
+        )}
+      />
     </FieldGroup>
   );
 }

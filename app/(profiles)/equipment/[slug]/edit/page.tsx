@@ -29,9 +29,8 @@ export default async function EquipmentProfileEditorPage({
     mask: EquipmentProfileMask,
     prefs,
     inline: false,
-    dir: true,
+    dir: false,
   }) as AdjustedEquipmentProfileType;
-  //console.log(adjusted);
   return (
     <EquipmentProfileEditor
       profile={adjusted}

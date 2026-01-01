@@ -49,7 +49,7 @@ export async function updateEquipmentProfile(
     prefs,
     mask: EquipmentProfileMask,
     inline: false,
-    dir: false,
+    dir: true,
   });
 
   const res = await prisma.equipmentProfile.update({
