@@ -16,7 +16,7 @@ const massConverter: Record<MassUnit, ConversionType> = {
 };
 const volumeConverter: Record<UserVolumePreference, ConversionType> = {
   L: 1,
-  gal: 0.264172,
+  gal: 0.2641720524,
   bbl: 0.00852166206,
 };
 

@@ -5,7 +5,12 @@ import EquipmentProfilesList from "./_components/EquipmentProfilesList/Equipment
 import { BaseEquipmentProfile } from "@/types/Profile";
 import IconButton from "@/components/Button/IconButton";
 import { Plus } from "lucide-react";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Equipment Profiles",
+  description: "List of equipment profiles",
+};
 export default async function EquipmentProfilesListPage() {
   const profiles = await getEquipmentProfiles();
   return (

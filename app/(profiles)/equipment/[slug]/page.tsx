@@ -9,10 +9,22 @@ import { Pencil, Split } from "lucide-react";
 import EquipmentProfileDisplay from "../_components/EquipmentProfileDisplay/EquipmentProfileDisplay";
 import { EquipmentProfileMask } from "@/lib/Converter/Masks";
 import { getPreferences } from "@/app/admin/queries";
+import { Metadata, ResolvingMetadata } from "next";
 
 export type EquipmentProfileDisplayPageProps = {
   params: Promise<{ slug: string }>;
 };
+export async function generateMetadata({
+  params,
+}: EquipmentProfileDisplayPageProps): Promise<Metadata> {
+  // read route params
+  const { slug } = await params;
+  const profile = await getEquipmentProfile(slug);
+  return {
+    title: `Equipment Profile: ${profile.name}`,
+    description: "Equipment profile display",
+  };
+}
 export default async function EquipmentProfileDisplayPage({
   params,
 }: EquipmentProfileDisplayPageProps) {

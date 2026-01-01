@@ -1,22 +1,21 @@
 import React from "react";
-import { getEquipmentProfile } from "@/app/(profiles)/equipment/queries";
-import { notFound, unauthorized } from "next/navigation";
+import { unauthorized } from "next/navigation";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
-import {
+import type {
   AdjustedEquipmentProfileType,
   EquipmentProfileType,
 } from "@/types/Profile";
-import { TopBar } from "@/components/TopBar/TopBar";
-import IconButton from "@/components/Button/IconButton";
-import { Pencil, Save, Split } from "lucide-react";
 import { EquipmentProfileEditor } from "@/app/(profiles)/equipment/_components/EquipmentProfileEditor/EquipmentProfileEditor";
 import { EquipmentProfileMask } from "@/lib/Converter/Masks";
 import { getPreferences } from "@/app/admin/queries";
 import { createEquipmentProfile } from "../actions";
-import { userAgent } from "next/server";
 import { auth } from "@/auth";
 import { headers } from "next/headers";
-
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "New Equipment Profile",
+  description: "Equipment Profile creator",
+};
 export default async function EquipmentProfileCreatorPage() {
   const prefs = await getPreferences();
   const session = await auth.api.getSession({

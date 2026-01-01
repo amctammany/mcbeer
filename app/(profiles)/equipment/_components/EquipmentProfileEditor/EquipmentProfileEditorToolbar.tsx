@@ -1,8 +1,10 @@
 "use client";
+import IconButton from "@/components/Button/IconButton";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
 import { RevisionContext } from "@/contexts/RevisionContext";
 import { AdjustedEquipmentProfileType } from "@/types/Profile";
+import { Redo, Undo } from "lucide-react";
 import React, { useContext } from "react";
 export type EquipmentProfileEditorToolbarProps = {
   profile: AdjustedEquipmentProfileType;
@@ -26,12 +28,12 @@ export default function EquipmentProfileEditorToolbar({
           : { title: "New" },
       ]}
     >
-      <Button onClick={handleUndo} disabled={!canUndo}>
+      <IconButton icon={Undo} onClick={handleUndo} disabled={!canUndo}>
         Undo
-      </Button>
-      <Button onClick={handleRedo} disabled={!canRedo}>
+      </IconButton>
+      <IconButton icon={Redo} onClick={handleRedo} disabled={!canRedo}>
         Redo
-      </Button>
+      </IconButton>
       <Button type="submit">Save</Button>
     </TopBar>
   );
