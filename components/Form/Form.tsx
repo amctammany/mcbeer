@@ -1,6 +1,9 @@
 "use client";
 import { RevisionContext } from "@/contexts/RevisionContext";
-import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
+import {
+  UserPreferencesContext,
+  UserPreferencesType,
+} from "@/contexts/UserPreferencesContext";
 import { UserPreferences } from "@/generated/prisma/client";
 import useRevisionHistory from "@/hooks/useRevisionHistory";
 import { UnitTypeDict } from "@/lib/Converter/UnitDict";
@@ -10,7 +13,7 @@ import { FormProvider, useForm, type UseFormProps } from "react-hook-form";
 
 export type FormProps = {
   action: any;
-  preferences: UserPreferences;
+  preferences: UserPreferencesType;
   formProps: UseFormProps;
   children?: React.ReactNode | React.ReactNode[];
 };
@@ -29,7 +32,7 @@ export default function Form({
   return (
     <div>
       <FormProvider {...form}>
-        <UserPreferencesContext value={{ preferences, units: UnitTypeDict }}>
+        <UserPreferencesContext value={preferences}>
           <RevisionContext value={revision}>
             <form action={action}>{children}</form>
           </RevisionContext>

@@ -1,5 +1,6 @@
 "use client";
 import AmountField from "@/components/Form/AmountField";
+import Form from "@/components/Form/Form";
 import HistoryForm from "@/components/Form/HistoryForm";
 import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
@@ -28,23 +29,25 @@ export function EquipmentProfileFormContainer({
   preferences,
   children,
 }: EquipmentProfileFormContainerProps) {
+  // const [state, formAction] = useActionState<any, FormData>(action, null);
+  // const form = useForm({
+  //   defaultValues: profile,
+  //   errors: state?.errors,
+  // });
+  // const revision = useRevisionHistory<EquipmentProfileType>(
+  //   form.getValues() as any,
+  //   form.setValue as any
+  // );
   const [state, formAction] = useActionState<any, FormData>(action, null);
-  const form = useForm({
-    defaultValues: profile,
-    errors: state?.errors,
-  });
-  const revision = useRevisionHistory<EquipmentProfileType>(
-    form.getValues() as any,
-    form.setValue as any
-  );
+
   return (
-    <HistoryForm
-      formProps={form}
-      historyProps={revision}
+    <Form
+      action={formAction}
       preferences={preferences}
+      formProps={{ defaultValues: profile, errors: state?.errors }}
     >
-      <form action={formAction}>{children}</form>
-    </HistoryForm>
+      {children}
+    </Form>
   );
 }
 export type EquipmentProfileFormProps = {
