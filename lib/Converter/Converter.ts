@@ -17,7 +17,7 @@ const massConverter: Record<MassUnit, ConversionType> = {
 const volumeConverter: Record<UserVolumePreference, ConversionType> = {
   L: 1,
   gal: [(t: number) => t * 0.26417, (t: number) => t * 3.7854],
-  bbl: 0.00852166206,
+  bbl: [(t: number) => t * 0.00852166, (t: number) => t * 117.34784],
 };
 
 const timeConverter: Record<TimeUnit, ConversionType> = {

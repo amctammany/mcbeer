@@ -39,7 +39,6 @@ export default async function EquipmentProfileDisplayPage({
     inline: false,
     dir: true,
   }) as AdjustedEquipmentProfileType;
-  console.log(prefs, adjusted);
   return (
     <div>
       <TopBar

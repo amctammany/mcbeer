@@ -36,7 +36,7 @@ function convertUnit({
   dir?: boolean;
   precision?: number;
 }) {
-  console.log("converUnit", { value, type, unit, inline, dir });
+  //  console.log("converUnit", { value, type, unit, inline, dir });
 
   if (typeof value === "number") {
     const convert = converters[type as UnitTypes];
