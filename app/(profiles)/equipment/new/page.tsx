@@ -40,10 +40,9 @@ export default async function EquipmentProfileCreatorPage() {
     src: profile,
     mask: EquipmentProfileMask,
     prefs,
-    inline: false,
+    inline: true,
     dir: true,
   }) as AdjustedEquipmentProfileType;
-  console.log(adjusted);
   return (
     <EquipmentProfileEditor
       profile={adjusted}

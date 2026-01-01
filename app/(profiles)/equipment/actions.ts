@@ -22,7 +22,7 @@ export async function createEquipmentProfile(
     src: v.data,
     prefs,
     mask: EquipmentProfileMask,
-    inline: false,
+    inline: true,
     dir: false,
   });
 
