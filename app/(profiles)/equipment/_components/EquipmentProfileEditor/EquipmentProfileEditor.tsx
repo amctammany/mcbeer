@@ -11,6 +11,7 @@ import {
   EquipmentProfileForm,
   EquipmentProfileFormContainer,
 } from "./EquipmentProfileForm";
+import EquipmentProfileEditorToolbar from "./EquipmentProfileEditorToolbar";
 
 export type EquipmentProfileEditorProps = {
   profile: AdjustedEquipmentProfileType;
@@ -28,15 +29,7 @@ export function EquipmentProfileEditor({
       profile={profile}
       action={action}
     >
-      <TopBar
-        breadcrumbs={[
-          { title: "Profiles" },
-          { title: "Equipment", url: "/equipment" },
-          { title: profile.name, url: `/equipment/${profile.slug}` },
-        ]}
-      >
-        <Button type="submit">Save</Button>
-      </TopBar>
+      <EquipmentProfileEditorToolbar profile={profile} />
       <h3 className={profile.origin ? "" : "hidden"}>
         Forked From:
         <Link href={`/equipment/${profile.origin?.slug}`}>

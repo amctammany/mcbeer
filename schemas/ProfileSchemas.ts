@@ -3,7 +3,7 @@ import { zfd } from "zod-form-data";
 const unitValueSchema = (numSchema: any = z.number()) =>
   z.object({
     value: zfd.numeric(numSchema),
-    unit: zfd.text(z.string()),
+    unit: zfd.text(z.string().optional()),
   });
 export const equipmentProfileSchema = zfd.formData({
   //userId: zfd.text(),

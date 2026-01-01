@@ -13,7 +13,7 @@ export default function EquipmentProfileListItem({
     <Link href={`/equipment/${profile.slug}`}>
       <div className="list-item py-2 group hover:bg-slate-200">
         <div className="inline-flex">
-          <div className="flex-shrink p-2 mx-2 my-auto ">
+          <div className="shrink p-2 mx-2 my-auto ">
             <Droplet />
           </div>
           <div className="grid">

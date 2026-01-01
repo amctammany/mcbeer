@@ -54,16 +54,8 @@ export function EquipmentProfileForm({
   preferences,
 }: EquipmentProfileFormProps) {
   const { register, control } = useFormContext<EquipmentProfileType>();
-  const { handleRedo, handleUndo, updateHistory, canRedo, canUndo } =
-    useContext(RevisionContext)!;
   return (
     <div className="m-2 rounded border-2 p-2 gap-2 *:mb-2">
-      <Button onClick={handleUndo} disabled={!canUndo}>
-        Undo
-      </Button>
-      <Button onClick={handleRedo} disabled={!canRedo}>
-        Redo
-      </Button>
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("userId")} />
       <input type="hidden" {...register("forkedFrom")} />
@@ -97,6 +89,7 @@ export function EquipmentProfileForm({
             />
             <AmountField
               name="preboilVolume"
+              unit="gal"
               type="number"
               amountType="volume"
               step={1}
@@ -104,6 +97,7 @@ export function EquipmentProfileForm({
             />
             <AmountField
               name="boilVolume"
+              unit="gal"
               type="number"
               amountType="volume"
               step={1}
@@ -111,27 +105,28 @@ export function EquipmentProfileForm({
             />
             <AmountField
               name="batchVolume"
+              unit="gal"
               type="number"
               amountType="volume"
               step={1}
               label="Batch Volume"
             />
             <TextField
-              register={register}
-              name="boilOffRate"
-              type="number"
+              {...register("boilOffRate")}
               step={1}
               label="Boil Off Rate"
             />
             <AmountField
               amountType="volume"
               name="mashLoss"
+              unit="gal"
               type="number"
               step={1}
               label="Mash Loss"
             />
             <AmountField
               amountType="volume"
+              unit="gal"
               name="fermenterLoss"
               type="number"
               step={1}
@@ -139,6 +134,7 @@ export function EquipmentProfileForm({
             />
             <AmountField
               amountType="volume"
+              unit="gal"
               name="trubLoss"
               type="number"
               step={1}
@@ -156,7 +152,6 @@ export function EquipmentProfileForm({
               name="mashEfficiency"
               type="number"
               step={1}
-              onBlur={updateHistory}
               label="Mash Efficiency "
             />
             <AmountField
@@ -165,7 +160,6 @@ export function EquipmentProfileForm({
               type="number"
               step={1}
               label="Brew Efficiency "
-              onBlur={updateHistory}
             />
           </CardContent>
         </Card>
