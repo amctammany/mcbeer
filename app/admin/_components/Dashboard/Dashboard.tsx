@@ -11,21 +11,25 @@ export type DashboardProps = {
 export default function Dashboard({ user }: DashboardProps) {
   return (
     <div>
-      <TopBar breadcrumbs={[{ title: "Dashboard", url: "/admin" }]}>
-        <LogoutButton />
-      </TopBar>
-      <div className="p-4">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
-        <p>Welcome back, {user?.name}!</p>
-      </div>
-      <div className="grid lg:grid-cols-2 *:p-4 *:m-4 *:border-2 *:border-black *:rounded-lg ">
-        <div>News</div>
-        <div>Friends</div>
-        <div>
-          <Link href="/admin/settings">Settings</Link>
+      <form action="">
+        <TopBar breadcrumbs={[{ title: "Dashboard", url: "/admin" }]}>
+          <LogoutButton />
+        </TopBar>
+        <div className="p-4">
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <p>Welcome back, {user?.name}!</p>
         </div>
-        <div></div>
-      </div>
+        <div className="grid lg:grid-cols-2 *:p-4 *:m-4 *:border-2 *:border-black *:rounded-lg ">
+          <div>News</div>
+          <div>Friends</div>
+          <div>
+            <Link href="/admin/settings">Settings</Link>
+          </div>
+          <div>
+            <Link href="/admin/preferences">Preferences</Link>
+          </div>
+        </div>
+      </form>
     </div>
   );
 }

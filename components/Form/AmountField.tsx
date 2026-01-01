@@ -103,7 +103,7 @@ export function AmountField<T extends FieldValues>({
   return (
     <FieldGroup>
       <Controller
-        name={`${name}.value` as Path<T>}
+        name={name}
         control={control}
         render={({ field, fieldState }) => (
           <Field data-invalid={!!fieldState.error}>
@@ -121,11 +121,6 @@ export function AmountField<T extends FieldValues>({
                   onBlur={field.onBlur}
                 />
 
-                <input
-                  type="hidden"
-                  {...register?.(`${name}.unit` as Path<T>)}
-                  value={unitName}
-                />
                 <InputGroupAddon
                   aria-invalid={!!fieldState.error}
                   className=""

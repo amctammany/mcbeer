@@ -15,7 +15,16 @@ import z from "zod";
 import { zfd } from "zod-form-data";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { PreferencesMask } from "@/lib/Converter/Masks";
 
+const prefSchema = zfd.formData({
+  //userId: zfd.text(),
+  // id: zfd.text(),
+  size: zfd.numeric(z.number()),
+  name: zfd.text(),
+  // username: zfd.text(),
+});
 const schema = zfd.formData({
   //userId: zfd.text(),
   id: zfd.text(),
@@ -67,3 +76,24 @@ export const signIn = async () => {
     },
   });
 };
+export async function savePreferences(
+  prefs: any,
+  prev: any,
+  formData: FormData
+) {
+  const v = validateSchema(formData, schema);
+  if (v.errors) return v;
+  if (!v.success) {
+    return Promise.resolve(v);
+  }
+  const r = adjustUnits({
+    src: v.data,
+    prefs,
+    mask: PreferencesMask,
+    inline: true,
+    dir: false,
+  });
+
+  console.log("Prefs saved", r);
+  return redirect("/admin");
+}

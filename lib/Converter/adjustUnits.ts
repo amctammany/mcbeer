@@ -104,7 +104,7 @@ export function adjustUnits<T extends FieldValues>({
         acc[k] =
           typeof v === "string"
             ? convertUnit({
-                value: !inline
+                value: inline
                   ? src[k as keyof typeof src]
                   : src[k as keyof typeof src].value,
                 type: v as UnitTypes,
