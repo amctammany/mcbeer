@@ -29,7 +29,7 @@ function convertUnit({
   dir = true,
   precision = 2,
 }: {
-  value: number | number[];
+  value: number | number[] | UnitValue;
   type: UnitTypes | object;
   unit: UnitNames;
   inline?: boolean;
@@ -61,8 +61,6 @@ function convertUnit({
         return acc;
       }, {} as any)
     );
-  /**
-   * 
   if (value?.unit && value?.value !== undefined)
     return convertUnit({
       value: value.value,
@@ -71,7 +69,6 @@ function convertUnit({
       inline,
       dir,
     });
-   */
 }
 export function getUnits<T extends FieldValues>(
   src: T,
