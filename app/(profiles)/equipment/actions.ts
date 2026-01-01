@@ -7,6 +7,7 @@ import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
 import { redirect } from "next/navigation";
 import { equipmentProfileSchema } from "@/schemas/ProfileSchemas";
+import { revalidatePath } from "next/cache";
 export async function createEquipmentProfile(
   prefs: UserPreferencesType,
   prev: any,
@@ -29,6 +30,7 @@ export async function createEquipmentProfile(
   const res = await prisma.equipmentProfile.create({
     data: { ...adj, slug: slugify(v.data.name) },
   });
+  revalidatePath("/equipment");
   return redirect(`/equipment/${res.slug}`);
   //  return { success: true, data: res };
 }
