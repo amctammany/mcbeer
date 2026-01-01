@@ -6,8 +6,9 @@ import {
   ItemDescription,
   ItemActions,
 } from "../ui/item";
+import clsx from "clsx";
 
-const propVariants = cva("m-1", {
+const propVariants = cva("m-1 border-b-black border-b-2 rounded-b-none", {
   variants: {
     variant: {
       default: "",
@@ -25,16 +26,14 @@ export type PropProps = {
   children?: React.ReactNode;
 } & VariantProps<typeof propVariants>;
 export const Prop = ({ label, value, variant, children, unit }: PropProps) => (
-  <Item size="sm" variant="outline" className={propVariants({ variant })}>
+  <Item size="sm" className={propVariants({ variant })}>
     <ItemContent>
-      <ItemTitle>{label}</ItemTitle>
-      <ItemDescription className="text-pretty line-clamp-none">
-        {children ?? value}
+      <ItemTitle className="bold border-b-2 ">{label}</ItemTitle>
+      <ItemDescription className="flex w-full text-pretty ">
+        <span className="grow">{children ?? value}</span>
+        <span className={clsx("shrink", { hidden: !unit })}>{unit}</span>
       </ItemDescription>
     </ItemContent>
-    <ItemActions>
-      <ItemDescription>{unit ?? ""}</ItemDescription>
-    </ItemActions>
   </Item>
 );
 export default Prop;

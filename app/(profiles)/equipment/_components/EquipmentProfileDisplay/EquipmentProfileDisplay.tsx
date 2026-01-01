@@ -11,63 +11,52 @@ export default function EquipmentProfileDisplay({
   profile,
 }: EquipmentProfileDisplayProps) {
   return (
-    <div>
-      <Card className="m-1">
-        <CardHeader className="border-b-4">
-          <CardTitle>Equipment Profile</CardTitle>
-        </CardHeader>
-        <CardContent className="">
-          <Prop label="Name" value={profile.name} />
-          <Prop label="Author" value={profile.owner?.name} />
-          <Prop
-            label="Forked From"
-            value={
-              <Link
-                className="underline"
-                href={`/equipment/${profile.origin?.slug}`}
-              >
-                {profile.origin?.name}
-              </Link>
-            }
+    <div className="max-w-2xl grid lg:grid-cols-2 mx-auto">
+      <div className="lg:col-span-2">
+        <Prop label="Name" value={profile.name} />
+        <Prop label="Author" value={profile.owner?.name} />
+        <Prop
+          label="Forked From"
+          value={
+            <Link
+              className="underline"
+              href={`/equipment/${profile.origin?.slug}`}
+            >
+              {profile.origin?.name}
+            </Link>
+          }
+        />
+        <Prop label="Description" value={profile.description} />
+      </div>
+      <div className="grid md:grid-cols-2">
+        <div>
+          <AmountProp label="Boil Time" value={profile.boilTime} />
+          <AmountProp label="Batch Size" value={profile.batchVolume} />
+          <AmountProp
+            label="Mash Efficiency"
+            value={profile.mashEfficiency}
+            unit="%"
           />
-          <Prop label="Description" value={profile.description} />
-          <div className="grid md:grid-cols-2">
-            <div>
-              <AmountProp label="Boil Time" value={profile.boilTime} />
-              <AmountProp label="Batch Size" value={profile.batchVolume} />
-              <AmountProp
-                label="Mash Efficiency"
-                value={profile.mashEfficiency}
-                unit="%"
-              />
-              <AmountProp
-                label="Brew Efficiency"
-                value={profile.brewEfficiency}
-                unit="%"
-              />
-            </div>
-            <div>
-              <Prop label="Boiloff Rate" value={profile.boilOffRate} />
-              <AmountProp label="Mash Loss" value={profile.mashLoss} />
-              <AmountProp
-                label="Trub Loss"
-                precision={2}
-                value={profile.trubLoss}
-              />
-              <AmountProp
-                label="Fermenter Loss"
-                value={profile.fermenterLoss}
-              />
-            </div>
-            <div>
-              <AmountProp
-                label="Fermenter Loss"
-                value={profile.fermenterLoss}
-              />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          <AmountProp
+            label="Brew Efficiency"
+            value={profile.brewEfficiency}
+            unit="%"
+          />
+        </div>
+        <div>
+          <Prop label="Boiloff Rate" value={profile.boilOffRate} />
+          <AmountProp label="Mash Loss" value={profile.mashLoss} />
+          <AmountProp
+            label="Trub Loss"
+            precision={2}
+            value={profile.trubLoss}
+          />
+          <AmountProp label="Fermenter Loss" value={profile.fermenterLoss} />
+        </div>
+        <div>
+          <AmountProp label="Fermenter Loss" value={profile.fermenterLoss} />
+        </div>
+      </div>
     </div>
   );
 }

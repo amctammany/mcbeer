@@ -10,13 +10,13 @@ export default function EquipmentProfilesList({
   profiles,
 }: EquipmentProfilesListProps) {
   return (
-    <Card className="mx-4 my-2">
+    <div>
       <div className="w-full bg-amber-400">SearchBar</div>
-      <ul className="gap-2 *:not-last:border-b-2">
+      <ul className="p-2 gap-2 *:*:border-black *:*:border-b-2">
         {profiles.map((profile) => (
           <EquipmentProfileListItem key={profile.name} profile={profile} />
         ))}
       </ul>
-    </Card>
+    </div>
   );
 }
