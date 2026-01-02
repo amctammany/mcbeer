@@ -1,3 +1,4 @@
+"use cache";
 import { TopBar } from "@/components/TopBar/TopBar";
 import React from "react";
 import { getEquipmentProfiles } from "./queries";

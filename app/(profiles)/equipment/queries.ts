@@ -1,3 +1,4 @@
+"use server";
 import { prisma } from "@/lib/prisma";
 import { EquipmentProfileType } from "@/types/Profile";
 import { cache } from "react";
