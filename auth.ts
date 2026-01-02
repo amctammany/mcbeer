@@ -17,7 +17,12 @@ const options = {
     "http://127.0.0.1",
     "https://mcbeer.vercel.app",
   ],
-
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 5 * 60, // Cache duration in seconds
+    },
+  },
   database: prismaAdapter(prisma, {
     provider: "postgresql", // or "mysql", "postgresql", ...etc
   }),
