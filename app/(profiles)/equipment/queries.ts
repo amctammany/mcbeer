@@ -12,6 +12,7 @@ export const getEquipmentProfile = async (slug: string) => {
     include: {
       owner: { select: { name: true, id: true } },
       origin: { select: { name: true, id: true } },
+      forks: { select: { name: true, id: true } },
     },
   });
   return profile as EquipmentProfileType;

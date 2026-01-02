@@ -12,6 +12,7 @@ export type BaseEquipmentProfile = Omit<
 export interface EquipmentProfileType extends BaseEquipmentProfile {
   owner?: BaseUser;
   origin?: BaseEquipmentProfile;
+  forks?: BaseEquipmentProfile[];
 }
 type EquipmentProfileAmountFieldNames =
   | "boilTime"
