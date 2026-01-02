@@ -1,3 +1,4 @@
+"use cache";
 import { prisma } from "@/lib/prisma";
 
 export const getStyle = async (slug: string) => {
