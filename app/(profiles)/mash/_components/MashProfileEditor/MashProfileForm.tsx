@@ -75,16 +75,7 @@ export function MashProfileForm({
         label="Description"
         // onBlur={updateHistory}
       />
-      <div className="">
-        <Card className="grid">
-          <CardHeader>
-            <CardTitle>Ions</CardTitle>
-          </CardHeader>
-          <CardContent className="grid grid-cols-3 lg:grid-cols-6 gap-2">
-            <MashProfileStepsForm src={profile!} />
-          </CardContent>
-        </Card>
-      </div>
+      <MashProfileStepsForm src={profile!} />
     </div>
   );
 }

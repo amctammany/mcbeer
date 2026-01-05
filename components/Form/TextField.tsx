@@ -4,6 +4,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import {
   Field,
+  FieldContent,
   FieldDescription,
   FieldError,
   FieldGroup,
@@ -52,10 +53,12 @@ export function TextField<T extends FieldValues>({
   const id = `${name}-field`;
   return (
     <Field>
-      <FieldLabel htmlFor={id}>{label}</FieldLabel>
+      <FieldContent>
+        <FieldLabel htmlFor={id}>{label}</FieldLabel>
+        <FieldDescription>{description}</FieldDescription>
+        <FieldError>{error}</FieldError>
+      </FieldContent>
       <Input id={id} name={name} {...props} />
-      <FieldDescription>{description}</FieldDescription>
-      <FieldError>{error}</FieldError>
     </Field>
   );
 }

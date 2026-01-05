@@ -1,6 +1,7 @@
 import AmountField from "@/components/Form/AmountField";
 import { Input } from "@/components/Form/Input";
 import { SelectField } from "@/components/Form/SelectField";
+import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
 import { $Enums } from "@/generated/prisma/browser";
 import { MashProfileType, MashStepType } from "@/types/Profile";
@@ -80,15 +81,14 @@ export default function MashProfileStepField({
               name={`steps.${index}.type`}
               options={$Enums.MashStepType}
             />
-            <Input
+            <TextField
               control={control}
               className="flex-grow"
               name={`steps.${index}.name`}
-              variant="inline"
               label="Name"
             />
           </div>
-          <div className="flex flex-col lg:flex-row *:p-1">
+          <div className="flex flex-col lg:flex-row *:p-2 gap-3">
             <AmountField
               name={`steps.${index}.temperature`}
               type="number"
@@ -96,19 +96,17 @@ export default function MashProfileStepField({
               //              AppendIcon={Unit("°F")}
               label="Temp"
             />
-            <Input
-              variant="inline"
-              control={control}
+            <AmountField
               name={`steps.${index}.time`}
               type="number"
               label="Time"
+              amountType="time"
             />
-            <Input
-              control={control}
-              variant="inline"
+            <AmountField
               name={`steps.${index}.rampTime`}
               type="number"
               label="Ramp Time"
+              amountType="time"
             />
           </div>
         </div>

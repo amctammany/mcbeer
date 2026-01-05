@@ -82,7 +82,7 @@ export function SelectField<T extends FieldValues>({
       name={name}
       control={control}
       render={({ field, fieldState }) => (
-        <Field orientation="responsive" data-invalid={fieldState.invalid}>
+        <Field data-invalid={fieldState.invalid}>
           <FieldContent>
             <FieldLabel htmlFor={id}>{label ?? ""}</FieldLabel>
             <FieldDescription>{description ?? ""}</FieldDescription>
