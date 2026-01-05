@@ -75,17 +75,18 @@ export default function MashProfileStepField({
           <div className="flex flex-col lg:flex-row *:p-1">
             <input type="hidden" name={`steps.${index}.index`} value={index} />
             <input type="hidden" name={`steps.${index}.id`} />
-            <SelectField
-              control={control}
-              label="Type"
-              name={`steps.${index}.type`}
-              options={$Enums.MashStepType}
-            />
+
             <TextField
               control={control}
               className="flex-grow"
               name={`steps.${index}.name`}
               label="Name"
+            />
+            <SelectField
+              control={control}
+              label="Type"
+              name={`steps.${index}.type`}
+              options={$Enums.MashStepType}
             />
           </div>
           <div className="flex flex-col lg:flex-row *:p-2 gap-3">

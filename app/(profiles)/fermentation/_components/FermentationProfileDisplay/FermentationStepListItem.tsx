@@ -19,28 +19,32 @@ export default function FermentationStepListItem({
           <AvatarFallback>{src.index}</AvatarFallback>
         </Avatar>
       </div>
-      <div className="grow flex justify-between">
-        <Prop label="Name" variant="inline">
-          {src.name ?? src.type}
-        </Prop>
-        <Prop
-          label="Type"
-          variant="inline"
-          className={clsx({ hidden: !!src.name })}
-        >
-          {src.type}
-        </Prop>
-        <BadgeProp
-          Icon={Thermometer}
-          text={src.temperature.value}
-          unit={src.temperature.unit}
-        />
-        <BadgeProp Icon={Timer} text={src.time.value} unit={src.time.unit} />
-        <BadgeProp
-          Icon={TriangleRight}
-          text={src.rampTime?.value}
-          unit={src.rampTime?.unit}
-        />
+      <div className="grow flex gap-2 flex-col">
+        <div className="grow grid grid-flow-col auto-cols-auto gap-2 justify-items-stretch">
+          <Prop label="Name" variant="inline">
+            {src.name ?? src.type}
+          </Prop>
+          <Prop
+            label="Type"
+            variant="inline"
+            className={clsx({ hidden: !!src.name })}
+          >
+            {src.type}
+          </Prop>
+        </div>
+        <div className="grow grid grid-flow-col auto-cols-auto gap-2 justify-items-stretch">
+          <BadgeProp
+            Icon={Thermometer}
+            text={src.temperature.value}
+            unit={src.temperature.unit}
+          />
+          <BadgeProp Icon={Timer} text={src.time.value} unit={src.time.unit} />
+          <BadgeProp
+            Icon={TriangleRight}
+            text={src.rampTime?.value}
+            unit={src.rampTime?.unit}
+          />
+        </div>
       </div>
     </div>
   );
