@@ -1,8 +1,5 @@
 import React from "react";
-import type {
-  AdjustedFermentationProfileType,
-  FermentationProfileType,
-} from "@/types/Profile";
+import type { AdjustedFermentationProfileType } from "@/types/Profile";
 import Link from "next/link";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import {

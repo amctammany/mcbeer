@@ -1,12 +1,9 @@
 import BadgeProp from "@/components/Prop/BadgeProp";
 import Prop from "@/components/Prop/Prop";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ButtonGroup } from "@/components/ui/button-group";
 import { AdjustedFermentationStepType } from "@/types/Profile";
 import clsx from "clsx";
-import { SectionIcon, Thermometer, Timer, TriangleRight } from "lucide-react";
+import { Thermometer, Timer, TriangleRight } from "lucide-react";
 import React from "react";
 
 export type FermentationStepListItemProps = {

@@ -1,23 +1,13 @@
 "use client";
-import { Ca2, Cl, HCO3, Mg2, Na, SO4 } from "@/components/Elements";
-import AmountField from "@/components/Form/AmountField";
 import Form from "@/components/Form/Form";
-import HistoryForm from "@/components/Form/HistoryForm";
 import { TextField } from "@/components/Form/TextField";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { RevisionContext } from "@/contexts/RevisionContext";
-import {
-  UserPreferencesContext,
-  type UserPreferencesType,
-} from "@/contexts/UserPreferencesContext";
-import useRevisionHistory from "@/hooks/useRevisionHistory";
+import { type UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import {
   AdjustedFermentationProfileType,
   FermentationProfileType,
 } from "@/types/Profile";
-import React, { useActionState, useContext } from "react";
-import { useForm, useFormContext } from "react-hook-form";
+import React, { useActionState } from "react";
+import { useFormContext } from "react-hook-form";
 import { FermentationProfileStepsForm } from "./FermentationProfileStepsForm";
 export type FermentationProfileFormContainerProps<S = unknown> = {
   profile: AdjustedFermentationProfileType;

@@ -141,8 +141,8 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 href="/"
                 className="grid flex-1 text-left text-sm leading-tight"
               >
-                <span className="truncate font-medium">LNK</span>
-                <span className="truncate text-xs">Brew</span>
+                <span className="truncate font-medium">McBeer</span>
+                <span className="truncate text-xs">Brewing</span>
               </NavLink>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>

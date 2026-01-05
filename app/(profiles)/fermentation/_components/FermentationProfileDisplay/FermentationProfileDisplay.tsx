@@ -1,10 +1,5 @@
-import { AmountProp } from "@/components/Prop/AmountProp";
 import Prop from "@/components/Prop/Prop";
-import { Item, ItemContent, ItemHeader, ItemTitle } from "@/components/ui/item";
-import {
-  AdjustedFermentationProfileType,
-  FermentationProfileType,
-} from "@/types/Profile";
+import { AdjustedFermentationProfileType } from "@/types/Profile";
 import Link from "next/link";
 import FermentationStepListItem from "./FermentationStepListItem";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
