@@ -33,17 +33,17 @@ export const MashProfileMask: UnitMaskType<Partial<AdjustedMashProfileType>> = {
   grainTemp: "temperature",
   mashTunTemp: "temperature",
   spargeTemp: "temperature",
-  steps: [MashStepMask],
+  steps: MashStepMask,
 };
 export const FermentationStepMask: UnitMaskType<Partial<MashStepType>> = {
   temperature: "temperature",
-  time: "time",
-  rampTime: "time",
+  time: ["time", "days"],
+  rampTime: ["time", "days"],
 };
 export const FermentationProfileMask: UnitMaskType<
   Partial<AdjustedFermentationProfileType>
 > = {
-  steps: [FermentationStepMask],
+  steps: FermentationStepMask,
 };
 /**import { MashProfile, MashStep } from "@prisma/client";
 import { FermentableType, HopType, YeastType } from "@/types/Ingredient";

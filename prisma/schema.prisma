@@ -166,7 +166,7 @@ enum ConcentrationUnit {
 enum TimeUnit {
   min
   hr
-  day
+  days
 }
 
 enum PercentUnit {

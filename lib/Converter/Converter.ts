@@ -23,7 +23,7 @@ const volumeConverter: Record<UserVolumePreference, ConversionType> = {
 const timeConverter: Record<TimeUnit, ConversionType> = {
   min: 1,
   hr: 60,
-  day: 60 * 24,
+  days: 60 * 24,
 };
 const colorConverter: Record<UserColorPreference, ConversionType> = {
   L: 1,

@@ -4,7 +4,7 @@ import { FieldValues } from "react-hook-form";
 import { converters } from "./Converter";
 import { precisionRound } from "../utils";
 export type UnitMaskType<T> = {
-  [K in keyof T]?: UnitTypes | undefined | object;
+  [K in keyof T]?: UnitTypes | [UnitTypes, UnitNames] | undefined | object;
 };
 export type UnitMask<T> = {
   [K in keyof T]?: UnitNames | undefined | object;
@@ -101,11 +101,21 @@ export function adjustUnits<T extends FieldValues>({
   const s = Object.entries(mask).reduce(
     (acc, [k, v]) => {
       if (Array.isArray(v)) {
-        // console.log("isArray", k, v, src[k]);
+        console.log("isArray", k, v, src[k]);
+        acc[k] = convertUnit({
+          value: src[k as keyof typeof src],
+          type: v[0],
+          unit: v[1],
+          inline,
+          dir,
+          precision,
+        });
+      } else if (typeof v === "object") {
+        console.log(k, v, src[k]);
         acc[k] = src[k as keyof typeof src].map((val: any) =>
           adjustUnits({
             src: val,
-            mask: v[0] as any,
+            mask: v as any,
             prefs,
             inline,
             dir,
