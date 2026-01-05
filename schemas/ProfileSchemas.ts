@@ -43,6 +43,25 @@ export const waterProfileSchema = zfd.formData({
   chloride: zfd.numeric(z.number().min(0)),
   bicarbonate: zfd.numeric(z.number().min(0)),
 });
+export const fermentationStepSchema = zfd.formData({
+  fermentationProfileId: zfd.text(z.string().optional()),
+  index: zfd.numeric(),
+  id: zfd.numeric(z.number().optional()),
+  name: zfd.text(z.string().optional()),
+  temperature: zfd.numeric(z.number()),
+  time: zfd.numeric(z.number()),
+  rampTime: zfd.numeric(z.number().default(0)),
+});
+export const fermentationProfileSchema = zfd.formData({
+  //userId: zfd.text(),
+  id: zfd.text(z.string().optional()),
+  forkedFrom: zfd.text(z.string().optional()),
+  userId: zfd.text(z.string().optional()),
+  name: zfd.text(),
+  description: zfd.text(),
+  steps: zfd.repeatableOfType(fermentationStepSchema).default([]),
+});
+
 export const mashStepSchema = zfd.formData({
   mashProfileId: zfd.text(z.string().optional()),
   index: zfd.numeric(),

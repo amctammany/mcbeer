@@ -2,10 +2,46 @@ import {
   MashStep,
   MashProfile,
   EquipmentProfile,
+  FermentationProfile,
+  FermentationStep,
   WaterProfile,
 } from "@/generated/prisma/client";
 import { AmountFields, OptionalNullable } from "@/lib/utils";
 import { BaseUser } from "./User";
+
+type FermentationStepAmountFieldNames = "temperature" | "rampTime" | "time";
+export type AdjustedFermentationStepType = AmountFields<
+  FermentationStepType,
+  FermentationStepAmountFieldNames
+>;
+
+export interface FermentationStepType
+  extends Omit<
+    OptionalNullable<FermentationStep>,
+    "fermentationProfileId" | "id"
+  > {
+  id?: number;
+  fermentationProfileId?: string;
+}
+export type BaseFermentationProfile = Omit<
+  OptionalNullable<FermentationProfile>,
+  "id" | "userId" | "steps"
+> & {
+  id?: string;
+  userId?: string;
+  steps?: FermentationStepType[];
+};
+export interface FermentationProfileType extends BaseFermentationProfile {
+  owner?: Partial<BaseUser>;
+  origin?: BaseFermentationProfile;
+  forks?: BaseFermentationProfile[];
+}
+export type AdjustedFermentationProfileType = Omit<
+  OptionalNullable<FermentationProfileType>,
+  "steps"
+> & {
+  steps: AdjustedFermentationStepType[];
+};
 type MashProfileAmountFieldNames = "spargeTemp" | "grainTemp" | "mashTunTemp";
 export type AdjustedMashProfileType = Omit<
   AmountFields<MashProfileType, MashProfileAmountFieldNames>,

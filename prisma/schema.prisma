@@ -231,11 +231,12 @@ model User {
   accounts        Account[]
   UserPreferences UserPreferences?
 
-  role              UserRoles?         @default(USER)
-  displayUsername   String?
-  equipmentProfiles EquipmentProfile[]
-  waterProfiles     WaterProfile[]
-  mashProfiles      MashProfile[]
+  role                 UserRoles?            @default(USER)
+  displayUsername      String?
+  equipmentProfiles    EquipmentProfile[]
+  waterProfiles        WaterProfile[]
+  mashProfiles         MashProfile[]
+  fermentationProfiles FermentationProfile[]
 
   @@unique([email])
   @@map("user")
@@ -388,4 +389,41 @@ model MashStep {
   mashProfileId String
 
   @@unique(name: "mashIndex", fields: [mashProfileId, index])
+}
+
+model FermentationProfile {
+  id          String                @id @default(cuid())
+  name        String
+  slug        String                @unique
+  description String?
+  steps       FermentationStep[]
+  userId      String?
+  owner       User?                 @relation(fields: [userId], references: [id])
+  forkedFrom  String?
+  origin      FermentationProfile?  @relation("origin", fields: [forkedFrom], references: [id])
+  forks       FermentationProfile[] @relation("origin")
+  //  Recipe          Recipe[]
+}
+
+enum FermentationStepType {
+  primary
+  secondary
+  tertiary
+  coldcrash
+  conditioning
+}
+
+model FermentationStep {
+  id                    Int                  @id @default(autoincrement())
+  type                  FermentationStepType @default(primary)
+  name                  String?
+  index                 Int
+  temperature           Float
+  time                  Float
+  rampTime              Float                @default(0)
+  FermentationProfile   FermentationProfile  @relation(fields: [fermentationProfileId], references: [id])
+  fermentationProfileId String
+  //@@unique([mashProfileId, rank])
+
+  @@unique(name: "fermentationIndex", fields: [fermentationProfileId, index])
 }
