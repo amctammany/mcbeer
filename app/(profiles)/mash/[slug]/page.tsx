@@ -6,6 +6,10 @@ import IconButton from "@/components/Button/IconButton";
 import { Pencil, Split } from "lucide-react";
 import MashProfileDisplay from "../_components/MashProfileDisplay/MashProfileDisplay";
 import { Metadata, ResolvingMetadata } from "next";
+import { getPreferences } from "@/app/admin/queries";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { MashProfileMask } from "@/lib/Converter/Masks";
+import { AdjustedMashProfileType } from "@/types/Profile";
 
 export type MashProfileDisplayPageProps = {
   params: Promise<{ slug: string }>;
@@ -25,8 +29,17 @@ export default async function MashProfileDisplayPage({
   params,
 }: MashProfileDisplayPageProps) {
   const { slug } = await params;
+
   const profile = await getMashProfile(slug);
   if (!profile) notFound();
+  const prefs = await getPreferences();
+  const adjusted = adjustUnits({
+    src: profile,
+    mask: MashProfileMask,
+    prefs,
+    inline: false,
+    dir: true,
+  }) as AdjustedMashProfileType;
   return (
     <div>
       <TopBar
@@ -44,7 +57,7 @@ export default async function MashProfileDisplayPage({
           Edit
         </IconButton>
       </TopBar>
-      <MashProfileDisplay profile={profile} />
+      <MashProfileDisplay profile={adjusted} />
     </div>
   );
 }

@@ -5,8 +5,10 @@ import {
   ItemTitle,
   ItemDescription,
   ItemActions,
+  ItemMedia,
 } from "../ui/item";
 import clsx from "clsx";
+import { BadgeCheckIcon } from "lucide-react";
 
 const propVariants = cva("m-0 border-b-black border-b-2 rounded-b-none", {
   variants: {
@@ -21,14 +23,27 @@ const propVariants = cva("m-0 border-b-black border-b-2 rounded-b-none", {
   },
 });
 export type PropProps = {
-  label: string | React.ReactNode;
+  className?: string;
+  label?: string | React.ReactNode;
   unit?: string;
   value?: string | number | null | React.ReactNode;
+  Icon?: any;
   children?: React.ReactNode;
 } & VariantProps<typeof propVariants>;
-export const Prop = ({ label, value, variant, children, unit }: PropProps) => (
-  <Item size="sm" className={propVariants({ variant })}>
-    <ItemContent>
+export const Prop = ({
+  className,
+  label,
+  value,
+  variant,
+  Icon,
+  children,
+  unit,
+}: PropProps) => (
+  <Item size="sm" className={clsx(propVariants({ variant }), className)}>
+    <ItemMedia className={clsx("m-auto", { hidden: !Icon })}>
+      {Icon && <Icon className="size-5 m-auto" />}
+    </ItemMedia>
+    <ItemContent className={variant === "inline" ? "flex flex-row" : ""}>
       <ItemTitle className="bold border-b-2 ">{label}</ItemTitle>
       <ItemDescription className="flex w-full text-pretty ">
         <span className="grow">{children ?? value}</span>

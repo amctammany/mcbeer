@@ -1,11 +1,13 @@
 import { AmountProp } from "@/components/Prop/AmountProp";
 import Prop from "@/components/Prop/Prop";
 import { Item, ItemContent, ItemHeader, ItemTitle } from "@/components/ui/item";
-import { MashProfileType } from "@/types/Profile";
+import { AdjustedMashProfileType, MashProfileType } from "@/types/Profile";
 import Link from "next/link";
+import MashStepListItem from "./MashStepListItem";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export type MashProfileDisplayProps = {
-  profile: MashProfileType; //UnitValues<MashProfileType, UnitMask<MashProfileType>>;
+  profile: AdjustedMashProfileType; //UnitValues<MashProfileType, UnitMask<MashProfileType>>;
 };
 export default function MashProfileDisplay({
   profile,
@@ -25,9 +27,16 @@ export default function MashProfileDisplay({
         />
         <Prop label="Description" value={profile.description} />
       </div>
-      <div className="grid grid-cols-3 lg:grid-cols-3">
-        {JSON.stringify(profile.steps)}
-      </div>
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle>Steps</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {profile.steps?.map((step) => (
+            <MashStepListItem key={step.id} src={step} />
+          ))}
+        </CardContent>
+      </Card>
     </div>
   );
 }

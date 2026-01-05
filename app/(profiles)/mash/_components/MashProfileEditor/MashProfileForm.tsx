@@ -51,7 +51,7 @@ export function MashProfileFormContainer({
 }
 export type MashProfileFormProps = {
   preferences: UserPreferencesType;
-  profile?: MashProfileType;
+  profile: MashProfileType;
 };
 export function MashProfileForm({
   preferences,
@@ -75,7 +75,7 @@ export function MashProfileForm({
         label="Description"
         // onBlur={updateHistory}
       />
-      <MashProfileStepsForm src={profile!} />
+      <MashProfileStepsForm src={profile} />
     </div>
   );
 }
