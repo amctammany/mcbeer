@@ -28,7 +28,9 @@ export function MashProfileEditor({
           {profile.origin?.name}
         </Link>
       </h3>
-      <MashProfileForm profile={profile} preferences={preferences} />
+      <div className="max-w-2xl grid  mx-auto">
+        <MashProfileForm profile={profile} preferences={preferences} />
+      </div>
     </MashProfileFormContainer>
   );
 }

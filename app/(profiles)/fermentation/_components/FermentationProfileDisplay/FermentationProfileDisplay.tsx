@@ -3,6 +3,7 @@ import { AdjustedFermentationProfileType } from "@/types/Profile";
 import Link from "next/link";
 import FermentationStepListItem from "./FermentationStepListItem";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import FermentationChart from "./FermentationChart";
 
 export type FermentationProfileDisplayProps = {
   profile: AdjustedFermentationProfileType; //UnitValues<FermentationProfileType, UnitMask<FermentationProfileType>>;
@@ -36,6 +37,7 @@ export default function FermentationProfileDisplay({
           {profile.steps?.map((step) => (
             <FermentationStepListItem key={step.id} src={step} />
           ))}
+          <FermentationChart src={profile} />
         </CardContent>
       </Card>
     </div>

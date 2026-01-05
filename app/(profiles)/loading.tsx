@@ -7,12 +7,7 @@ import React from "react";
 export default function Loading() {
   return (
     <div>
-      <TopBar
-        breadcrumbs={[
-          { title: "Profiles" },
-          { title: "Equipment", url: "/equipment" },
-        ]}
-      >
+      <TopBar breadcrumbs={[{ title: "Profiles" }]}>
         <IconButton icon={Plus} variant="outline" href="/equipment/new">
           Add
         </IconButton>
