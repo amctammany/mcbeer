@@ -74,7 +74,15 @@ export default function FermentationChart({ src }: FermentationChartProps) {
             axisLine={false}
             tickMargin={8}
           />
-          <YAxis label="Temp (F)" />
+
+          <YAxis
+            label={{
+              value: '"Temp (F)',
+              angle: -90,
+              position: "insideLeft",
+              textAnchor: "middle",
+            }}
+          />
           <ChartTooltip
             cursor={false}
             content={<ChartTooltipContent hideLabel />}
