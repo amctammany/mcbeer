@@ -11,6 +11,7 @@ import React, { useEffect } from "react";
 
 export type LoginFormProps = {
   signIn?: any;
+  redirectUrl?: string;
 };
 
 const allowedCallbackSet: ReadonlySet<string> = new Set([
@@ -31,7 +32,7 @@ export const getCallbackURL = (
   return "/dashboard";
 };
 
-export function LoginForm({}: LoginFormProps) {
+export function LoginForm({ redirectUrl = "/admin" }: LoginFormProps) {
   const router = useRouter();
   const params = useSearchParams();
 
@@ -41,10 +42,11 @@ export function LoginForm({}: LoginFormProps) {
   //     callbackURL: "/admin/dashboard",
   //   });
   // }, []);
+  console.log(params);
   const handleLogin = async (e: any) => {
     const r = await authClient.signIn.social({
       provider: "google",
-      callbackURL: "/admin",
+      callbackURL: redirectUrl,
     });
     //  await signIn();
   };

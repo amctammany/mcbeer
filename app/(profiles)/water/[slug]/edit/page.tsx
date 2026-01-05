@@ -8,6 +8,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import WaterProfileEditor from "../../_components/WaterProfileEditor/WaterProfileEditor";
 import { updateWaterProfile } from "../../actions";
 import { getPreferences } from "@/app/admin/queries";
+import { authorizeResource } from "@/lib/authorizeResource";
 
 export type WaterProfileEditorPageProps = {
   params: Promise<{ slug: string }>;
@@ -27,9 +28,13 @@ export default async function WaterProfileEditorPage({
   params,
 }: WaterProfileEditorPageProps) {
   const { slug } = await params;
+
+  const profile = await authorizeResource(
+    `/water/${slug}/edit`,
+    getWaterProfile,
+    slug
+  );
   const prefs = await getPreferences();
-  const profile = await getWaterProfile(slug);
-  if (!profile) notFound();
   return (
     <WaterProfileEditor
       profile={profile}
