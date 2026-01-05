@@ -34,7 +34,7 @@ export default function FermentationProfileStepField({
   remove,
 }: FermentationProfileStepFieldProps) {
   return (
-    <li className="list-item" key={index}>
+    <li className="list-item " key={index}>
       <div className="flex">
         <div className="flex flex-col justify-evenly items-center bg-secondary">
           <div className="text-lg">{index}</div>
@@ -100,11 +100,13 @@ export default function FermentationProfileStepField({
               name={`steps.${index}.time`}
               type="number"
               label="Time"
+              unit="days"
               amountType="time"
             />
             <AmountField
               name={`steps.${index}.rampTime`}
               type="number"
+              unit="days"
               label="Ramp Time"
               amountType="time"
             />

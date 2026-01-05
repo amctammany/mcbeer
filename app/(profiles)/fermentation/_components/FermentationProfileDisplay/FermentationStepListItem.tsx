@@ -1,5 +1,6 @@
 import BadgeProp from "@/components/Prop/BadgeProp";
 import Prop from "@/components/Prop/Prop";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
@@ -16,8 +17,10 @@ export default function FermentationStepListItem({
 }: FermentationStepListItemProps) {
   return (
     <div className="flex w-full">
-      <div className="shrink m-auto">
-        <SectionIcon />
+      <div className="shrink m-auto mr-2">
+        <Avatar>
+          <AvatarFallback>{src.index}</AvatarFallback>
+        </Avatar>
       </div>
       <div className="grow flex justify-between">
         <Prop label="Name" variant="inline">

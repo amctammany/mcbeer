@@ -101,7 +101,7 @@ export function adjustUnits<T extends FieldValues>({
   const s = Object.entries(mask).reduce(
     (acc, [k, v]) => {
       if (Array.isArray(v)) {
-        console.log("isArray", k, v, src[k]);
+        //console.log("isArray", k, v, src[k]);
         acc[k] = convertUnit({
           value: src[k as keyof typeof src],
           type: v[0],
@@ -111,7 +111,7 @@ export function adjustUnits<T extends FieldValues>({
           precision,
         });
       } else if (typeof v === "object") {
-        console.log(k, v, src[k]);
+        // console.log(k, v, src[k]);
         acc[k] = src[k as keyof typeof src].map((val: any) =>
           adjustUnits({
             src: val,

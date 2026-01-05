@@ -1,6 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Card, CardAction, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   AdjustedFermentationProfileType,
   FermentationProfileType,
@@ -50,19 +56,21 @@ export function FermentationProfileStepsForm({
           </Button>
         </CardAction>
       </CardHeader>
-      <ul className="*:not-last:border-b-2">
-        {controlledFields.map((step, index) => (
-          <FermentationProfileStepField
-            key={step.id}
-            src={step}
-            index={index}
-            length={controlledFields.length - 1}
-            control={control}
-            swap={swap}
-            remove={remove}
-          />
-        ))}
-      </ul>
+      <CardContent>
+        <ul className="*:not-last:border-b-2 gap-2 *:even:bg-blue-100/20">
+          {controlledFields.map((step, index) => (
+            <FermentationProfileStepField
+              key={step.id}
+              src={step}
+              index={index}
+              length={controlledFields.length - 1}
+              control={control}
+              swap={swap}
+              remove={remove}
+            />
+          ))}
+        </ul>
+      </CardContent>
     </Card>
   );
 }
