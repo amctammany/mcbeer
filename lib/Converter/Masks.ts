@@ -1,4 +1,9 @@
-import { EquipmentProfileType } from "@/types/Profile";
+import {
+  AdjustedMashProfileType,
+  EquipmentProfileType,
+  MashProfileType,
+  MashStepType,
+} from "@/types/Profile";
 import { UnitMaskType } from "./adjustUnits";
 import { PreferencesInput } from "@/app/admin/preferences/PreferencesForm";
 
@@ -18,20 +23,20 @@ export const EquipmentProfileMask: UnitMaskType<Partial<EquipmentProfileType>> =
     fermenterLoss: "volume",
     fermenterTopOff: "volume",
   };
-
-/**import { MashProfile, MashStep } from "@prisma/client";
-import { FermentableType, HopType, YeastType } from "@/types/Ingredient";
 export const MashStepMask: UnitMaskType<Partial<MashStepType>> = {
   temperature: "temperature",
   time: "time",
   rampTime: "time",
 };
-export const MashProfileMask: UnitMaskType<Partial<MashProfileType>> = {
+export const MashProfileMask: UnitMaskType<Partial<AdjustedMashProfileType>> = {
   grainTemp: "temperature",
   mashTunTemp: "temperature",
   spargeTemp: "temperature",
-  steps: MashStepMask,
+  steps: [MashStepMask],
 };
+/**import { MashProfile, MashStep } from "@prisma/client";
+import { FermentableType, HopType, YeastType } from "@/types/Ingredient";
+
 
 export const HopMask: UnitMaskType<Partial<HopType>> = {
   alpha: "percent",

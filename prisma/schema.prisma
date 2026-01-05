@@ -235,6 +235,7 @@ model User {
   displayUsername   String?
   equipmentProfiles EquipmentProfile[]
   waterProfiles     WaterProfile[]
+  mashProfiles      MashProfile[]
 
   @@unique([email])
   @@map("user")
@@ -347,4 +348,44 @@ model WaterProfile {
   forkedFrom  String?
   origin      WaterProfile?  @relation("origin", fields: [forkedFrom], references: [id])
   forks       WaterProfile[] @relation("origin")
+}
+
+model MashProfile {
+  id               String        @id @default(cuid())
+  name             String
+  slug             String        @unique
+  spargeTemp       Float         @default(168)
+  grainTemp        Float         @default(72)
+  grainWeightBasis Float?        @default(10)
+  mashPh           Float?        @default(5.4)
+  mashTunTemp      Float         @default(72)
+  description      String?
+  userId           String?
+  forkedFrom       String?
+  origin           MashProfile?  @relation("origin", fields: [forkedFrom], references: [id])
+  forks            MashProfile[] @relation("origin")
+
+  steps MashStep[]
+  owner User?      @relation(fields: [userId], references: [id])
+}
+
+enum MashStepType {
+  temperature
+  infusion
+  decoction
+}
+
+model MashStep {
+  id          Int           @id @default(autoincrement())
+  type        MashStepType? @default(temperature)
+  name        String?
+  temperature Int
+  time        Int
+  rampTime    Int?          @default(0)
+  index       Int
+
+  MashProfile   MashProfile @relation(fields: [mashProfileId], references: [id], onDelete: Cascade)
+  mashProfileId String
+
+  @@unique(name: "mashIndex", fields: [mashProfileId, index])
 }

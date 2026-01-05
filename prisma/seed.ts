@@ -7,6 +7,7 @@ async function main() {
   await prisma.style.deleteMany({});
   await prisma.equipmentProfile.deleteMany({});
   await prisma.waterProfile.deleteMany({});
+  await prisma.mashProfile.deleteMany({});
   console.log("Seeding database...");
   await prisma.style.createMany({
     data: styles.map(({ category, ...style }) => ({
@@ -15,7 +16,16 @@ async function main() {
       category: StyleCategory[category.toLowerCase() as StyleCategory],
     })),
   });
-
+  await prisma.mashProfile.create({
+    data: {
+      name: "Max Fermentability",
+      slug: slugify("Max Fermentability", { lower: true }),
+      description: "Maximum Fermentability",
+      steps: {
+        createMany: { data: [{ index: 0, temperature: 152, time: 60 }] },
+      },
+    },
+  });
   await prisma.equipmentProfile.create({
     data: {
       name: "Anvil 10.5",

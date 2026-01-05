@@ -1,0 +1,45 @@
+import React from "react";
+import { getMashProfile } from "@/app/(profiles)/mash/queries";
+import { notFound } from "next/navigation";
+import { TopBar } from "@/components/TopBar/TopBar";
+import IconButton from "@/components/Button/IconButton";
+import { Pencil, Split } from "lucide-react";
+import { Metadata, ResolvingMetadata } from "next";
+import MashProfileEditor from "../../_components/MashProfileEditor/MashProfileEditor";
+import { updateMashProfile } from "../../actions";
+import { getPreferences } from "@/app/admin/queries";
+import { authorizeResource } from "@/lib/authorizeResource";
+
+export type MashProfileEditorPageProps = {
+  params: Promise<{ slug: string }>;
+};
+export async function generateMetadata({
+  params,
+}: MashProfileEditorPageProps): Promise<Metadata> {
+  // read route params
+  const { slug } = await params;
+  const profile = await getMashProfile(slug);
+  return {
+    title: `Mash Profile: ${profile.name}`,
+    description: "Mash profile editor",
+  };
+}
+export default async function MashProfileEditorPage({
+  params,
+}: MashProfileEditorPageProps) {
+  const { slug } = await params;
+
+  const profile = await authorizeResource(
+    `/mash/${slug}/edit`,
+    getMashProfile,
+    slug
+  );
+  const prefs = await getPreferences();
+  return (
+    <MashProfileEditor
+      profile={profile}
+      preferences={prefs}
+      action={updateMashProfile.bind(null, prefs)}
+    />
+  );
+}

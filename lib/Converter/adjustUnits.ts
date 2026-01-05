@@ -36,7 +36,7 @@ function convertUnit({
   dir?: boolean;
   precision?: number;
 }) {
-  //  console.log("converUnit", { value, type, unit, inline, dir });
+  console.log("converUnit", { value, type, unit, inline, dir });
 
   if (typeof value === "number") {
     const convert = converters[type as UnitTypes];
@@ -92,19 +92,21 @@ export function adjustUnits<T extends FieldValues>({
   precision = 2,
 }: {
   src: T;
-  mask: Partial<Record<keyof T, UnitTypes | object | string>>;
+  mask: Partial<Record<keyof T, UnitTypes | object | string | Array<object>>>;
   prefs: UserPreferencesType;
   inline?: boolean;
   dir?: boolean;
   precision?: number;
 }) {
+  console.log({ src, mask, prefs, inline, dir });
   const s = Object.entries(mask).reduce(
     (acc, [k, v]) => {
-      if (Array.isArray(src[k as keyof typeof src])) {
+      if (Array.isArray(v)) {
+        console.log("isArray", k, v, src[k]);
         acc[k] = src[k as keyof typeof src].map((val: any) =>
           adjustUnits({
             src: val,
-            mask: v as any,
+            mask: v[0] as any,
             prefs,
             inline,
             dir,

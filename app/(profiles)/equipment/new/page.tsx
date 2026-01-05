@@ -12,16 +12,15 @@ import { createEquipmentProfile } from "../actions";
 import { auth } from "@/auth";
 import { headers } from "next/headers";
 import type { Metadata } from "next";
+import { verifySession } from "@/lib/verifySession";
 export const metadata: Metadata = {
   title: "New Equipment Profile",
   description: "Equipment Profile creator",
 };
 export default async function EquipmentProfileCreatorPage() {
+  const session = await verifySession("/equipment/new");
   const prefs = await getPreferences();
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-  if (!session) unauthorized();
+
   const profile = {
     userId: session.user.id,
     boilTime: 60,
