@@ -31,27 +31,10 @@ export default async function WaterProfileEditorPage({
   const profile = await getWaterProfile(slug);
   if (!profile) notFound();
   return (
-    <div>
-      <TopBar
-        breadcrumbs={[
-          { title: "Profiles" },
-          { title: "Water", url: "/water" },
-          { title: profile.name, url: `/water/${profile.slug}` },
-        ]}
-      >
-        <IconButton icon={Split} href={`/water/${profile.slug}/fork`}>
-          Fork
-        </IconButton>
-
-        <IconButton icon={Pencil} href={`/water/${profile.slug}/edit`}>
-          Edit
-        </IconButton>
-      </TopBar>
-      <WaterProfileEditor
-        profile={profile}
-        preferences={prefs}
-        action={updateWaterProfile}
-      />
-    </div>
+    <WaterProfileEditor
+      profile={profile}
+      preferences={prefs}
+      action={updateWaterProfile}
+    />
   );
 }

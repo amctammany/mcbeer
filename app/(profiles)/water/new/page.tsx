@@ -1,12 +1,8 @@
 import React from "react";
-import { getWaterProfile } from "@/app/(profiles)/water/queries";
 import { notFound, unauthorized } from "next/navigation";
-import { TopBar } from "@/components/TopBar/TopBar";
-import IconButton from "@/components/Button/IconButton";
-import { Pencil, Split } from "lucide-react";
 import { Metadata, ResolvingMetadata } from "next";
 import WaterProfileEditor from "@/app/(profiles)/water/_components/WaterProfileEditor/WaterProfileEditor";
-import { updateWaterProfile } from "@/app/(profiles)/water/actions";
+import { createWaterProfile } from "@/app/(profiles)/water/actions";
 import { getPreferences } from "@/app/admin/queries";
 import { auth } from "@/auth";
 import { headers } from "next/headers";
@@ -23,19 +19,10 @@ export default async function WaterProfileCreatorPage() {
   } as WaterProfileType;
   if (!profile) notFound();
   return (
-    <div>
-      <TopBar
-        breadcrumbs={[
-          { title: "Profiles" },
-          { title: "Water", url: "/water" },
-          { title: "New" },
-        ]}
-      ></TopBar>
-      <WaterProfileEditor
-        profile={profile}
-        preferences={prefs}
-        action={updateWaterProfile}
-      />
-    </div>
+    <WaterProfileEditor
+      profile={profile}
+      preferences={prefs}
+      action={createWaterProfile}
+    />
   );
 }

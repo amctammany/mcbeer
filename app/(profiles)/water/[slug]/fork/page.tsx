@@ -1,13 +1,16 @@
 import React from "react";
 import { getWaterProfile } from "@/app/(profiles)/water/queries";
-import { notFound } from "next/navigation";
+import { notFound, unauthorized } from "next/navigation";
 import { TopBar } from "@/components/TopBar/TopBar";
 import IconButton from "@/components/Button/IconButton";
 import { Pencil, Split } from "lucide-react";
 import { Metadata, ResolvingMetadata } from "next";
 import WaterProfileEditor from "../../_components/WaterProfileEditor/WaterProfileEditor";
-import { updateWaterProfile } from "../../actions";
+import { createWaterProfile } from "../../actions";
 import { getPreferences } from "@/app/admin/queries";
+import { auth } from "@/auth";
+import { headers } from "next/headers";
+import { WaterProfileType } from "@/types/Profile";
 
 export type WaterProfileForkPageProps = {
   params: Promise<{ slug: string }>;
@@ -27,31 +30,19 @@ export default async function WaterProfileForkPage({
   params,
 }: WaterProfileForkPageProps) {
   const { slug } = await params;
-  const prefs = await getPreferences();
   const profile = await getWaterProfile(slug);
   if (!profile) notFound();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!session?.user) unauthorized();
+  const prefs = await getPreferences();
+  const fork = { ...profile, userId: session?.user.id } as WaterProfileType;
   return (
-    <div>
-      <TopBar
-        breadcrumbs={[
-          { title: "Profiles" },
-          { title: "Water", url: "/water" },
-          { title: profile.name, url: `/water/${profile.slug}` },
-        ]}
-      >
-        <IconButton icon={Split} href={`/water/${profile.slug}/fork`}>
-          Fork
-        </IconButton>
-
-        <IconButton icon={Pencil} href={`/water/${profile.slug}/edit`}>
-          Edit
-        </IconButton>
-      </TopBar>
-      <WaterProfileEditor
-        profile={profile}
-        preferences={prefs}
-        action={updateWaterProfile}
-      />
-    </div>
+    <WaterProfileEditor
+      profile={fork}
+      preferences={prefs}
+      action={createWaterProfile}
+    />
   );
 }
