@@ -6,7 +6,7 @@ import {
   WaterProfileForm,
   WaterProfileFormContainer,
 } from "./WaterProfileForm";
-import WaterProfileEditorToolbar from "./WatertProfileEditorToolbar";
+import WaterProfileEditorToolbar from "./WaterProfileEditorToolbar";
 
 export type WaterProfileEditorProps = {
   profile: WaterProfileType;
