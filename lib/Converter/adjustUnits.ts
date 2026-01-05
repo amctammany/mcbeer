@@ -27,7 +27,7 @@ function convertUnit({
   unit,
   inline = false,
   dir = true,
-  precision = 2,
+  precision = 1,
 }: {
   value: number | number[] | UnitValue;
   type: UnitTypes | object;
@@ -44,8 +44,7 @@ function convertUnit({
     const baseValue = convert[unit].from(value);
     const newValue = convert[unit].to(value);
     const val = dir ? newValue : baseValue;
-    const v =
-      Math.round(val * Math.pow(10, precision)) / Math.pow(10, precision);
+    const v = precisionRound(val, precision);
     return inline ? v : ({ value: v, unit } as UnitValue);
   }
   if (Array.isArray(value))
