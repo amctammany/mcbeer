@@ -11,6 +11,7 @@ import { auth } from "@/auth";
 import { EquipmentProfileMask } from "@/lib/Converter/Masks";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { AdjustedEquipmentProfileType } from "@/types/Profile";
+import { verifySession } from "@/lib/verifySession";
 
 export type EquipmentProfileForkPageProps = {
   params: Promise<{ slug: string }>;
@@ -19,12 +20,7 @@ export default async function EquipmentProfileForkPage({
   params,
 }: EquipmentProfileForkPageProps) {
   const { slug } = await params;
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-  if (!session) {
-    return unauthorized();
-  }
+  const session = await verifySession(`/equipment/${slug}/fork`);
   const prefs = await getPreferences();
 
   const { id, owner, origin, forks, ...old } = await getEquipmentProfile(slug);

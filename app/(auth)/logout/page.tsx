@@ -3,7 +3,7 @@ import { auth } from "@/auth";
 import { headers } from "next/headers";
 import { Logout } from "./Logout";
 
-export default function Page() {
+export default async function Page() {
   const signOut = async () => {
     "use server";
     await auth.api.signOut({

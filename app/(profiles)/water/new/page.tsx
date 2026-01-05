@@ -7,15 +7,14 @@ import { getPreferences } from "@/app/admin/queries";
 import { auth } from "@/auth";
 import { headers } from "next/headers";
 import { WaterProfileType } from "@/types/Profile";
+import { verifySession } from "@/lib/verifySession";
 
 export default async function WaterProfileCreatorPage() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await verifySession("/water/new");
   if (!session?.user) unauthorized();
   const prefs = await getPreferences();
   const profile = {
-    userId: session?.user.id,
+    userId: session.user.id,
   } as WaterProfileType;
   if (!profile) notFound();
   return (

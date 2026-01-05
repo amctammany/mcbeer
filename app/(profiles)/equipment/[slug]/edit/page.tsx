@@ -1,6 +1,4 @@
-import React from "react";
 import { getEquipmentProfile } from "@/app/(profiles)/equipment/queries";
-import { notFound } from "next/navigation";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import type { AdjustedEquipmentProfileType } from "@/types/Profile";
 import { EquipmentProfileEditor } from "@/app/(profiles)/equipment/_components/EquipmentProfileEditor/EquipmentProfileEditor";
@@ -8,6 +6,7 @@ import { EquipmentProfileMask } from "@/lib/Converter/Masks";
 import { getPreferences } from "@/app/admin/queries";
 import { updateEquipmentProfile } from "../../actions";
 import { Metadata } from "next";
+import { authorizeResource } from "@/lib/authorizeResource";
 
 export type EquipmentProfileEditorPageProps = {
   params: Promise<{ slug: string }>;
@@ -27,8 +26,12 @@ export default async function EquipmentProfileEditorPage({
   params,
 }: EquipmentProfileEditorPageProps) {
   const { slug } = await params;
-  const profile = await getEquipmentProfile(slug);
-  if (!profile) notFound();
+
+  const profile = await authorizeResource(
+    `/equipment/${slug}/edit`,
+    getEquipmentProfile,
+    slug
+  );
   const prefs = await getPreferences();
   const adjusted = adjustUnits({
     src: profile,

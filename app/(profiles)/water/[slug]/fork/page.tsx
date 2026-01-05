@@ -12,6 +12,7 @@ import { auth } from "@/auth";
 import { headers } from "next/headers";
 import { WaterProfileType } from "@/types/Profile";
 import { prisma } from "@/lib/prisma";
+import { verifySession } from "@/lib/verifySession";
 
 export type WaterProfileForkPageProps = {
   params: Promise<{ slug: string }>;
@@ -31,10 +32,7 @@ export default async function WaterProfileForkPage({
   params,
 }: WaterProfileForkPageProps) {
   const { slug } = await params;
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-  if (!session?.user) unauthorized();
+  const session = await verifySession(`/water/${slug}/fork`);
   const { id, owner, origin, forks, ...old } = await getWaterProfile(slug);
   if (!old) notFound();
   const count = await prisma.equipmentProfile.count({
