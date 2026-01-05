@@ -45,7 +45,7 @@ import clsx from "clsx";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 export type AmountFieldProps<T extends FieldValues> = InputProps<T> &
   VariantProps<typeof amountFieldStyles> & {
-    amountType: UnitTypes;
+    amountType?: UnitTypes;
     unit?: UnitNames;
     min?: number;
     max?: number;
@@ -81,11 +81,12 @@ export function AmountField<T extends FieldValues>({
   const id = `${name}-field`;
   const preferenceContext = useContext(UserPreferencesContext);
   const { register } = useFormContext();
-  const unitName = preferenceContext?.[amountType];
-  const options = (UnitTypeDict[amountType] ?? []).reduce((acc, unit) => {
+  const unitName = unit ?? amountType ? preferenceContext?.[amountType!] : "";
+  /**const options = (UnitTypeDict[amountType] ?? []).reduce((acc, unit) => {
     acc[unit] = unit;
     return acc;
   }, {} as Record<UnitNames, UnitNames>);
+  */
   const revisionContext = useContext(RevisionContext);
   const onValueChange = (cb: (newValue: any) => void) => (newValue: any) => {
     revisionContext?.update({

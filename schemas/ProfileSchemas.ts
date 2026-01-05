@@ -26,12 +26,11 @@ export const equipmentProfileSchema = zfd.formData({
   grainAbsorption: zfd.numeric(z.number().min(0).default(1)),
   waterGrainRatio: zfd.numeric(z.number().min(0).default(1)),
 });
-/**
 
 export const waterProfileSchema = zfd.formData({
   //userId: zfd.text(),
-  id: zfd.numeric(z.number().optional()),
-  forkedFrom: zfd.numeric(z.number().optional()),
+  id: zfd.text(z.string().optional()),
+  forkedFrom: zfd.text(z.string().optional()),
   userId: zfd.text(z.string().optional()),
   name: zfd.text(),
   description: zfd.text(),
@@ -43,6 +42,7 @@ export const waterProfileSchema = zfd.formData({
   chloride: zfd.numeric(z.number().min(0)),
   bicarbonate: zfd.numeric(z.number().min(0)),
 });
+/**
 export const mashStepSchema = zfd.formData({
   mashProfileId: zfd.text(z.string().optional()),
   index: zfd.numeric(),

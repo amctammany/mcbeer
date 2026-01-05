@@ -20,7 +20,7 @@ const propVariants = cva("m-1 border-b-black border-b-2 rounded-b-none", {
   },
 });
 export type PropProps = {
-  label: string;
+  label: string | React.ReactNode;
   unit?: string;
   value?: string | number | null | React.ReactNode;
   children?: React.ReactNode;

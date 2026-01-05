@@ -234,6 +234,7 @@ model User {
   role              UserRoles?         @default(USER)
   displayUsername   String?
   equipmentProfiles EquipmentProfile[]
+  waterProfiles     WaterProfile[]
 
   @@unique([email])
   @@map("user")
@@ -325,4 +326,25 @@ model EquipmentProfile {
   owner                  User?                       @relation(fields: [userId], references: [id])
   //  Recipe          Recipe[]
   //  UserPreferences UserPreferences[]
+}
+
+model WaterProfile {
+  id          String         @id @default(cuid())
+  userId      String?
+  owner       User?          @relation(fields: [userId], references: [id])
+  name        String
+  slug        String         @unique
+  calcium     Int?           @default(0)
+  magnesium   Int?           @default(0)
+  sodium      Int?           @default(0)
+  chloride    Int?           @default(0)
+  sulfate     Int?           @default(0)
+  bicarbonate Int?           @default(0)
+  description String?
+  //  Recipe         Recipe[]
+  //  DefaultSources UserPreferences[] @relation("SourceWater")
+  //  TargetSources  UserPreferences[] @relation("TargetWater")
+  forkedFrom  String?
+  origin      WaterProfile?  @relation("origin", fields: [forkedFrom], references: [id])
+  forks       WaterProfile[] @relation("origin")
 }

@@ -1,16 +1,30 @@
-import { EquipmentProfile } from "@/generated/prisma/client";
+import { EquipmentProfile, WaterProfile } from "@/generated/prisma/client";
 import { AmountFields, OptionalNullable } from "@/lib/utils";
 import { BaseUser } from "./User";
 
-export type BaseEquipmentProfile = Omit<
-  OptionalNullable<EquipmentProfile>,
-  "id"
+export type BaseWaterProfile = Omit<
+  OptionalNullable<WaterProfile>,
+  "id" | "userId"
 > & {
   id?: string;
+  userId?: string;
+};
+export interface WaterProfileType extends BaseWaterProfile {
+  owner?: Partial<BaseUser>;
+  origin?: BaseWaterProfile;
+  forks?: BaseWaterProfile[];
+}
+
+export type BaseEquipmentProfile = Omit<
+  OptionalNullable<EquipmentProfile>,
+  "id" | "userId"
+> & {
+  id?: string;
+  userId?: string;
 };
 
 export interface EquipmentProfileType extends BaseEquipmentProfile {
-  owner?: BaseUser;
+  owner?: Partial<BaseUser>;
   origin?: BaseEquipmentProfile;
   forks?: BaseEquipmentProfile[];
 }

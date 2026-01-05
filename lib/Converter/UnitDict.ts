@@ -26,7 +26,9 @@ export type UnitNames =
   | UserPressurePreference
   | UserGravityPreference
   | UserVolumePreference
-  | UserMassPreference;
+  | UserMassPreference
+  | "ppm"
+  | "ppb";
 export const UNITS = {
   time: TimeUnit,
   percent: PercentUnit,
