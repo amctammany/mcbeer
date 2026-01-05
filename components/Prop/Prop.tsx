@@ -8,11 +8,12 @@ import {
 } from "../ui/item";
 import clsx from "clsx";
 
-const propVariants = cva("m-1 border-b-black border-b-2 rounded-b-none", {
+const propVariants = cva("m-0 border-b-black border-b-2 rounded-b-none", {
   variants: {
     variant: {
       default: "",
-      inline: "*:first:flex-row *:first:*:first:pr-2",
+      outline: "border border-2 rounded",
+      muted: "*:first:flex *:first:flex-row *:first:*:first:pr-2",
     },
   },
   defaultVariants: {
@@ -24,9 +25,10 @@ export type PropProps = {
   unit?: string;
   value?: string | number | null | React.ReactNode;
   children?: React.ReactNode;
-} & VariantProps<typeof propVariants>;
+  variant?: Parameters<typeof Item>[0]["variant"];
+};
 export const Prop = ({ label, value, variant, children, unit }: PropProps) => (
-  <Item size="sm" className={propVariants({ variant })}>
+  <Item size="sm" variant={variant} className={propVariants({ variant })}>
     <ItemContent>
       <ItemTitle className="bold border-b-2 ">{label}</ItemTitle>
       <ItemDescription className="flex w-full text-pretty ">

@@ -7,11 +7,7 @@ import { validateSchema } from "@/lib/validateSchema";
 import { redirect } from "next/navigation";
 import { waterProfileSchema } from "@/schemas/ProfileSchemas";
 import { revalidatePath } from "next/cache";
-export async function createWaterProfile(
-  prefs: UserPreferencesType,
-  prev: any,
-  formData: FormData
-) {
+export async function createWaterProfile(prev: any, formData: FormData) {
   const v = validateSchema(formData, waterProfileSchema);
   console.log(v.errors);
   if (v.errors) return v;
@@ -27,11 +23,7 @@ export async function createWaterProfile(
   //  return { success: true, data: res };
 }
 
-export async function updateWaterProfile(
-  prefs: UserPreferencesType,
-  prev: any,
-  formData: FormData
-) {
+export async function updateWaterProfile(prev: any, formData: FormData) {
   const v = validateSchema(formData, waterProfileSchema);
   if (v.errors) console.log(v);
   if (v.errors) return v;

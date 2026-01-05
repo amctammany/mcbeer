@@ -1,4 +1,5 @@
 "use client";
+import { Ca2, Cl, HCO3, Mg2, Na, SO4 } from "@/components/Elements";
 import AmountField from "@/components/Form/AmountField";
 import Form from "@/components/Form/Form";
 import HistoryForm from "@/components/Form/HistoryForm";
@@ -69,13 +70,48 @@ export function WaterProfileForm({ preferences }: WaterProfileFormProps) {
         label="Description"
         // onBlur={updateHistory}
       />
-      <div className="grid lg:grid-cols-3 gap-2">
+      <div className="">
         <Card className="grid">
           <CardHeader>
-            <CardTitle>Volumes</CardTitle>
+            <CardTitle>Ions</CardTitle>
           </CardHeader>
-          <CardContent>
-            <AmountField control={control} name="calcium" unit="ppm" />
+          <CardContent className="grid grid-cols-3 lg:grid-cols-6 gap-2">
+            <AmountField
+              control={control}
+              label={<Ca2 />}
+              name="calcium"
+              unit="ppm"
+            />
+            <AmountField
+              control={control}
+              label={<Na />}
+              name="sodium"
+              unit="ppm"
+            />
+            <AmountField
+              control={control}
+              label={<Mg2 />}
+              name="magnesium"
+              unit="ppm"
+            />
+            <AmountField
+              control={control}
+              label={<SO4 />}
+              name="sulfate"
+              unit="ppm"
+            />
+            <AmountField
+              control={control}
+              label={<Cl />}
+              name="chloride"
+              unit="ppm"
+            />
+            <AmountField
+              control={control}
+              label={<HCO3 />}
+              name="bicarbonate"
+              unit="ppm"
+            />
           </CardContent>
         </Card>
       </div>

@@ -26,13 +26,43 @@ export default function WaterProfileDisplay({
         />
         <Prop label="Description" value={profile.description} />
       </div>
-      <div className="grid grid-cols-3 lg:grid-cols-6">
-        <Prop unit="ppm" label={<Ca2 />} value={profile.calcium} />
-        <Prop unit="ppm" label={<Na />} value={profile.sodium} />
-        <Prop unit="ppm" label={<Mg2 />} value={profile.magnesium} />
-        <Prop unit="ppm" label={<Cl />} value={profile.chloride} />
-        <Prop unit="ppm" label={<SO4 />} value={profile.sulfate} />
-        <Prop unit="ppm" label={<HCO3 />} value={profile.bicarbonate} />
+      <div className="grid grid-cols-3 lg:grid-cols-3">
+        <Prop
+          variant="outline"
+          unit="ppm"
+          label={<Ca2 />}
+          value={profile.calcium}
+        />
+        <Prop
+          variant="outline"
+          unit="ppm"
+          label={<Na />}
+          value={profile.sodium}
+        />
+        <Prop
+          variant="outline"
+          unit="ppm"
+          label={<Mg2 />}
+          value={profile.magnesium}
+        />
+        <Prop
+          variant="outline"
+          unit="ppm"
+          label={<Cl />}
+          value={profile.chloride}
+        />
+        <Prop
+          variant="outline"
+          unit="ppm"
+          label={<SO4 />}
+          value={profile.sulfate}
+        />
+        <Prop
+          variant="outline"
+          unit="ppm"
+          label={<HCO3 />}
+          value={profile.bicarbonate}
+        />
       </div>
     </div>
   );

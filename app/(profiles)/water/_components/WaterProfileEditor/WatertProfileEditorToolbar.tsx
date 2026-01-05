@@ -20,12 +20,22 @@ export default function WaterProfileEditorToolbar({
       breadcrumbs={[
         { title: "Profiles" },
         { title: "Water", url: "/water" },
-        profile.id
-          ? {
-              title: profile.name,
-              url: `/water/${profile.slug}`,
-            }
-          : { title: "New" },
+        ...(profile.id
+          ? [
+              {
+                title: profile.name,
+                url: `/water/${profile.slug}`,
+              },
+            ]
+          : profile.origin
+          ? [
+              {
+                title: profile.origin.name,
+                url: `/water/${profile.slug}`,
+              },
+              { title: "Fork" },
+            ]
+          : [{ title: "New" }]),
       ]}
     >
       <IconButton

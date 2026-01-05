@@ -11,6 +11,7 @@ import { getPreferences } from "@/app/admin/queries";
 import { auth } from "@/auth";
 import { headers } from "next/headers";
 import { WaterProfileType } from "@/types/Profile";
+import { prisma } from "@/lib/prisma";
 
 export type WaterProfileForkPageProps = {
   params: Promise<{ slug: string }>;
@@ -30,14 +31,24 @@ export default async function WaterProfileForkPage({
   params,
 }: WaterProfileForkPageProps) {
   const { slug } = await params;
-  const profile = await getWaterProfile(slug);
-  if (!profile) notFound();
   const session = await auth.api.getSession({
     headers: await headers(),
   });
   if (!session?.user) unauthorized();
+  const { id, owner, origin, forks, ...old } = await getWaterProfile(slug);
+  if (!old) notFound();
+  const count = await prisma.equipmentProfile.count({
+    where: { userId: session.user.id, forkedFrom: id },
+  });
+  const name = `${session.user.name} - ${old.name} (${count})`;
   const prefs = await getPreferences();
-  const fork = { ...profile, userId: session?.user.id } as WaterProfileType;
+  const fork = {
+    ...old,
+    name,
+    userId: session?.user.id,
+    origin: old,
+    forkedFrom: id,
+  } as WaterProfileType;
   return (
     <WaterProfileEditor
       profile={fork}

@@ -81,7 +81,7 @@ export function AmountField<T extends FieldValues>({
   const id = `${name}-field`;
   const preferenceContext = useContext(UserPreferencesContext);
   const { register } = useFormContext();
-  const unitName = unit ?? amountType ? preferenceContext?.[amountType!] : "";
+  const unitName = unit ?? (amountType ? preferenceContext?.[amountType!] : "");
   /**const options = (UnitTypeDict[amountType] ?? []).reduce((acc, unit) => {
     acc[unit] = unit;
     return acc;
@@ -112,6 +112,7 @@ export function AmountField<T extends FieldValues>({
             <FieldContent className="grid w-full gap-2 ">
               <InputGroup className="gap-2" aria-invalid={!!fieldState.error}>
                 <InputGroupInput
+                  className="text-center"
                   id={id}
                   type="number"
                   step={0.1}
