@@ -1,0 +1,23 @@
+import React from "react";
+import { notFound, unauthorized } from "next/navigation";
+import FermentableEditor from "@/app/(ingredients)/fermentables/_components/FermentableEditor/FermentableEditor";
+import { createFermentable } from "@/app/(ingredients)/fermentables/actions";
+import { getPreferences } from "@/app/admin/queries";
+import { AdjustedFermentableType, FermentableType } from "@/types/Ingredient";
+import { verifySession } from "@/lib/verifySession";
+
+export default async function FermentableCreatorPage() {
+  const session = await verifySession("/fermentables/new");
+  if (!session?.user) unauthorized();
+  const prefs = await getPreferences();
+  const src = {
+    userId: session.user.id,
+  } as AdjustedFermentableType;
+  return (
+    <FermentableEditor
+      src={src}
+      preferences={prefs}
+      action={createFermentable.bind(null, prefs)}
+    />
+  );
+}
