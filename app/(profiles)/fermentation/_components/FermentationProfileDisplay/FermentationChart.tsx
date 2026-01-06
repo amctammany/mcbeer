@@ -10,7 +10,14 @@ import {
   AdjustedFermentationProfileType,
   FermentationProfileType,
 } from "@/types/Profile";
-import { LineChart, CartesianGrid, XAxis, Line, YAxis } from "recharts";
+import {
+  LineChart,
+  CartesianGrid,
+  XAxis,
+  Line,
+  YAxis,
+  ResponsiveContainer,
+} from "recharts";
 
 export type ChartReducer = {
   currentTemp?: number;
@@ -71,12 +78,7 @@ export default function FermentationChart({ src }: FermentationChartProps) {
           }}
         >
           <CartesianGrid vertical={false} />
-          <XAxis
-            dataKey="day"
-            tickLine={false}
-            axisLine={false}
-            tickMargin={8}
-          />
+          <XAxis dataKey="day" tickLine={false} tickMargin={8} />
 
           <YAxis
             label={{
