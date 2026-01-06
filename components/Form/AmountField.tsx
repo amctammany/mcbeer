@@ -120,7 +120,7 @@ export function AmountField<T extends FieldValues>({
                   className="text-center"
                   id={id}
                   type="number"
-                  step={0.1}
+                  step={props.step ?? 0.1}
                   value={field.value}
                   name={field.name}
                   onChange={(e) =>

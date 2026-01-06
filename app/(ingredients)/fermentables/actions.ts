@@ -49,6 +49,7 @@ export async function updateFermentable(
     mask: FermentableMask,
     inline: true,
     dir: false,
+    precision: 4,
   });
   console.log(v.data, adj);
 

@@ -39,6 +39,10 @@ const percentConverter: Record<PercentUnit, ConversionType> = {
 const gravityConverter: Record<UserGravityPreference, ConversionType> = {
   SG: 1,
   GCM3: 1,
+  Plato: 1,
+  Brix: 1,
+  nD: 1,
+  /**
   Plato: [
     (sg: number) => ((sg - 1) * 1000) / 4,
     (plato: number) => (plato * 4) / 1000 + 1,
@@ -50,7 +54,7 @@ const gravityConverter: Record<UserGravityPreference, ConversionType> = {
   nD: [
     (sg: number) => ((sg - 1) * 1000) / 4,
     (nd: number) => (nd * 4) / 1000 + 1,
-  ],
+  ],*/
   PPG: 1,
 };
 const tempConverter: Record<UserTemperaturePreference, ConversionType> = {

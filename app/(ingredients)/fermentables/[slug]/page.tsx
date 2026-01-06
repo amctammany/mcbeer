@@ -24,6 +24,7 @@ export default async function FermentableDisplayPage({
     prefs,
     mask: FermentableMask,
     inline: false,
+    precision: 4,
     dir: true,
   });
   return (

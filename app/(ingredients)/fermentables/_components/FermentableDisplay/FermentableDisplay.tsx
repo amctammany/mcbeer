@@ -36,7 +36,11 @@ export function FermentableDisplay({ src }: FermentableDisplayProps) {
             <div>
               <AmountProp label="Color" value={src.color} />
               <Prop label="Power" value={src.power} />
-              <AmountProp label="Potential" value={src.potential} />
+              <AmountProp
+                precision={4}
+                label="Potential"
+                value={src.potential}
+              />
               <AmountProp label="Protein" value={src.protein} />
               <AmountProp label="Friability" value={src.friability} />
               <AmountProp label="Max Usage" value={src.maxUsage} />

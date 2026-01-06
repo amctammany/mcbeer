@@ -41,6 +41,7 @@ export default async function FermentableEditorPage({
     prefs,
     inline: true,
     dir: true,
+    precision: 4,
   }) as AdjustedFermentableType;
   return (
     <FermentableEditor
