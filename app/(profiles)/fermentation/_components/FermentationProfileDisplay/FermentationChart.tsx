@@ -21,23 +21,27 @@ export function makeChartData(src: AdjustedFermentationProfileType) {
   return (src.steps ?? ([] as FermentationStep[])).reduce<ChartReducer>(
     (acc, step) => {
       //   const dt = acc.currentTemp ? step.temperature - acc.currentTemp : 0;
+      const dr = acc.currentTemp ? step.temperature.value - acc.currentTemp : 0;
       const ramps = Array(step.rampTime.value)
         .fill(0)
         .map((r, i) => ({
-          day: i,
-          temp: 0,
+          day: acc.currentDay + i,
+          temp: acc.currentTemp
+            ? acc.currentTemp + (dr / step.rampTime.value) * (i + 1)
+            : step.temperature.value,
         }));
+
       const days = Array(step.time.value)
         .fill(0)
         .map((d, i) => ({
-          day: acc.currentDay + i + 0,
+          day: acc.currentDay + ramps.length + i + 0,
           temp: step.temperature.value,
         }));
 
       return {
         currentTemp: step.temperature.value,
-        currentDay: acc.currentDay + days.length,
-        data: [...acc.data, ...days],
+        currentDay: acc.currentDay + ramps.length + days.length,
+        data: [...acc.data, ...ramps, ...days],
       } as any;
     },
     { currentTemp: undefined, currentDay: 0, data: [] }
@@ -55,7 +59,6 @@ const chartConfig = {
 } satisfies ChartConfig;
 export default function FermentationChart({ src }: FermentationChartProps) {
   const { data } = makeChartData(src);
-  console.log(data);
   return (
     <div>
       <ChartContainer config={chartConfig}>
