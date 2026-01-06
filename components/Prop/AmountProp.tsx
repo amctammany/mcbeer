@@ -13,8 +13,7 @@ export async function AmountProp({
 }: AmountPropProps) {
   const { value, unit } = val ?? {};
   //  const prefs = getPreferences();
-  const u =
-    unit === "percent" || unit === "percentage" ? PercentUnits[unit] : unit;
+  const u = unit === "percent" || unit === "number" ? PercentUnits[unit] : unit;
   const v = precisionRound(value ?? 0, precision);
   return <Prop value={v} unit={u} {...props} />;
   /**
