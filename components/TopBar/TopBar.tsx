@@ -26,7 +26,7 @@ export function TopBar({
   const crumbs = breadcrumbs.slice(0, -1);
   const final = breadcrumbs[breadcrumbs.length - 1];
   return (
-    <header className="sticky w-full lg:top-0 lg:z-50 flex shrink-0 h-12 items-center gap-2 transition-[width,height] ease-linear bg-sidebar-accent group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 border-b-2 ">
+    <header className="sticky w-full top-0 z-50 flex shrink-0 h-12 items-center gap-2 transition-[width,height] ease-linear bg-sidebar-accent group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 border-b-2 ">
       <div className="flex items-center gap-2 px-4">
         <Trigger className="-ml-1" />
         <Separator
