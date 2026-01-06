@@ -140,7 +140,7 @@ DataTableProps<TData, TValue>) {
         )}
       </TableSearch>
       <div
-        className="overflow-auto relative h-[calc(100vh-200px)]"
+        className="overflow-auto relative h-[calc(100%-200px)]"
         ref={tableContainerRef}
       >
         <table className="grid ">
