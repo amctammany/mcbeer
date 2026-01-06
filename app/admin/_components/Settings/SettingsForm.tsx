@@ -19,6 +19,7 @@ import {
   MassSystem,
   UserColorPreference,
   UserVolumePreference,
+  UserRoles,
 } from "@/generated/prisma/enums";
 import React, { useActionState, useContext } from "react";
 import { useForm, useFormContext } from "react-hook-form";
@@ -101,6 +102,12 @@ export function SettingsForm({ user }: SettingsFormProps) {
         <TextField name="name" label="Name" register={register} />
         <TextField name="username" label="Username" register={register} />
         <TextField name="email" label="Email" register={register} />
+        <RadioGroupField
+          control={control}
+          label="Role"
+          name="role"
+          options={makeRadioOptions(UserRoles)}
+        />
       </div>
 
       <div className="*:py-1">

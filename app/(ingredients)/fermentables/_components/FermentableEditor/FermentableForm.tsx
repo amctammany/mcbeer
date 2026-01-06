@@ -1,0 +1,162 @@
+"use client";
+import AmountField from "@/components/Form/AmountField";
+import Form from "@/components/Form/Form";
+import { TextField } from "@/components/Form/TextField";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
+import { AdjustedFermentableType, FermentableType } from "@/types/Ingredient";
+import { useActionState } from "react";
+import { useFormContext } from "react-hook-form";
+
+export type FermentableFormContainerProps<S = unknown> = {
+  src: AdjustedFermentableType;
+  preferences: UserPreferencesType;
+  action: (state: S, formData: FormData) => Promise<S> | S;
+  children?: React.ReactNode | React.ReactNode[];
+};
+export function FermentableFormContainer({
+  action,
+  src,
+  preferences,
+  children,
+}: FermentableFormContainerProps) {
+  // const [state, formAction] = useActionState<any, FormData>(action, null);
+  // const form = useForm({
+  //   defaultValues: profile,
+  //   errors: state?.errors,
+  // });
+  // const revision = useRevisionHistory<FermentableType>(
+  //   form.getValues() as any,
+  //   form.setValue as any
+  // );
+  const [state, formAction] = useActionState<any, FormData>(action, null);
+
+  return (
+    <Form
+      action={formAction}
+      preferences={preferences}
+      formProps={{ defaultValues: src, errors: state?.errors }}
+    >
+      {children}
+    </Form>
+  );
+}
+export type FermentableFormProps = {
+  preferences: UserPreferencesType;
+  src: AdjustedFermentableType;
+};
+export function FermentableForm({ preferences, src }: FermentableFormProps) {
+  const { register, control } = useFormContext<FermentableType>();
+  return (
+    <div className="m-2 p-2 gap-2 *:mb-2">
+      <Card className="m-4">
+        <CardHeader className="border-b-4">
+          <CardTitle>Fermentable Editor</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <input type="hidden" {...register("id")} />
+          <input type="hidden" {...register("userId")} />
+          <input type="hidden" {...register("forkedFrom")} />
+          <TextField name="name" control={control} label="Name" />
+          <TextField name="description" label="Description" control={control} />
+          <TextField
+            name="manufacturer"
+            label="Manufacturer"
+            control={control}
+          />
+          <TextField name="notes" label="Notes" control={control} />
+          <div className="grid lg:grid-cols-2 gap-3 *:p-3 *:rounded *:ring-2 p-4 *:px-8">
+            <div>
+              <h4>Details</h4>
+
+              <AmountField
+                amountType="percent"
+                name="maxUsage"
+                step="0.1"
+                type="number"
+                label="Max Usage"
+              />
+              <AmountField
+                amountType="percent"
+                name="price"
+                step="0.1"
+                type="number"
+                label="Price"
+              />
+            </div>
+            <div>
+              <h4>Properties</h4>
+              <AmountField
+                name="potential"
+                step="0.001"
+                type="number"
+                label="Potential"
+                amountType="gravity"
+                unit="SG"
+              />
+              <AmountField
+                name="yield"
+                step="0.01"
+                type="number"
+                label="Yield"
+                amountType="percent"
+              />
+              <AmountField
+                name="color"
+                step="0.01"
+                type="number"
+                label="Color"
+                amountType="color"
+              />
+              <AmountField
+                name="protein"
+                step="0.01"
+                type="number"
+                label="Protein"
+                amountType="percent"
+              />
+              <AmountField
+                name="coarseFineDiff"
+                step="0.01"
+                type="number"
+                label="Coarse Fine Diff"
+                amountType="percent"
+              />
+              <AmountField
+                name="power"
+                step="0.01"
+                type="number"
+                label="Diastatic Power"
+                amountType="percent"
+              />
+              <AmountField
+                name="moisture"
+                step="0.01"
+                type="number"
+                label="Moisture"
+                amountType="percent"
+              />
+              <AmountField
+                name="friability"
+                step="0.01"
+                type="number"
+                label="Friability"
+                amountType="percent"
+              />
+            </div>
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button type="submit">Save</Button>
+        </CardFooter>
+      </Card>
+    </div>
+  );
+}

@@ -7,6 +7,7 @@ import {
 } from "@/types/Profile";
 import { UnitMaskType } from "./adjustUnits";
 import { PreferencesInput } from "@/app/admin/preferences/PreferencesForm";
+import { FermentableType } from "@/types/Ingredient";
 
 export const PreferencesMask: UnitMaskType<Partial<PreferencesInput>> = {
   //  size: "volume",
@@ -45,6 +46,16 @@ export const FermentationProfileMask: UnitMaskType<
 > = {
   steps: FermentationStepMask,
 };
+
+export const FermentableMask: UnitMaskType<Partial<FermentableType>> = {
+  maxUsage: "percent",
+  protein: "percent",
+  friability: "percent",
+  coarseFineDiff: "percent",
+  moisture: "percent",
+  color: "color",
+};
+
 /**import { MashProfile, MashStep } from "@prisma/client";
 import { FermentableType, HopType, YeastType } from "@/types/Ingredient";
 
@@ -81,16 +92,6 @@ export const HopMask: UnitMaskType<Partial<HopType>> = {
   cohumuloneLow: "percent",
   cohumuloneHigh: "percent",
 };
-
-export const FermentableMask: UnitMaskType<Partial<FermentableType>> = {
-  maxUsage: "percent",
-  protein: "percent",
-  friability: "percent",
-  coarseFineDiff: "percent",
-  moisture: "percent",
-  color: "color",
-};
-
 export const YeastMask: UnitMaskType<Partial<YeastType>> = {
   attenuation: "percent",
   attenuationLow: "percent",

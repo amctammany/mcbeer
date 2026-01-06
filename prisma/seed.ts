@@ -1,13 +1,16 @@
 import { prisma } from "../lib/prisma";
 import styles from "../data/styles.json";
+import grains from "../data/grains.json";
 import { StyleCategory } from "../generated/prisma/client";
 import slugify from "@/lib/slugify";
+import { toPercent } from "@/lib/utils";
 
 async function main() {
   await prisma.style.deleteMany({});
   await prisma.equipmentProfile.deleteMany({});
   await prisma.waterProfile.deleteMany({});
   await prisma.mashProfile.deleteMany({});
+  await prisma.fermentable.deleteMany({});
   console.log("Seeding database...");
   await prisma.style.createMany({
     data: styles.map(({ category, ...style }) => ({
@@ -113,6 +116,13 @@ async function main() {
       bicarbonate: 6,
       sodium: 15,
     },
+  });
+  await prisma.fermentable.createMany({
+    data: grains.map(({ maxUsage, ...grain }) => ({
+      ...grain,
+      ...toPercent({ maxUsage }),
+      slug: slugify(grain.name, { lower: true }),
+    })),
   });
 }
 

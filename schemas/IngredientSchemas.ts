@@ -3,16 +3,7 @@ import z from "zod";
 export const schemas = zfd.formData({
   id: zfd.text(z.string().optional()),
 });
-export default schemas;
-/**
- * 
-import {
-  HopUsage,
-  OtherIngredientType,
-  YeastFlocculation,
-  YeastForm,
-  YeastType,
-} from "@prisma/client";
+
 export const fermentableSchema = zfd.formData({
   id: zfd.text(z.string().optional()),
   userId: zfd.text(z.string().optional()),
@@ -33,7 +24,16 @@ export const fermentableSchema = zfd.formData({
   yield: zfd.numeric(z.number().min(0).max(100).optional()),
   extract: zfd.numeric(z.number().optional()),
 });
-
+export default schemas;
+/**
+ * 
+import {
+  HopUsage,
+  OtherIngredientType,
+  YeastFlocculation,
+  YeastForm,
+  YeastType,
+} from "@prisma/client";
 export const otherSchema = zfd.formData({
   id: zfd.text(z.string().optional()),
   name: zfd.text(),

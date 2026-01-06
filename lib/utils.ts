@@ -62,3 +62,10 @@ export function deepSet<T extends FieldValues>(
   current[pathParts[pathParts.length - 1]] = value;
   return obj;
 }
+export function toPercent(obj: Record<string, number>) {
+  return Object.keys(obj).reduce((acc, key) => {
+    const value = obj[key];
+    acc[key] = value != null ? value / 100 : null;
+    return acc;
+  }, {} as Record<string, number | null>);
+}
