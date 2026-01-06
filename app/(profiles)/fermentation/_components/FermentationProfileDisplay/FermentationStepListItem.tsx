@@ -27,7 +27,7 @@ export default function FermentationStepListItem({
           <Prop
             label="Type"
             variant="inline"
-            className={clsx({ hidden: !!src.name })}
+            className={clsx({ hidden: !src.name })}
           >
             {src.type}
           </Prop>
