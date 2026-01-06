@@ -20,6 +20,7 @@ import {
   UserColorPreference,
   UserVolumePreference,
   UserRoles,
+  PercentUnit,
 } from "@/generated/prisma/enums";
 import React, { useActionState, useContext } from "react";
 import { useForm, useFormContext } from "react-hook-form";
@@ -122,6 +123,12 @@ export function SettingsForm({ user }: SettingsFormProps) {
           label="Color"
           name="UserPreferences.color"
           options={makeRadioOptions(UserColorPreference)}
+        />
+        <RadioGroupField
+          control={control}
+          label="Percent"
+          name="UserPreferences.percent"
+          options={makeRadioOptions(PercentUnit)}
         />
         <RadioGroupField
           control={control}

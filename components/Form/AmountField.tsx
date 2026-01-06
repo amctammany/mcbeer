@@ -12,6 +12,7 @@ import {
   FieldLabel,
 } from "../ui/field";
 import {
+  PercentUnits,
   UNITS,
   UnitTypeDict,
   type UnitNames,
@@ -81,7 +82,11 @@ export function AmountField<T extends FieldValues>({
   const id = `${name}-field`;
   const preferenceContext = useContext(UserPreferencesContext);
   const { register } = useFormContext();
-  const unitName = unit ?? (amountType ? preferenceContext?.[amountType!] : "");
+  const unitN = unit ?? (amountType ? preferenceContext?.[amountType!] : "");
+  const unitName =
+    amountType === "percent"
+      ? PercentUnits[preferenceContext?.percent ?? "number"]
+      : unitN;
   /**const options = (UnitTypeDict[amountType] ?? []).reduce((acc, unit) => {
     acc[unit] = unit;
     return acc;

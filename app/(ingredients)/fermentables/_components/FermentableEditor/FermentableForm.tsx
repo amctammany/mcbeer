@@ -80,11 +80,10 @@ export function FermentableForm({ preferences, src }: FermentableFormProps) {
                 amountType="percent"
                 name="maxUsage"
                 step="0.1"
-                type="number"
+                type="percent"
                 label="Max Usage"
               />
               <AmountField
-                amountType="percent"
                 name="price"
                 step="0.1"
                 type="number"
@@ -99,7 +98,7 @@ export function FermentableForm({ preferences, src }: FermentableFormProps) {
                 type="number"
                 label="Potential"
                 amountType="gravity"
-                unit="SG"
+                unit="PPG"
               />
               <AmountField
                 name="yield"

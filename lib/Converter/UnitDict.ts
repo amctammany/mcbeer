@@ -10,10 +10,10 @@ import {
   UserColorPreference,
 } from "@/generated/prisma/browser";
 
-export type PercentUnitType = "%" | "%%";
+export type PercentUnitType = "%" | "#";
 export const PercentUnits: Record<PercentUnit, PercentUnitType> = {
   percent: "%",
-  percentage: "%%",
+  number: "#",
 };
 export type UnitNames =
   //  | (typeof PercentUnits)[keyof typeof PercentUnits]

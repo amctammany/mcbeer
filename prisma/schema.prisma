@@ -170,8 +170,8 @@ enum TimeUnit {
 }
 
 enum PercentUnit {
+  number
   percent
-  percentage
 }
 
 enum UserVolumePreference {
@@ -209,6 +209,7 @@ enum UserGravityPreference {
   Brix
   Plato
   nD
+  PPG
   GCM3
 }
 

@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
 import { fermentableSchema } from "@/schemas/IngredientSchemas";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function createFermentable(
@@ -49,6 +50,7 @@ export async function updateFermentable(
     inline: true,
     dir: false,
   });
+  console.log(v.data, adj);
 
   const res = await prisma.fermentable.update({
     where: {
@@ -56,5 +58,6 @@ export async function updateFermentable(
     },
     data: { ...adj, slug: slugify(v.data.name) },
   });
+  revalidatePath(`/fermentables/${res.slug}`);
   return redirect(`/fermentables/${res.slug}`);
 }

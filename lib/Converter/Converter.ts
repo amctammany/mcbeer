@@ -3,6 +3,7 @@ import {
   PercentUnit,
   TimeUnit,
   UserColorPreference,
+  UserGravityPreference,
   UserTemperaturePreference,
   UserVolumePreference,
 } from "@/generated/prisma/client";
@@ -31,10 +32,27 @@ const colorConverter: Record<UserColorPreference, ConversionType> = {
   SRM: 100,
 };
 const percentConverter: Record<PercentUnit, ConversionType> = {
-  percentage: 1,
-  percent: 1,
+  number: 1,
+  percent: 0.01,
 };
 
+const gravityConverter: Record<UserGravityPreference, ConversionType> = {
+  SG: 1,
+  GCM3: 1,
+  Plato: [
+    (sg: number) => ((sg - 1) * 1000) / 4,
+    (plato: number) => (plato * 4) / 1000 + 1,
+  ],
+  Brix: [
+    (sg: number) => ((sg - 1) * 1000) / 4,
+    (brix: number) => (brix * 4) / 1000 + 1,
+  ],
+  nD: [
+    (sg: number) => ((sg - 1) * 1000) / 4,
+    (nd: number) => (nd * 4) / 1000 + 1,
+  ],
+  PPG: 1,
+};
 const tempConverter: Record<UserTemperaturePreference, ConversionType> = {
   C: 1,
   F: [(c: number) => c * 1.8 + 32, (f: number) => (f - 32) * 0.5556],
@@ -60,6 +78,7 @@ export const converters: Partial<
   temperature: makeConverter(tempConverter),
   volume: makeConverter(volumeConverter),
   percent: makeConverter(percentConverter),
+  gravity: makeConverter(gravityConverter),
 };
 
 export type ConversionType =
