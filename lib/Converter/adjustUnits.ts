@@ -36,7 +36,7 @@ function convertUnit({
   dir?: boolean;
   precision?: number;
 }) {
-  // console.log("converUnit", { value, type, unit, inline, dir });
+  console.log("converUnit", { value, type, unit, inline, dir });
 
   if (typeof value === "number") {
     const convert = converters[type as UnitTypes];
@@ -68,6 +68,14 @@ function convertUnit({
       inline,
       dir,
     });
+  return convertUnit({
+    value: 0,
+    unit,
+    type,
+    inline,
+    dir,
+    precision,
+  });
 }
 export function getUnits<T extends FieldValues>(
   src: T,

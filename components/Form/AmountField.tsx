@@ -121,7 +121,7 @@ export function AmountField<T extends FieldValues>({
                   id={id}
                   type="number"
                   step={props.step ?? 0.1}
-                  value={field.value}
+                  value={field.value ?? ""}
                   name={field.name}
                   onChange={(e) =>
                     onValueChange(field.onChange)(parseFloat(e.target.value))

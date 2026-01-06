@@ -27,6 +27,7 @@ export default async function FermentableDisplayPage({
     precision: 4,
     dir: true,
   });
+  console.log(fermentable, adjusted);
   return (
     <div>
       <TopBar
