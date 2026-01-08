@@ -14,7 +14,14 @@ import {
   FieldSet,
 } from "@/components/ui/field";
 import { Input, InputProps } from "./Input";
-import { FieldValue, FieldValues } from "react-hook-form";
+import {
+  Controller,
+  FieldValue,
+  FieldValues,
+  useFormContext,
+} from "react-hook-form";
+import { RevisionContext } from "@/contexts/RevisionContext";
+import { useContext } from "react";
 
 export type TextFieldProps<T extends FieldValues> = InputProps<T> &
   VariantProps<typeof textFieldStyles>;
@@ -46,13 +53,54 @@ export function TextField<T extends FieldValues>({
   description,
   suffix,
   variant,
+  value,
   //size,
   inputSize = "full",
   ...props
 }: TextFieldProps<T>) {
   const id = `${name}-field`;
+  const { control } = useFormContext();
+  const revisionContext = useContext(RevisionContext);
+  const onValueChange = (cb: (newValue: any) => void) => (newValue: any) => {
+    revisionContext?.update({
+      type: "SET",
+      payload: {
+        name,
+        prev: value,
+        value: newValue,
+      },
+    });
+    // console.log({ name, value, newValue });
+    cb(newValue);
+  };
   return (
-    <Field>
+    <FieldGroup>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={!!fieldState.error}>
+            <FieldLabel htmlFor={id}>{label}</FieldLabel>
+            <FieldContent className="grid w-full gap-2 ">
+              <Input
+                className=""
+                id={id}
+                type="text"
+                value={field.value ?? ""}
+                name={field.name}
+                onChange={(e) => onValueChange(field.onChange)(e.target.value)}
+                onBlur={field.onBlur}
+              />
+            </FieldContent>
+            <FieldDescription>{description}</FieldDescription>
+            <FieldError>{fieldState.error?.message}</FieldError>
+          </Field>
+        )}
+      />
+    </FieldGroup>
+  );
+  /**
+    </Field><Field>
       <FieldContent>
         <FieldLabel htmlFor={id}>{label}</FieldLabel>
         <FieldDescription>{description}</FieldDescription>
@@ -61,4 +109,5 @@ export function TextField<T extends FieldValues>({
       <Input id={id} name={name} {...props} />
     </Field>
   );
+*/
 }
