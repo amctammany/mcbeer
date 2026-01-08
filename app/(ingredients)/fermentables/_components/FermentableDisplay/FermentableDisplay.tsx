@@ -10,9 +10,11 @@ import {
 import { AdjustedFermentableType } from "@/types/Ingredient";
 import React from "react";
 import { Tabs, TabsTrigger, TabsContent, TabsList } from "@/components/ui/tabs";
-import FermentableDetailsTab from "./FermentableDetailsTab";
-import FermentablePropertiesTab from "./FermentablePropertiesTab";
-
+import dynamic from "next/dynamic";
+const FermentableDetailsTab = dynamic(() => import("./FermentableDetailsTab"));
+const FermentablePropertiesTab = dynamic(
+  () => import("./FermentablePropertiesTab")
+);
 export type FermentableDisplayProps = {
   src: AdjustedFermentableType;
 };
