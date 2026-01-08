@@ -1,23 +1,7 @@
-import { Prop } from "@/components/Prop/Prop";
-import { AmountProp } from "@/components/Prop/AmountProp";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { AdjustedHopType } from "@/types/Ingredient";
 import React from "react";
-import { Tabs, TabsTrigger, TabsContent, TabsList } from "@/components/ui/tabs";
 import dynamic from "next/dynamic";
-import { Hop, XIcon } from "lucide-react";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import IconButton from "@/components/Button/IconButton";
+
 import CollapsibleCard from "@/components/CollapsibleCard";
 const HopDetailsTab = dynamic(() => import("./HopDetailsTab"));
 const HopPropertiesTab = dynamic(() => import("./HopPropertiesTab"));
