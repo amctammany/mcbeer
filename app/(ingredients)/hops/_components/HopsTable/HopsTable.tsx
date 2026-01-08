@@ -2,7 +2,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Header } from "@/components/DataTable/Header";
 import Link from "next/link";
-import slugify from "@/lib/slugify";
 import { HopsTableRowActions } from "./HopsTableRowActions";
 import { DataTable } from "@/components/DataTable";
 // import { BookType } from "lucide-react";
@@ -11,13 +10,11 @@ const columns: ColumnDef<HopType>[] = [
     accessorKey: "name",
     header: Header<HopType>,
     size: 240,
-    cell: ({ getValue }) => (
+    cell: ({ getValue, row }) => (
       <Link
         className="hover:underline w-8"
         prefetch={false}
-        href={`/hops/${slugify(getValue<string>() || "", {
-          lower: true,
-        })}`}
+        href={`/hops/${row.original.slug}`}
       >
         {getValue<string>()}
       </Link>
@@ -26,17 +23,17 @@ const columns: ColumnDef<HopType>[] = [
   {
     accessorKey: "alpha",
     header: Header<HopType>,
-    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+    cell: ({ getValue }) => <span>{getValue<number>() * 100}</span>,
   },
   {
     accessorKey: "beta",
     header: Header<HopType>,
-    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+    cell: ({ getValue }) => <span>{getValue<number>() * 100}</span>,
   },
   {
     accessorKey: "cohumulone",
     header: Header<HopType>,
-    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+    cell: ({ getValue }) => <span>{getValue<number>() * 100}</span>,
   },
   {
     accessorKey: "country",
