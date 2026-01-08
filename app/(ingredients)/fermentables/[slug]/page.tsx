@@ -8,6 +8,7 @@ import { FermentableMask } from "@/lib/Converter/Masks";
 import { TopBar } from "@/components/TopBar/TopBar";
 import IconButton from "@/components/Button/IconButton";
 import { Pencil, Split } from "lucide-react";
+import FermentableDisplayToolbar from "../_components/FermentableDisplay/FermentableDisplayToolbar";
 
 export type FermentableDisplayPageProps = {
   params: Promise<{ slug: string }>;
@@ -29,27 +30,7 @@ export default async function FermentableDisplayPage({
   });
   return (
     <div>
-      <TopBar
-        breadcrumbs={[
-          { title: "Ingredients" },
-          { title: "Fermentables", url: "/fermentables" },
-          { title: fermentable.name, url: `/fermentables/${fermentable.slug}` },
-        ]}
-      >
-        <IconButton
-          icon={Split}
-          href={`/fermentables/${fermentable.slug}/fork`}
-        >
-          Fork
-        </IconButton>
-
-        <IconButton
-          icon={Pencil}
-          href={`/fermentables/${fermentable.slug}/edit`}
-        >
-          Edit
-        </IconButton>
-      </TopBar>
+      <FermentableDisplayToolbar fermentable={adjusted} />
       <FermentableDisplay src={adjusted} />
     </div>
   );

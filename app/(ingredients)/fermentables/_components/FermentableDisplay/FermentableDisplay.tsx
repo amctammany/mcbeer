@@ -1,54 +1,44 @@
 import { Prop } from "@/components/Prop/Prop";
 import { AmountProp } from "@/components/Prop/AmountProp";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { AdjustedFermentableType } from "@/types/Ingredient";
 import React from "react";
+import { Tabs, TabsTrigger, TabsContent, TabsList } from "@/components/ui/tabs";
+import FermentableDetailsTab from "./FermentableDetailsTab";
+import FermentablePropertiesTab from "./FermentablePropertiesTab";
 
 export type FermentableDisplayProps = {
   src: AdjustedFermentableType;
 };
 export function FermentableDisplay({ src }: FermentableDisplayProps) {
   return (
-    <div className="grid lg:grid-cols-2">
-      <Card className="m-4">
-        <CardHeader className="border-b-4">
-          <CardTitle>Description</CardTitle>
+    <Tabs defaultValue="details">
+      <Card className="m-2 lg:m-4 py-1 lg:py-4">
+        <CardHeader className="border-b-4 grid md:grid-cols-2 p-2">
+          <CardTitle className="m-auto text-sm lg:text-2xl">
+            {src.name}
+          </CardTitle>
+          <TabsList className="m-auto w-full ">
+            <TabsTrigger value="details">Details</TabsTrigger>
+            <TabsTrigger value="properties">Properties</TabsTrigger>
+          </TabsList>
         </CardHeader>
         <CardContent>
-          <div className="grid lg:grid-cols-1 *:m-3">
-            <div>
-              <Prop label="Name" value={src.name} />
-              <Prop label="Description" value={src.description} />
-              <Prop label="Manufacturer" value={src.manufacturer} />
-              <Prop label="Country" value={src.country} />
-              <Prop label="Stability" value={src.stability} />
-              <Prop label="Notes" value={src.notes} />
-            </div>
-          </div>
+          <TabsContent value="details">
+            <FermentableDetailsTab src={src} />
+          </TabsContent>
+          <TabsContent value="properties">
+            <FermentablePropertiesTab src={src} />
+          </TabsContent>
         </CardContent>
       </Card>
-      <Card className="m-4">
-        <CardHeader className="border-b-4">
-          <CardTitle>Properties</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid lg:grid-cols-1 *:m-3">
-            <div>
-              <AmountProp label="Color" value={src.color} />
-              <Prop label="Power" value={src.power} />
-              <AmountProp
-                precision={4}
-                label="Potential"
-                value={src.potential}
-              />
-              <AmountProp label="Protein" value={src.protein} />
-              <AmountProp label="Friability" value={src.friability} />
-              <AmountProp label="Max Usage" value={src.maxUsage} />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+    </Tabs>
   );
 }
 export default FermentableDisplay;

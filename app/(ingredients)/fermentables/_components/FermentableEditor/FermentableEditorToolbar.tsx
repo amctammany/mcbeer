@@ -4,7 +4,7 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
 import { RevisionContext } from "@/contexts/RevisionContext";
 import { AdjustedFermentableType, FermentableType } from "@/types/Ingredient";
-import { Redo, Undo } from "lucide-react";
+import { Redo, Save, Undo } from "lucide-react";
 import React, { useContext } from "react";
 export type FermentableEditorToolbarProps = {
   src: AdjustedFermentableType;
@@ -54,7 +54,9 @@ export default function FermentableEditorToolbar({
       >
         Redo
       </IconButton>
-      <Button type="submit">Save</Button>
+      <IconButton icon={Save} type="submit">
+        Save
+      </IconButton>
     </TopBar>
   );
 }
