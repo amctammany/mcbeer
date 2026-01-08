@@ -10,7 +10,7 @@ export default function FermentablePropertiesTab({
   src,
 }: FermentablePropertiesTabProps) {
   return (
-    <div className="grid lg:grid-cols-1 *:m-1 lg:*:m-3">
+    <div className="grid lg:grid-cols-1 ">
       <AmountProp label="Color" value={src.color} />
       <Prop label="Power" value={src.power} />
       <AmountProp precision={4} label="Potential" value={src.potential} />

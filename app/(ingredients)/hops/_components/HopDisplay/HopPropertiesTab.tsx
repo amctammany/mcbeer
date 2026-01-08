@@ -8,7 +8,7 @@ export type HopPropertiesTabProps = {
 };
 export default function HopPropertiesTab({ src }: HopPropertiesTabProps) {
   return (
-    <div className="grid lg:grid-cols-1 *:m-1 lg:*:m-3">
+    <div className="grid lg:grid-cols-1 ">
       <AmountProp label="Alpha" value={src.alpha} />
       <AmountProp label="Beta" value={src.beta} />
       <AmountProp label="Co-humulone" value={src.cohumulone} />
