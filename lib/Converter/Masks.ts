@@ -6,12 +6,8 @@ import {
   MashStepType,
 } from "@/types/Profile";
 import { UnitMaskType } from "./adjustUnits";
-import { PreferencesInput } from "@/app/admin/preferences/PreferencesForm";
 import { FermentableType } from "@/types/Ingredient";
 
-export const PreferencesMask: UnitMaskType<Partial<PreferencesInput>> = {
-  //  size: "volume",
-};
 export const EquipmentProfileMask: UnitMaskType<Partial<EquipmentProfileType>> =
   {
     boilTime: "time",
