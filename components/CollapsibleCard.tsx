@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Card,
@@ -13,6 +14,7 @@ import {
 } from "./ui/collapsible";
 import { ChevronLeft, ChevronRight, XIcon } from "lucide-react";
 import IconButton from "./Button/IconButton";
+import useMediaQuery from "@/hooks/useMediaQuery";
 export type CollapsibleCardProps = {
   title: string | React.ReactNode;
   children: React.ReactNode;
@@ -21,9 +23,10 @@ export default function CollapsibleCard({
   title,
   children,
 }: CollapsibleCardProps) {
+  const isMobile = useMediaQuery("(max-width: 640px)");
   return (
     <Card className="m-2 lg:m-4 py-1 lg:py-4">
-      <Collapsible className="group">
+      <Collapsible className="group" defaultOpen={!isMobile}>
         <CollapsibleTrigger asChild>
           <CardHeader className="border-b-4  group-data-[state=closed]:border-none grid md:grid-cols-2 p-2 lg:px-4">
             <CardTitle className="w-full text-sm lg:text-2xl flex">
