@@ -13,6 +13,7 @@ export async function getPreferences() {
   return getUserPreferences(session.user.id)!;
 }
 export async function getUserPreferences(userId: string) {
+  "use cache";
   const user = await prisma.userPreferences.findFirst({ where: { userId } });
   return (user || {}) as Partial<UserPreferencesType>;
 }
