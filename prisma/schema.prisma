@@ -239,6 +239,7 @@ model User {
   mashProfiles         MashProfile[]
   fermentationProfiles FermentationProfile[]
   fermentables         Fermentable[]
+  hops                 Hop[]
 
   @@unique([email])
   @@map("user")
@@ -482,4 +483,67 @@ model Fermentable {
   forks          Fermentable[]    @relation("origin")
 
   //FermentableIngredient FermentableIngredient[]
+}
+
+enum HopUsage {
+  aroma
+  bittering
+  dual
+}
+
+model Hop {
+  id                String    @id @default(cuid())
+  name              String
+  slug              String    @unique
+  description       String?
+  characteristics   String?
+  country           String?
+  usage             HopUsage?
+  alpha             Float?
+  alphaLow          Float?
+  alphaHigh         Float?
+  beta              Float?
+  betaLow           Float?
+  betaHigh          Float?
+  caryophyllene     Float?
+  caryophylleneLow  Float?
+  caryophylleneHigh Float?
+  cohumulone        Float?
+  cohumuloneLow     Float?
+  cohumuloneHigh    Float?
+  farnesene         Float?
+  farneseneLow      Float?
+  farneseneHigh     Float?
+  humulene          Float?
+  humuleneLow       Float?
+  humuleneHigh      Float?
+  myrcene           Float?
+  myrceneLow        Float?
+  myrceneHigh       Float?
+  totalOil          Float?
+  totalOilLow       Float?
+  totalOilHigh      Float?
+  geraniol          Float?
+  geraniolLow       Float?
+  geraniolHigh      Float?
+  other             Float?
+  otherLow          Float?
+  otherHigh         Float?
+  linalool          Float?
+  linaloolLow       Float?
+  linaloolHigh      Float?
+
+  bPinene           Float?
+  bPineneLow        Float?
+  bPineneHigh       Float?
+  purpose           String?
+  flavor            String?
+  notes             String?
+  substitutesString String[]
+  styles            String[]
+  //HopIngredient     HopIngredient//[]
+  //  hopSensoryPanels  HopSensoryPanel[]
+  //  hopNote           HopNote[]
+  userId            String?
+  owner             User?    @relation(fields: [userId], references: [id])
 }

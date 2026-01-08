@@ -6,7 +6,7 @@ import {
   MashStepType,
 } from "@/types/Profile";
 import { UnitMaskType } from "./adjustUnits";
-import { FermentableType } from "@/types/Ingredient";
+import { FermentableType, HopType } from "@/types/Ingredient";
 
 export const EquipmentProfileMask: UnitMaskType<Partial<EquipmentProfileType>> =
   {
@@ -54,10 +54,6 @@ export const FermentableMask: UnitMaskType<Partial<FermentableType>> = {
   color: "color",
 };
 
-/**import { MashProfile, MashStep } from "@prisma/client";
-import { FermentableType, HopType, YeastType } from "@/types/Ingredient";
-
-
 export const HopMask: UnitMaskType<Partial<HopType>> = {
   alpha: "percent",
   alphaLow: "percent",
@@ -90,6 +86,9 @@ export const HopMask: UnitMaskType<Partial<HopType>> = {
   cohumuloneLow: "percent",
   cohumuloneHigh: "percent",
 };
+
+/**import { MashProfile, MashStep } from "@prisma/client";
+import { FermentableType, HopType, YeastType } from "@/types/Ingredient";
 export const YeastMask: UnitMaskType<Partial<YeastType>> = {
   attenuation: "percent",
   attenuationLow: "percent",

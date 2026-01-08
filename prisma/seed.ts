@@ -1,7 +1,8 @@
 import { prisma } from "../lib/prisma";
 import styles from "../data/styles.json";
+import hops from "../data/hops.json";
 import grains from "../data/grains.json";
-import { StyleCategory } from "../generated/prisma/client";
+import { HopUsage, StyleCategory } from "../generated/prisma/client";
 import slugify from "@/lib/slugify";
 import { toPercent } from "@/lib/utils";
 
@@ -11,6 +12,7 @@ async function main() {
   await prisma.waterProfile.deleteMany({});
   await prisma.mashProfile.deleteMany({});
   await prisma.fermentable.deleteMany({});
+  await prisma.hop.deleteMany({});
   console.log("Seeding database...");
   await prisma.style.createMany({
     data: styles.map(({ category, ...style }) => ({
@@ -117,12 +119,91 @@ async function main() {
       sodium: 15,
     },
   });
+
   await prisma.fermentable.createMany({
     data: grains.map(({ maxUsage, ...grain }) => ({
       ...grain,
       ...toPercent({ maxUsage }),
       slug: slugify(grain.name, { lower: true }),
     })),
+  });
+  await prisma.hop.createMany({
+    data: hops.map(
+      ({
+        aromas,
+        usage,
+        alpha,
+        alphaLow,
+        alphaHigh,
+        beta,
+        betaLow,
+        betaHigh,
+        cohumulone,
+        cohumuloneLow,
+        cohumuloneHigh,
+        caryophyllene,
+        caryophylleneHigh,
+        caryophylleneLow,
+        geraniol,
+        geraniolHigh,
+        geraniolLow,
+        farnesene,
+        farneseneHigh,
+        farneseneLow,
+        humulene,
+        humuleneHigh,
+        humuleneLow,
+        bPinene,
+        bPineneHigh,
+        bPineneLow,
+        linalool,
+        linaloolHigh,
+        linaloolLow,
+        myrcene,
+        myrceneLow,
+        myrceneHigh,
+        flavorMap,
+        ...hop
+      }: any) => ({
+        flavor: aromas,
+        ...toPercent({
+          alpha,
+          alphaLow,
+          alphaHigh,
+          beta,
+          betaLow,
+          betaHigh,
+          cohumulone,
+          cohumuloneLow,
+          cohumuloneHigh,
+          caryophyllene,
+          caryophylleneHigh,
+          caryophylleneLow,
+          geraniol,
+          geraniolHigh,
+          geraniolLow,
+          farnesene,
+          farneseneHigh,
+          farneseneLow,
+          humulene,
+          humuleneHigh,
+          humuleneLow,
+          bPinene,
+          bPineneHigh,
+          bPineneLow,
+          linalool,
+          linaloolHigh,
+          linaloolLow,
+          myrcene,
+          myrceneLow,
+          myrceneHigh,
+        }),
+        ...hop,
+
+        slug: slugify(hop.name),
+        usage: HopUsage[usage?.toLowerCase() as HopUsage] || HopUsage.dual,
+      })
+    ),
   });
 }
 

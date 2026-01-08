@@ -1,5 +1,6 @@
 import { zfd } from "zod-form-data";
 import z from "zod";
+import { HopUsage } from "@/generated/prisma/client";
 export const schemas = zfd.formData({
   id: zfd.text(z.string().optional()),
 });
@@ -24,25 +25,6 @@ export const fermentableSchema = zfd.formData({
   yield: zfd.numeric(z.number().min(0).max(100).optional()),
   extract: zfd.numeric(z.number().optional()),
 });
-export default schemas;
-/**
- * 
-import {
-  HopUsage,
-  OtherIngredientType,
-  YeastFlocculation,
-  YeastForm,
-  YeastType,
-} from "@prisma/client";
-export const otherSchema = zfd.formData({
-  id: zfd.text(z.string().optional()),
-  name: zfd.text(),
-  type: z.enum(OtherIngredientType).default(OtherIngredientType.agent),
-  description: zfd.text(z.string().optional()),
-  country: zfd.text(z.string().optional()),
-  notes: zfd.text(z.string().optional()),
-});
-
 export const hopSchema = zfd.formData({
   id: zfd.text(z.string().optional()),
   name: zfd.text(),
@@ -63,6 +45,26 @@ export const hopSchema = zfd.formData({
   purpose: zfd.text(z.string().optional()),
   notes: zfd.text(z.string().optional()),
 });
+
+export default schemas;
+/**
+ * 
+import {
+  HopUsage,
+  OtherIngredientType,
+  YeastFlocculation,
+  YeastForm,
+  YeastType,
+} from "@prisma/client";
+export const otherSchema = zfd.formData({
+  id: zfd.text(z.string().optional()),
+  name: zfd.text(),
+  type: z.enum(OtherIngredientType).default(OtherIngredientType.agent),
+  description: zfd.text(z.string().optional()),
+  country: zfd.text(z.string().optional()),
+  notes: zfd.text(z.string().optional()),
+});
+
 
 export const yeastSchema = zfd.formData({
   id: zfd.text(z.string().optional()),

@@ -1,6 +1,25 @@
-import { Fermentable } from "@/generated/prisma/client";
+import { Fermentable, Hop } from "@/generated/prisma/client";
 import { AmountFields, OptionalNullable } from "@/lib/utils";
 import { BaseUser } from "./User";
+export interface BaseHopType
+  extends Omit<OptionalNullable<Hop>, "id" | "userId"> {
+  id?: string;
+  userId?: string;
+}
+export interface HopType extends BaseHopType {
+  owner?: Partial<BaseUser>;
+  origin?: BaseHopType;
+  forks?: BaseHopType[];
+}
+type HopAmountFieldNames =
+  | "alpha"
+  | "beta"
+  | "cohumulone"
+  | "myrcene"
+  | "humulene"
+  | "caryophyllene"
+  | "farnesene";
+export type AdjustedHopType = AmountFields<HopType, HopAmountFieldNames>;
 
 export interface BaseFermentableType
   extends Omit<OptionalNullable<Fermentable>, "id" | "userId"> {
