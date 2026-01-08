@@ -49,19 +49,29 @@ const columns: ColumnDef<FermentableType>[] = [
     cell: FermentablesTableRowActions<FermentableType>,
   },
 ];
-import React from "react";
+import React, { use } from "react";
 import { FermentableType } from "@/types/Ingredient";
 export interface FermentablesTableProps {
-  src: FermentableType[];
+  src: Promise<FermentableType[]>;
 }
+export const FermentablesTableSkeleton: React.FC = () => {
+  return (
+    <div>
+      <div className="relative overflow-auto">
+        <DataTable data={[]} columns={columns} />
+      </div>
+    </div>
+  );
+};
 export const FermentablesTable: React.FC<FermentablesTableProps> = ({
   src,
 }) => {
   "use no memo";
+  const data = use(src);
   return (
     <div>
       <div className="relative overflow-auto">
-        <DataTable data={src} columns={columns} />
+        <DataTable data={data} columns={columns} />
       </div>
     </div>
   );
