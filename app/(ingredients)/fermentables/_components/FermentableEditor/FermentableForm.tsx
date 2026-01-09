@@ -67,7 +67,7 @@ export function FermentableForm({
   const { register, control } = useFormContext<FermentableType>();
   return (
     <div className="m-2 p-2 gap-2 *:mb-2">
-      <Card className="m-4">
+      <Card className="m-1 lg:m-4">
         <CardHeader className="border-b-4">
           <CardTitle>Fermentable Editor</CardTitle>
         </CardHeader>
@@ -104,9 +104,9 @@ export function FermentableForm({
             control={control}
           />
           <TextField name="notes" label="Notes" control={control} />
-          <div className="grid lg:grid-cols-2 gap-3 *:p-3 *:rounded *:ring-2 p-4 *:px-8">
+          <div className="grid lg:grid-cols-2 gap-3 *:p-1 lg:*:p-3 *:rounded *:ring-2  p-2  lg:p-4 lg:*:px-4">
             <div>
-              <h4>Details</h4>
+              <h4 className="font-extrabold">Details</h4>
 
               <AmountField
                 amountType="percent"
