@@ -37,6 +37,8 @@ type FermentableAmountFieldNames =
   | "moisture"
   | "potential"
   | "friability"
+  | "coarseFineDiff"
+  | "yield"
   | "protein";
 export type AdjustedFermentableType = AmountFields<
   FermentableType,

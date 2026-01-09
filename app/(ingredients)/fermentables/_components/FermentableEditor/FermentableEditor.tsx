@@ -33,7 +33,7 @@ export function FermentableEditor({
           {src.origin?.name}
         </Link>
       </h3>
-      <div className="max-w-4xl grid  mx-auto">
+      <div className="px-10 grid  mx-auto">
         <FermentableForm
           src={src}
           preferences={preferences}

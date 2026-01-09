@@ -13,6 +13,7 @@ import {
 } from "react-hook-form";
 
 export type InputProps<T extends FieldValues> = {
+  orientation?: "responsive" | "horizontal" | "vertical";
   register?: UseFormRegister<T>;
   control?: Control<T>;
   name: FieldPath<T>;
@@ -91,14 +92,7 @@ export function Input<T extends FieldValues>({
   };
   return (
     <UIInput
-      className={clsx(
-        inputStyles({
-          variant: error ? "error" : variant,
-          inputSize,
-          //suffixV: suffix ? (error ? "error" : "active") : "default",
-        }),
-        className
-      )}
+      className={clsx(className)}
       onBlur={onBlur}
       type={props.type ?? "text"}
       {...inputProps}

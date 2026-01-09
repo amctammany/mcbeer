@@ -1,6 +1,10 @@
 import { zfd } from "zod-form-data";
 import z from "zod";
-import { HopUsage } from "@/generated/prisma/client";
+import {
+  FermentableType,
+  HopUsage,
+  IngredientUsage,
+} from "@/generated/prisma/client";
 export const schemas = zfd.formData({
   id: zfd.text(z.string().optional()),
 });
@@ -9,6 +13,8 @@ export const fermentableSchema = zfd.formData({
   id: zfd.text(z.string().optional()),
   userId: zfd.text(z.string().optional()),
   name: zfd.text(),
+  type: z.enum(FermentableType).optional().default(FermentableType.Grain),
+  usage: z.enum(IngredientUsage).optional().default(IngredientUsage.Mash),
   manufacturer: zfd.text(z.string().optional()),
   description: zfd.text(z.string().optional()),
   country: zfd.text(z.string().optional()),

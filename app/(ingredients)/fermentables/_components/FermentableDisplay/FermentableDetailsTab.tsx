@@ -15,7 +15,11 @@ export default function FermentableDetailsTab({
       <Prop label="Description" value={src.description} />
       <Prop label="Manufacturer" value={src.manufacturer} />
       <Prop label="Country" value={src.country} />
+      <Prop label="Usage" value={src.usage} />
+      <Prop label="Type" value={src.type} />
       <Prop label="Stability" value={src.stability} />
+      <Prop label="Price" value={src.price} />
+
       <Prop label="Notes" value={src.notes} />
     </div>
   );

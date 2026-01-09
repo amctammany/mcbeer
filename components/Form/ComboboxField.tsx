@@ -42,6 +42,7 @@ export type ComboboxFieldProps<T extends FieldValues> = {
   children?: React.ReactNode | React.ReactNode[];
   options?: any; //Record<string | number, string | number>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  orientation?: "responsive" | "horizontal" | "vertical";
 
   //onChange?: (e: SyntheticEvent) => void;
   //onBlur?: (e: SyntheticEvent) => void;
@@ -55,6 +56,7 @@ export function ComboboxField<T extends FieldValues>({
   label,
   placeholder,
   options,
+  orientation = "responsive",
   value,
 }: ComboboxFieldProps<T>) {
   const { register, getFieldState, control } = useFormContext<T>();
@@ -78,19 +80,19 @@ export function ComboboxField<T extends FieldValues>({
       control={control}
       render={({ field, fieldState }) => (
         <div className="w-full max-w-d">
-          <Field data-invalid={fieldState.invalid}>
+          <Field orientation={orientation} data-invalid={fieldState.invalid}>
             <FieldContent className="relative">
               <FieldLabel htmlFor={id}>{label ?? ""}</FieldLabel>
               <FieldDescription>{description ?? ""}</FieldDescription>
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-              <input type="hidden" {...field} />
-              <Combobox
-                name={field.name}
-                value={field.value}
-                onChange={onValueChange(field.onChange)}
-                options={options}
-              />
             </FieldContent>
+            <input type="hidden" {...field} />
+            <Combobox
+              name={field.name}
+              value={field.value}
+              onChange={onValueChange(field.onChange)}
+              options={options}
+            />
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         </div>
       )}

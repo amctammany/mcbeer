@@ -2,6 +2,7 @@
 import AmountField from "@/components/Form/AmountField";
 import { ComboboxField } from "@/components/Form/ComboboxField";
 import Form from "@/components/Form/Form";
+import { SelectField } from "@/components/Form/SelectField";
 import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +13,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
+import {
+  FermentableType as FermentableTypeEnum,
+  IngredientUsage,
+} from "@/generated/prisma/enums";
 import { AdjustedFermentableType, FermentableType } from "@/types/Ingredient";
 import { useActionState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -72,6 +77,18 @@ export function FermentableForm({
           <input type="hidden" {...register("forkedFrom")} />
           <TextField name="name" control={control} label="Name" />
           <TextField name="description" label="Description" control={control} />
+          <SelectField
+            name="type"
+            label="Type"
+            control={control}
+            options={FermentableTypeEnum}
+          />
+          <SelectField
+            name="usage"
+            label="Usage"
+            control={control}
+            options={IngredientUsage}
+          />
           <ComboboxField
             name="country"
             label="Country"

@@ -54,6 +54,7 @@ export function TextField<T extends FieldValues>({
   suffix,
   variant,
   value,
+  orientation = "responsive",
   //size,
   inputSize = "full",
   ...props
@@ -79,20 +80,21 @@ export function TextField<T extends FieldValues>({
         name={name}
         control={control}
         render={({ field, fieldState }) => (
-          <Field data-invalid={!!fieldState.error}>
-            <FieldLabel htmlFor={id}>{label}</FieldLabel>
+          <Field orientation={orientation} data-invalid={!!fieldState.error}>
             <FieldContent className="grid w-full gap-2 ">
-              <Input
-                className=""
-                id={id}
-                type="text"
-                value={field.value ?? ""}
-                name={field.name}
-                onChange={(e) => onValueChange(field.onChange)(e.target.value)}
-                onBlur={field.onBlur}
-              />
+              <FieldLabel htmlFor={id}>{label}</FieldLabel>
+
+              <FieldDescription>{description}</FieldDescription>
             </FieldContent>
-            <FieldDescription>{description}</FieldDescription>
+            <Input
+              className="grow"
+              id={id}
+              type="text"
+              value={field.value ?? ""}
+              name={field.name}
+              onChange={(e) => onValueChange(field.onChange)(e.target.value)}
+              onBlur={field.onBlur}
+            />
             <FieldError>{fieldState.error?.message}</FieldError>
           </Field>
         )}

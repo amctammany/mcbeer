@@ -50,6 +50,7 @@ export type RadioGroupFieldProps<T extends FieldValues> = {
   children?: React.ReactNode | React.ReactNode[];
   options?: RadioGroupItemProps[];
   onChange?: React.ChangeEventHandler<HTMLSelectElement>;
+  orientation?: "responsive" | "horizontal" | "vertical";
 
   //onChange?: (e: SyntheticEvent) => void;
   //onBlur?: (e: SyntheticEvent) => void;
@@ -69,6 +70,7 @@ export function RadioGroupField<T extends FieldValues>({
   description,
   label,
   placeholder,
+  orientation = "horizontal",
   options,
   value,
 }: RadioGroupFieldProps<T>) {
@@ -103,7 +105,7 @@ export function RadioGroupField<T extends FieldValues>({
             )}
           >
             <Field
-              orientation="horizontal"
+              orientation={orientation}
               data-invalid={fieldState.invalid}
               className="flex items-center gap-1 *:first:rounded-l-md *:last:rounded-r-md"
             >

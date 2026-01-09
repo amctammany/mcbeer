@@ -74,6 +74,7 @@ export function AmountField<T extends FieldValues>({
   unit,
   description,
   className,
+  orientation = "responsive",
   placeholder,
   control,
   value,
@@ -112,35 +113,39 @@ export function AmountField<T extends FieldValues>({
         name={name}
         control={control}
         render={({ field, fieldState }) => (
-          <Field data-invalid={!!fieldState.error}>
-            <FieldLabel htmlFor={id}>{label}</FieldLabel>
-            <FieldContent className="grid w-full gap-2 ">
-              <InputGroup className="gap-2" aria-invalid={!!fieldState.error}>
-                <InputGroupInput
-                  className="text-center"
-                  id={id}
-                  type="number"
-                  step={props.step ?? 0.1}
-                  value={field.value ?? ""}
-                  name={field.name}
-                  onChange={(e) =>
-                    onValueChange(field.onChange)(parseFloat(e.target.value))
-                  }
-                  onBlur={field.onBlur}
-                />
-
-                <InputGroupAddon
-                  aria-invalid={!!fieldState.error}
-                  className=""
-                  align="inline-end"
-                >
-                  <InputGroupText aria-invalid={!!fieldState.error}>
-                    {unitName}
-                  </InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
+          <Field orientation={orientation} data-invalid={!!fieldState.error}>
+            <FieldContent className="grow grid w-full gap-2 ">
+              <FieldLabel htmlFor={id}>{label}</FieldLabel>
+              <FieldDescription>{description}</FieldDescription>
             </FieldContent>
-            <FieldDescription>{description}</FieldDescription>
+
+            <InputGroup
+              className="gap-2 w-full grow"
+              aria-invalid={!!fieldState.error}
+            >
+              <InputGroupInput
+                className="text-center grow"
+                id={id}
+                type="number"
+                step={props.step ?? 0.1}
+                value={field.value ?? ""}
+                name={field.name}
+                onChange={(e) =>
+                  onValueChange(field.onChange)(parseFloat(e.target.value))
+                }
+                onBlur={field.onBlur}
+              />
+
+              <InputGroupAddon
+                aria-invalid={!!fieldState.error}
+                className="w-4"
+                align="inline-end"
+              >
+                <InputGroupText aria-invalid={!!fieldState.error}>
+                  {unitName}
+                </InputGroupText>
+              </InputGroupAddon>
+            </InputGroup>
             <FieldError>{fieldState.error?.message}</FieldError>
           </Field>
         )}

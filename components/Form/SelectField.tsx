@@ -48,6 +48,7 @@ export type SelectFieldProps<T extends FieldValues> = {
   children?: React.ReactNode | React.ReactNode[];
   options?: Record<string | number, string | number>;
   onChange?: React.ChangeEventHandler<HTMLSelectElement>;
+  orientation?: "responsive" | "horizontal" | "vertical";
 
   //onChange?: (e: SyntheticEvent) => void;
   //onBlur?: (e: SyntheticEvent) => void;
@@ -61,6 +62,7 @@ export function SelectField<T extends FieldValues>({
   label,
   placeholder,
   options,
+  orientation = "horizontal",
   value,
 }: SelectFieldProps<T>) {
   const { register, getFieldState, control } = useFormContext<T>();
@@ -82,11 +84,10 @@ export function SelectField<T extends FieldValues>({
       name={name}
       control={control}
       render={({ field, fieldState }) => (
-        <Field data-invalid={fieldState.invalid}>
-          <FieldContent>
+        <Field orientation={orientation} data-invalid={fieldState.invalid}>
+          <FieldContent className="grow">
             <FieldLabel htmlFor={id}>{label ?? ""}</FieldLabel>
             <FieldDescription>{description ?? ""}</FieldDescription>
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </FieldContent>
           <Select
             name={field.name}
@@ -97,18 +98,19 @@ export function SelectField<T extends FieldValues>({
               id={id}
               aria-invalid={fieldState.invalid}
               aria-label={field.value}
-              className={clsx("min-w-30", className)}
+              className={clsx("min-w-30 grow", className)}
             >
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent position="item-aligned">
               {Object.entries(options ?? {}).map(([key, value]) => (
                 <SelectItem key={key} value={value as any}>
-                  <div className="grow text-center">{value as any}</div>
+                  <div className=" grow text-center">{value as any}</div>
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
+          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
         </Field>
       )}
     />
