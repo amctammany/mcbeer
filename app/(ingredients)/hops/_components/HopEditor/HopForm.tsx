@@ -65,6 +65,7 @@ export function HopForm({ preferences, src }: HopFormProps) {
           <input type="hidden" {...register("userId")} />
           <TextField name="name" label="Name" />
           <TextField name="description" label="Description" />
+          <TextField name="country" label="Country" />
 
           <TextField name="notes" label="Notes" control={control} />
           <div className="grid lg:grid-cols-2 gap-3 *:p-3 *:rounded *:ring-2 p-4 *:px-8">

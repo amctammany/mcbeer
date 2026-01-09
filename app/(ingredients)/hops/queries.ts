@@ -10,7 +10,6 @@ export const getHops = async (args: any = {}) => {
 };
 
 export const getHop = async (slug: string) => {
-  "use cache";
   const hop = await prisma.hop.findFirst({ where: { slug } });
   return hop as HopType;
 };
