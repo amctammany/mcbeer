@@ -15,7 +15,7 @@ const propVariants = cva("m-0 border-b-black border-b-2 rounded-b-none", {
     variant: {
       default: "",
       outline: "border border-2 rounded",
-      inline: "*:first:flex *:first:flex-row *:first:*:first:pr-2",
+      inline: "*:first:grid *:first:grid-cols-2 *:first:*:first:pr-2",
     },
   },
   defaultVariants: {
@@ -43,9 +43,9 @@ export const Prop = ({
     <ItemMedia className={clsx("m-auto", { hidden: !Icon })}>
       {Icon && <Icon className="size-5 m-auto" />}
     </ItemMedia>
-    <ItemContent className={variant === "inline" ? "flex flex-row" : ""}>
-      <ItemTitle className="bold border-b-2 ">{label}</ItemTitle>
-      <ItemDescription className="flex w-full text-pretty ">
+    <ItemContent className={variant === "inline" ? "grid grid-cols-2" : ""}>
+      <ItemTitle className="bold border-b-2 grow ">{label}</ItemTitle>
+      <ItemDescription className="flex w-full grow text-pretty ">
         <span className="grow">{children ?? value}</span>
         <span className={clsx("shrink", { hidden: !unit })}>{unit}</span>
       </ItemDescription>

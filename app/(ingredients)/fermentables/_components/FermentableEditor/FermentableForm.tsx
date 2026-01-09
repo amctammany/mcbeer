@@ -104,7 +104,7 @@ export function FermentableForm({
             control={control}
           />
           <TextField name="notes" label="Notes" control={control} />
-          <div className="grid lg:grid-cols-2 gap-3 *:p-1 lg:*:p-3 *:rounded *:ring-2  p-2  lg:p-4 lg:*:px-4">
+          <div className="grid lg:grid-cols-2 gap-3 p-1 lg:*:p-3 *:rounded *:ring-2  p-2  lg:p-4 lg:*:px-4">
             <div>
               <h4 className="font-extrabold">Details</h4>
 

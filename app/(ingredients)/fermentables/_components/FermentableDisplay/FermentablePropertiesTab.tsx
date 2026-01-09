@@ -11,15 +11,20 @@ export default function FermentablePropertiesTab({
 }: FermentablePropertiesTabProps) {
   return (
     <div className="grid lg:grid-cols-1 ">
-      <AmountProp label="Color" value={src.color} />
-      <Prop label="Power" value={src.power} />
-      <AmountProp precision={4} label="Potential" value={src.potential} />
-      <AmountProp label="Yield" value={src.yield} />
-      <AmountProp label="Protein" value={src.protein} />
+      <AmountProp label="Color" variant={"inline"} value={src.color} />
+      <Prop label="Power" variant={"inline"} value={src.power} />
+      <AmountProp
+        precision={4}
+        label="Potential"
+        value={src.potential}
+        variant={"inline"}
+      />
+      <AmountProp label="Yield" variant={"inline"} value={src.yield} />
+      <AmountProp label="Protein" variant={"inline"} value={src.protein} />
       <AmountProp label="Friability" value={src.friability} />
       <AmountProp label="Coarse Fine Diff" value={src.coarseFineDiff} />
-      <AmountProp label="Moisture" value={src.moisture} />
-      <AmountProp label="Max Usage" value={src.maxUsage} />
+      <AmountProp label="Moisture" value={src.moisture} variant={"inline"} />
+      <AmountProp label="Max Usage" value={src.maxUsage} variant={"inline"} />
     </div>
   );
 }
