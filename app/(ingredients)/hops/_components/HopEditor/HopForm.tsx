@@ -1,5 +1,6 @@
 "use client";
 import AmountField from "@/components/Form/AmountField";
+import { ComboboxField } from "@/components/Form/ComboboxField";
 import Form from "@/components/Form/Form";
 import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
@@ -65,7 +66,14 @@ export function HopForm({ preferences, src }: HopFormProps) {
           <input type="hidden" {...register("userId")} />
           <TextField name="name" label="Name" />
           <TextField name="description" label="Description" />
-          <TextField name="country" label="Country" />
+          <ComboboxField
+            name="country"
+            label="Country"
+            options={[
+              { value: "USA", label: "USA" },
+              { value: "Germany", label: "Germany" },
+            ]}
+          />
 
           <TextField name="notes" label="Notes" control={control} />
           <div className="grid lg:grid-cols-2 gap-3 *:p-3 *:rounded *:ring-2 p-4 *:px-8">
