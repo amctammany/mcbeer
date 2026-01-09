@@ -51,8 +51,6 @@ export type ComboboxProps = {
 };
 export function Combobox({ name, options, value, onChange }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
-  //   const [value, setValue] = React.useState(_value ?? "");
-  console.log("Combobox value:", value, options);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -61,7 +59,7 @@ export function Combobox({ name, options, value, onChange }: ComboboxProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full grow justify-between"
+          className="w-full grow justify-between font-normal"
         >
           {value
             ? options.find((option) => option.value === value)?.label

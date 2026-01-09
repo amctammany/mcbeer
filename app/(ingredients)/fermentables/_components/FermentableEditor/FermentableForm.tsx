@@ -1,5 +1,6 @@
 "use client";
 import AmountField from "@/components/Form/AmountField";
+import { ComboboxField } from "@/components/Form/ComboboxField";
 import Form from "@/components/Form/Form";
 import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
@@ -51,8 +52,13 @@ export function FermentableFormContainer({
 export type FermentableFormProps = {
   preferences: UserPreferencesType;
   src: AdjustedFermentableType;
+  countries: string[];
 };
-export function FermentableForm({ preferences, src }: FermentableFormProps) {
+export function FermentableForm({
+  countries,
+  preferences,
+  src,
+}: FermentableFormProps) {
   const { register, control } = useFormContext<FermentableType>();
   return (
     <div className="m-2 p-2 gap-2 *:mb-2">
@@ -66,6 +72,15 @@ export function FermentableForm({ preferences, src }: FermentableFormProps) {
           <input type="hidden" {...register("forkedFrom")} />
           <TextField name="name" control={control} label="Name" />
           <TextField name="description" label="Description" control={control} />
+          <ComboboxField
+            name="country"
+            label="Country"
+            options={countries.map((country) => ({
+              value: country,
+              label: country,
+            }))}
+          />
+
           <TextField
             name="manufacturer"
             label="Manufacturer"

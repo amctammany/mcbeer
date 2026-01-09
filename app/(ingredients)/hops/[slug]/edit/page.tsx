@@ -9,6 +9,8 @@ import HopEditor from "../../_components/HopEditor/HopEditor";
 import { HopMask } from "@/lib/Converter/Masks";
 import { AdjustedHopType } from "@/types/Ingredient";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { count } from "node:console";
+import { getCountries } from "@/app/(ingredients)/queries";
 
 export type HopEditorPageProps = {
   params: Promise<{ slug: string }>;
@@ -29,6 +31,7 @@ export default async function HopEditorPage({ params }: HopEditorPageProps) {
 
   const src = await authorizeResource(`/hops/${slug}/edit`, getHop, slug);
   const prefs = await getPreferences();
+  const countries = await getCountries();
   const adjusted = adjustUnits({
     src,
     mask: HopMask,
@@ -39,6 +42,7 @@ export default async function HopEditorPage({ params }: HopEditorPageProps) {
   }) as AdjustedHopType;
   return (
     <HopEditor
+      countries={countries}
       src={adjusted}
       preferences={prefs}
       action={updateHop.bind(null, prefs)}

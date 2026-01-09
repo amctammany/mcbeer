@@ -9,6 +9,7 @@ import FermentableEditor from "../../_components/FermentableEditor/FermentableEd
 import { FermentableMask } from "@/lib/Converter/Masks";
 import { AdjustedFermentableType } from "@/types/Ingredient";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { getCountries } from "@/app/(ingredients)/queries";
 
 export type FermentableEditorPageProps = {
   params: Promise<{ slug: string }>;
@@ -35,6 +36,7 @@ export default async function FermentableEditorPage({
     slug
   );
   const prefs = await getPreferences();
+  const countries = await getCountries();
   const adjusted = adjustUnits({
     src,
     mask: FermentableMask,
@@ -46,6 +48,7 @@ export default async function FermentableEditorPage({
   return (
     <FermentableEditor
       src={adjusted}
+      countries={countries}
       preferences={prefs}
       action={updateFermentable.bind(null, prefs)}
     />

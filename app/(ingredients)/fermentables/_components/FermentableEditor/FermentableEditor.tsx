@@ -11,10 +11,12 @@ import FermentableEditorToolbar from "./FermentableEditorToolbar";
 export type FermentableEditorProps = {
   src: AdjustedFermentableType;
   preferences: UserPreferencesType;
+  countries: string[];
   action: any;
 };
 export function FermentableEditor({
   src,
+  countries,
   action,
   preferences,
 }: FermentableEditorProps) {
@@ -32,7 +34,11 @@ export function FermentableEditor({
         </Link>
       </h3>
       <div className="max-w-4xl grid  mx-auto">
-        <FermentableForm src={src} preferences={preferences} />
+        <FermentableForm
+          src={src}
+          preferences={preferences}
+          countries={countries}
+        />
       </div>
     </FermentableFormContainer>
   );

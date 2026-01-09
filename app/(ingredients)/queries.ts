@@ -25,6 +25,6 @@ export async function getCountries() {
         acc.add(country);
       }
       return acc;
-    }, new Set());
-  return uniq;
+    }, new Set<string>());
+  return Array.from(uniq);
 }

@@ -52,8 +52,9 @@ export function HopFormContainer({
 export type HopFormProps = {
   preferences: UserPreferencesType;
   src: AdjustedHopType;
+  countries: string[];
 };
-export function HopForm({ preferences, src }: HopFormProps) {
+export function HopForm({ countries, preferences, src }: HopFormProps) {
   const { register, control } = useFormContext<HopType>();
   return (
     <div className="m-2 p-2 gap-2 *:mb-2">
@@ -69,10 +70,10 @@ export function HopForm({ preferences, src }: HopFormProps) {
           <ComboboxField
             name="country"
             label="Country"
-            options={[
-              { value: "USA", label: "USA" },
-              { value: "Germany", label: "Germany" },
-            ]}
+            options={countries.map((country) => ({
+              value: country,
+              label: country,
+            }))}
           />
 
           <TextField name="notes" label="Notes" control={control} />
