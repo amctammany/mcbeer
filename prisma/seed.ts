@@ -1,8 +1,15 @@
 import { prisma } from "../lib/prisma";
 import styles from "../data/styles.json";
 import hops from "../data/hops.json";
+import yeasts from "../data/yeasts.json";
 import grains from "../data/grains.json";
-import { HopUsage, StyleCategory } from "../generated/prisma/client";
+import {
+  HopUsage,
+  StyleCategory,
+  YeastFlocculation,
+  YeastForm,
+  YeastType,
+} from "../generated/prisma/client";
 import slugify from "@/lib/slugify";
 import { toPercent } from "@/lib/utils";
 
@@ -13,6 +20,7 @@ async function main() {
   await prisma.mashProfile.deleteMany({});
   await prisma.fermentable.deleteMany({});
   await prisma.hop.deleteMany({});
+  await prisma.yeast.deleteMany({});
   console.log("Seeding database...");
   await prisma.style.createMany({
     data: styles.map(({ category, ...style }) => ({
@@ -126,6 +134,24 @@ async function main() {
       ...toPercent({ maxUsage }),
       slug: slugify(grain.name, { lower: true }),
     })),
+  });
+  await prisma.yeast.createMany({
+    data: yeasts.map(
+      ({ type, form, flocculation, temp, attenuation, notes, ...yeast }) => ({
+        ...yeast,
+        type: YeastType[type as YeastType],
+        flocculation:
+          YeastFlocculation[
+            flocculation?.replace(" ", "") as YeastFlocculation
+          ],
+        form: YeastForm[form as YeastForm],
+        attenuation: attenuation / 100,
+        tempLow: (temp[0] - 32) * 0.5556,
+        tempHigh: (temp[1] - 32) * 0.5556,
+        notes: notes[0],
+        usage: notes[1],
+      })
+    ),
   });
   await prisma.hop.createMany({
     data: hops.map(

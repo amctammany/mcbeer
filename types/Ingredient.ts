@@ -1,4 +1,4 @@
-import { Fermentable, Hop } from "@/generated/prisma/client";
+import { Fermentable, Hop, Yeast } from "@/generated/prisma/client";
 import { AmountFields, OptionalNullable } from "@/lib/utils";
 import { BaseUser } from "./User";
 export interface BaseHopType
@@ -31,6 +31,19 @@ type HopAmountFieldNames =
   | "caryophyllene"
   | "farnesene";
 export type AdjustedHopType = AmountFields<HopType, HopAmountFieldNames>;
+export interface BaseYeastType
+  extends Omit<OptionalNullable<Yeast>, "id" | "userId"> {
+  tempRange: [number, number];
+  id?: string;
+  userId?: string;
+}
+export interface YeastType extends BaseYeastType {
+  owner?: Partial<BaseUser>;
+  origin?: BaseYeastType;
+  forks?: BaseYeastType[];
+}
+type YeastAmountFieldNames = "attenuation" | "tempLow" | "tempHigh";
+export type AdjustedYeastType = AmountFields<YeastType, YeastAmountFieldNames>;
 
 export interface BaseFermentableType
   extends Omit<OptionalNullable<Fermentable>, "id" | "userId"> {

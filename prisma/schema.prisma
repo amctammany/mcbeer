@@ -240,6 +240,7 @@ model User {
   fermentationProfiles FermentationProfile[]
   fermentables         Fermentable[]
   hops                 Hop[]
+  yeasts               Yeast[]
 
   @@unique([email])
   @@map("user")
@@ -546,4 +547,52 @@ model Hop {
   //  hopNote           HopNote[]
   userId            String?
   owner             User?    @relation(fields: [userId], references: [id])
+}
+
+enum YeastForm {
+  Liquid
+  Dry
+}
+
+enum YeastFlocculation {
+  VeryHigh
+  High
+  Medium
+  Low
+  VeryLow
+}
+
+enum YeastType {
+  Ale
+  Lager
+  Wheat
+  Wine
+}
+
+model Yeast {
+  id              String             @id @unique @default(cuid())
+  name            String
+  slug            String             @unique
+  usage           String?
+  description     String?
+  notes           String?
+  manufacturer    String?
+  type            YeastType?
+  form            YeastForm?
+  country         String?
+  price           Float?
+  tempLow         Float?
+  tempHigh        Float?
+  flocculation    YeastFlocculation?
+  tolerance       Float?
+  attenuation     Float?
+  attenuationLow  Float?
+  attenuationHigh Float?
+  cellsPerUnit    Float?
+  productId       String?
+  userId          String?
+  diastatic       Boolean?           @default(false)
+  owner           User?              @relation(fields: [userId], references: [id])
+
+  //  YeastIngredient YeastIngredient[]
 }

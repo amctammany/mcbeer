@@ -4,6 +4,9 @@ import {
   FermentableType,
   HopUsage,
   IngredientUsage,
+  YeastFlocculation,
+  YeastForm,
+  YeastType,
 } from "@/generated/prisma/client";
 export const schemas = zfd.formData({
   id: zfd.text(z.string().optional()),
@@ -52,6 +55,21 @@ export const hopSchema = zfd.formData({
   notes: zfd.text(z.string().optional()),
 });
 
+export const yeastSchema = zfd.formData({
+  id: zfd.text(z.string().optional()),
+  name: zfd.text(),
+  description: zfd.text(z.string().optional()),
+  manufacturer: zfd.text(z.string().optional()),
+  type: zfd.text(z.nativeEnum(YeastType).optional().default(YeastType.Ale)),
+  flocculation: zfd.numeric(z.enum(YeastFlocculation).optional()),
+  form: zfd.numeric(z.enum(YeastForm).optional()),
+  tolerance: zfd.numeric(z.number().min(0).max(1).optional()),
+  attenuation: zfd.numeric(z.number().min(0).max(1).optional()),
+  tempLow: zfd.numeric(z.number().optional()),
+  tempHigh: zfd.numeric(z.number().optional()),
+  usage: zfd.text(z.string().optional()),
+  notes: zfd.text(z.string().optional()),
+});
 export default schemas;
 /**
  * 
@@ -71,22 +89,6 @@ export const otherSchema = zfd.formData({
   notes: zfd.text(z.string().optional()),
 });
 
-
-export const yeastSchema = zfd.formData({
-  id: zfd.text(z.string().optional()),
-  name: zfd.text(),
-  description: zfd.text(z.string().optional()),
-  manufacturer: zfd.text(z.string().optional()),
-  type: zfd.text(z.nativeEnum(YeastType).optional().default(YeastType.Ale)),
-  flocculation: zfd.numeric(z.enum(YeastFlocculation).optional()),
-  form: zfd.numeric(z.enum(YeastForm).optional()),
-  tolerance: zfd.numeric(z.number().min(0).max(1).optional()),
-  attenuation: zfd.numeric(z.number().min(0).max(1).optional()),
-  tempLow: zfd.numeric(z.number().optional()),
-  tempHigh: zfd.numeric(z.number().optional()),
-  usage: zfd.text(z.string().optional()),
-  notes: zfd.text(z.string().optional()),
-});
 
 export type OtherInput = z.infer<typeof otherSchema>;
 export type HopInput = z.infer<typeof hopSchema>;
