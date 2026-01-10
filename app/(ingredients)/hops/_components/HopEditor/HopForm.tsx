@@ -15,16 +15,19 @@ import {
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { AdjustedHopType, HopType } from "@/types/Ingredient";
 import { useActionState } from "react";
-import { Control, FieldPath, useFormContext } from "react-hook-form";
+import {
+  type FieldValues,
+  type FieldPath,
+  useFormContext,
+} from "react-hook-form";
 
 type RangeProp<T extends FieldValues> = {
   name: FieldPath<T>;
   label: string;
   min?: number;
   max?: number;
-  control?: Control<T>;
 };
-const rangeFields: RangeProp<AdjustedHopType>[] = [
+const rangeFields: RangeProp<HopType>[] = [
   { name: "alpha", label: "Alpha", min: 0, max: 60 },
   { name: "beta", label: "Beta", min: 0, max: 60 },
   { name: "cohumulone", label: "Cohumulone", min: 0, max: 60 },
@@ -115,9 +118,9 @@ export function HopForm({ countries, preferences, src }: HopFormProps) {
               />
               <RangeField
                 className="col-span-2 "
-                name={`${field.name}Range` as FieldPath<AdjustedHopType>}
-                low={`${field.name}Low` as FieldPath<AdjustedHopType>}
-                high={`${field.name}High` as FieldPath<AdjustedHopType>}
+                name={`${field.name}Range` as FieldPath<HopType>}
+                low={`${field.name}Low` as FieldPath<HopType>}
+                high={`${field.name}High` as FieldPath<HopType>}
                 label={`${field.label} Range`}
                 min={field.min}
                 max={field.max}
