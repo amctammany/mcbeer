@@ -91,6 +91,7 @@ export const YeastMask: UnitMaskType<Partial<YeastType>> = {
   attenuation: "percent",
   attenuationLow: "percent",
   attenuationHigh: "percent",
+  tempRange: ["temperature"],
   tempLow: "temperature",
   tempHigh: "temperature",
 };

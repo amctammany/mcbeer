@@ -42,6 +42,7 @@ export default async function YeastEditorPage({
     dir: true,
     precision: 4,
   }) as AdjustedYeastType;
+  console.log(src, adjusted);
   return (
     <YeastEditor
       countries={countries}
