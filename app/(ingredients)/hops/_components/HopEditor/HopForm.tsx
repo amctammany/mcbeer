@@ -17,14 +17,14 @@ import { AdjustedHopType, HopType } from "@/types/Ingredient";
 import { useActionState } from "react";
 import { Control, FieldPath, useFormContext } from "react-hook-form";
 
-type RangeProp<T extends Control> = {
+type RangeProp<T extends FieldValues> = {
   name: FieldPath<T>;
   label: string;
   min?: number;
   max?: number;
-  control?: T;
+  control?: Control<T>;
 };
-const rangeFields: RangeProp<Control<AdjustedHopType>>[] = [
+const rangeFields: RangeProp<AdjustedHopType>[] = [
   { name: "alpha", label: "Alpha", min: 0, max: 60 },
   { name: "beta", label: "Beta", min: 0, max: 60 },
   { name: "cohumulone", label: "Cohumulone", min: 0, max: 60 },
