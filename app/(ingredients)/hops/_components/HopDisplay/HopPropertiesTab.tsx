@@ -17,17 +17,15 @@ const rangeProps: { name: keyof AdjustedHopType; label: string }[] = [
   { name: "bPinene", label: "B-Pinene" },
   { name: "linalool", label: "Linalool" },
   { name: "geraniol", label: "Geraniol" },
-  { name: "totalOil", label: "Total Oil" },
 ];
 export default function HopPropertiesTab({ src }: HopPropertiesTabProps) {
   return (
     <div className="grid lg:grid-cols-1 ">
       {rangeProps.map((field) => (
         <div className="grid grid-cols-2 gap-2" key={field.name}>
-          <Prop
+          <AmountProp
             label={field.label}
-            unit={(src[field.name] as UnitValue).unit as string}
-            value={(src[field.name] as UnitValue).value as string}
+            value={src[field.name] as UnitValue}
           />
           <Prop label={`${field.label} Range`} unit={"%"}>
             {
@@ -42,6 +40,12 @@ export default function HopPropertiesTab({ src }: HopPropertiesTabProps) {
           </Prop>
         </div>
       ))}
+      <div className="grid grid-cols-2 gap-2">
+        <Prop label={"Total Oil"} value={src["totalOil"]} unit="mg/100mL" />
+        <Prop label={"Total Oil Range"} unit="mg/100mL">
+          {src["totalOilLow"]} - {src["totalOilHigh"]}
+        </Prop>
+      </div>
     </div>
   );
 }
