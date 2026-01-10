@@ -1,6 +1,6 @@
 import { RevisionContext } from "@/contexts/RevisionContext";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
-import React, { ComponentProps, useContext } from "react";
+import React, { ComponentProps, useCallback, useContext } from "react";
 import {
   Control,
   Controller,
@@ -60,7 +60,10 @@ export default function RangeField<T extends FieldValues>({
   const preferenceContext = useContext(UserPreferencesContext);
   const { register } = useFormContext();
   const revisionContext = useContext(RevisionContext);
-  const onValueChange = (cb: (newValue: any) => void) => (newValue: any) => {
+  const onValueChange = useCallback(
+    (cb: (newValue: any) => void) => (newValue: any) => {
+      /**
+     * 
     revisionContext?.update({
       type: "SET",
       payload: {
@@ -69,9 +72,12 @@ export default function RangeField<T extends FieldValues>({
         value: newValue,
       },
     });
-    // console.log({ name, value, newValue });
-    cb(newValue);
-  };
+     */
+      console.log({ name, value, newValue });
+      cb(newValue);
+    },
+    [name, revisionContext, value]
+  );
 
   return (
     <FieldGroup className={className}>
@@ -97,13 +103,7 @@ export default function RangeField<T extends FieldValues>({
                 max={max}
                 value={field.value}
                 ref={field.ref}
-                onValueChange={(v) => {
-                  field.onChange(v);
-                  revisionContext?.update({
-                    type: "SET",
-                    payload: { name, value: v, prev: field.value },
-                  });
-                }}
+                onValueChange={onValueChange(field.onChange)}
               />
               <span className="font-bold m-auto">{max}</span>
             </div>
