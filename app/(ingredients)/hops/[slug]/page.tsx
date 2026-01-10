@@ -12,20 +12,13 @@ export type HopDisplayPageProps = {
 };
 export default async function HopDisplayPage({ params }: HopDisplayPageProps) {
   const { slug } = await params;
-  const [hop, prefs] = await Promise.all([getHop(slug), getPreferences()]);
+  const hop = getHop(slug);
+  const prefs = await getPreferences();
   if (!hop) notFound();
-  const adjusted = adjustUnits({
-    src: hop,
-    prefs,
-    mask: HopMask,
-    inline: false,
-    precision: 4,
-    dir: true,
-  });
   return (
     <div>
-      <HopDisplayToolbar hop={adjusted} />
-      <HopDisplay src={adjusted} />
+      <HopDisplayToolbar hop={hop} />
+      <HopDisplay src={hop} prefs={prefs} />
     </div>
   );
 }

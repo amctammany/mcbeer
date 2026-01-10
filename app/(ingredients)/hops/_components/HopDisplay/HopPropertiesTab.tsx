@@ -1,13 +1,17 @@
+"use client";
 import { AmountProp } from "@/components/Prop/AmountProp";
 import Prop from "@/components/Prop/Prop";
-import { UnitValue } from "@/lib/Converter/adjustUnits";
-import { AdjustedHopType } from "@/types/Ingredient";
+import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
+import { adjustUnits, UnitValue } from "@/lib/Converter/adjustUnits";
+import { HopMask } from "@/lib/Converter/Masks";
+import { HopType } from "@/types/Ingredient";
 import React from "react";
 
 export type HopPropertiesTabProps = {
-  src: AdjustedHopType;
+  src: Promise<HopType>;
+  prefs: UserPreferencesType;
 };
-const rangeProps: { name: keyof AdjustedHopType; label: string }[] = [
+const rangeProps: { name: keyof HopType; label: string }[] = [
   { name: "alpha", label: "Alpha" },
   { name: "beta", label: "Beta" },
   { name: "cohumulone", label: "Co-humulone" },
@@ -18,7 +22,18 @@ const rangeProps: { name: keyof AdjustedHopType; label: string }[] = [
   { name: "linalool", label: "Linalool" },
   { name: "geraniol", label: "Geraniol" },
 ];
-export default function HopPropertiesTab({ src }: HopPropertiesTabProps) {
+export default function HopPropertiesTab({
+  src: _src,
+  prefs,
+}: HopPropertiesTabProps) {
+  const src = adjustUnits({
+    src: React.use(_src),
+    prefs,
+    mask: HopMask,
+    inline: false,
+    precision: 4,
+    dir: true,
+  });
   return (
     <div className="grid lg:grid-cols-1 ">
       {rangeProps.map((field) => (
@@ -29,12 +44,12 @@ export default function HopPropertiesTab({ src }: HopPropertiesTabProps) {
           />
           <Prop label={`${field.label} Range`} unit={"%"}>
             {
-              (src[`${field.name}Low` as keyof AdjustedHopType] as UnitValue)
+              (src[`${field.name}Low` as keyof HopType] as UnitValue)
                 ?.value as any
             }
             -
             {
-              (src[`${field.name}High` as keyof AdjustedHopType] as UnitValue)
+              (src[`${field.name}High` as keyof HopType] as UnitValue)
                 ?.value as any
             }
           </Prop>

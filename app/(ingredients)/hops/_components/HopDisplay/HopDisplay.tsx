@@ -1,21 +1,29 @@
-import { AdjustedHopType } from "@/types/Ingredient";
-import React from "react";
+import type { HopType } from "@/types/Ingredient";
+import React, { Suspense, use } from "react";
 import dynamic from "next/dynamic";
 
 import CollapsibleCard from "@/components/CollapsibleCard";
+import type { UserPreferencesType } from "@/types/User";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { HopMask } from "@/lib/Converter/Masks";
 const HopDetailsTab = dynamic(() => import("./HopDetailsTab"));
 const HopPropertiesTab = dynamic(() => import("./HopPropertiesTab"));
 export type HopDisplayProps = {
-  src: AdjustedHopType;
+  src: Promise<HopType>;
+  prefs: UserPreferencesType;
 };
-export function HopDisplay({ src }: HopDisplayProps) {
+export function HopDisplay({ src, prefs }: HopDisplayProps) {
   return (
     <div className="mx-auto grid lg:grid-cols-2 gap-4">
       <CollapsibleCard title="Details">
-        <HopDetailsTab src={src} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <HopDetailsTab src={src} prefs={prefs} />
+        </Suspense>
       </CollapsibleCard>
       <CollapsibleCard title="Properties">
-        <HopPropertiesTab src={src} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <HopPropertiesTab src={src} prefs={prefs} />
+        </Suspense>
       </CollapsibleCard>
     </div>
   );
