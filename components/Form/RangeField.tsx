@@ -89,20 +89,24 @@ export default function RangeField<T extends FieldValues>({
             <input type="hidden" name={low} value={field.value[0]} />
             <input type="hidden" name={high} value={field.value[1]} />
 
-            <Slider
-              className="grow m-2 h-12 my-auto border-black"
-              min={min}
-              max={max}
-              value={field.value}
-              ref={field.ref}
-              onValueChange={(v) => {
-                field.onChange(v);
-                revisionContext?.update({
-                  type: "SET",
-                  payload: { name, value: v, prev: field.value },
-                });
-              }}
-            />
+            <div className="flex justify-between px-2">
+              <span className="font-bold m-auto">{min}</span>
+              <Slider
+                className="grow m-2 h-12 my-auto border-black"
+                min={min}
+                max={max}
+                value={field.value}
+                ref={field.ref}
+                onValueChange={(v) => {
+                  field.onChange(v);
+                  revisionContext?.update({
+                    type: "SET",
+                    payload: { name, value: v, prev: field.value },
+                  });
+                }}
+              />
+              <span className="font-bold m-auto">{max}</span>
+            </div>
 
             <FieldError>{fieldState.error?.message}</FieldError>
           </Field>

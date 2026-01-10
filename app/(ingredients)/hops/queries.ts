@@ -14,11 +14,11 @@ export const getHop = async (slug: string) => {
   return {
     alphaRange: [hop?.alphaLow, hop?.alphaHigh].map((n) => (n ?? 0) * 100),
     betaRange: [hop?.betaLow, hop?.betaHigh].map((n) => (n ?? 0) * 100),
-    cohumoloneRange: [hop?.cohumuloneLow, hop?.cohumuloneHigh].map(
+    cohumuloneRange: [hop?.cohumuloneLow, hop?.cohumuloneHigh].map(
       (n) => (n ?? 0) * 100
     ),
     totalOilRange: [hop?.totalOilLow, hop?.totalOilHigh].map(
-      (n) => (n ?? 0) * 100
+      (n) => (n ?? 0) * 1
     ),
     farneseneRange: [hop?.farneseneLow, hop?.farneseneHigh].map(
       (n) => (n ?? 0) * 100

@@ -9,7 +9,7 @@ export interface BaseHopType
 export interface HopType extends BaseHopType {
   alphaRange: [number, number];
   betaRange: [number, number];
-  cohumoloneRange: [number, number];
+  cohumuloneRange: [number, number];
   totalOilRange: [number, number];
   farneseneRange: [number, number];
   bPineneRange: [number, number];
@@ -24,7 +24,11 @@ export interface HopType extends BaseHopType {
 }
 type HopAmountFieldNames =
   | "alpha"
+  | "alphaLow"
+  | "alphaHigh"
   | "beta"
+  | "betaLow"
+  | "betaHigh"
   | "cohumulone"
   | "myrcene"
   | "humulene"

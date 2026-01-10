@@ -10,7 +10,7 @@ export type HopDisplayProps = {
 };
 export function HopDisplay({ src }: HopDisplayProps) {
   return (
-    <div className="max-w-4xl mx-auto grid lg:grid-cols-2 gap-4">
+    <div className="mx-auto grid lg:grid-cols-2 gap-4">
       <CollapsibleCard title="Details">
         <HopDetailsTab src={src} />
       </CollapsibleCard>

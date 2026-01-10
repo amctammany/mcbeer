@@ -45,8 +45,8 @@ export const Prop = ({
     </ItemMedia>
     <ItemContent className={variant === "inline" ? "grid grid-cols-2" : ""}>
       <ItemTitle className="bold border-b-2 grow ">{label}</ItemTitle>
-      <ItemDescription className="flex w-full grow text-pretty ">
-        <span className="grow">{children ?? value}</span>
+      <ItemDescription className="flex w-full grow text-pretty justify-between items-center">
+        <span className="grow text-center">{children ?? value}</span>
         <span className={clsx("shrink", { hidden: !unit })}>{unit}</span>
       </ItemDescription>
     </ItemContent>

@@ -15,8 +15,27 @@ import {
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { AdjustedHopType, HopType } from "@/types/Ingredient";
 import { useActionState } from "react";
-import { useFormContext } from "react-hook-form";
+import { Control, FieldPath, useFormContext } from "react-hook-form";
 
+type RangeProp<T extends Control> = {
+  name: FieldPath<T>;
+  label: string;
+  min?: number;
+  max?: number;
+  control?: T;
+};
+const rangeFields: RangeProp<Control<AdjustedHopType>>[] = [
+  { name: "alpha", label: "Alpha", min: 0, max: 60 },
+  { name: "beta", label: "Beta", min: 0, max: 60 },
+  { name: "cohumulone", label: "Cohumulone", min: 0, max: 60 },
+  { name: "humulene", label: "Humulene", min: 0, max: 30 },
+  { name: "farnesene", label: "Farnesene", min: 0, max: 20 },
+  { name: "myrcene", label: "Myrcene", min: 0, max: 80 },
+  { name: "bPinene", label: "B-Pinene", min: 0, max: 20 },
+  { name: "linalool", label: "Linalool", min: 0, max: 20 },
+  { name: "geraniol", label: "Geraniol", min: 0, max: 20 },
+  { name: "totalOil", label: "Total Oil", min: 0, max: 5 },
+];
 export type HopFormContainerProps<S = unknown> = {
   src: AdjustedHopType;
   preferences: UserPreferencesType;
@@ -83,26 +102,29 @@ export function HopForm({ countries, preferences, src }: HopFormProps) {
         <CardHeader className="border-b-4">
           <CardTitle>Characteristics</CardTitle>
         </CardHeader>
-        <CardContent className="*:p-2">
-          <div className="grid grid-cols-3">
-            <AmountField
-              amountType="percent"
-              name="alpha"
-              step="0.1"
-              type="percent"
-              label="Alpha"
-            />
-            <RangeField
-              className="col-span-2 "
-              name="alphaRange"
-              low="alphaLow"
-              high="alphaHigh"
-              label="Alpha Range"
-              min={0}
-              max={60}
-              control={control}
-            />
-          </div>
+        <CardContent className="*:p-2 *:border-b-2">
+          {rangeFields.map((field) => (
+            <div className="grid grid-cols-3" key={field.name}>
+              <AmountField
+                amountType="percent"
+                name={field.name}
+                step="0.1"
+                type="percent"
+                label={field.label}
+                control={control}
+              />
+              <RangeField
+                className="col-span-2 "
+                name={`${field.name}Range` as FieldPath<AdjustedHopType>}
+                low={`${field.name}Low` as FieldPath<AdjustedHopType>}
+                high={`${field.name}High` as FieldPath<AdjustedHopType>}
+                label={`${field.label} Range`}
+                min={field.min}
+                max={field.max}
+                control={control}
+              />
+            </div>
+          ))}
         </CardContent>
       </Card>
     </div>
