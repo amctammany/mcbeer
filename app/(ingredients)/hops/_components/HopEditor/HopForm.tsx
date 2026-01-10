@@ -2,6 +2,7 @@
 import AmountField from "@/components/Form/AmountField";
 import { ComboboxField } from "@/components/Form/ComboboxField";
 import Form from "@/components/Form/Form";
+import RangeField from "@/components/Form/RangeField";
 import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
 import {
@@ -57,12 +58,12 @@ export type HopFormProps = {
 export function HopForm({ countries, preferences, src }: HopFormProps) {
   const { register, control } = useFormContext<HopType>();
   return (
-    <div className="m-2 p-2 gap-2 *:mb-2">
+    <div className="m-2 p-2 gap-2 *:mb-2 grid lg:grid-cols-2">
       <Card className="m-4">
         <CardHeader className="border-b-4">
-          <CardTitle>Hop Editor</CardTitle>
+          <CardTitle>General</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="*:p-2">
           <input type="hidden" {...register("id")} />
           <input type="hidden" {...register("userId")} />
           <TextField name="name" label="Name" />
@@ -75,35 +76,34 @@ export function HopForm({ countries, preferences, src }: HopFormProps) {
               label: country,
             }))}
           />
-
           <TextField name="notes" label="Notes" control={control} />
-          <div className="grid lg:grid-cols-2 gap-3 *:p-3 *:rounded *:ring-2 p-4 *:px-8">
-            <div>
-              <h4>Details</h4>
-
-              <AmountField
-                amountType="percent"
-                name="alpha"
-                step="0.1"
-                type="percent"
-                label="Alpha"
-              />
-              <AmountField
-                amountType="percent"
-                name="beta"
-                step="0.1"
-                type="percent"
-                label="Beta"
-              />
-            </div>
-            <div>
-              <h4>Properties</h4>
-            </div>
+        </CardContent>
+      </Card>
+      <Card className="m-4">
+        <CardHeader className="border-b-4">
+          <CardTitle>Characteristics</CardTitle>
+        </CardHeader>
+        <CardContent className="*:p-2">
+          <div className="grid grid-cols-3">
+            <AmountField
+              amountType="percent"
+              name="alpha"
+              step="0.1"
+              type="percent"
+              label="Alpha"
+            />
+            <RangeField
+              className="col-span-2 "
+              name="alphaRange"
+              low="alphaLow"
+              high="alphaHigh"
+              label="Alpha Range"
+              min={0}
+              max={60}
+              control={control}
+            />
           </div>
         </CardContent>
-        <CardFooter>
-          <Button type="submit">Save</Button>
-        </CardFooter>
       </Card>
     </div>
   );

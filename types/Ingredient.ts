@@ -7,6 +7,17 @@ export interface BaseHopType
   userId?: string;
 }
 export interface HopType extends BaseHopType {
+  alphaRange: [number, number];
+  betaRange: [number, number];
+  cohumoloneRange: [number, number];
+  totalOilRange: [number, number];
+  farneseneRange: [number, number];
+  bPineneRange: [number, number];
+  linaloolRange: [number, number];
+  geraniolRange: [number, number];
+  caryophylleneRange: [number, number];
+  myrceneRange: [number, number];
+  humuleneRange: [number, number];
   owner?: Partial<BaseUser>;
   origin?: BaseHopType;
   forks?: BaseHopType[];

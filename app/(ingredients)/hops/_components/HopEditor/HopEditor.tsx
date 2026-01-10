@@ -24,9 +24,7 @@ export function HopEditor({
         Forked From:
         <Link href={`/hops/${src.origin?.slug}`}>{src.origin?.name}</Link>
       </h3>
-      <div className="max-w-4xl grid  mx-auto">
-        <HopForm src={src} preferences={preferences} countries={countries} />
-      </div>
+      <HopForm src={src} preferences={preferences} countries={countries} />
     </HopFormContainer>
   );
 }
