@@ -9,7 +9,7 @@ import { HopMask } from "@/lib/Converter/Masks";
 const HopDetailsTab = dynamic(() => import("./HopDetailsTab"));
 const HopPropertiesTab = dynamic(() => import("./HopPropertiesTab"));
 export type HopDisplayProps = {
-  src: Promise<HopType>;
+  src: HopType;
   prefs: UserPreferencesType;
 };
 export function HopDisplay({ src, prefs }: HopDisplayProps) {

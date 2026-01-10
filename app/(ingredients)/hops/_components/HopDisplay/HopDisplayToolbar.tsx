@@ -2,14 +2,9 @@ import IconButton from "@/components/Button/IconButton";
 import { TopBar } from "@/components/TopBar/TopBar";
 import type { HopType } from "@/types/Ingredient";
 import { Pencil, Split } from "lucide-react";
-import React, { use } from "react";
+import React from "react";
 
-export default function HopDisplayToolbar({
-  hop: _hop,
-}: {
-  hop: Promise<HopType>;
-}) {
-  const hop = use(_hop);
+export default function HopDisplayToolbar({ hop }: { hop: HopType }) {
   return (
     <TopBar
       breadcrumbs={[

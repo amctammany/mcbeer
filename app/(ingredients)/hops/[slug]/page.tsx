@@ -12,7 +12,7 @@ export type HopDisplayPageProps = {
 };
 export default async function HopDisplayPage({ params }: HopDisplayPageProps) {
   const { slug } = await params;
-  const hop = getHop(slug);
+  const hop = await getHop(slug);
   const prefs = await getPreferences();
   if (!hop) notFound();
   return (

@@ -1,34 +1,19 @@
-"use client";
 import Prop from "@/components/Prop/Prop";
 import type { UserPreferencesType } from "@/contexts/UserPreferencesContext";
-import { adjustUnits } from "@/lib/Converter/adjustUnits";
-import { HopMask } from "@/lib/Converter/Masks";
 import type { HopType } from "@/types/Ingredient";
-import React, { use } from "react";
+import React from "react";
 
 export type HopDetailsTabProps = {
-  src: Promise<HopType>;
+  src: HopType;
   prefs: UserPreferencesType;
 };
-export default function HopDetailsTab({
-  src: _src,
-  prefs,
-}: HopDetailsTabProps) {
-  const src = use(_src);
-  const hop = adjustUnits({
-    src,
-    prefs,
-    mask: HopMask,
-    inline: false,
-    precision: 4,
-    dir: true,
-  });
+export default function HopDetailsTab({ src }: HopDetailsTabProps) {
   return (
     <div className="grid lg:grid-cols-1 ">
-      <Prop label="Name" value={hop.name} />
-      <Prop label="Description" value={hop.description} />
-      <Prop label="Country" value={hop.country} />
-      <Prop label="Notes" value={hop.notes} />
+      <Prop label="Name" value={src.name} />
+      <Prop label="Description" value={src.description} />
+      <Prop label="Country" value={src.country} />
+      <Prop label="Notes" value={src.notes} />
     </div>
   );
 }

@@ -1,4 +1,3 @@
-"use client";
 import { AmountProp } from "@/components/Prop/AmountProp";
 import Prop from "@/components/Prop/Prop";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
@@ -8,7 +7,7 @@ import { HopType } from "@/types/Ingredient";
 import React from "react";
 
 export type HopPropertiesTabProps = {
-  src: Promise<HopType>;
+  src: HopType;
   prefs: UserPreferencesType;
 };
 const rangeProps: { name: keyof HopType; label: string }[] = [
@@ -27,7 +26,7 @@ export default function HopPropertiesTab({
   prefs,
 }: HopPropertiesTabProps) {
   const src = adjustUnits({
-    src: React.use(_src),
+    src: _src,
     prefs,
     mask: HopMask,
     inline: false,
