@@ -98,7 +98,7 @@ export function HopForm({ countries, preferences, src }: HopFormProps) {
               label: country,
             }))}
           />
-          <TextField name="notes" label="Notes" control={control} />
+          <TextField name="notes" label="Notes" />
         </CardContent>
       </Card>
       <Card className="m-4">
