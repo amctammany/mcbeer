@@ -85,7 +85,11 @@ export function ComboboxField<T extends FieldValues>({
               <FieldLabel htmlFor={id}>{label ?? ""}</FieldLabel>
               <FieldDescription>{description ?? ""}</FieldDescription>
             </FieldContent>
-            <input type="hidden" {...field} />
+            <input
+              type="hidden"
+              name={field.name}
+              value={field.value ?? undefined}
+            />
             <Combobox
               name={field.name}
               value={field.value}

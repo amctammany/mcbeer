@@ -1,14 +1,13 @@
 import React from "react";
 import { getYeast } from "@/app/(ingredients)/yeasts/queries";
 import { notFound } from "next/navigation";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import { updateYeast } from "../../actions";
 import { getPreferences } from "@/app/admin/queries";
 import { authorizeResource } from "@/lib/authorizeResource";
 import { YeastMask } from "@/lib/Converter/Masks";
 import { AdjustedYeastType } from "@/types/Ingredient";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
-import { count } from "node:console";
 import { getCountries } from "@/app/(ingredients)/queries";
 import YeastEditor from "../../_components/YeastEditor/YeastEditor";
 
@@ -20,10 +19,10 @@ export async function generateMetadata({
 }: YeastEditorPageProps): Promise<Metadata> {
   // read route params
   const { slug } = await params;
-  const profile = await getYeast(slug);
+  const yeast = await getYeast(slug);
   return {
-    title: `Mash Profile: ${profile.name}`,
-    description: "Mash profile editor",
+    title: `Yeast: ${yeast.name}`,
+    description: "Yeast editor",
   };
 }
 export default async function YeastEditorPage({

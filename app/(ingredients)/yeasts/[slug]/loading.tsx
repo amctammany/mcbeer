@@ -10,7 +10,7 @@ export default function Loading() {
       <TopBar
         breadcrumbs={[
           { title: "Ingredients" },
-          { title: "Yeasts", url: "/ingredients/yeasts" },
+          { title: "Yeasts", url: "/yeasts" },
           { title: "Loading..." },
         ]}
       ></TopBar>

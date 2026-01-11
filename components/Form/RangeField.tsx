@@ -89,7 +89,7 @@ export default function RangeField<T extends FieldValues>({
             <FieldContent className="grow grid grid-cols-2 w-full gap-2 ">
               <FieldLabel htmlFor={id}>{label}</FieldLabel>
               <FieldDescription className="text-right">
-                {field.value[0]}-{field.value[1]}
+                {JSON.stringify(field.value)}
               </FieldDescription>
             </FieldContent>
             <input type="hidden" name={low} value={field.value[0]} />
