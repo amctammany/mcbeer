@@ -42,7 +42,7 @@ export interface YeastType extends BaseYeastType {
   origin?: BaseYeastType;
   forks?: BaseYeastType[];
 }
-type YeastAmountFieldNames = "attenuation" | "tempLow" | "tempHigh";
+type YeastAmountFieldNames = "attenuation";
 export type AdjustedYeastType = AmountFields<YeastType, YeastAmountFieldNames>;
 
 export interface BaseFermentableType
