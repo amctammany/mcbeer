@@ -146,8 +146,11 @@ async function main() {
           ],
         form: YeastForm[form as YeastForm],
         attenuation: attenuation / 100,
-        tempLow: (temp[0] - 32) * 0.5556,
-        tempHigh: (temp[1] - 32) * 0.5556,
+        tempLow: (temp[0] - 32) / 1.8,
+        tempHigh: (temp[1] - 32) / 1.8,
+        slug: slugify(yeast.name, { lower: true }),
+        // tempLow: (temp[0] - 32) * 0.5556,
+        // tempHigh: (temp[1] - 32) * 0.5556,
         notes: notes[0],
         usage: notes[1],
       })

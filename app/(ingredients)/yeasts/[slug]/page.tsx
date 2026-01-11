@@ -17,10 +17,18 @@ export default async function YeastDisplayPage({
   const yeast = await getYeast(slug);
   const prefs = await getPreferences();
   if (!yeast) notFound();
+  const adjusted = adjustUnits({
+    src: yeast,
+    prefs,
+    mask: YeastMask,
+    inline: false,
+    precision: 4,
+    dir: false,
+  });
   return (
     <div>
       <YeastDisplayToolbar yeast={yeast} />
-      <YeastDisplay src={yeast} prefs={prefs} />
+      <YeastDisplay src={adjusted} prefs={prefs} />
     </div>
   );
 }

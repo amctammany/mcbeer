@@ -59,7 +59,7 @@ const gravityConverter: Record<UserGravityPreference, ConversionType> = {
 };
 const tempConverter: Record<UserTemperaturePreference, ConversionType> = {
   C: 1,
-  F: [(c: number) => c * 1.8 + 32, (f: number) => (f - 32) * 0.5556],
+  F: [(c: number) => c * 1.8 + 32, (f: number) => (f - 32) / 1.8],
 };
 /**export const UnitTypesDict: Record<UnitTypes, UnitNames[]> = {
   mass: Object.keys(massConverter) as UnitNames[],
