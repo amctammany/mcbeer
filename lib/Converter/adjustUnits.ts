@@ -45,7 +45,7 @@ function convertUnit({
     const newValue = convert[unit].to(value);
     const val = dir ? newValue : baseValue;
     const v = precisionRound(val, precision);
-    return inline ? val : ({ value: v, unit } as UnitValue);
+    return inline ? v : ({ value: v, unit } as UnitValue);
   }
   if (Array.isArray(value)) {
     console.log("convertUnit: isArray", { value, type, unit, inline, dir });
@@ -120,16 +120,25 @@ export function adjustUnits<T extends FieldValues>({
     (acc, [k, v]) => {
       if (Array.isArray(v)) {
         console.log("isArray", k, v, src[k]);
-        acc[k] = src[k].map((s) =>
-          convertUnit({
-            value: s,
-            type: v[0],
-            unit: v[1],
-            inline,
-            dir,
-            precision,
-          })
-        );
+        acc[k] = Array.isArray(src[k])
+          ? src[k].map((s: any) =>
+              convertUnit({
+                value: s,
+                type: v[0],
+                unit: v[1],
+                inline,
+                dir,
+                precision,
+              })
+            )
+          : convertUnit({
+              value: src[k as keyof typeof src],
+              type: v[0],
+              unit: v[1],
+              inline,
+              dir,
+              precision,
+            });
       } else if (typeof v === "object") {
         // console.log(k, v, src[k]);
         acc[k] = src[k as keyof typeof src].map((val: any) =>
