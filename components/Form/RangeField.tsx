@@ -62,17 +62,14 @@ export default function RangeField<T extends FieldValues>({
   const revisionContext = useContext(RevisionContext);
   const onValueChange = useCallback(
     (cb: (newValue: any) => void) => (newValue: any) => {
-      /**
-     * 
-    revisionContext?.update({
-      type: "SET",
-      payload: {
-        name,
-        prev: value,
-        value: newValue,
-      },
-    });
-     */
+      revisionContext?.update({
+        type: "SET",
+        payload: {
+          name,
+          prev: value,
+          value: newValue,
+        },
+      });
       console.log({ name, value, newValue });
       cb(newValue);
     },
@@ -83,6 +80,7 @@ export default function RangeField<T extends FieldValues>({
     <FieldGroup className={className}>
       <Controller
         name={name}
+        defaultValue={value as any}
         control={control}
         render={({ field, fieldState }) => (
           <Field orientation="vertical" data-invalid={!!fieldState.error}>

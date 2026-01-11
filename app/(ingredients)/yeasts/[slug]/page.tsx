@@ -6,6 +6,7 @@ import { getPreferences } from "@/app/admin/queries";
 import { notFound } from "next/navigation";
 import { YeastMask } from "@/lib/Converter/Masks";
 import YeastDisplayToolbar from "../_components/YeastDisplay/YeastDisplayToolbar";
+import { AdjustedYeastType } from "@/types/Ingredient";
 
 export type YeastDisplayPageProps = {
   params: Promise<{ slug: string }>;
@@ -17,13 +18,13 @@ export default async function YeastDisplayPage({
   const yeast = await getYeast(slug);
   const prefs = await getPreferences();
   if (!yeast) notFound();
-  const adjusted = adjustUnits({
+  const adjusted: AdjustedYeastType = adjustUnits({
     src: yeast,
     prefs,
     mask: YeastMask,
     inline: false,
-    precision: 4,
-    dir: false,
+    precision: 2,
+    dir: true,
   });
   return (
     <div>

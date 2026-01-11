@@ -19,7 +19,7 @@ export async function createHop(
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const adj = adjustUnits({
+  const { tempRange, ...adj } = adjustUnits({
     src: v.data,
     prefs,
     mask: HopMask,

@@ -38,7 +38,7 @@ export default async function YeastEditorPage({
     mask: YeastMask,
     prefs,
     inline: true,
-    dir: true,
+    dir: false,
     precision: 4,
   }) as AdjustedYeastType;
   console.log(src, adjusted);
