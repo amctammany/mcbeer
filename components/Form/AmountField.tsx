@@ -113,7 +113,11 @@ export function AmountField<T extends FieldValues>({
         name={name}
         control={control}
         render={({ field, fieldState }) => (
-          <Field orientation={orientation} data-invalid={!!fieldState.error}>
+          <Field
+            className="bg-white px-3 py-2 my-2 rounded-md"
+            orientation={orientation}
+            data-invalid={!!fieldState.error}
+          >
             <FieldContent className="grow grid w-full gap-2 ">
               <FieldLabel htmlFor={id}>{label}</FieldLabel>
               <FieldDescription>{description}</FieldDescription>

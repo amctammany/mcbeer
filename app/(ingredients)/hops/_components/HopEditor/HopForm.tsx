@@ -80,7 +80,7 @@ export type HopFormProps = {
 export function HopForm({ countries, preferences, src }: HopFormProps) {
   const { register, control } = useFormContext<HopType>();
   return (
-    <div className="m-1 lg:m-2 lg:p-2 lg:gap-2 *:mb-2 *:px-2 grid lg:grid-cols-2">
+    <div className="m-0 lg:m-2 lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid bg-gray-200/40 lg:grid-cols-2">
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("userId")} />
       <TextField name="name" label="Name" />
@@ -94,7 +94,7 @@ export function HopForm({ countries, preferences, src }: HopFormProps) {
         }))}
       />
       <TextField name="notes" label="Notes" />
-      <div className="*:p-2 *:border-b-2">
+      <div className="*:p-0 *:border-b-2">
         {rangeFields.map((field) => (
           <div className="lg:grid lg:grid-cols-3" key={field.name}>
             <AmountField

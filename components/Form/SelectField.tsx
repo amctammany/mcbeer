@@ -62,7 +62,7 @@ export function SelectField<T extends FieldValues>({
   label,
   placeholder,
   options,
-  orientation = "horizontal",
+  orientation = "vertical",
   value,
 }: SelectFieldProps<T>) {
   const { register, getFieldState, control } = useFormContext<T>();
@@ -84,34 +84,40 @@ export function SelectField<T extends FieldValues>({
       name={name}
       control={control}
       render={({ field, fieldState }) => (
-        <Field orientation={orientation} data-invalid={fieldState.invalid}>
-          <FieldContent className="grow">
-            <FieldLabel htmlFor={id}>{label ?? ""}</FieldLabel>
-            <FieldDescription>{description ?? ""}</FieldDescription>
-          </FieldContent>
-          <Select
-            name={field.name}
-            value={field.value}
-            onValueChange={onValueChange(field.onChange)}
+        <div className="w-full max-w-d">
+          <Field
+            className="relative bg-white lg:px-3 lg:py-2 lg:my-2 rounded-md"
+            orientation={orientation}
+            data-invalid={fieldState.invalid}
           >
-            <SelectTrigger
-              id={id}
-              aria-invalid={fieldState.invalid}
-              aria-label={field.value}
-              className={clsx("min-w-30 grow", className)}
+            <FieldContent className="grow grid grid-cols-2 w-full gap-2">
+              <FieldLabel htmlFor={id}>{label ?? ""}</FieldLabel>
+              <FieldDescription>{description ?? ""}</FieldDescription>
+            </FieldContent>
+            <Select
+              name={field.name}
+              value={field.value}
+              onValueChange={onValueChange(field.onChange)}
             >
-              <SelectValue placeholder={placeholder} />
-            </SelectTrigger>
-            <SelectContent position="item-aligned">
-              {Object.entries(options ?? {}).map(([key, value]) => (
-                <SelectItem key={key} value={value as any}>
-                  <div className=" grow text-center">{value as any}</div>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-        </Field>
+              <SelectTrigger
+                id={id}
+                aria-invalid={fieldState.invalid}
+                aria-label={field.value}
+                className={clsx("min-w-30  grow", className)}
+              >
+                <SelectValue placeholder={placeholder} />
+              </SelectTrigger>
+              <SelectContent position="item-aligned">
+                {Object.entries(options ?? {}).map(([key, value]) => (
+                  <SelectItem key={key} value={value as any}>
+                    <div className=" grow text-center">{value as any}</div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          </Field>
+        </div>
       )}
     />
   );

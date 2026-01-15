@@ -49,7 +49,6 @@ type YeastAmountFieldNames =
   | "attenuationLow"
   | "attenuationHigh"
   | "tolerance"
-  | "temperature"
   | "tempLow"
   | "tempHigh";
 export type AdjustedYeastType = AmountFields<YeastType, YeastAmountFieldNames>;

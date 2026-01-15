@@ -83,7 +83,11 @@ export default function RangeField<T extends FieldValues>({
         defaultValue={value as any}
         control={control}
         render={({ field, fieldState }) => (
-          <Field orientation="vertical" data-invalid={!!fieldState.error}>
+          <Field
+            className="bg-white px-3 py-2 my-2 rounded-md"
+            orientation="vertical"
+            data-invalid={!!fieldState.error}
+          >
             <FieldContent className="grow grid grid-cols-2 w-full gap-2 ">
               <FieldLabel htmlFor={id}>{label}</FieldLabel>
               <FieldDescription className="text-right">

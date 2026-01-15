@@ -80,7 +80,11 @@ export function TextField<T extends FieldValues>({
         name={name}
         control={control}
         render={({ field, fieldState }) => (
-          <Field orientation={orientation} data-invalid={!!fieldState.error}>
+          <Field
+            className="bg-white p-2 m-1 lg:px-3 lg:py-2 lg:my-2 rounded-md"
+            orientation={orientation}
+            data-invalid={!!fieldState.error}
+          >
             <FieldContent className="grid w-full gap-2 ">
               <FieldLabel htmlFor={id}>{label}</FieldLabel>
 
