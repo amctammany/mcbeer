@@ -3,28 +3,20 @@ import Prop from "@/components/Prop/Prop";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { adjustUnits, UnitValue } from "@/lib/Converter/adjustUnits";
 import { YeastMask } from "@/lib/Converter/Masks";
-import { YeastType } from "@/types/Ingredient";
+import { AdjustedYeastType, YeastType } from "@/types/Ingredient";
 import React from "react";
 
 export type YeastPropertiesTabProps = {
-  src: YeastType;
+  src: AdjustedYeastType;
   prefs: UserPreferencesType;
 };
 const rangeProps: { name: keyof YeastType; label: string }[] = [
   { name: "attenuation", label: "Attenuation" },
 ];
 export default function YeastPropertiesTab({
-  src: _src,
+  src,
   prefs,
 }: YeastPropertiesTabProps) {
-  const src = adjustUnits({
-    src: _src,
-    prefs,
-    mask: YeastMask,
-    inline: false,
-    precision: 4,
-    dir: true,
-  });
   return (
     <div className="grid lg:grid-cols-1 ">
       <AmountProp label="Tolerance" value={src.tolerance as UnitValue} />
@@ -37,13 +29,13 @@ export default function YeastPropertiesTab({
           />
           <Prop label={`${field.label} Range`} unit={"%"}>
             {
-              (src[`${field.name}Low` as keyof YeastType] as UnitValue)
-                ?.value as any
+              ((src[`${field.name}Low` as keyof YeastType] as UnitValue)
+                ?.value * 100) as any
             }
             -
             {
-              (src[`${field.name}High` as keyof YeastType] as UnitValue)
-                ?.value as any
+              ((src[`${field.name}High` as keyof YeastType] as UnitValue)
+                ?.value * 100) as any
             }
           </Prop>
         </div>

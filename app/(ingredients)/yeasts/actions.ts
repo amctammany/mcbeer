@@ -40,7 +40,6 @@ export async function updateYeast(
   formData: FormData
 ) {
   const v = validateSchema(formData, yeastSchema);
-  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);

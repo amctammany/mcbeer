@@ -26,6 +26,7 @@ export default async function YeastDisplayPage({
     precision: 2,
     dir: true,
   });
+  console.log({ adjusted, yeast });
   return (
     <div>
       <YeastDisplayToolbar yeast={yeast} />

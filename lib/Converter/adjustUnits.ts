@@ -37,19 +37,9 @@ function convertUnit({
   precision?: number;
 }) {
   console.log("converUnit", { value, type, unit, inline, dir });
-
-  if (typeof value === "number") {
-    const convert = converters[type as UnitTypes];
-    if (!convert) throw new Error("Converter not available");
-    const baseValue = convert[unit].from(value);
-    const newValue = convert[unit].to(value);
-    const val = dir ? newValue : baseValue;
-    const v = precisionRound(val, precision);
-    return inline ? v : ({ value: v, unit } as UnitValue);
-  }
   if (Array.isArray(value)) {
     console.log("convertUnit: isArray", { value, type, unit, inline, dir });
-    return value.map<any>((val) =>
+    const a = value.map<any>((val) =>
       type instanceof Object
         ? Object.entries(type).reduce((acc, [k, v]) => {
             acc[k] = convertUnit({
@@ -69,15 +59,33 @@ function convertUnit({
             dir,
           })
     );
+    console.log("convertUnit: array", { value, type, unit, inline, dir, a });
+    return a;
   }
-  if (value?.unit && value?.value !== undefined)
-    return convertUnit({
+  if (typeof value !== "number" && value?.unit && value?.value !== undefined)
+    return inline ? value.value : value;
+
+  if (typeof value === "number") {
+    const convert = converters[type as UnitTypes];
+    if (!convert) throw new Error("Converter not available");
+    const baseValue = convert[unit].from(value);
+    const newValue = convert[unit].to(value);
+    const val = dir ? newValue : baseValue;
+    const v = precisionRound(val, precision);
+    const r = inline ? v : ({ value: v, unit } as UnitValue);
+    console.log("convertUnit: number", { value, type, unit, inline, dir, r });
+    return r;
+  }
+
+  /** return convertUnit({
       value: value.value,
       unit: value.unit,
       type,
       inline,
       dir,
     });
+*/
+  console.log("convertUnit: default", { value, type, unit, inline, dir });
   return convertUnit({
     value: 0,
     unit,

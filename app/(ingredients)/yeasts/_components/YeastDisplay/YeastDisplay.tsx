@@ -1,4 +1,4 @@
-import type { YeastType } from "@/types/Ingredient";
+import type { AdjustedYeastType, YeastType } from "@/types/Ingredient";
 import React, { Suspense } from "react";
 import dynamic from "next/dynamic";
 
@@ -6,8 +6,10 @@ import type { UserPreferencesType } from "@/types/User";
 import Card from "@/components/Card";
 import YeastDetailsTab from "./YeastDetailsTab";
 import YeastPropertiesTab from "./YeastPropertiesTab";
+import { CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs";
 export type YeastDisplayProps = {
-  src: YeastType;
+  src: AdjustedYeastType;
   prefs: UserPreferencesType;
 };
 export function YeastDisplay({ src, prefs }: YeastDisplayProps) {
@@ -18,6 +20,7 @@ export function YeastDisplay({ src, prefs }: YeastDisplayProps) {
           <YeastDetailsTab src={src} prefs={prefs} />
         </Suspense>
       </Card>
+
       <Card title="Properties">
         <Suspense fallback={<div>Loading...</div>}>
           <YeastPropertiesTab src={src} prefs={prefs} />
@@ -25,13 +28,11 @@ export function YeastDisplay({ src, prefs }: YeastDisplayProps) {
       </Card>
     </div>
   );
-  /**
-   * 
+  /** 
   return (
     <Tabs defaultValue="details">
-      <Card className="m-2 lg:m-4 py-1 lg:py-4">
-        <CardHeader className="border-b-4 grid md:grid-cols-2 p-2 lg:px-4">
-          <CardTitle className="w-full text-sm lg:text-2xl flex">
+      <Card ><CardHeader className="border-b-4 grid md:grid-cols-2 p-2 lg:px-4">
+            <CardTitle className="w-full text-sm lg:text-2xl flex">
             <Yeast className="inline mr-2 m-auto" />
             <h3 className="grow px-2 lg:px-4">{src.name}</h3>
           </CardTitle>
@@ -50,7 +51,7 @@ export function YeastDisplay({ src, prefs }: YeastDisplayProps) {
         </CardContent>
       </Card>
     </Tabs>
-  );
-   */
+  )/
+*/
 }
 export default YeastDisplay;

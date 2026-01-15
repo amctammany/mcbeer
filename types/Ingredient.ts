@@ -40,9 +40,15 @@ export interface BaseYeastType
 export interface YeastType extends BaseYeastType {
   owner?: Partial<BaseUser>;
   origin?: BaseYeastType;
+  tempRange: [number, number];
   forks?: BaseYeastType[];
 }
-type YeastAmountFieldNames = "attenuation";
+
+type YeastAmountFieldNames =
+  | "attenuation"
+  | "tolerance"
+  | "tempLow"
+  | "tempHigh";
 export type AdjustedYeastType = AmountFields<YeastType, YeastAmountFieldNames>;
 
 export interface BaseFermentableType
