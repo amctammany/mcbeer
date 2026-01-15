@@ -30,6 +30,7 @@ export default async function YeastEditorPage({
 }: YeastEditorPageProps) {
   const { slug } = await params;
 
+  console.log(slug);
   const src = await authorizeResource(`/yeasts/${slug}/edit`, getYeast, slug);
   const prefs = await getPreferences();
   const countries = await getCountries();
@@ -38,10 +39,9 @@ export default async function YeastEditorPage({
     mask: YeastMask,
     prefs,
     inline: true,
-    dir: false,
+    dir: true,
     precision: 4,
   }) as AdjustedYeastType;
-  console.log(src, adjusted);
   return (
     <YeastEditor
       countries={countries}

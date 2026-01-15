@@ -33,6 +33,7 @@ type HopAmountFieldNames =
 export type AdjustedHopType = AmountFields<HopType, HopAmountFieldNames>;
 export interface BaseYeastType
   extends Omit<OptionalNullable<Yeast>, "id" | "userId"> {
+  attenuationRange: [number, number];
   tempRange: [number, number];
   id?: string;
   userId?: string;
@@ -40,13 +41,15 @@ export interface BaseYeastType
 export interface YeastType extends BaseYeastType {
   owner?: Partial<BaseUser>;
   origin?: BaseYeastType;
-  tempRange: [number, number];
   forks?: BaseYeastType[];
 }
 
 type YeastAmountFieldNames =
   | "attenuation"
+  | "attenuationLow"
+  | "attenuationHigh"
   | "tolerance"
+  | "temperature"
   | "tempLow"
   | "tempHigh";
 export type AdjustedYeastType = AmountFields<YeastType, YeastAmountFieldNames>;

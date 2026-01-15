@@ -40,11 +40,12 @@ export async function updateYeast(
   formData: FormData
 ) {
   const v = validateSchema(formData, yeastSchema);
+  console.log("validated", v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const adj = adjustUnits({
+  const { attenuationRange, tempRange, ...adj } = adjustUnits({
     src: v.data,
     prefs,
     mask: YeastMask,

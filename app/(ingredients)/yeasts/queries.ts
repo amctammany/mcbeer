@@ -12,6 +12,10 @@ export const getYeasts = async (args: any = {}) => {
 export const getYeast = async (slug: string) => {
   const yeast = await prisma.yeast.findFirst({ where: { slug } });
   return {
+    attenuationRange: [
+      yeast?.attenuationLow ?? 0,
+      yeast?.attenuationHigh ?? 1,
+    ].map((n) => (n ?? 0) * 1),
     tempRange: [yeast?.tempLow ?? 0, yeast?.tempHigh ?? 212].map(
       (n) => (n ?? 0) * 1
     ),

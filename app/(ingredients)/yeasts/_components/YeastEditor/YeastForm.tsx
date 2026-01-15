@@ -83,16 +83,51 @@ export function YeastForm({ countries, preferences, src }: YeastFormProps) {
         <CardHeader className="border-b-4">
           <CardTitle>Characteristics</CardTitle>
         </CardHeader>
+
         <CardContent className="*:p-2 *:border-b-2">
-          <RangeField
-            className="col-span-2 "
-            name="tempRange"
-            low="tempLow"
-            high="tempHigh"
-            label="Temperature Range"
-            min={0}
-            max={212}
+          <AmountField
+            name="tolerance"
+            type="number"
+            label="Tolerance"
+            amountType="percent"
+            step="0.1"
           />
+          <div className="grid grid-cols-4">
+            <AmountField
+              name="attenuation"
+              type="number"
+              label="Attenuation"
+              amountType="percent"
+              step="0.01"
+            />
+            <RangeField
+              className="col-span-3 "
+              name="attenuationRange"
+              low="attenuationLow"
+              high="attenuationHigh"
+              label="Attenuation Range"
+              min={0}
+              max={100}
+            />
+          </div>
+          <div className="grid grid-cols-4">
+            <AmountField
+              name="temperature"
+              type="number"
+              label="Temperature"
+              amountType="temperature"
+              step="0.1"
+            />
+            <RangeField
+              className="col-span-3 "
+              name="tempRange"
+              low="tempLow"
+              high="tempHigh"
+              label="Temperature Range"
+              min={0}
+              max={212}
+            />
+          </div>
         </CardContent>
       </Card>
     </div>

@@ -581,6 +581,7 @@ model Yeast {
   form            YeastForm?
   country         String?
   price           Float?
+  temperature     Float?
   tempLow         Float?
   tempHigh        Float?
   flocculation    YeastFlocculation?

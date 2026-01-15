@@ -30,17 +30,18 @@ export default function YeastPropertiesTab({
           <Prop label={`${field.label} Range`} unit={"%"}>
             {
               ((src[`${field.name}Low` as keyof YeastType] as UnitValue)
-                ?.value * 100) as any
+                ?.value * 1) as any
             }
             -
             {
               ((src[`${field.name}High` as keyof YeastType] as UnitValue)
-                ?.value * 100) as any
+                ?.value * 1) as any
             }
           </Prop>
         </div>
       ))}
       <div className="grid grid-cols-2 gap-2">
+        <AmountProp label="Temperature" value={src.temperature as UnitValue} />
         <Prop label={"Temperature Range"} unit={src.tempLow?.unit}>
           {src.tempLow?.value}- {src.tempHigh?.value}
         </Prop>
