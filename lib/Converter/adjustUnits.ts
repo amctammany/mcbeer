@@ -36,9 +36,9 @@ function convertUnit({
   dir?: boolean;
   precision?: number;
 }) {
-  console.log("converUnit", { value, type, unit, inline, dir });
+  // console.log("converUnit", { value, type, unit, inline, dir });
   if (Array.isArray(value)) {
-    console.log("convertUnit: isArray", { value, type, unit, inline, dir });
+    // console.log("convertUnit: isArray", { value, type, unit, inline, dir });
     const a = value.map<any>((val) =>
       type instanceof Object
         ? Object.entries(type).reduce((acc, [k, v]) => {
@@ -59,7 +59,7 @@ function convertUnit({
             dir,
           })
     );
-    console.log("convertUnit: array", { value, type, unit, inline, dir, a });
+    // console.log("convertUnit: array", { value, type, unit, inline, dir, a });
     return a;
   }
   if (typeof value !== "number" && value?.unit && value?.value !== undefined)
@@ -73,7 +73,7 @@ function convertUnit({
     const val = dir ? newValue : baseValue;
     const v = precisionRound(val, precision);
     const r = inline ? v : ({ value: v, unit } as UnitValue);
-    console.log("convertUnit: number", { value, type, unit, inline, dir, r });
+    // console.log("convertUnit: number", { value, type, unit, inline, dir, r });
     return r;
   }
 
@@ -85,7 +85,7 @@ function convertUnit({
       dir,
     });
 */
-  console.log("convertUnit: default", { value, type, unit, inline, dir });
+  // console.log("convertUnit: default", { value, type, unit, inline, dir });
   return convertUnit({
     value: 0,
     unit,
