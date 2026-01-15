@@ -58,12 +58,12 @@ export type YeastFormProps = {
 export function YeastForm({ countries, preferences, src }: YeastFormProps) {
   const { register, control } = useFormContext<YeastType>();
   return (
-    <div className="m-2 p-2 gap-2 *:mb-2 grid lg:grid-cols-2">
-      <Card className="m-4">
+    <div className="m-1 lg:m-2 lg:p-2 lg:gap-2 *:mb-2 grid lg:grid-cols-2">
+      <Card className="lg:m-4">
         <CardHeader className="border-b-4">
           <CardTitle>General</CardTitle>
         </CardHeader>
-        <CardContent className="*:p-2">
+        <CardContent className="p-1 lg:*:p-2 *:py-1">
           <input type="hidden" {...register("id")} />
           <input type="hidden" {...register("userId")} />
           <TextField name="name" label="Name" />
@@ -79,12 +79,12 @@ export function YeastForm({ countries, preferences, src }: YeastFormProps) {
           <TextField name="notes" label="Notes" />
         </CardContent>
       </Card>
-      <Card className="m-4">
+      <Card className="lg:m-4">
         <CardHeader className="border-b-4">
           <CardTitle>Characteristics</CardTitle>
         </CardHeader>
 
-        <CardContent className="*:p-2 *:border-b-2">
+        <CardContent className="*:mb-1 p-1 lg:*:p-2 *:border-b-2">
           <AmountField
             name="tolerance"
             type="number"
@@ -92,7 +92,7 @@ export function YeastForm({ countries, preferences, src }: YeastFormProps) {
             amountType="percent"
             step="0.1"
           />
-          <div className="grid grid-cols-4">
+          <div className="lg:grid lg:grid-cols-4">
             <AmountField
               name="attenuation"
               type="number"
@@ -110,7 +110,7 @@ export function YeastForm({ countries, preferences, src }: YeastFormProps) {
               max={100}
             />
           </div>
-          <div className="grid grid-cols-4">
+          <div className="lg:grid lg:grid-cols-4">
             <AmountField
               name="temperature"
               type="number"
