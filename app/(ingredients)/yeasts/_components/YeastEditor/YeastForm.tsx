@@ -58,78 +58,58 @@ export type YeastFormProps = {
 export function YeastForm({ countries, preferences, src }: YeastFormProps) {
   const { register, control } = useFormContext<YeastType>();
   return (
-    <div className="m-1 lg:m-2 lg:p-2 lg:gap-2 *:mb-2 grid lg:grid-cols-2">
-      <Card className="lg:m-4">
-        <CardHeader className="border-b-4">
-          <CardTitle>General</CardTitle>
-        </CardHeader>
-        <CardContent className="p-1 lg:*:p-2 *:py-1">
-          <input type="hidden" {...register("id")} />
-          <input type="hidden" {...register("userId")} />
-          <TextField name="name" label="Name" />
-          <TextField name="description" label="Description" />
-          <ComboboxField
-            name="country"
-            label="Country"
-            options={countries.map((country) => ({
-              value: country,
-              label: country,
-            }))}
-          />
-          <TextField name="notes" label="Notes" />
-        </CardContent>
-      </Card>
-      <Card className="lg:m-4">
-        <CardHeader className="border-b-4">
-          <CardTitle>Characteristics</CardTitle>
-        </CardHeader>
+    <div className="m-1 lg:m-2 lg:p-2 lg:gap-2 *:mb-2 *:px-2 grid lg:grid-cols-2">
+      <input type="hidden" {...register("id")} />
+      <input type="hidden" {...register("userId")} />
+      <TextField name="name" label="Name" />
+      <TextField name="description" label="Description" />
+      <ComboboxField
+        name="country"
+        label="Country"
+        options={countries.map((country) => ({
+          value: country,
+          label: country,
+        }))}
+      />
+      <TextField name="notes" label="Notes" />
 
-        <CardContent className="*:mb-1 p-1 lg:*:p-2 *:border-b-2">
+      <div className="*:mb-1 p-1 lg:*:p-2 *:border-b-2">
+        <AmountField
+          name="tolerance"
+          type="number"
+          label="Tolerance"
+          amountType="percent"
+          step="0.1"
+        />
+        <div className="lg:grid lg:grid-cols-4">
           <AmountField
-            name="tolerance"
+            name="attenuation"
             type="number"
-            label="Tolerance"
+            label="Attenuation"
             amountType="percent"
-            step="0.1"
+            step="0.01"
           />
-          <div className="lg:grid lg:grid-cols-4">
-            <AmountField
-              name="attenuation"
-              type="number"
-              label="Attenuation"
-              amountType="percent"
-              step="0.01"
-            />
-            <RangeField
-              className="col-span-3 "
-              name="attenuationRange"
-              low="attenuationLow"
-              high="attenuationHigh"
-              label="Attenuation Range"
-              min={0}
-              max={100}
-            />
-          </div>
-          <div className="lg:grid lg:grid-cols-4">
-            <AmountField
-              name="temperature"
-              type="number"
-              label="Temperature"
-              amountType="temperature"
-              step="0.1"
-            />
-            <RangeField
-              className="col-span-3 "
-              name="tempRange"
-              low="tempLow"
-              high="tempHigh"
-              label="Temperature Range"
-              min={0}
-              max={212}
-            />
-          </div>
-        </CardContent>
-      </Card>
+          <RangeField
+            className="col-span-3 "
+            name="attenuationRange"
+            low="attenuationLow"
+            high="attenuationHigh"
+            label="Attenuation Range"
+            min={0}
+            max={100}
+          />
+        </div>
+
+        <RangeField
+          className=" "
+          name="tempRange"
+          low="tempLow"
+          high="tempHigh"
+          label="Temperature Range"
+          min={0}
+          max={212}
+        />
+      </div>
     </div>
   );
 }

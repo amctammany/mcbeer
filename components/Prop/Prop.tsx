@@ -10,18 +10,21 @@ import {
 import clsx from "clsx";
 import { BadgeCheckIcon } from "lucide-react";
 
-const propVariants = cva("m-0 border-b-black border-b-2 rounded-b-none", {
-  variants: {
-    variant: {
-      default: "",
-      outline: "border border-2 rounded",
-      inline: "*:first:grid *:first:grid-cols-2 *:first:*:first:pr-2",
+const propVariants = cva(
+  "m-1 border-b-lack bordr-b-2 rounded-b-one bg-white px-1 lg:px-3 py-1 lg:py-4",
+  {
+    variants: {
+      variant: {
+        default: "",
+        outline: "border border-2 border-black rounded",
+        inline: "*:first:grid *:first:grid-cols-2 *:first:*:first:pr-2",
+      },
     },
-  },
-  defaultVariants: {
-    variant: "default",
-  },
-});
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
 export type PropProps = {
   className?: string;
   label?: string | React.ReactNode;
@@ -46,7 +49,11 @@ export const Prop = ({
     <ItemContent className={variant === "inline" ? "grid grid-cols-2" : ""}>
       <ItemTitle className="bold border-b-2 grow ">{label}</ItemTitle>
       <ItemDescription className="flex w-full grow text-pretty justify-between items-center">
-        <span className="grow text-center">{children ?? value}</span>
+        <span
+          className={clsx({ "text-left": !unit, "text-center": unit }, "grow ")}
+        >
+          {children ?? value}
+        </span>
         <span className={clsx("shrink", { hidden: !unit })}>{unit}</span>
       </ItemDescription>
     </ItemContent>

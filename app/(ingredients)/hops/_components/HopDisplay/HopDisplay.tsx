@@ -12,17 +12,13 @@ export type HopDisplayProps = {
 };
 export function HopDisplay({ src, prefs }: HopDisplayProps) {
   return (
-    <div className="mx-auto grid lg:grid-cols-2 gap-4">
-      <Card title="Details">
-        <Suspense fallback={<div>Loading...</div>}>
-          <HopDetailsTab src={src} prefs={prefs} />
-        </Suspense>
-      </Card>
-      <Card title="Properties">
-        <Suspense fallback={<div>Loading...</div>}>
-          <HopPropertiesTab src={src} prefs={prefs} />
-        </Suspense>
-      </Card>
+    <div className="mx-auto grid lg:grid-cols-2 gap-1 bg-gray-200/40">
+      <Suspense fallback={<div>Loading...</div>}>
+        <HopDetailsTab src={src} prefs={prefs} />
+      </Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
+        <HopPropertiesTab src={src} prefs={prefs} />
+      </Suspense>
     </div>
   );
   /**

@@ -80,56 +80,44 @@ export type HopFormProps = {
 export function HopForm({ countries, preferences, src }: HopFormProps) {
   const { register, control } = useFormContext<HopType>();
   return (
-    <div className="m-2 p-2 gap-2 *:mb-2 grid lg:grid-cols-2">
-      <Card className="m-4">
-        <CardHeader className="border-b-4">
-          <CardTitle>General</CardTitle>
-        </CardHeader>
-        <CardContent className="*:p-2">
-          <input type="hidden" {...register("id")} />
-          <input type="hidden" {...register("userId")} />
-          <TextField name="name" label="Name" />
-          <TextField name="description" label="Description" />
-          <ComboboxField
-            name="country"
-            label="Country"
-            options={countries.map((country) => ({
-              value: country,
-              label: country,
-            }))}
-          />
-          <TextField name="notes" label="Notes" />
-        </CardContent>
-      </Card>
-      <Card className="m-4">
-        <CardHeader className="border-b-4">
-          <CardTitle>Characteristics</CardTitle>
-        </CardHeader>
-        <CardContent className="*:p-2 *:border-b-2">
-          {rangeFields.map((field) => (
-            <div className="grid grid-cols-3" key={field.name}>
-              <AmountField
-                amountType="percent"
-                name={field.name}
-                step="0.1"
-                type="percent"
-                label={field.label}
-                control={control}
-              />
-              <RangeField
-                className="col-span-2 "
-                name={`${field.name}Range` as FieldPath<HopType>}
-                low={`${field.name}Low` as FieldPath<HopType>}
-                high={`${field.name}High` as FieldPath<HopType>}
-                label={`${field.label} Range`}
-                min={field.min}
-                max={field.max}
-                control={control}
-              />
-            </div>
-          ))}
-        </CardContent>
-      </Card>
+    <div className="m-1 lg:m-2 lg:p-2 lg:gap-2 *:mb-2 *:px-2 grid lg:grid-cols-2">
+      <input type="hidden" {...register("id")} />
+      <input type="hidden" {...register("userId")} />
+      <TextField name="name" label="Name" />
+      <TextField name="description" label="Description" />
+      <ComboboxField
+        name="country"
+        label="Country"
+        options={countries.map((country) => ({
+          value: country,
+          label: country,
+        }))}
+      />
+      <TextField name="notes" label="Notes" />
+      <div className="*:p-2 *:border-b-2">
+        {rangeFields.map((field) => (
+          <div className="lg:grid lg:grid-cols-3" key={field.name}>
+            <AmountField
+              amountType="percent"
+              name={field.name}
+              step="0.1"
+              type="percent"
+              label={field.label}
+              control={control}
+            />
+            <RangeField
+              className="col-span-2 "
+              name={`${field.name}Range` as FieldPath<HopType>}
+              low={`${field.name}Low` as FieldPath<HopType>}
+              high={`${field.name}High` as FieldPath<HopType>}
+              label={`${field.label} Range`}
+              min={field.min}
+              max={field.max}
+              control={control}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

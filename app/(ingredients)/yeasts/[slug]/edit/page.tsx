@@ -30,7 +30,6 @@ export default async function YeastEditorPage({
 }: YeastEditorPageProps) {
   const { slug } = await params;
 
-  console.log(slug);
   const src = await authorizeResource(`/yeasts/${slug}/edit`, getYeast, slug);
   const prefs = await getPreferences();
   const countries = await getCountries();

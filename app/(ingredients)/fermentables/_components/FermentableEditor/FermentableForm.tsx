@@ -66,128 +66,102 @@ export function FermentableForm({
 }: FermentableFormProps) {
   const { register, control } = useFormContext<FermentableType>();
   return (
-    <div className="m-2 p-2 gap-2 *:mb-2">
-      <Card className="m-1 lg:m-4">
-        <CardHeader className="border-b-4">
-          <CardTitle>Fermentable Editor</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <input type="hidden" {...register("id")} />
-          <input type="hidden" {...register("userId")} />
-          <input type="hidden" {...register("forkedFrom")} />
-          <TextField name="name" control={control} label="Name" />
-          <TextField name="description" label="Description" control={control} />
-          <SelectField
-            name="type"
-            label="Type"
-            control={control}
-            options={FermentableTypeEnum}
-          />
-          <SelectField
-            name="usage"
-            label="Usage"
-            control={control}
-            options={IngredientUsage}
-          />
-          <ComboboxField
-            name="country"
-            label="Country"
-            options={countries.map((country) => ({
-              value: country,
-              label: country,
-            }))}
-          />
+    <div className="m-1 lg:m-2 lg:p-2 lg:gap-2 *:mb-2 *:px-2 grid lg:grid-cols-2">
+      <input type="hidden" {...register("id")} />
+      <input type="hidden" {...register("userId")} />
+      <input type="hidden" {...register("forkedFrom")} />
+      <TextField name="name" control={control} label="Name" />
+      <TextField name="description" label="Description" control={control} />
+      <SelectField
+        name="type"
+        label="Type"
+        control={control}
+        options={FermentableTypeEnum}
+      />
+      <SelectField
+        name="usage"
+        label="Usage"
+        control={control}
+        options={IngredientUsage}
+      />
+      <ComboboxField
+        name="country"
+        label="Country"
+        options={countries.map((country) => ({
+          value: country,
+          label: country,
+        }))}
+      />
 
-          <TextField
-            name="manufacturer"
-            label="Manufacturer"
-            control={control}
-          />
-          <TextField name="notes" label="Notes" control={control} />
-          <div className="grid lg:grid-cols-2 gap-3 p-1 lg:*:p-3 *:rounded *:ring-2  p-2  lg:p-4 lg:*:px-4">
-            <div>
-              <h4 className="font-extrabold">Details</h4>
-
-              <AmountField
-                amountType="percent"
-                name="maxUsage"
-                step="0.1"
-                type="percent"
-                label="Max Usage"
-              />
-              <AmountField
-                name="price"
-                step="0.1"
-                type="number"
-                label="Price"
-              />
-            </div>
-            <div>
-              <h4>Properties</h4>
-              <AmountField
-                name="potential"
-                step="0.001"
-                type="number"
-                label="Potential"
-                amountType="gravity"
-                unit="PPG"
-              />
-              <AmountField
-                name="yield"
-                step="0.01"
-                type="number"
-                label="Yield"
-                amountType="percent"
-              />
-              <AmountField
-                name="color"
-                step="0.01"
-                type="number"
-                label="Color"
-                amountType="color"
-              />
-              <AmountField
-                name="protein"
-                step="0.01"
-                type="number"
-                label="Protein"
-                amountType="percent"
-              />
-              <AmountField
-                name="coarseFineDiff"
-                step="0.01"
-                type="number"
-                label="Coarse Fine Diff"
-                amountType="percent"
-              />
-              <AmountField
-                name="power"
-                step="0.01"
-                type="number"
-                label="Diastatic Power"
-                amountType="percent"
-              />
-              <AmountField
-                name="moisture"
-                step="0.01"
-                type="number"
-                label="Moisture"
-                amountType="percent"
-              />
-              <AmountField
-                name="friability"
-                step="0.01"
-                type="number"
-                label="Friability"
-                amountType="percent"
-              />
-            </div>
-          </div>
-        </CardContent>
-        <CardFooter>
-          <Button type="submit">Save</Button>
-        </CardFooter>
-      </Card>
+      <TextField name="manufacturer" label="Manufacturer" control={control} />
+      <TextField name="notes" label="Notes" control={control} />
+      <div className="grid grid-cols-2 gap-1">
+        <AmountField
+          amountType="percent"
+          name="maxUsage"
+          step="0.1"
+          type="percent"
+          label="Max Usage"
+        />
+        <AmountField name="price" step="0.1" type="number" label="Price" />
+        <AmountField
+          name="potential"
+          step="0.001"
+          type="number"
+          label="Potential"
+          amountType="gravity"
+          unit="PPG"
+        />
+        <AmountField
+          name="yield"
+          step="0.01"
+          type="number"
+          label="Yield"
+          amountType="percent"
+        />
+        <AmountField
+          name="color"
+          step="0.01"
+          type="number"
+          label="Color"
+          amountType="color"
+        />
+        <AmountField
+          name="protein"
+          step="0.01"
+          type="number"
+          label="Protein"
+          amountType="percent"
+        />
+        <AmountField
+          name="coarseFineDiff"
+          step="0.01"
+          type="number"
+          label="Coarse Fine Diff"
+          amountType="percent"
+        />
+        <AmountField
+          name="power"
+          step="0.01"
+          type="number"
+          label="Diastatic Power"
+          amountType="percent"
+        />
+        <AmountField
+          name="moisture"
+          step="0.01"
+          type="number"
+          label="Moisture"
+          amountType="percent"
+        />
+        <AmountField
+          name="friability"
+          step="0.01"
+          type="number"
+          label="Friability"
+          amountType="percent"
+        />
+      </div>
     </div>
   );
 }

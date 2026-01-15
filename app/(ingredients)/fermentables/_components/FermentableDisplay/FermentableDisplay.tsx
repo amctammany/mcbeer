@@ -11,13 +11,9 @@ export type FermentableDisplayProps = {
 };
 export function FermentableDisplay({ src }: FermentableDisplayProps) {
   return (
-    <div className="max-w-4xl mx-auto">
-      <CollapsibleCard title="Details">
-        <FermentableDetailsTab src={src} />
-      </CollapsibleCard>
-      <CollapsibleCard title="Properties">
-        <FermentablePropertiesTab src={src} />
-      </CollapsibleCard>
+    <div className="mx-auto grid lg:grid-cols-2 gap-1 bg-gray-200/40">
+      <FermentableDetailsTab src={src} />
+      <FermentablePropertiesTab src={src} />
     </div>
   );
   return;

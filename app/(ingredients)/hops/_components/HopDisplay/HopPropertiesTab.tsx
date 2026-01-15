@@ -36,12 +36,16 @@ export default function HopPropertiesTab({
   return (
     <div className="grid lg:grid-cols-1 ">
       {rangeProps.map((field) => (
-        <div className="grid grid-cols-2 gap-2" key={field.name}>
+        <div className="grid grid-cols-3 gap-1" key={field.name}>
           <AmountProp
             label={field.label}
             value={src[field.name] as UnitValue}
           />
-          <Prop label={`${field.label} Range`} unit={"%"}>
+          <Prop
+            label={`${field.label} Range`}
+            unit={"%"}
+            className="col-span-2"
+          >
             {
               (src[`${field.name}Low` as keyof HopType] as UnitValue)
                 ?.value as any

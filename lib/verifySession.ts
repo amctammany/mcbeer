@@ -10,7 +10,7 @@ export const cachedAuth = cache(async function () {
   });
   return session;
 });
-export const verifySession = cache(async function (redirect_url = "") {
+export const verifySession = async function (redirect_url = "") {
   const session = await cachedAuth();
   if (!session?.user) {
     const url = new URLSearchParams({
@@ -19,4 +19,4 @@ export const verifySession = cache(async function (redirect_url = "") {
     return redirect(("/login?" + url.toString()) as Route);
   }
   return session;
-});
+};

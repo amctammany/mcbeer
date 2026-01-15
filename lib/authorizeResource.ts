@@ -11,6 +11,7 @@ export async function authorizeResource<T extends { userId?: string }>(
   const { session, user } = await verifySession(redirectTo);
   //if (session?.role !== "SUPERUSER") return forbidden();
   const resource = await fn(...args);
+  console.log(resource);
 
   if (!resource) return notFound();
   if (session?.role === "SUPERUSER") return resource;

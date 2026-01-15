@@ -69,7 +69,6 @@ export const yeastSchema = zfd.formData({
   attenuationHigh: zfd.numeric(z.number().optional()),
   attenuationRange: zfd.numeric(z.number().optional()),
   tempRange: zfd.numeric(z.number().optional()),
-  temperature: zfd.numeric(z.number().optional()),
   tempLow: zfd.numeric(z.number().optional()),
   tempHigh: zfd.numeric(z.number().optional()),
   usage: zfd.text(z.string().optional()),

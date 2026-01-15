@@ -22,7 +22,7 @@ export default function YeastPropertiesTab({
       <AmountProp label="Tolerance" value={src.tolerance as UnitValue} />
 
       {rangeProps.map((field) => (
-        <div className="grid grid-cols-2 gap-2" key={field.name}>
+        <div className="grid lg:grid-cols-2 " key={field.name}>
           <AmountProp
             label={field.label}
             value={src[field.name] as UnitValue}
@@ -40,12 +40,9 @@ export default function YeastPropertiesTab({
           </Prop>
         </div>
       ))}
-      <div className="grid grid-cols-2 gap-2">
-        <AmountProp label="Temperature" value={src.temperature as UnitValue} />
-        <Prop label={"Temperature Range"} unit={src.tempLow?.unit}>
-          {src.tempLow?.value}- {src.tempHigh?.value}
-        </Prop>
-      </div>
+      <Prop label={"Temperature Range"} unit={src.tempLow?.unit}>
+        {src.tempLow?.value}- {src.tempHigh?.value}
+      </Prop>
     </div>
   );
 }
