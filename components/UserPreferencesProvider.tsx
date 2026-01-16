@@ -4,7 +4,7 @@ import {
   UserPreferencesType,
 } from "@/contexts/UserPreferencesContext";
 import { UserPreferences } from "@/generated/prisma/browser";
-import React, { ReactNode, Suspense, use } from "react";
+import React, { ReactNode, use } from "react";
 
 export default function UserPreferencesProvider({
   prefs,

@@ -1,5 +1,5 @@
 "use client";
-import { MaskContext } from "@/contexts/MaskContext";
+import { MaskContext, MaskType } from "@/contexts/MaskContext";
 import { FermentableMask } from "@/lib/Converter/Masks";
 import { Metadata } from "next";
 import { Suspense } from "react";

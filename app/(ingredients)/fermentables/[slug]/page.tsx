@@ -17,11 +17,9 @@ export type FermentableDisplayPageProps = {
 export default async function FermentableDisplayPage({
   params,
 }: FermentableDisplayPageProps) {
-  "use cache";
   const { slug } = await params;
   const [fermentable] = await Promise.all([getFermentable(slug)]);
   if (!fermentable) notFound();
-  cacheTag("fermentables", fermentable.id!);
   const adjusted = adjustUnits({
     src: fermentable,
     prefs: {},

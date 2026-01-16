@@ -5,8 +5,7 @@ import NavSidebar from "@/components/NavSidebar/NavSidebar";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { Suspense } from "react";
 import { RouteChangeListener } from "@/components/RouteChangeListener";
-import UserPreferencesProvider from "@/components/UserPreferencesProvider";
-import { getPreferences } from "./admin/queries";
+import UserPreferencesProviderContainer from "@/components/UserPreferencesProviderContainer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,11 +39,9 @@ export default async function RootLayout({
           <NavSidebar />
 
           <SidebarInset className="overflow-hiddn relative">
-            <Suspense>
-              <UserPreferencesProvider prefs={getPreferences()}>
-                {children}
-              </UserPreferencesProvider>
-            </Suspense>
+            <UserPreferencesProviderContainer>
+              {children}
+            </UserPreferencesProviderContainer>
           </SidebarInset>
         </SidebarProvider>
       </body>

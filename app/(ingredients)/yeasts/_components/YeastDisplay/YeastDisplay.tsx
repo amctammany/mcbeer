@@ -14,15 +14,13 @@ export type YeastDisplayProps = {
 export function YeastDisplay({ src, prefs }: YeastDisplayProps) {
   return (
     <div className="mx-auto grid lg:grid-cols-2 gap-1 bg-gray-200/40">
-      <UserPreferencesProvider mask={YeastMask} prefs={prefs}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <YeastDetailsTab src={src} />
-        </Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
+        <YeastDetailsTab src={src} />
+      </Suspense>
 
-        <Suspense fallback={<div>Loading...</div>}>
-          <YeastPropertiesTab src={src} />
-        </Suspense>
-      </UserPreferencesProvider>
+      <Suspense fallback={<div>Loading...</div>}>
+        <YeastPropertiesTab src={src} />
+      </Suspense>
     </div>
   );
   /** 
