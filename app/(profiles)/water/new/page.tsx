@@ -20,7 +20,7 @@ export default async function WaterProfileCreatorPage() {
   return (
     <WaterProfileEditor
       profile={profile}
-      preferences={prefs}
+      // preferences={prefs}
       action={createWaterProfile}
     />
   );

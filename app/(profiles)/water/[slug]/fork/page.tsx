@@ -50,7 +50,7 @@ export default async function WaterProfileForkPage({
   return (
     <WaterProfileEditor
       profile={fork}
-      preferences={prefs}
+      // preferences={prefs}
       action={createWaterProfile}
     />
   );

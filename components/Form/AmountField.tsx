@@ -99,12 +99,13 @@ export function AmountField<T extends FieldValues>({
       : unit;
   const value = typeof val === "number" ? val : val?.value;
   // console.log({ maskV, value, unit, s });
-  const convert = (v: number) =>
+  const convert = (v: number, dir = true) =>
     convertUnit({
       value: v,
       type: maskV,
       unit,
       inline: true,
+      dir,
     });
   /**const options = (UnitTypeDict[amountType] ?? []).reduce((acc, unit) => {
     acc[unit] = unit;
@@ -121,7 +122,7 @@ export function AmountField<T extends FieldValues>({
         value: newValue,
       },
     });
-    // console.log({ name, value, newValue });
+    console.log({ name, value, newValue });
     cb(newValue);
   };
 
@@ -145,13 +146,17 @@ export function AmountField<T extends FieldValues>({
               className="gap-2 w-full grow"
               aria-invalid={!!fieldState.error}
             >
+              <input
+                type="hidden"
+                value={convert(field.value)}
+                name={field.name}
+              />
               <InputGroupInput
                 className="text-center grow"
                 id={id}
                 type="number"
+                value={field.value}
                 step={props.step ?? 0.1}
-                value={convert(field.value)}
-                name={field.name}
                 onChange={(e) =>
                   onValueChange(field.onChange)(parseFloat(e.target.value))
                 }

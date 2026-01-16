@@ -69,11 +69,7 @@ export function SettingsContainerForm({
   );
 
   return (
-    <HistoryForm
-      formProps={form}
-      historyProps={revision}
-      preferences={user.UserPreferences}
-    >
+    <HistoryForm formProps={form} historyProps={revision}>
       <form
         action={formAction}
         //        onSubmit={form.handleSubmit(handleAction)}

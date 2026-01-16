@@ -58,8 +58,8 @@ export default async function FermentationProfileForkPage({
   }) as AdjustedFermentationProfileType;
   return (
     <FermentationProfileEditor
-      profile={adjusted}
-      preferences={prefs}
+      profile={fork}
+      // preferences={prefs}
       action={createFermentationProfile.bind(null, prefs)}
     />
   );

@@ -7,7 +7,7 @@ import { AdjustedYeastType, YeastType } from "@/types/Ingredient";
 import { Redo, Save, Undo } from "lucide-react";
 import React, { useContext } from "react";
 export type YeastEditorToolbarProps = {
-  src: AdjustedYeastType;
+  src: YeastType;
 };
 export default function YeastEditorToolbar({ src }: YeastEditorToolbarProps) {
   const { handleRedo, handleUndo, canRedo, canUndo } =

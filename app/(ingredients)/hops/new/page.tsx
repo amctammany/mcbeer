@@ -14,12 +14,11 @@ export default async function HopCreatorPage() {
   const countries = await getCountries();
   const src = {
     userId: session.user.id,
-  } as AdjustedHopType;
+  } as HopType;
   return (
     <HopEditor
       countries={countries}
       src={src}
-      preferences={prefs}
       action={createHop.bind(null, prefs)}
     />
   );

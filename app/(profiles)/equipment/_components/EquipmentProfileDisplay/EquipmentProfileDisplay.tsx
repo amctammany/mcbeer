@@ -1,11 +1,14 @@
 import { AmountProp } from "@/components/Prop/AmountProp";
 import Prop from "@/components/Prop/Prop";
 import { Item, ItemContent, ItemHeader, ItemTitle } from "@/components/ui/item";
-import { AdjustedEquipmentProfileType } from "@/types/Profile";
+import {
+  AdjustedEquipmentProfileType,
+  EquipmentProfileType,
+} from "@/types/Profile";
 import Link from "next/link";
 
 export type EquipmentProfileDisplayProps = {
-  profile: AdjustedEquipmentProfileType; //UnitValues<EquipmentProfileType, UnitMask<EquipmentProfileType>>;
+  profile: EquipmentProfileType; //UnitValues<EquipmentProfileType, UnitMask<EquipmentProfileType>>;
 };
 export default function EquipmentProfileDisplay({
   profile,

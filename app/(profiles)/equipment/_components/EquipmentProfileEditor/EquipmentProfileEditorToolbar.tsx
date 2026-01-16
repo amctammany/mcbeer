@@ -3,11 +3,14 @@ import IconButton from "@/components/Button/IconButton";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
 import { RevisionContext } from "@/contexts/RevisionContext";
-import { AdjustedEquipmentProfileType } from "@/types/Profile";
+import {
+  AdjustedEquipmentProfileType,
+  EquipmentProfileType,
+} from "@/types/Profile";
 import { Redo, Undo } from "lucide-react";
 import React, { useContext } from "react";
 export type EquipmentProfileEditorToolbarProps = {
-  profile: AdjustedEquipmentProfileType;
+  profile: EquipmentProfileType;
 };
 export default function EquipmentProfileEditorToolbar({
   profile,

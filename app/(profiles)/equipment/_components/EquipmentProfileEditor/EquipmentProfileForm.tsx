@@ -19,15 +19,15 @@ import {
 import React, { useActionState, useContext } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 export type EquipmentProfileFormContainerProps<S = unknown> = {
-  profile: AdjustedEquipmentProfileType;
-  preferences: UserPreferencesType;
+  profile: EquipmentProfileType;
+  // preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
 };
 export function EquipmentProfileFormContainer({
   action,
   profile,
-  preferences,
+  // preferences,
   children,
 }: EquipmentProfileFormContainerProps) {
   // const [state, formAction] = useActionState<any, FormData>(action, null);
@@ -44,8 +44,6 @@ export function EquipmentProfileFormContainer({
   return (
     <Form
       action={formAction}
-      mask={EquipmentProfileMask}
-      preferences={preferences}
       formProps={{ defaultValues: profile, errors: state?.errors }}
     >
       {children}
@@ -53,11 +51,10 @@ export function EquipmentProfileFormContainer({
   );
 }
 export type EquipmentProfileFormProps = {
-  preferences: UserPreferencesType;
+  preferences?: UserPreferencesType;
 };
-export function EquipmentProfileForm({
-  preferences,
-}: EquipmentProfileFormProps) {
+export function EquipmentProfileForm({}: // preferences,
+EquipmentProfileFormProps) {
   const { register, control } = useFormContext<EquipmentProfileType>();
   return (
     <div className="m-2 p-2 gap-2 *:mb-2">

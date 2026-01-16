@@ -19,14 +19,14 @@ import { MashProfileStepsForm } from "./MashProfileStepsForm";
 import { MashProfileMask } from "@/lib/Converter/Masks";
 export type MashProfileFormContainerProps<S = unknown> = {
   profile: MashProfileType;
-  preferences: UserPreferencesType;
+  // preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
 };
 export function MashProfileFormContainer({
   action,
   profile,
-  preferences,
+  // preferences,
   children,
 }: MashProfileFormContainerProps) {
   // const [state, formAction] = useActionState<any, FormData>(action, null);
@@ -43,8 +43,6 @@ export function MashProfileFormContainer({
   return (
     <Form
       action={formAction}
-      mask={MashProfileMask}
-      preferences={preferences}
       formProps={{ defaultValues: profile, errors: state?.errors }}
     >
       {children}
@@ -52,11 +50,11 @@ export function MashProfileFormContainer({
   );
 }
 export type MashProfileFormProps = {
-  preferences: UserPreferencesType;
+  // preferences: UserPreferencesType;
   profile: MashProfileType;
 };
 export function MashProfileForm({
-  preferences,
+  // preferences,
   profile,
 }: MashProfileFormProps) {
   const { register, control } = useFormContext<MashProfileType>();

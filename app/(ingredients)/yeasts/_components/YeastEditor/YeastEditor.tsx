@@ -6,25 +6,25 @@ import { YeastForm, YeastFormContainer } from "./YeastForm";
 import YeastEditorToolbar from "./YeastEditorToolbar";
 
 export type YeastEditorProps = {
-  src: AdjustedYeastType;
-  preferences: UserPreferencesType;
+  src: YeastType;
+  // preferences: UserPreferencesType;
   countries: string[];
   action: any;
 };
 export function YeastEditor({
   src,
   action,
-  preferences,
+  // preferences,
   countries,
 }: YeastEditorProps) {
   return (
-    <YeastFormContainer preferences={preferences} src={src} action={action}>
+    <YeastFormContainer src={src} action={action}>
       <YeastEditorToolbar src={src} />
       <h3 className={src.origin ? "" : "hidden"}>
         Forked From:
         <Link href={`/yeasts/${src.origin?.slug}`}>{src.origin?.name}</Link>
       </h3>
-      <YeastForm src={src} preferences={preferences} countries={countries} />
+      <YeastForm src={src} countries={countries} />
     </YeastFormContainer>
   );
 }

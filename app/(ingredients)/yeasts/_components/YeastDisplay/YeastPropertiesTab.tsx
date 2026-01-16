@@ -9,6 +9,7 @@ import {
 } from "@/contexts/UserPreferencesContext";
 import { adjustUnits, UnitValue } from "@/lib/Converter/adjustUnits";
 import { YeastMask } from "@/lib/Converter/Masks";
+import { BASE_UNITS } from "@/lib/Converter/UnitDict";
 import { AdjustedYeastType, YeastType } from "@/types/Ingredient";
 import React, { useContext } from "react";
 
@@ -28,7 +29,7 @@ export default function YeastPropertiesTab({
   const src = ctx
     ? adjustUnits({
         src: _src,
-        prefs: prefs!,
+        prefs: prefs,
         mask: ctx.mask,
         inline: false,
         precision: 2,
@@ -37,14 +38,14 @@ export default function YeastPropertiesTab({
     : _src;
   return (
     <div className="grid lg:grid-cols-1 ">
-      <AmtProp name="tempLow" label="Temp Low" value={_src.tempLow} />
-      <AmtProp name="tempHigh" label="Temp High" value={_src.tempHigh} />
+      <AmountProp name="tempLow" label="Temp Low" value={_src.tempLow} />
+      <AmountProp name="tempHigh" label="Temp High" value={_src.tempHigh} />
 
-      <AmtProp name="tolerance" label="Tolerance" value={_src.tolerance} />
+      <AmountProp name="tolerance" label="Tolerance" value={_src.tolerance} />
 
       {rangeProps.map((field) => (
         <div className="grid lg:grid-cols-2 " key={field.name}>
-          <AmtProp
+          <AmountProp
             label={field.label}
             name={field.name}
             value={_src[field.name] as number}

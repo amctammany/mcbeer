@@ -7,7 +7,7 @@ import { AdjustedHopType, HopType } from "@/types/Ingredient";
 import { Redo, Save, Undo } from "lucide-react";
 import React, { useContext } from "react";
 export type HopEditorToolbarProps = {
-  src: AdjustedHopType;
+  src: HopType;
 };
 export default function HopEditorToolbar({ src }: HopEditorToolbarProps) {
   const { handleRedo, handleUndo, canRedo, canUndo } =

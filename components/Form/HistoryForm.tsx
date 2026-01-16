@@ -12,7 +12,7 @@ import React from "react";
 import { FieldValues, FormProvider, FormProviderProps } from "react-hook-form";
 
 export type HistoryFormProps<T extends FieldValues = any> = {
-  preferences: UserPreferencesType | null;
+  // preferences: UserPreferencesType | null;
   formProps: Omit<FormProviderProps<T>, "children">;
   children: React.ReactNode | React.ReactNode[];
   historyProps: RevisionContextType<T>;
@@ -21,14 +21,12 @@ export type HistoryFormProps<T extends FieldValues = any> = {
 export default function HistoryForm({
   children,
   formProps,
-  preferences,
+  // preferences,
   historyProps,
 }: HistoryFormProps) {
   return (
     <FormProvider {...formProps}>
-      <UserPreferencesContext value={preferences}>
-        <RevisionContext value={historyProps}>{children}</RevisionContext>
-      </UserPreferencesContext>
+      <RevisionContext value={historyProps}>{children}</RevisionContext>
     </FormProvider>
   );
 }

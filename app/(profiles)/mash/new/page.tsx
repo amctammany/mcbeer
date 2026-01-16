@@ -17,7 +17,7 @@ export default async function MashProfileCreatorPage() {
   return (
     <MashProfileEditor
       profile={profile}
-      preferences={prefs}
+      // preferences={prefs}
       action={createMashProfile.bind(null, prefs)}
     />
   );

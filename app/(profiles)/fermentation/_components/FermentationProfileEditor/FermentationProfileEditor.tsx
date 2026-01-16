@@ -1,5 +1,8 @@
 import React from "react";
-import type { AdjustedFermentationProfileType } from "@/types/Profile";
+import type {
+  AdjustedFermentationProfileType,
+  FermentationProfileType,
+} from "@/types/Profile";
 import Link from "next/link";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import {
@@ -9,21 +12,15 @@ import {
 import FermentationProfileEditorToolbar from "./FermentationProfileEditorToolbar";
 
 export type FermentationProfileEditorProps = {
-  profile: AdjustedFermentationProfileType;
-  preferences: UserPreferencesType;
+  profile: FermentationProfileType;
   action: any;
 };
 export function FermentationProfileEditor({
   profile,
   action,
-  preferences,
 }: FermentationProfileEditorProps) {
   return (
-    <FermentationProfileFormContainer
-      preferences={preferences}
-      profile={profile}
-      action={action}
-    >
+    <FermentationProfileFormContainer profile={profile} action={action}>
       <FermentationProfileEditorToolbar profile={profile} />
       <h3 className={profile.origin ? "" : "hidden"}>
         Forked From:
@@ -31,7 +28,7 @@ export function FermentationProfileEditor({
           {profile.origin?.name}
         </Link>
       </h3>
-      <FermentationProfileForm profile={profile} preferences={preferences} />
+      <FermentationProfileForm profile={profile} />
     </FermentationProfileFormContainer>
   );
 }

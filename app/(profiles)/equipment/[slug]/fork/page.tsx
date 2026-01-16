@@ -55,7 +55,7 @@ export default async function EquipmentProfileForkPage({
   }) as AdjustedEquipmentProfileType;
   return (
     <EquipmentProfileEditor
-      profile={adjusted}
+      profile={fork}
       action={createEquipmentProfile.bind(null, prefs)}
       preferences={prefs}
     />

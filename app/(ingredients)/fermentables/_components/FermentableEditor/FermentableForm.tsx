@@ -47,9 +47,7 @@ export function FermentableFormContainer({
 
   return (
     <Form
-      mask={FermentableMask}
       action={formAction}
-      preferences={preferences}
       formProps={{ defaultValues: src, errors: state?.errors }}
     >
       {children}

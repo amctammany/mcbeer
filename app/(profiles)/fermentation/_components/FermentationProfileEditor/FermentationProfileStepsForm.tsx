@@ -18,7 +18,7 @@ import FermentationProfileStepField from "./FermentationProfileStepField";
 export function FermentationProfileStepsForm({
   src,
 }: {
-  src: AdjustedFermentationProfileType;
+  src: FermentationProfileType;
 }) {
   const { register, control, watch } =
     useFormContext<FermentationProfileType>();

@@ -13,15 +13,15 @@ import { FormProvider, useForm, type UseFormProps } from "react-hook-form";
 
 export type FormProps = {
   action: any;
-  mask?: any;
-  preferences: UserPreferencesType;
+  // mask?: any;
+  // preferences: UserPreferencesType;
   formProps: UseFormProps;
   children?: React.ReactNode | React.ReactNode[];
 };
 export default function Form({
-  preferences,
+  // preferences,
   action,
-  mask = {},
+  // mask = {},
   formProps,
   children,
 }: FormProps) {
@@ -34,11 +34,11 @@ export default function Form({
   return (
     <div>
       <FormProvider {...form}>
-        <UserPreferencesContext value={preferences}>
-          <RevisionContext value={revision}>
-            <form action={action}>{children}</form>
-          </RevisionContext>
-        </UserPreferencesContext>
+        {/* <UserPreferencesContext value={preferences}> */}
+        <RevisionContext value={revision}>
+          <form action={action}>{children}</form>
+        </RevisionContext>
+        {/* </UserPreferencesContext> */}
       </FormProvider>
     </div>
   );

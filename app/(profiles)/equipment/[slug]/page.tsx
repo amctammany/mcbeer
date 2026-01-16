@@ -56,7 +56,7 @@ export default async function EquipmentProfileDisplayPage({
           Edit
         </IconButton>
       </TopBar>
-      <EquipmentProfileDisplay profile={adjusted} />
+      <EquipmentProfileDisplay profile={profile} />
     </div>
   );
 }

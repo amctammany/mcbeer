@@ -44,7 +44,7 @@ export default async function EquipmentProfileCreatorPage() {
   }) as AdjustedEquipmentProfileType;
   return (
     <EquipmentProfileEditor
-      profile={adjusted}
+      profile={profile}
       preferences={prefs}
       action={createEquipmentProfile.bind(null, prefs)}
     />

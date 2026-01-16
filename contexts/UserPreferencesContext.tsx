@@ -1,6 +1,7 @@
 "use client";
 import { UserPreferences } from "@/generated/prisma/client";
 import {
+  BASE_UNITS,
   PercentUnitType,
   UnitNames,
   UnitTypes,
@@ -33,6 +34,5 @@ export type UserPreferencesContextType = {
   mask: any;
   units: Partial<Record<UnitTypes, UnitNames[]>>;
 };
-export const UserPreferencesContext = createContext<UserPreferencesType | null>(
-  null
-);
+export const UserPreferencesContext =
+  createContext<UserPreferencesType>(BASE_UNITS);

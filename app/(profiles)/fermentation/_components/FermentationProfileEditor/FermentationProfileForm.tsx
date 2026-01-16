@@ -11,15 +11,13 @@ import { useFormContext } from "react-hook-form";
 import { FermentationProfileStepsForm } from "./FermentationProfileStepsForm";
 import { FermentationProfileMask } from "@/lib/Converter/Masks";
 export type FermentationProfileFormContainerProps<S = unknown> = {
-  profile: AdjustedFermentationProfileType;
-  preferences: UserPreferencesType;
+  profile: FermentationProfileType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
 };
 export function FermentationProfileFormContainer({
   action,
   profile,
-  preferences,
   children,
 }: FermentationProfileFormContainerProps) {
   // const [state, formAction] = useActionState<any, FormData>(action, null);
@@ -36,8 +34,6 @@ export function FermentationProfileFormContainer({
   return (
     <Form
       action={formAction}
-      mask={FermentationProfileMask}
-      preferences={preferences}
       formProps={{ defaultValues: profile, errors: state?.errors }}
     >
       {children}
@@ -45,11 +41,9 @@ export function FermentationProfileFormContainer({
   );
 }
 export type FermentationProfileFormProps = {
-  preferences: UserPreferencesType;
-  profile: AdjustedFermentationProfileType;
+  profile: FermentationProfileType;
 };
 export function FermentationProfileForm({
-  preferences,
   profile,
 }: FermentationProfileFormProps) {
   const { register, control } = useFormContext<FermentationProfileType>();

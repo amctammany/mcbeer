@@ -41,15 +41,15 @@ const rangeFields: RangeProp<HopType>[] = [
   { name: "totalOil", label: "Total Oil", min: 0, max: 5 },
 ];
 export type HopFormContainerProps<S = unknown> = {
-  src: AdjustedHopType;
-  preferences: UserPreferencesType;
+  src: HopType;
+  // preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
 };
 export function HopFormContainer({
   action,
   src,
-  preferences,
+  // preferences,
   children,
 }: HopFormContainerProps) {
   // const [state, formAction] = useActionState<any, FormData>(action, null);
@@ -66,8 +66,6 @@ export function HopFormContainer({
   return (
     <Form
       action={formAction}
-      preferences={preferences}
-      mask={HopMask}
       formProps={{ defaultValues: src, errors: state?.errors }}
     >
       {children}
@@ -75,11 +73,11 @@ export function HopFormContainer({
   );
 }
 export type HopFormProps = {
-  preferences: UserPreferencesType;
-  src: AdjustedHopType;
+  // preferences: UserPreferencesType;
+  src: HopType;
   countries: string[];
 };
-export function HopForm({ countries, preferences, src }: HopFormProps) {
+export function HopForm({ countries, src }: HopFormProps) {
   const { register, control } = useFormContext<HopType>();
   return (
     <div className="m-0 lg:m-2 lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid bg-gray-200/40 lg:grid-cols-2">

@@ -19,8 +19,8 @@ import { useActionState } from "react";
 import { useFormContext } from "react-hook-form";
 
 export type YeastFormContainerProps<S = unknown> = {
-  src: AdjustedYeastType;
-  preferences: UserPreferencesType;
+  src: YeastType;
+  preferences?: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
 };
@@ -44,8 +44,7 @@ export function YeastFormContainer({
   return (
     <Form
       action={formAction}
-      mask={YeastMask}
-      preferences={preferences}
+      // mask={YeastMask}
       formProps={{ defaultValues: src, errors: state?.errors }}
     >
       {children}
@@ -53,8 +52,8 @@ export function YeastFormContainer({
   );
 }
 export type YeastFormProps = {
-  preferences: UserPreferencesType;
-  src: AdjustedYeastType;
+  preferences?: UserPreferencesType;
+  src: YeastType;
   countries: string[];
 };
 export function YeastForm({ countries, preferences, src }: YeastFormProps) {

@@ -4,13 +4,13 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
-import { AdjustedMashStepType } from "@/types/Profile";
+import { AdjustedMashStepType, MashStepType } from "@/types/Profile";
 import clsx from "clsx";
 import { SectionIcon, Thermometer, Timer, TriangleRight } from "lucide-react";
 import React from "react";
 
 export type MashStepListItemProps = {
-  src: AdjustedMashStepType;
+  src: MashStepType;
 };
 export default function MashStepListItem({ src }: MashStepListItemProps) {
   return (
@@ -36,14 +36,14 @@ export default function MashStepListItem({ src }: MashStepListItemProps) {
         <div className="grow grid grid-flow-col auto-cols-auto gap-2 justify-items-stretch">
           <BadgeProp
             Icon={Thermometer}
-            text={src.temperature.value}
-            unit={src.temperature.unit}
+            text={src.temperature}
+            unit={src.temperature}
           />
-          <BadgeProp Icon={Timer} text={src.time.value} unit={src.time.unit} />
+          <BadgeProp Icon={Timer} text={src.time} unit={src.time} />
           <BadgeProp
             Icon={TriangleRight}
-            text={src.rampTime?.value}
-            unit={src.rampTime?.unit}
+            text={src.rampTime}
+            unit={src.rampTime}
           />
         </div>
       </div>

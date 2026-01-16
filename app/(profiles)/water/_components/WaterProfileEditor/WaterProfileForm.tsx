@@ -17,14 +17,13 @@ import React, { useActionState, useContext } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 export type WaterProfileFormContainerProps<S = unknown> = {
   profile: WaterProfileType;
-  preferences: UserPreferencesType;
+  // preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
 };
 export function WaterProfileFormContainer({
   action,
   profile,
-  preferences,
   children,
 }: WaterProfileFormContainerProps) {
   // const [state, formAction] = useActionState<any, FormData>(action, null);
@@ -41,7 +40,6 @@ export function WaterProfileFormContainer({
   return (
     <Form
       action={formAction}
-      preferences={preferences}
       formProps={{ defaultValues: profile, errors: state?.errors }}
     >
       {children}
@@ -49,7 +47,7 @@ export function WaterProfileFormContainer({
   );
 }
 export type WaterProfileFormProps = {
-  preferences: UserPreferencesType;
+  preferences?: UserPreferencesType;
 };
 export function WaterProfileForm({ preferences }: WaterProfileFormProps) {
   const { register, control } = useFormContext<WaterProfileType>();

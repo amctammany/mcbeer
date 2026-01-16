@@ -50,8 +50,8 @@ export default async function FermentationProfileEditorPage({
   }) as AdjustedFermentationProfileType;
   return (
     <FermentationProfileEditor
-      profile={adjusted}
-      preferences={prefs}
+      profile={profile}
+      // preferences={prefs}
       action={updateFermentationProfile.bind(null, prefs)}
     />
   );

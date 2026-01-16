@@ -3,11 +3,14 @@ import IconButton from "@/components/Button/IconButton";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
 import { RevisionContext } from "@/contexts/RevisionContext";
-import { AdjustedFermentationProfileType } from "@/types/Profile";
+import {
+  AdjustedFermentationProfileType,
+  FermentationProfileType,
+} from "@/types/Profile";
 import { Redo, Undo } from "lucide-react";
 import React, { useContext } from "react";
 export type FermentationProfileEditorToolbarProps = {
-  profile: AdjustedFermentationProfileType;
+  profile: FermentationProfileType;
 };
 export default function FermentationProfileEditorToolbar({
   profile,

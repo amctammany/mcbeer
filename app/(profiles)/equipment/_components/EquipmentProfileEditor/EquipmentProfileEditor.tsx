@@ -1,5 +1,8 @@
 import React from "react";
-import type { AdjustedEquipmentProfileType } from "@/types/Profile";
+import type {
+  AdjustedEquipmentProfileType,
+  EquipmentProfileType,
+} from "@/types/Profile";
 import Link from "next/link";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import {
@@ -9,8 +12,8 @@ import {
 import EquipmentProfileEditorToolbar from "./EquipmentProfileEditorToolbar";
 
 export type EquipmentProfileEditorProps = {
-  profile: AdjustedEquipmentProfileType;
-  preferences: UserPreferencesType;
+  profile: EquipmentProfileType;
+  preferences?: UserPreferencesType;
   action: any;
 };
 export function EquipmentProfileEditor({
@@ -19,11 +22,7 @@ export function EquipmentProfileEditor({
   preferences,
 }: EquipmentProfileEditorProps) {
   return (
-    <EquipmentProfileFormContainer
-      preferences={preferences}
-      profile={profile}
-      action={action}
-    >
+    <EquipmentProfileFormContainer profile={profile} action={action}>
       <EquipmentProfileEditorToolbar profile={profile} />
       <h3 className={profile.origin ? "" : "hidden"}>
         Forked From:
@@ -31,7 +30,7 @@ export function EquipmentProfileEditor({
           {profile.origin?.name}
         </Link>
       </h3>
-      <EquipmentProfileForm preferences={preferences} />
+      <EquipmentProfileForm />
     </EquipmentProfileFormContainer>
   );
 }

@@ -7,20 +7,16 @@ import MashProfileEditorToolbar from "./MashProfileEditorToolbar";
 
 export type MashProfileEditorProps = {
   profile: MashProfileType;
-  preferences: UserPreferencesType;
+  // preferences: UserPreferencesType;
   action: any;
 };
 export function MashProfileEditor({
   profile,
   action,
-  preferences,
-}: MashProfileEditorProps) {
+}: // preferences,
+MashProfileEditorProps) {
   return (
-    <MashProfileFormContainer
-      preferences={preferences}
-      profile={profile}
-      action={action}
-    >
+    <MashProfileFormContainer profile={profile} action={action}>
       <MashProfileEditorToolbar profile={profile} />
       <h3 className={profile.origin ? "" : "hidden"}>
         Forked From:
@@ -29,7 +25,7 @@ export function MashProfileEditor({
         </Link>
       </h3>
       <div className="max-w-2xl grid  mx-auto">
-        <MashProfileForm profile={profile} preferences={preferences} />
+        <MashProfileForm profile={profile} />
       </div>
     </MashProfileFormContainer>
   );

@@ -10,17 +10,9 @@ import { getCountries } from "../../queries";
 export default async function YeastCreatorPage() {
   const session = await verifySession("/yeasts/new");
   if (!session?.user) unauthorized();
-  const prefs = await getPreferences();
   const countries = await getCountries();
   const src = {
     userId: session.user.id,
-  } as AdjustedYeastType;
-  return (
-    <YeastEditor
-      countries={countries}
-      src={src}
-      preferences={prefs}
-      action={createYeast.bind(null, prefs)}
-    />
-  );
+  } as YeastType;
+  return <YeastEditor countries={countries} src={src} action={createYeast} />;
 }

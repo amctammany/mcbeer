@@ -29,10 +29,10 @@ export async function generateMetadata({
 export default async function HopEditorPage({ params }: HopEditorPageProps) {
   const { slug } = await params;
 
-  console.log(slug);
   const src = await authorizeResource(`/hops/${slug}/edit`, getHop, slug);
   const prefs = await getPreferences();
   const countries = await getCountries();
+  /**
   const adjusted = adjustUnits({
     src,
     mask: HopMask,
@@ -41,11 +41,12 @@ export default async function HopEditorPage({ params }: HopEditorPageProps) {
     dir: true,
     precision: 4,
   }) as AdjustedHopType;
+ */
   return (
     <HopEditor
       countries={countries}
-      src={adjusted}
-      preferences={prefs}
+      src={src}
+      // preferences={prefs}
       action={updateHop.bind(null, prefs)}
     />
   );

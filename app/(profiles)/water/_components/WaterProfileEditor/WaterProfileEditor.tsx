@@ -10,17 +10,17 @@ import WaterProfileEditorToolbar from "./WaterProfileEditorToolbar";
 
 export type WaterProfileEditorProps = {
   profile: WaterProfileType;
-  preferences: UserPreferencesType;
+  // preferences: UserPreferencesType;
   action: any;
 };
 export function WaterProfileEditor({
   profile,
   action,
-  preferences,
-}: WaterProfileEditorProps) {
+}: // preferences,
+WaterProfileEditorProps) {
   return (
     <WaterProfileFormContainer
-      preferences={preferences}
+      // preferences={preferences}
       profile={profile}
       action={action}
     >
@@ -31,7 +31,7 @@ export function WaterProfileEditor({
           {profile.origin?.name}
         </Link>
       </h3>
-      <WaterProfileForm preferences={preferences} />
+      <WaterProfileForm />
     </WaterProfileFormContainer>
   );
 }

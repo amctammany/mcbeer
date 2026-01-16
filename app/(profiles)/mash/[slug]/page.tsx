@@ -57,7 +57,7 @@ export default async function MashProfileDisplayPage({
           Edit
         </IconButton>
       </TopBar>
-      <MashProfileDisplay profile={adjusted} />
+      <MashProfileDisplay profile={profile} />
     </div>
   );
 }

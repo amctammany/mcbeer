@@ -45,7 +45,7 @@ export default async function MashProfileForkPage({
   return (
     <MashProfileEditor
       profile={fork}
-      preferences={prefs}
+      // preferences={prefs}
       action={createMashProfile.bind(null, prefs)}
     />
   );
