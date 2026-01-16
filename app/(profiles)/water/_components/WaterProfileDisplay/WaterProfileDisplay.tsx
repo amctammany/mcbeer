@@ -12,7 +12,7 @@ export default function WaterProfileDisplay({
   profile,
 }: WaterProfileDisplayProps) {
   return (
-    <div className="max-w-2xl grid  mx-auto">
+    <div className="max-w-2xl grid  mx-auto border border-black rounded-xl">
       <div className="">
         <Prop label="Name" value={profile.name} />
         <Prop label="Author" value={profile.owner?.name} />
@@ -26,7 +26,7 @@ export default function WaterProfileDisplay({
         />
         <Prop label="Description" value={profile.description} />
       </div>
-      <div className="grid grid-cols-3 lg:grid-cols-3">
+      <div className="grid grid-cols-3 lg:grid-cols-3 *:w-32 justify-items-center">
         <Prop
           variant="outline"
           unit="ppm"

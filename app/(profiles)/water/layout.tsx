@@ -11,7 +11,5 @@ export default function WaterProfilesLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <Suspense fallback={<div>Water Profiles Loading</div>}>{children}</Suspense>
-  );
+  return <Suspense fallback={children}>{children}</Suspense>;
 }
