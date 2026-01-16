@@ -129,7 +129,7 @@ export function reduceUnits<T extends FieldValues>(
         })
       : v;
     return acc;
-  }, {} as Record<keyof T, number>);
+  }, {} as Record<keyof T, T[keyof T]>);
   console.log(res);
   return res;
 }

@@ -8,6 +8,7 @@ import { validateSchema } from "@/lib/validateSchema";
 import { redirect } from "next/navigation";
 import { equipmentProfileSchema } from "@/schemas/ProfileSchemas";
 import { revalidatePath } from "next/cache";
+import { EquipmentProfileType } from "@/types/Profile";
 export async function createEquipmentProfile(
   prefs: UserPreferencesType,
   prev: any,
@@ -19,48 +20,45 @@ export async function createEquipmentProfile(
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const adj = adjustUnits({
-    src: v.data,
-    prefs,
-    mask: EquipmentProfileMask,
-    inline: true,
-    dir: false,
-  });
+  // const adj = adjustUnits({
+  //   src: v.data,
+  //   prefs,
+  //   mask: EquipmentProfileMask,
+  //   inline: true,
+  //   dir: false,
+  // });
+  const r = reduceUnits(v.data) as any;
 
   const res = await prisma.equipmentProfile.create({
-    data: { ...adj, slug: slugify(v.data.name) },
+    data: { ...r, slug: slugify(v.data.name) },
   });
   revalidatePath("/equipment");
   return redirect(`/equipment/${res.slug}`);
   //  return { success: true, data: res };
 }
 
-export async function updateEquipmentProfile(
-  prefs: UserPreferencesType,
-  prev: any,
-  formData: FormData
-) {
+export async function updateEquipmentProfile(prev: any, formData: FormData) {
   const v = validateSchema(formData, equipmentProfileSchema);
   if (v.errors) console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const r = reduceUnits(v.data);
+  const r = reduceUnits(v.data) as any;
   console.log(v.data, r);
-  const adj = adjustUnits({
-    src: v.data,
-    prefs,
-    mask: EquipmentProfileMask,
-    inline: true,
-    dir: false,
-  });
+  // const adj = adjustUnits({
+  //   src: v.data,
+  //   prefs,
+  //   mask: EquipmentProfileMask,
+  //   inline: true,
+  //   dir: false,
+  // });
 
   const res = await prisma.equipmentProfile.update({
     where: {
       id: v.data.id,
     },
-    data: { ...adj, slug: slugify(v.data.name) },
+    data: { ...r, slug: slugify(v.data.name) },
   });
   return redirect(`/equipment/${res.slug}`);
 }
