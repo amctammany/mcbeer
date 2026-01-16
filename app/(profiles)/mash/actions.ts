@@ -58,7 +58,7 @@ export async function updateMashProfile(
   prev: any,
   formData: FormData
 ) {
-  console.log(Object.fromEntries(formData.entries()), mashProfileSchema);
+  // console.log(Object.fromEntries(formData.entries()), mashProfileSchema);
   const v = validateSchema(formData, mashProfileSchema);
   if (v.errors) console.log(v);
   if (v.errors) return v;
@@ -66,6 +66,7 @@ export async function updateMashProfile(
     return Promise.resolve(v);
   }
   const r = reduceUnits(v.data) as BaseMashProfile;
+  // console.log(v.data, r);
   /**
   const adj = adjustUnits({
     src: v.data,
@@ -78,15 +79,17 @@ export async function updateMashProfile(
 
   const stepData = await prisma.$transaction(async (tx) => {
     return Promise.all(
-      (steps as MashStepType[]).map(async ({ id, ...d }) => {
-        return await tx.mashStep.upsert({
-          where: {
-            mashIndex: { mashProfileId: data.id! as string, index: d.index },
-          },
-          create: { ...d, mashProfileId: data.id! as string },
-          update: d,
-        });
-      })
+      (steps as MashStepType[])
+        .map((s) => reduceUnits(s))
+        .map(async ({ id, ...d }) => {
+          return await tx.mashStep.upsert({
+            where: {
+              mashIndex: { mashProfileId: data.id! as string, index: d.index },
+            },
+            create: { ...d, mashProfileId: data.id! as string },
+            update: d,
+          });
+        })
     );
   });
   const res = await prisma.mashProfile.update({

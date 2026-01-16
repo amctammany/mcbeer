@@ -9,7 +9,6 @@ export const getMashProfiles = async (args: any = {}) => {
 };
 
 export const getMashProfile = async (slug: string) => {
-  "use cache";
   const profile = await prisma.mashProfile.findFirst({
     where: { slug },
     include: {

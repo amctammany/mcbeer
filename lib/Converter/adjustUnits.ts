@@ -125,12 +125,13 @@ export function reduceUnits<T extends FieldValues>(
           unit: v.unit,
           precision,
           inline: true,
-          dir: false,
+          dir: true,
         })
+      : Array.isArray(v)
+      ? v.map((a) => reduceUnits(a))
       : v;
     return acc;
   }, {} as T); //Record<keyof T, T[keyof T]>);
-  console.log(res);
   return res;
 }
 export function adjustUnits<T extends FieldValues>({
@@ -152,7 +153,7 @@ export function adjustUnits<T extends FieldValues>({
   const s = Object.entries(mask).reduce(
     (acc, [k, v]) => {
       if (Array.isArray(v)) {
-        console.log("isArray", k, v, src[k]);
+        // console.log("isArray", k, v, src[k]);
         acc[k] = Array.isArray(src[k])
           ? src[k].map((s: any) =>
               convertUnit({
