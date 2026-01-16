@@ -1,17 +1,15 @@
+"use client";
+import { MaskContext } from "@/contexts/MaskContext";
+import { FermentableMask } from "@/lib/Converter/Masks";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
-export const metadata: Metadata = {
-  title: "McBeer",
-  description: "Where to make good beer",
-};
-
-export default function FermentablesLayout({
+export default function FermentableLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <Suspense fallback={<div>Fermentables Loading</div>}>{children}</Suspense>
+    <MaskContext value={{ mask: FermentableMask }}>{children}</MaskContext>
   );
 }

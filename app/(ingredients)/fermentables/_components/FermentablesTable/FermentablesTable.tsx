@@ -49,18 +49,25 @@ const columns: ColumnDef<FermentableType>[] = [
     cell: FermentablesTableRowActions<FermentableType>,
   },
 ];
-import React, { use } from "react";
+import React, { Suspense, use } from "react";
 import { FermentableType } from "@/types/Ingredient";
+import { Spinner } from "@/components/ui/spinner";
 export interface FermentablesTableProps {
   src: Promise<FermentableType[]>;
 }
 export const FermentablesTableSkeleton: React.FC = () => {
   return (
-    <div>
+    <Suspense
+      fallback={
+        <div className="max-w-2xl h-screen m-auto flex justify-center align-middle items-center text-center">
+          <Spinner className="block size-26" />
+        </div>
+      }
+    >
       <div className="relative overflow-auto">
         <DataTable data={[]} columns={columns} />
       </div>
-    </div>
+    </Suspense>
   );
 };
 export const FermentablesTable: React.FC<FermentablesTableProps> = ({
