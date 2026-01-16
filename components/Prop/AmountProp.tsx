@@ -1,8 +1,13 @@
 "use client";
 import { Prop, PropProps } from "./Prop";
 import { precisionRound } from "@/lib/utils";
-import { BASE_UNITS, PercentUnits, UnitNames } from "@/lib/Converter/UnitDict";
-import { UnitValue } from "@/lib/Converter/adjustUnits";
+import {
+  BASE_UNITS,
+  PercentUnits,
+  UnitNames,
+  UnitTypes,
+} from "@/lib/Converter/UnitDict";
+import { convertUnit, UnitValue } from "@/lib/Converter/adjustUnits";
 import { useContext } from "react";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { MaskContext } from "@/contexts/MaskContext";
@@ -21,18 +26,27 @@ export function AmountProp({
 }: AmountPropProps) {
   const { mask } = useContext(MaskContext);
   const preferenceContext = useContext(UserPreferencesContext);
-  const maskV =
-    (mask as Record<string, keyof typeof preferenceContext>)[name ?? ""] ?? "";
-  const s = preferenceContext?.[maskV];
-  // console.log({ name, val, _unit, maskV, s });
+  const mn = mask[(name ?? "") as keyof typeof mask] as any;
+  const maskV = Array.isArray(mn) ? mn[0] : mn;
+  const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
   // const unitN = unit ?? (amountType ? preferenceContext?.[amountType!] : "");
 
   const value = typeof val === "number" ? val : val?.value;
+  const unit = s ?? BASE_UNITS[maskV as UnitTypes];
+  // console.log({ maskV, value, unit, s });
+  const converted = convertUnit({
+    value,
+    type: maskV,
+    unit,
+    inline: true,
+  });
+  // console.log(converted);
   // const { value, unit: _u } = val ?? {};
   //  const prefs = getPreferences();
-  const unit = _unit || BASE_UNITS[maskV];
   const u = unit === "percent" || unit === "number" ? PercentUnits[unit] : unit;
-  const v = value !== undefined ? precisionRound(value ?? 0, precision) : "";
+  const v =
+    converted !== undefined ? precisionRound(converted ?? 0, precision) : "";
+  // console.log({ name, val, _unit, maskV, s, converted, u, v });
   return <Prop value={v} unit={u} {...props} />;
   /**
    * return (

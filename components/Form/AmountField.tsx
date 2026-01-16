@@ -12,6 +12,7 @@ import {
   FieldLabel,
 } from "../ui/field";
 import {
+  BASE_UNITS,
   PercentUnits,
   UNITS,
   UnitTypeDict,
@@ -44,6 +45,8 @@ import {
 import { RevisionContext } from "@/contexts/RevisionContext";
 import clsx from "clsx";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
+import { MaskContext } from "@/contexts/MaskContext";
+import { convertUnit } from "@/lib/Converter/adjustUnits";
 export type AmountFieldProps<T extends FieldValues> = InputProps<T> &
   VariantProps<typeof amountFieldStyles> & {
     amountType?: UnitTypes;
@@ -71,23 +74,38 @@ export function AmountField<T extends FieldValues>({
   label,
   error,
   amountType,
-  unit,
+  unit: _unit,
   description,
   className,
   orientation = "responsive",
   placeholder,
   control,
-  value,
+  value: val,
   ...props
 }: AmountFieldProps<T>) {
   const id = `${name}-field`;
+  const { mask } = useContext(MaskContext);
   const preferenceContext = useContext(UserPreferencesContext);
   const { register } = useFormContext();
-  const unitN = unit ?? (amountType ? preferenceContext?.[amountType!] : "");
+  const mn = mask[(name ?? "") as keyof typeof mask] as any;
+  const maskV = Array.isArray(mn) ? mn[0] : mn;
+  const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
+
+  // const unitN = _unit ?? (amountType ? preferenceContext?.[amountType!] : "");
+  const unit = s ?? BASE_UNITS[maskV as UnitTypes];
   const unitName =
-    amountType === "percent"
+    maskV === "percent"
       ? PercentUnits[preferenceContext?.percent ?? "number"]
-      : unitN;
+      : unit;
+  const value = typeof val === "number" ? val : val?.value;
+  // console.log({ maskV, value, unit, s });
+  const convert = (v: number) =>
+    convertUnit({
+      value: v,
+      type: maskV,
+      unit,
+      inline: true,
+    });
   /**const options = (UnitTypeDict[amountType] ?? []).reduce((acc, unit) => {
     acc[unit] = unit;
     return acc;
@@ -132,7 +150,7 @@ export function AmountField<T extends FieldValues>({
                 id={id}
                 type="number"
                 step={props.step ?? 0.1}
-                value={field.value ?? ""}
+                value={convert(field.value)}
                 name={field.name}
                 onChange={(e) =>
                   onValueChange(field.onChange)(parseFloat(e.target.value))

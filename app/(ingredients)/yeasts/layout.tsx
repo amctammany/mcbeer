@@ -1,15 +1,14 @@
-import { Metadata } from "next";
-import { Suspense } from "react";
-
-export const metadata: Metadata = {
-  title: "McBeer: Yeasts",
-  description: "Where to make good beer",
-};
-
+"use client";
+import { MaskContext } from "@/contexts/MaskContext";
+import { YeastMask } from "@/lib/Converter/Masks";
 export default function YeastsLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <Suspense fallback={<div>Yeasts Loading</div>}>{children}</Suspense>;
+  return (
+    <MaskContext value={{ mask: YeastMask }}>{children}</MaskContext>
+    // <Suspense fallback={<div>Yeasts Loading</div>}>
+    // </Suspense>
+  );
 }

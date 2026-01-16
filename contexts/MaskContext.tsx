@@ -11,6 +11,6 @@ export type MaskContextType<
   T extends FieldValues = FieldValues,
   M extends MaskType<T> = MaskType<T>
 > = {
-  mask: T;
+  mask: M;
 };
-export const MaskContext = createContext<MaskContextType>({ mask: {} });
+export const MaskContext = createContext<{ mask: any }>({ mask: {} });

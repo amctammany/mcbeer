@@ -30,7 +30,7 @@ export function convertUnit({
   precision = 2,
 }: {
   value: number | number[] | UnitValue;
-  type: UnitTypes | object;
+  type: UnitTypes | object | "number";
   unit: UnitNames;
   inline?: boolean;
   dir?: boolean;
@@ -67,7 +67,7 @@ export function convertUnit({
 
   if (typeof value === "number") {
     const convert = converters[type as UnitTypes];
-    if (!convert) throw new Error("Converter not available");
+    if (!convert) return value; //throw new Error("Converter not available");
     const baseValue = convert[unit].from(value);
     const newValue = convert[unit].to(value);
     const val = dir ? newValue : baseValue;

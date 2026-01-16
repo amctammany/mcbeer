@@ -9,7 +9,7 @@ import UserPreferencesProvider from "@/components/UserPreferencesProvider";
 import { YeastMask } from "@/lib/Converter/Masks";
 export type YeastDisplayProps = {
   src: YeastType;
-  prefs: UserPreferencesType;
+  prefs?: UserPreferencesType;
 };
 export function YeastDisplay({ src, prefs }: YeastDisplayProps) {
   return (
