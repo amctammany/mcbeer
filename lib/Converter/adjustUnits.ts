@@ -1,5 +1,5 @@
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
-import { BASE_UNITS, UnitNames, UnitTypes } from "./UnitDict";
+import { BASE_UNITS, UnitDict, UnitNames, UnitTypes } from "./UnitDict";
 import { FieldValues } from "react-hook-form";
 import { converters } from "./Converter";
 import { precisionRound } from "../utils";
@@ -107,6 +107,31 @@ export function getUnits<T extends FieldValues>(
     }
     return acc;
   }, {} as any);
+}
+const isUnitValue = (s: unknown) => {
+  if (typeof s !== "object") return false;
+  if (s === null) return false;
+  return Object.hasOwn(s, "value") && Object.hasOwn(s, "unit");
+};
+export function reduceUnits<T extends FieldValues>(
+  src: T,
+  precision: number = 2
+) {
+  const res = Object.entries(src).reduce((acc, [k, v]) => {
+    acc[k as keyof T] = isUnitValue(v)
+      ? convertUnit({
+          value: v.value,
+          type: UnitDict[v.unit as UnitNames],
+          unit: v.unit,
+          precision,
+          inline: true,
+          dir: false,
+        })
+      : v;
+    return acc;
+  }, {} as Record<keyof T, number>);
+  console.log(res);
+  return res;
 }
 export function adjustUnits<T extends FieldValues>({
   src,

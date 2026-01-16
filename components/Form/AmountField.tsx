@@ -98,7 +98,7 @@ export function AmountField<T extends FieldValues>({
       ? PercentUnits[preferenceContext?.percent ?? "number"]
       : unit;
   const value = typeof val === "number" ? val : val?.value;
-  // console.log({ maskV, value, unit, s });
+  console.log({ maskV, value, unit, s, unitName });
   const convert = (v: number, dir = true) =>
     convertUnit({
       value: v,
@@ -122,8 +122,9 @@ export function AmountField<T extends FieldValues>({
         value: newValue,
       },
     });
-    console.log({ name, value, newValue });
-    cb(newValue);
+    const converted = convert(newValue, false);
+    console.log({ name, value, newValue, converted });
+    cb(converted);
   };
 
   return (
@@ -148,14 +149,20 @@ export function AmountField<T extends FieldValues>({
             >
               <input
                 type="hidden"
-                value={convert(field.value)}
-                name={field.name}
+                value={field.value}
+                name={`${field.name}.value`}
               />
+              <input
+                type="hidden"
+                value={unitName}
+                name={`${field.name}.unit`}
+              />
+
               <InputGroupInput
                 className="text-center grow"
                 id={id}
                 type="number"
-                value={field.value}
+                value={convert(field.value)}
                 step={props.step ?? 0.1}
                 onChange={(e) =>
                   onValueChange(field.onChange)(parseFloat(e.target.value))

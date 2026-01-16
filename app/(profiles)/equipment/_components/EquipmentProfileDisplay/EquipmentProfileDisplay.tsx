@@ -38,20 +38,39 @@ export default function EquipmentProfileDisplay({
               <ItemTitle>Volumes</ItemTitle>
             </ItemHeader>
             <ItemContent>
-              <AmountProp label="Boil Time" value={profile.boilTime} />
+              <AmountProp
+                label="Boil Time"
+                value={profile.boilTime}
+                name="boilTime"
+              />
               <AmountProp
                 label="Preboil Volume "
+                name="preboilVolume"
                 value={profile.preboilVolume}
               />
-              <AmountProp label="Boil Volume " value={profile.boilVolume} />
-              <AmountProp label="Batch Size" value={profile.batchVolume} />
-              <AmountProp label="Mash Loss" value={profile.mashLoss} />
               <AmountProp
+                name="boilVolume"
+                label="Boil Volume "
+                value={profile.boilVolume}
+              />
+              <AmountProp
+                name="batchVolume"
+                label="Batch Size"
+                value={profile.batchVolume}
+              />
+              <AmountProp
+                name="mashLoss"
+                label="Mash Loss"
+                value={profile.mashLoss}
+              />
+              <AmountProp
+                name="trubLoss"
                 label="Trub Loss"
                 precision={2}
                 value={profile.trubLoss}
               />
               <AmountProp
+                name="fermenterLoss"
                 label="Fermenter Loss"
                 value={profile.fermenterLoss}
               />
@@ -67,12 +86,14 @@ export default function EquipmentProfileDisplay({
           </ItemHeader>
           <ItemContent>
             <AmountProp
+              name="mashEfficiency"
               label="Mash Efficiency"
               value={profile.mashEfficiency}
               unit="%"
             />
             <AmountProp
               label="Brew Efficiency"
+              name="brewEfficiency"
               value={profile.brewEfficiency}
               unit="%"
             />

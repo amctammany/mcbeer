@@ -1,7 +1,7 @@
 "use server";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { prisma } from "@/lib/prisma";
-import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { adjustUnits, reduceUnits } from "@/lib/Converter/adjustUnits";
 import { EquipmentProfileMask } from "@/lib/Converter/Masks";
 import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
@@ -46,6 +46,8 @@ export async function updateEquipmentProfile(
   if (!v.success) {
     return Promise.resolve(v);
   }
+  const r = reduceUnits(v.data);
+  console.log(v.data, r);
   const adj = adjustUnits({
     src: v.data,
     prefs,
