@@ -7,6 +7,7 @@ import {
 } from "@/types/Profile";
 import { UnitMaskType } from "./adjustUnits";
 import { FermentableType, HopType, YeastType } from "@/types/Ingredient";
+import { FieldPath, FieldValues, Path } from "react-hook-form";
 
 export const EquipmentProfileMask: UnitMaskType<Partial<EquipmentProfileType>> =
   {
@@ -107,3 +108,17 @@ export const YeastMask: UnitMaskType<Partial<YeastType>> = {
 import { FermentableType, HopType, YeastType } from "@/types/Ingredient";
 
 */
+
+export function getInMask<T extends FieldValues>(
+  mask: UnitMaskType<T>,
+  path: FieldPath<T>
+) {
+  const crumbs = path.split(".");
+  console.log(crumbs);
+  const res = crumbs.reduce((acc, p) => {
+    if (!Number.isNaN(parseInt(p))) return acc;
+    console.log({ acc, p });
+    return acc[p];
+  }, mask as any);
+  return res;
+}

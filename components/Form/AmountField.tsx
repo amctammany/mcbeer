@@ -47,6 +47,7 @@ import clsx from "clsx";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { MaskContext } from "@/contexts/MaskContext";
 import { convertUnit } from "@/lib/Converter/adjustUnits";
+import { getInMask } from "@/lib/Converter/Masks";
 export type AmountFieldProps<T extends FieldValues> = InputProps<T> &
   VariantProps<typeof amountFieldStyles> & {
     amountType?: UnitTypes;
@@ -87,7 +88,8 @@ export function AmountField<T extends FieldValues>({
   const { mask } = useContext(MaskContext);
   const preferenceContext = useContext(UserPreferencesContext);
   const { register } = useFormContext();
-  const mn = mask[(name ?? "") as keyof typeof mask] as any;
+  // const mn = mask[(name ?? "") as keyof typeof mask] as any;
+  const mn = getInMask(mask, name);
   const maskV = Array.isArray(mn) ? mn[0] : mn;
   const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
 
