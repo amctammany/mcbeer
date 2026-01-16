@@ -14,10 +14,10 @@ export function HopDisplay({ src, prefs }: HopDisplayProps) {
   return (
     <div className="mx-auto grid lg:grid-cols-2 gap-1 bg-gray-200/40">
       <Suspense fallback={<div>Loading...</div>}>
-        <HopDetailsTab src={src} prefs={prefs} />
+        <HopDetailsTab src={src} />
       </Suspense>
       <Suspense fallback={<div>Loading...</div>}>
-        <HopPropertiesTab src={src} prefs={prefs} />
+        <HopPropertiesTab src={src} />
       </Suspense>
     </div>
   );

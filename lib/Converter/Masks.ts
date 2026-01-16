@@ -114,10 +114,8 @@ export function getInMask<T extends FieldValues>(
   path: FieldPath<T>
 ) {
   const crumbs = path.split(".");
-  console.log(crumbs);
   const res = crumbs.reduce((acc, p) => {
     if (!Number.isNaN(parseInt(p))) return acc;
-    console.log({ acc, p });
     return acc[p];
   }, mask as any);
   return res;

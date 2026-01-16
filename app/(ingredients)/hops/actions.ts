@@ -1,16 +1,17 @@
 "use server";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
-import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { adjustUnits, reduceUnits } from "@/lib/Converter/adjustUnits";
 import { HopMask } from "@/lib/Converter/Masks";
 import { prisma } from "@/lib/prisma";
 import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
 import { hopSchema } from "@/schemas/IngredientSchemas";
+import { BaseHopType } from "@/types/Ingredient";
 import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function createHop(
-  prefs: UserPreferencesType,
+  // prefs: UserPreferencesType,
   prev: any,
   formData: FormData
 ) {
@@ -19,6 +20,9 @@ export async function createHop(
   if (!v.success) {
     return Promise.resolve(v);
   }
+  const r = reduceUnits(v.data) as BaseHopType;
+  /**
+   * 
   const { tempRange, ...adj } = adjustUnits({
     src: v.data,
     prefs,
@@ -26,8 +30,9 @@ export async function createHop(
     inline: true,
     dir: false,
   });
+   */
   const res = await prisma.hop.create({
-    data: { ...adj, slug: slugify(v.data.name) },
+    data: { ...r, slug: slugify(v.data.name) },
   });
   updateTag("hops");
   return redirect(`/hops/${res.slug}`);
@@ -35,17 +40,18 @@ export async function createHop(
 }
 
 export async function updateHop(
-  prefs: UserPreferencesType,
+  // prefs: UserPreferencesType,
   prev: any,
   formData: FormData
 ) {
-  console.log(Object.fromEntries(formData.entries()));
   const v = validateSchema(formData, hopSchema);
-  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
   }
+  const r = reduceUnits(v.data) as BaseHopType;
+  /**
+   * 
   const adj = adjustUnits({
     src: v.data,
     prefs,
@@ -55,11 +61,12 @@ export async function updateHop(
     precision: 4,
   });
 
+   */
   const res = await prisma.hop.update({
     where: {
       id: v.data.id,
     },
-    data: { ...adj, slug: slugify(v.data.name) },
+    data: { ...r, slug: slugify(v.data.name) },
   });
   revalidatePath(`/hops/${res.slug}`);
   return redirect(`/hops/${res.slug}`);

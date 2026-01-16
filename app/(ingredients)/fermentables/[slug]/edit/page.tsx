@@ -37,6 +37,8 @@ export default async function FermentableEditorPage({
   );
   const prefs = await getPreferences();
   const countries = await getCountries();
+  /**
+   * 
   const adjusted = adjustUnits({
     src,
     mask: FermentableMask,
@@ -45,12 +47,13 @@ export default async function FermentableEditorPage({
     dir: true,
     precision: 4,
   }) as AdjustedFermentableType;
+   */
   return (
     <FermentableEditor
-      src={adjusted}
+      src={src}
       countries={countries}
-      preferences={prefs}
-      action={updateFermentable.bind(null, prefs)}
+      // preferences={prefs}
+      action={updateFermentable}
     />
   );
 }

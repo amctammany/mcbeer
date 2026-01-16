@@ -8,7 +8,6 @@ import React from "react";
 
 export type HopPropertiesTabProps = {
   src: HopType;
-  prefs: UserPreferencesType;
 };
 const rangeProps: { name: keyof HopType; label: string }[] = [
   { name: "alpha", label: "Alpha" },
@@ -21,10 +20,9 @@ const rangeProps: { name: keyof HopType; label: string }[] = [
   { name: "linalool", label: "Linalool" },
   { name: "geraniol", label: "Geraniol" },
 ];
-export default function HopPropertiesTab({
-  src: _src,
-  prefs,
-}: HopPropertiesTabProps) {
+export default function HopPropertiesTab({ src }: HopPropertiesTabProps) {
+  /**
+   * 
   const src = adjustUnits({
     src: _src,
     prefs,
@@ -33,6 +31,7 @@ export default function HopPropertiesTab({
     precision: 4,
     dir: true,
   });
+   */
   return (
     <div className="grid lg:grid-cols-1 ">
       {rangeProps.map((field) => (

@@ -15,7 +15,7 @@ import {
   MashStepType,
 } from "@/types/Profile";
 export async function createMashProfile(
-  prefs: UserPreferencesType,
+  // prefs: UserPreferencesType,
   prev: any,
   formData: FormData
 ) {
@@ -25,6 +25,9 @@ export async function createMashProfile(
   if (!v.success) {
     return Promise.resolve(v);
   }
+  const { steps, ...rest } = reduceUnits(v.data) as BaseMashProfile;
+  /**
+   * 
   const { steps, ...adj } = adjustUnits({
     src: v.data,
     prefs,
@@ -33,10 +36,15 @@ export async function createMashProfile(
     dir: false,
   });
   console.log(adj, steps, v.data.steps);
+   */
   const res = await prisma.mashProfile.create({
     data: {
-      ...adj,
-      steps: { createMany: { data: steps } },
+      ...rest,
+      steps: {
+        createMany: {
+          data: (steps ?? []).map(({ id, ...s }) => reduceUnits(s)),
+        },
+      },
       slug: slugify(v.data.name),
     },
   });
@@ -57,7 +65,7 @@ export async function updateMashProfile(
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const r = reduceUnits(v.data);
+  const r = reduceUnits(v.data) as BaseMashProfile;
   /**
   const adj = adjustUnits({
     src: v.data,
@@ -66,7 +74,7 @@ export async function updateMashProfile(
     inline: true,
     dir: false,
   }); */
-  const { steps, ...data } = r as BaseMashProfile;
+  const { steps, ...data } = r;
 
   const stepData = await prisma.$transaction(async (tx) => {
     return Promise.all(

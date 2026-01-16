@@ -10,16 +10,10 @@ import { getCountries } from "../../queries";
 export default async function HopCreatorPage() {
   const session = await verifySession("/hops/new");
   if (!session?.user) unauthorized();
-  const prefs = await getPreferences();
+  // const prefs = await getPreferences();
   const countries = await getCountries();
   const src = {
     userId: session.user.id,
   } as HopType;
-  return (
-    <HopEditor
-      countries={countries}
-      src={src}
-      action={createHop.bind(null, prefs)}
-    />
-  );
+  return <HopEditor countries={countries} src={src} action={createHop} />;
 }

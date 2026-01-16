@@ -58,17 +58,23 @@ export const hopSchema = zfd.formData({
 export const yeastSchema = zfd.formData({
   id: zfd.text(z.string().optional()),
   name: zfd.text(),
+  slug: zfd.text().optional(),
   description: zfd.text(z.string().optional()),
   manufacturer: zfd.text(z.string().optional()),
-  type: zfd.text(z.nativeEnum(YeastType).optional().default(YeastType.Ale)),
+  type: zfd.text(z.nativeEnum(YeastType).default(YeastType.Ale)),
   flocculation: zfd.numeric(z.enum(YeastFlocculation).optional()),
   form: zfd.numeric(z.enum(YeastForm).optional()),
   tolerance: zfd.numeric(z.number().min(0).max(100).optional()),
   attenuation: zfd.numeric(z.number().min(0).max(100).optional()),
   attenuationLow: zfd.numeric(z.number().optional()),
   attenuationHigh: zfd.numeric(z.number().optional()),
-  attenuationRange: zfd.numeric(z.number().optional()),
-  tempRange: zfd.numeric(z.number().optional()),
+  // attenuationRange: zfd.numeric(z.number().optional()),
+  attenuationRange: zfd.repeatable(
+    z.array(zfd.numeric(z.number().optional())).length(2)
+  ),
+  tempRange: zfd.repeatable(
+    z.array(zfd.numeric(z.number().optional())).length(2)
+  ),
   tempLow: zfd.numeric(z.number().optional()),
   tempHigh: zfd.numeric(z.number().optional()),
   usage: zfd.text(z.string().optional()),

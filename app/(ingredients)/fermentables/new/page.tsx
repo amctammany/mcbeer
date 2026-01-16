@@ -10,17 +10,17 @@ import { getCountries } from "../../queries";
 export default async function FermentableCreatorPage() {
   const session = await verifySession("/fermentables/new");
   if (!session?.user) unauthorized();
-  const prefs = await getPreferences();
+  // const prefs = await getPreferences();
   const countries = await getCountries();
   const src = {
     userId: session.user.id,
-  } as AdjustedFermentableType;
+  } as FermentableType;
   return (
     <FermentableEditor
       countries={countries}
       src={src}
-      preferences={prefs}
-      action={createFermentable.bind(null, prefs)}
+      // preferences={prefs}
+      action={createFermentable}
     />
   );
 }

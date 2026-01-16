@@ -100,7 +100,7 @@ export function AmountField<T extends FieldValues>({
       ? PercentUnits[preferenceContext?.percent ?? "number"]
       : unit;
   const value = typeof val === "number" ? val : val?.value;
-  console.log({ maskV, value, unit, s, unitName });
+  // console.log({ maskV, value, unit, s, unitName });
   const convert = (v: number, dir = true) =>
     convertUnit({
       value: v,

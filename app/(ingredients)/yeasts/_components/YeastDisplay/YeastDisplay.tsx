@@ -2,16 +2,12 @@ import type { YeastType } from "@/types/Ingredient";
 import React, { Suspense } from "react";
 // import dynamic from "next/dynamic";
 
-import type { UserPreferencesType } from "@/types/User";
 import YeastDetailsTab from "./YeastDetailsTab";
 import YeastPropertiesTab from "./YeastPropertiesTab";
-import UserPreferencesProvider from "@/components/UserPreferencesProvider";
-import { YeastMask } from "@/lib/Converter/Masks";
 export type YeastDisplayProps = {
   src: YeastType;
-  prefs?: UserPreferencesType;
 };
-export function YeastDisplay({ src, prefs }: YeastDisplayProps) {
+export function YeastDisplay({ src }: YeastDisplayProps) {
   return (
     <div className="mx-auto grid lg:grid-cols-2 gap-1 bg-gray-200/40">
       <Suspense fallback={<div>Loading...</div>}>

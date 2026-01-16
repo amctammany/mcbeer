@@ -47,7 +47,7 @@ export default async function HopEditorPage({ params }: HopEditorPageProps) {
       countries={countries}
       src={src}
       // preferences={prefs}
-      action={updateHop.bind(null, prefs)}
+      action={updateHop}
     />
   );
 }

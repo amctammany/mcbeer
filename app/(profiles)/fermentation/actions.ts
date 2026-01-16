@@ -8,19 +8,19 @@ import { redirect } from "next/navigation";
 import { fermentationProfileSchema } from "@/schemas/ProfileSchemas";
 import { revalidatePath } from "next/cache";
 import { FermentationProfileMask } from "@/lib/Converter/Masks";
-import { FermentationStepType } from "@/types/Profile";
+import { BaseFermentationProfile, FermentationStepType } from "@/types/Profile";
 export async function createFermentationProfile(
   // prefs: UserPreferencesType,
   prev: any,
   formData: FormData
 ) {
   const v = validateSchema(formData, fermentationProfileSchema);
-  console.log(v.errors);
+  // console.log(v.errors);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const { steps, ...r } = reduceUnits(v.data) as any;
+  const { steps, ...r } = reduceUnits(v.data) as BaseFermentationProfile;
 
   /** 
   const { steps, ...adj } = adjustUnits({
@@ -30,11 +30,11 @@ export async function createFermentationProfile(
     inline: true,
     dir: false,
   });*/
-  console.log(r, steps, v.data.steps);
+  // console.log(r, steps, v.data.steps);
   const res = await prisma.fermentationProfile.create({
     data: {
       ...r,
-      steps: { createMany: { data: steps } },
+      steps: { createMany: { data: steps ?? [] } },
       slug: slugify(v.data.name),
     },
   });
@@ -54,7 +54,7 @@ export async function updateFermentationProfile(
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const { steps, ...r } = reduceUnits(v.data) as any;
+  const { steps, ...r } = reduceUnits(v.data) as BaseFermentationProfile;
   /**
   const adj = adjustUnits({
     src: v.data,

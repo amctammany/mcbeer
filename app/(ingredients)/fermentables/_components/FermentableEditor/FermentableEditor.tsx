@@ -9,8 +9,8 @@ import { FermentableForm, FermentableFormContainer } from "./FermentableForm";
 import FermentableEditorToolbar from "./FermentableEditorToolbar";
 
 export type FermentableEditorProps = {
-  src: AdjustedFermentableType;
-  preferences: UserPreferencesType;
+  src: FermentableType;
+  // preferences: UserPreferencesType;
   countries: string[];
   action: any;
 };
@@ -18,11 +18,11 @@ export function FermentableEditor({
   src,
   countries,
   action,
-  preferences,
-}: FermentableEditorProps) {
+}: // preferences,
+FermentableEditorProps) {
   return (
     <FermentableFormContainer
-      preferences={preferences}
+      // preferences={preferences}
       src={src}
       action={action}
     >
@@ -35,7 +35,7 @@ export function FermentableEditor({
       </h3>
       <FermentableForm
         src={src}
-        preferences={preferences}
+        // preferences={preferences}
         countries={countries}
       />
     </FermentableFormContainer>
