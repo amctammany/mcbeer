@@ -41,6 +41,9 @@ export const FermentationProfileMask: UnitMaskType<
   Partial<AdjustedFermentationProfileType>
 > = {
   steps: FermentationStepMask,
+  "steps.temperature": "temperature",
+  "steps.time": ["time", "days"],
+  "steps.rampTime": ["time", "days"],
 };
 
 export const FermentableMask: UnitMaskType<Partial<FermentableType>> = {

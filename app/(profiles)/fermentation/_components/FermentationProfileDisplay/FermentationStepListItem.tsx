@@ -1,13 +1,13 @@
 import BadgeProp from "@/components/Prop/BadgeProp";
 import Prop from "@/components/Prop/Prop";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { AdjustedFermentationStepType } from "@/types/Profile";
+import { FermentationStepType } from "@/types/Profile";
 import clsx from "clsx";
 import { Thermometer, Timer, TriangleRight } from "lucide-react";
 import React from "react";
 
 export type FermentationStepListItemProps = {
-  src: AdjustedFermentationStepType;
+  src: FermentationStepType;
 };
 export default function FermentationStepListItem({
   src,
@@ -34,15 +34,17 @@ export default function FermentationStepListItem({
         </div>
         <div className="grow grid grid-flow-col auto-cols-auto gap-2 justify-items-stretch">
           <BadgeProp
-            Icon={Thermometer}
-            text={src.temperature.value}
-            unit={src.temperature.unit}
+            Icon={<Thermometer />}
+            name="steps.temperature"
+            text={src.temperature}
+            // unit={src.temperature.unit}
           />
-          <BadgeProp Icon={Timer} text={src.time.value} unit={src.time.unit} />
+          <BadgeProp Icon={<Timer />} text={src.time} name="steps.time" />
           <BadgeProp
-            Icon={TriangleRight}
-            text={src.rampTime?.value}
-            unit={src.rampTime?.unit}
+            Icon={<TriangleRight />}
+            name="steps.rampTime"
+            text={src.rampTime}
+            // unit={src.rampTime?.unit}
           />
         </div>
       </div>

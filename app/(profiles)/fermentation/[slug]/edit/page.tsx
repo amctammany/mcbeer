@@ -40,6 +40,7 @@ export default async function FermentationProfileEditorPage({
     getFermentationProfile,
     slug
   );
+  /**
   const prefs = await getPreferences();
   const adjusted = adjustUnits({
     src: profile,
@@ -47,12 +48,12 @@ export default async function FermentationProfileEditorPage({
     prefs,
     inline: true,
     dir: true,
-  }) as AdjustedFermentationProfileType;
+  }) as AdjustedFermentationProfileType; */
   return (
     <FermentationProfileEditor
       profile={profile}
       // preferences={prefs}
-      action={updateFermentationProfile.bind(null, prefs)}
+      action={updateFermentationProfile}
     />
   );
 }

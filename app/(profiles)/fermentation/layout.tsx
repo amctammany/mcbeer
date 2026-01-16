@@ -1,10 +1,7 @@
-import { Metadata } from "next";
+"use client";
+import { MaskContext } from "@/contexts/MaskContext";
+import { FermentationProfileMask } from "@/lib/Converter/Masks";
 import { Suspense } from "react";
-
-export const metadata: Metadata = {
-  title: "McBeer: Fermentation Profiles",
-  description: "Where to make good beer",
-};
 
 export default function FermentationProfilesLayout({
   children,
@@ -12,8 +9,10 @@ export default function FermentationProfilesLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Suspense fallback={<div>Fermentation Profiles Loading</div>}>
+    <MaskContext value={{ mask: FermentationProfileMask }}>
       {children}
-    </Suspense>
+    </MaskContext>
+    // <Suspense fallback={<div>Fermentation Profiles Loading</div>}>
+    // </Suspense>
   );
 }

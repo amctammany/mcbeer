@@ -1,7 +1,7 @@
 "use server";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { prisma } from "@/lib/prisma";
-import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { adjustUnits, reduceUnits } from "@/lib/Converter/adjustUnits";
 import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
 import { redirect } from "next/navigation";
@@ -10,7 +10,7 @@ import { revalidatePath } from "next/cache";
 import { FermentationProfileMask } from "@/lib/Converter/Masks";
 import { FermentationStepType } from "@/types/Profile";
 export async function createFermentationProfile(
-  prefs: UserPreferencesType,
+  // prefs: UserPreferencesType,
   prev: any,
   formData: FormData
 ) {
@@ -20,17 +20,20 @@ export async function createFermentationProfile(
   if (!v.success) {
     return Promise.resolve(v);
   }
+  const { steps, ...r } = reduceUnits(v.data) as any;
+
+  /** 
   const { steps, ...adj } = adjustUnits({
     src: v.data,
     prefs,
     mask: FermentationProfileMask,
     inline: true,
     dir: false,
-  });
-  console.log(adj, steps, v.data.steps);
+  });*/
+  console.log(r, steps, v.data.steps);
   const res = await prisma.fermentationProfile.create({
     data: {
-      ...adj,
+      ...r,
       steps: { createMany: { data: steps } },
       slug: slugify(v.data.name),
     },
@@ -41,7 +44,7 @@ export async function createFermentationProfile(
 }
 
 export async function updateFermentationProfile(
-  prefs: UserPreferencesType,
+  // prefs: UserPreferencesType,
   prev: any,
   formData: FormData
 ) {
@@ -51,14 +54,15 @@ export async function updateFermentationProfile(
   if (!v.success) {
     return Promise.resolve(v);
   }
+  const { steps, ...r } = reduceUnits(v.data) as any;
+  /**
   const adj = adjustUnits({
     src: v.data,
     prefs,
     mask: FermentationProfileMask,
     inline: true,
     dir: false,
-  });
-  const { steps, ...data } = adj;
+  }); */
 
   const stepData = await prisma.$transaction(async (tx) => {
     return Promise.all(
@@ -66,11 +70,11 @@ export async function updateFermentationProfile(
         return await tx.fermentationStep.upsert({
           where: {
             fermentationIndex: {
-              fermentationProfileId: data.id!,
+              fermentationProfileId: r.id!,
               index: d.index,
             },
           },
-          create: { ...d, fermentationProfileId: data.id! },
+          create: { ...d, fermentationProfileId: r.id! },
           update: d,
         });
       })
@@ -81,7 +85,7 @@ export async function updateFermentationProfile(
       id: v.data.id,
     },
     data: {
-      ...data,
+      ...r,
       slug: slugify(v.data.name),
       steps: {
         connect: stepData.map(({ id }) => ({ id })),
