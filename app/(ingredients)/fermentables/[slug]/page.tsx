@@ -9,6 +9,7 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import IconButton from "@/components/Button/IconButton";
 import { Pencil, Split } from "lucide-react";
 import FermentableDisplayToolbar from "../_components/FermentableDisplay/FermentableDisplayToolbar";
+import { cacheLife, cacheTag } from "next/cache";
 
 export type FermentableDisplayPageProps = {
   params: Promise<{ slug: string }>;
@@ -22,6 +23,7 @@ export default async function FermentableDisplayPage({
     getPreferences(),
   ]);
   if (!fermentable) notFound();
+  cacheTag("fermentables", fermentable.id!);
   const adjusted = adjustUnits({
     src: fermentable,
     prefs,

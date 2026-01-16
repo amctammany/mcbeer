@@ -6,7 +6,7 @@ import slugify from "@/lib/slugify";
 import { FermentablesTableRowActions } from "./FermentablesTableRowActions";
 import { DataTable } from "@/components/DataTable";
 // import { BookType } from "lucide-react";
-const columns: ColumnDef<FermentableType>[] = [
+export const columns: ColumnDef<FermentableType>[] = [
   {
     accessorKey: "name",
     header: Header<FermentableType>,
@@ -51,25 +51,10 @@ const columns: ColumnDef<FermentableType>[] = [
 ];
 import React, { Suspense, use } from "react";
 import { FermentableType } from "@/types/Ingredient";
-import { Spinner } from "@/components/ui/spinner";
 export interface FermentablesTableProps {
   src: Promise<FermentableType[]>;
 }
-export const FermentablesTableSkeleton: React.FC = () => {
-  return (
-    <Suspense
-      fallback={
-        <div className="max-w-2xl h-screen m-auto flex justify-center align-middle items-center text-center">
-          <Spinner className="block size-26" />
-        </div>
-      }
-    >
-      <div className="relative overflow-auto">
-        <DataTable data={[]} columns={columns} />
-      </div>
-    </Suspense>
-  );
-};
+
 export const FermentablesTable: React.FC<FermentablesTableProps> = ({
   src,
 }) => {

@@ -1,7 +1,10 @@
 import React from "react";
 import FermentablesTableContainer from "./_components/FermentablesTable/FermentablesTableContainer";
 import FermentablesTableToolbar from "./_components/FermentablesTable/FermentablesTableToolbar";
-export default function FermentablesTablePage() {
+import { cacheLife } from "next/cache";
+export default async function FermentablesTablePage() {
+  "use cache";
+  cacheLife("max");
   return (
     <div>
       <FermentablesTableToolbar />
