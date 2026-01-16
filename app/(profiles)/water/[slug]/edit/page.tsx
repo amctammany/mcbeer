@@ -1,13 +1,8 @@
 import React from "react";
 import { getWaterProfile } from "@/app/(profiles)/water/queries";
-import { notFound } from "next/navigation";
-import { TopBar } from "@/components/TopBar/TopBar";
-import IconButton from "@/components/Button/IconButton";
-import { Pencil, Split } from "lucide-react";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import WaterProfileEditor from "../../_components/WaterProfileEditor/WaterProfileEditor";
 import { updateWaterProfile } from "../../actions";
-import { getPreferences } from "@/app/admin/queries";
 import { authorizeResource } from "@/lib/authorizeResource";
 
 export type WaterProfileEditorPageProps = {
@@ -34,7 +29,6 @@ export default async function WaterProfileEditorPage({
     getWaterProfile,
     slug
   );
-  const prefs = await getPreferences();
   return (
     <WaterProfileEditor
       profile={profile}

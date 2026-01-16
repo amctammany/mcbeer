@@ -33,6 +33,7 @@ export async function updateWaterProfile(prev: any, formData: FormData) {
     return Promise.resolve(v);
   }
   const { ...rest } = reduceUnits(v.data) as BaseWaterProfile;
+  console.log(v.data, rest);
   const res = await prisma.waterProfile.update({
     where: {
       id: v.data.id,
