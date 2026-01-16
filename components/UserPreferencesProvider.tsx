@@ -1,24 +1,22 @@
 "use client";
-import { MaskContext } from "@/contexts/MaskContext";
 import {
   UserPreferencesContext,
   UserPreferencesType,
 } from "@/contexts/UserPreferencesContext";
 import { UserPreferences } from "@/generated/prisma/browser";
-import React, { ReactNode } from "react";
+import React, { ReactNode, Suspense, use } from "react";
 
 export default function UserPreferencesProvider({
   prefs,
-  mask,
   children,
 }: {
-  prefs: UserPreferencesType;
-  mask: any;
+  prefs: Promise<UserPreferencesType>;
   children: ReactNode | ReactNode[];
 }) {
+  const preferences = use(prefs);
   return (
-    <UserPreferencesContext value={prefs}>
-      <MaskContext value={{ mask }}>{children}</MaskContext>
+    <UserPreferencesContext value={preferences}>
+      {children}
     </UserPreferencesContext>
   );
 }

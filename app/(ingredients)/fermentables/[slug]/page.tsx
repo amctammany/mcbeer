@@ -17,16 +17,14 @@ export type FermentableDisplayPageProps = {
 export default async function FermentableDisplayPage({
   params,
 }: FermentableDisplayPageProps) {
+  "use cache";
   const { slug } = await params;
-  const [fermentable, prefs] = await Promise.all([
-    getFermentable(slug),
-    getPreferences(),
-  ]);
+  const [fermentable] = await Promise.all([getFermentable(slug)]);
   if (!fermentable) notFound();
   cacheTag("fermentables", fermentable.id!);
   const adjusted = adjustUnits({
     src: fermentable,
-    prefs,
+    prefs: {},
     mask: FermentableMask,
     inline: false,
     precision: 4,

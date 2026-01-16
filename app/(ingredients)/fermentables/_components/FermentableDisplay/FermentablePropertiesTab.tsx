@@ -11,20 +11,50 @@ export default function FermentablePropertiesTab({
 }: FermentablePropertiesTabProps) {
   return (
     <div className="grid lg:grid-cols-1 ">
-      <AmountProp label="Color" variant={"inline"} value={src.color} />
+      <AmountProp
+        name="color"
+        label="Color"
+        variant={"inline"}
+        value={src.color}
+      />
       <Prop label="Power" variant={"inline"} value={src.power} />
       <AmountProp
+        name="potential"
         precision={4}
         label="Potential"
         value={src.potential}
         variant={"inline"}
       />
-      <AmountProp label="Yield" variant={"inline"} value={src.yield} />
-      <AmountProp label="Protein" variant={"inline"} value={src.protein} />
-      <AmountProp label="Friability" value={src.friability} />
-      <AmountProp label="Coarse Fine Diff" value={src.coarseFineDiff} />
-      <AmountProp label="Moisture" value={src.moisture} variant={"inline"} />
-      <AmountProp label="Max Usage" value={src.maxUsage} variant={"inline"} />
+      <AmountProp
+        name="yield"
+        label="Yield"
+        variant={"inline"}
+        value={src.yield}
+      />
+      <AmountProp
+        name="protein"
+        label="Protein"
+        variant={"inline"}
+        value={src.protein}
+      />
+      <AmountProp name="friability" label="Friability" value={src.friability} />
+      <AmountProp
+        name="coarseFineDiff"
+        label="Coarse Fine Diff"
+        value={src.coarseFineDiff}
+      />
+      <AmountProp
+        name="moisture"
+        label="Moisture"
+        value={src.moisture}
+        variant={"inline"}
+      />
+      <AmountProp
+        name="maxUsage"
+        label="Max Usage"
+        value={src.maxUsage}
+        variant={"inline"}
+      />
     </div>
   );
 }
