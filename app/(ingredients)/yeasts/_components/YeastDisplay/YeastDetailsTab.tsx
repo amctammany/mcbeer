@@ -4,8 +4,8 @@ import type { AdjustedYeastType, YeastType } from "@/types/Ingredient";
 import React from "react";
 
 export type YeastDetailsTabProps = {
-  src: AdjustedYeastType;
-  prefs: UserPreferencesType;
+  src: YeastType;
+  prefs?: UserPreferencesType;
 };
 export default function YeastDetailsTab({ src }: YeastDetailsTabProps) {
   return (

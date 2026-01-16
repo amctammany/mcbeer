@@ -1,27 +1,28 @@
-import type { AdjustedYeastType, YeastType } from "@/types/Ingredient";
+import type { YeastType } from "@/types/Ingredient";
 import React, { Suspense } from "react";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 
 import type { UserPreferencesType } from "@/types/User";
-import Card from "@/components/Card";
 import YeastDetailsTab from "./YeastDetailsTab";
 import YeastPropertiesTab from "./YeastPropertiesTab";
-import { CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs";
+import UserPreferencesProvider from "@/components/UserPreferencesProvider";
+import { YeastMask } from "@/lib/Converter/Masks";
 export type YeastDisplayProps = {
-  src: AdjustedYeastType;
+  src: YeastType;
   prefs: UserPreferencesType;
 };
 export function YeastDisplay({ src, prefs }: YeastDisplayProps) {
   return (
     <div className="mx-auto grid lg:grid-cols-2 gap-1 bg-gray-200/40">
-      <Suspense fallback={<div>Loading...</div>}>
-        <YeastDetailsTab src={src} prefs={prefs} />
-      </Suspense>
+      <UserPreferencesProvider mask={YeastMask} prefs={prefs}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <YeastDetailsTab src={src} />
+        </Suspense>
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <YeastPropertiesTab src={src} prefs={prefs} />
-      </Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
+          <YeastPropertiesTab src={src} />
+        </Suspense>
+      </UserPreferencesProvider>
     </div>
   );
   /** 

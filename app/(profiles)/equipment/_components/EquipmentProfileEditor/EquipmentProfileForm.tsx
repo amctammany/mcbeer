@@ -11,6 +11,7 @@ import {
   type UserPreferencesType,
 } from "@/contexts/UserPreferencesContext";
 import useRevisionHistory from "@/hooks/useRevisionHistory";
+import { EquipmentProfileMask } from "@/lib/Converter/Masks";
 import {
   AdjustedEquipmentProfileType,
   EquipmentProfileType,
@@ -43,6 +44,7 @@ export function EquipmentProfileFormContainer({
   return (
     <Form
       action={formAction}
+      mask={EquipmentProfileMask}
       preferences={preferences}
       formProps={{ defaultValues: profile, errors: state?.errors }}
     >

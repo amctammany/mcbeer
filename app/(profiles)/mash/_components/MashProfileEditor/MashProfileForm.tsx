@@ -16,6 +16,7 @@ import { MashProfileType } from "@/types/Profile";
 import React, { useActionState, useContext } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 import { MashProfileStepsForm } from "./MashProfileStepsForm";
+import { MashProfileMask } from "@/lib/Converter/Masks";
 export type MashProfileFormContainerProps<S = unknown> = {
   profile: MashProfileType;
   preferences: UserPreferencesType;
@@ -42,6 +43,7 @@ export function MashProfileFormContainer({
   return (
     <Form
       action={formAction}
+      mask={MashProfileMask}
       preferences={preferences}
       formProps={{ defaultValues: profile, errors: state?.errors }}
     >

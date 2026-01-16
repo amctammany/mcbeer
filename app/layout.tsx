@@ -37,11 +37,9 @@ export default function RootLayout({
           </Suspense>
           <NavSidebar />
 
-          <Suspense>
-            <SidebarInset className="overflow-hiddn relative">
-              {children}
-            </SidebarInset>
-          </Suspense>
+          <SidebarInset className="overflow-hiddn relative">
+            {children}
+          </SidebarInset>
         </SidebarProvider>
       </body>
     </html>

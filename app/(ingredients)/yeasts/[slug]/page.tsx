@@ -18,19 +18,19 @@ export default async function YeastDisplayPage({
   const yeast = await getYeast(slug);
   const prefs = await getPreferences();
   if (!yeast) notFound();
-  const adjusted: AdjustedYeastType = adjustUnits({
-    src: yeast,
-    prefs,
-    mask: YeastMask,
-    inline: false,
-    precision: 2,
-    dir: true,
-  });
-  console.log({ adjusted, yeast });
+  // const adjusted: AdjustedYeastType = adjustUnits({
+  //   src: yeast,
+  //   prefs,
+  //   mask: YeastMask,
+  //   inline: false,
+  //   precision: 2,
+  //   dir: true,
+  // });
+  // console.log({ adjusted, yeast });
   return (
     <div>
       <YeastDisplayToolbar yeast={yeast} />
-      <YeastDisplay src={adjusted} prefs={prefs} />
+      <YeastDisplay src={yeast} prefs={prefs} />
     </div>
   );
 }

@@ -17,6 +17,7 @@ import {
   FermentableType as FermentableTypeEnum,
   IngredientUsage,
 } from "@/generated/prisma/enums";
+import { FermentableMask } from "@/lib/Converter/Masks";
 import { AdjustedFermentableType, FermentableType } from "@/types/Ingredient";
 import { useActionState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -46,6 +47,7 @@ export function FermentableFormContainer({
 
   return (
     <Form
+      mask={FermentableMask}
       action={formAction}
       preferences={preferences}
       formProps={{ defaultValues: src, errors: state?.errors }}

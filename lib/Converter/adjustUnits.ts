@@ -21,7 +21,7 @@ export type UnitValue = {
   value: any;
   unit: UnitNames;
 };
-function convertUnit({
+export function convertUnit({
   value,
   type,
   unit,

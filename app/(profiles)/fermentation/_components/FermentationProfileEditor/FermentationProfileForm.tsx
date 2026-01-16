@@ -9,6 +9,7 @@ import {
 import React, { useActionState } from "react";
 import { useFormContext } from "react-hook-form";
 import { FermentationProfileStepsForm } from "./FermentationProfileStepsForm";
+import { FermentationProfileMask } from "@/lib/Converter/Masks";
 export type FermentationProfileFormContainerProps<S = unknown> = {
   profile: AdjustedFermentationProfileType;
   preferences: UserPreferencesType;
@@ -35,6 +36,7 @@ export function FermentationProfileFormContainer({
   return (
     <Form
       action={formAction}
+      mask={FermentationProfileMask}
       preferences={preferences}
       formProps={{ defaultValues: profile, errors: state?.errors }}
     >

@@ -1,6 +1,7 @@
 import { TopBar } from "@/components/TopBar/TopBar";
 import { LoginForm } from "./LoginForm";
 import { LinkButton } from "@/components/Button/LinkButton";
+import { Suspense } from "react";
 
 export type LoginPageProps = {
   searchParams: Promise<{ redirect_url: string }>;
@@ -16,7 +17,9 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           <h4 className="text-2xl font-bold">Login</h4>
 
           <LinkButton href="/register">Register</LinkButton>
-          <LoginForm redirectUrl={redirect_url} />
+          <Suspense fallback={<div>Login Loading</div>}>
+            <LoginForm redirectUrl={redirect_url} />
+          </Suspense>
         </div>
       </div>
     </div>

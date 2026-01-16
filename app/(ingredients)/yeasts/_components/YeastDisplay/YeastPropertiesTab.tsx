@@ -1,31 +1,53 @@
+"use client";
 import { AmountProp } from "@/components/Prop/AmountProp";
+import { AmtProp } from "@/components/Prop/AmtProp";
 import Prop from "@/components/Prop/Prop";
-import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
+import { MaskContext } from "@/contexts/MaskContext";
+import {
+  UserPreferencesContext,
+  UserPreferencesType,
+} from "@/contexts/UserPreferencesContext";
 import { adjustUnits, UnitValue } from "@/lib/Converter/adjustUnits";
 import { YeastMask } from "@/lib/Converter/Masks";
 import { AdjustedYeastType, YeastType } from "@/types/Ingredient";
-import React from "react";
+import React, { useContext } from "react";
 
 export type YeastPropertiesTabProps = {
-  src: AdjustedYeastType;
-  prefs: UserPreferencesType;
+  src: YeastType;
+  prefs?: UserPreferencesType;
 };
 const rangeProps: { name: keyof YeastType; label: string }[] = [
   { name: "attenuation", label: "Attenuation" },
 ];
 export default function YeastPropertiesTab({
-  src,
-  prefs,
+  src: _src,
 }: YeastPropertiesTabProps) {
+  const prefs = useContext(UserPreferencesContext);
+  const ctx = useContext(MaskContext);
+  console.log(ctx, prefs);
+  const src = ctx
+    ? adjustUnits({
+        src: _src,
+        prefs: prefs!,
+        mask: ctx.mask,
+        inline: false,
+        precision: 2,
+        dir: true,
+      })
+    : _src;
   return (
     <div className="grid lg:grid-cols-1 ">
-      <AmountProp label="Tolerance" value={src.tolerance as UnitValue} />
+      <AmtProp name="tempLow" label="Temp Low" value={_src.tempLow} />
+      <AmtProp name="tempHigh" label="Temp High" value={_src.tempHigh} />
+
+      <AmtProp name="tolerance" label="Tolerance" value={_src.tolerance} />
 
       {rangeProps.map((field) => (
         <div className="grid lg:grid-cols-2 " key={field.name}>
-          <AmountProp
+          <AmtProp
             label={field.label}
-            value={src[field.name] as UnitValue}
+            name={field.name}
+            value={_src[field.name] as number}
           />
           <Prop label={`${field.label} Range`} unit={"%"}>
             {
@@ -41,7 +63,7 @@ export default function YeastPropertiesTab({
         </div>
       ))}
       <Prop label={"Temperature Range"} unit={src.tempLow?.unit}>
-        {src.tempLow?.value}- {src.tempHigh?.value}
+        {_src.tempLow}- {_src.tempHigh}
       </Prop>
     </div>
   );

@@ -13,6 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
+import { YeastMask } from "@/lib/Converter/Masks";
 import { AdjustedYeastType, YeastType } from "@/types/Ingredient";
 import { useActionState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -43,6 +44,7 @@ export function YeastFormContainer({
   return (
     <Form
       action={formAction}
+      mask={YeastMask}
       preferences={preferences}
       formProps={{ defaultValues: src, errors: state?.errors }}
     >

@@ -13,6 +13,7 @@ import { FormProvider, useForm, type UseFormProps } from "react-hook-form";
 
 export type FormProps = {
   action: any;
+  mask?: any;
   preferences: UserPreferencesType;
   formProps: UseFormProps;
   children?: React.ReactNode | React.ReactNode[];
@@ -20,6 +21,7 @@ export type FormProps = {
 export default function Form({
   preferences,
   action,
+  mask = {},
   formProps,
   children,
 }: FormProps) {

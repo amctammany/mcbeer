@@ -13,6 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
+import { HopMask } from "@/lib/Converter/Masks";
 import { AdjustedHopType, HopType } from "@/types/Ingredient";
 import { useActionState } from "react";
 import {
@@ -66,6 +67,7 @@ export function HopFormContainer({
     <Form
       action={formAction}
       preferences={preferences}
+      mask={HopMask}
       formProps={{ defaultValues: src, errors: state?.errors }}
     >
       {children}
