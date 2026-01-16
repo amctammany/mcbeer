@@ -1,7 +1,7 @@
 import { $Enums } from "@/generated/prisma/client";
 import z from "zod";
 import { zfd } from "zod-form-data";
-const unitValueSchema = (numSchema: any = z.number()) =>
+export const unitValueSchema = (numSchema: any = z.number()) =>
   z.object({
     value: zfd.numeric(numSchema),
     unit: zfd.text(z.string().optional()),

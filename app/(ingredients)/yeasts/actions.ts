@@ -49,7 +49,9 @@ export async function updateYeast(
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const r = reduceUnits(v.data) as BaseYeastType;
+  const { attenuationRange, tempRange, ...r } = reduceUnits(
+    v.data
+  ) as BaseYeastType;
   /**
    * 
   const { attenuationRange, tempRange, ...adj } = adjustUnits({

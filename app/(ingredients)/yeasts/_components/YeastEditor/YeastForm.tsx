@@ -3,6 +3,7 @@ import AmountField from "@/components/Form/AmountField";
 import { ComboboxField } from "@/components/Form/ComboboxField";
 import Form from "@/components/Form/Form";
 import RangeField from "@/components/Form/RangeField";
+import { SelectField } from "@/components/Form/SelectField";
 import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,22 +13,27 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
+import {
+  UserPreferencesContext,
+  UserPreferencesType,
+} from "@/contexts/UserPreferencesContext";
+import { $Enums } from "@/generated/prisma/browser";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { YeastMask } from "@/lib/Converter/Masks";
 import { AdjustedYeastType, YeastType } from "@/types/Ingredient";
-import { useActionState } from "react";
+import { useActionState, useContext } from "react";
 import { useFormContext } from "react-hook-form";
 
 export type YeastFormContainerProps<S = unknown> = {
   src: YeastType;
-  preferences?: UserPreferencesType;
+  // preferences?: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
 };
 export function YeastFormContainer({
   action,
   src,
-  preferences,
+  // preferences,
   children,
 }: YeastFormContainerProps) {
   // const [state, formAction] = useActionState<any, FormData>(action, null);
@@ -39,13 +45,31 @@ export function YeastFormContainer({
   //   form.getValues() as any,
   //   form.setValue as any
   // );
-  const [state, formAction] = useActionState<any, FormData>(action, null);
+  const prefs = useContext(UserPreferencesContext);
+  const adjusted = adjustUnits({
+    src,
+    mask: YeastMask,
+    prefs,
+    inline: false,
+    dir: true,
+  });
+  const [state, formAction] = useActionState<any, FormData>(action, {
+    success: true,
+    data: adjusted,
+    errors: [],
+  });
 
+  console.log(state);
   return (
     <Form
       action={formAction}
       // mask={YeastMask}
-      formProps={{ defaultValues: src, errors: state?.errors }}
+      formProps={{
+        values: state.data,
+        mode: "onBlur",
+        // defaultValues: adjusted,
+        errors: state?.errors,
+      }}
     >
       {children}
     </Form>
@@ -64,6 +88,24 @@ export function YeastForm({ countries, preferences, src }: YeastFormProps) {
       <input type="hidden" {...register("userId")} />
       <TextField name="name" label="Name" />
       <TextField name="description" label="Description" />
+      <SelectField
+        control={control}
+        label="Flocculation"
+        name="flocculation"
+        options={$Enums.YeastFlocculation}
+      />
+      <SelectField
+        control={control}
+        label="Type"
+        name="type"
+        options={$Enums.YeastType}
+      />
+      <SelectField
+        control={control}
+        label="Usage"
+        name="usage"
+        options={$Enums.YeastType}
+      />
       <ComboboxField
         name="country"
         label="Country"

@@ -108,7 +108,7 @@ export function getUnits<T extends FieldValues>(
     return acc;
   }, {} as any);
 }
-const isUnitValue = (s: unknown) => {
+export const isUnitValue = (s: unknown) => {
   if (typeof s !== "object") return false;
   if (s === null) return false;
   return Object.hasOwn(s, "value") && Object.hasOwn(s, "unit");

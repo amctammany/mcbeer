@@ -31,6 +31,7 @@ export default async function MashProfileDisplayPage({
   const { slug } = await params;
 
   const profile = await getMashProfile(slug);
+  console.log(profile);
   if (!profile) notFound();
   const prefs = await getPreferences();
   const adjusted = adjustUnits({

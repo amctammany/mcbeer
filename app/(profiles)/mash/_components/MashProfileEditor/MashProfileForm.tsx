@@ -17,6 +17,7 @@ import React, { useActionState, useContext } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 import { MashProfileStepsForm } from "./MashProfileStepsForm";
 import { MashProfileMask } from "@/lib/Converter/Masks";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
 export type MashProfileFormContainerProps<S = unknown> = {
   profile: MashProfileType;
   // preferences: UserPreferencesType;
@@ -38,12 +39,25 @@ export function MashProfileFormContainer({
   //   form.getValues() as any,
   //   form.setValue as any
   // );
+  const prefs = useContext(UserPreferencesContext);
+  const adjusted = adjustUnits({
+    src: profile,
+    mask: MashProfileMask,
+    prefs,
+    inline: false,
+    dir: true,
+  });
+  console.log(profile, adjusted);
   const [state, formAction] = useActionState<any, FormData>(action, null);
 
   return (
     <Form
       action={formAction}
-      formProps={{ defaultValues: profile, errors: state?.errors }}
+      formProps={{
+        defaultValues: adjusted,
+        errors: state?.errors,
+        resetOptions: { keepDefaultValues: true, keepDirtyValues: true },
+      }}
     >
       {children}
     </Form>

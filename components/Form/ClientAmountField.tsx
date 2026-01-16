@@ -46,9 +46,9 @@ import { RevisionContext } from "@/contexts/RevisionContext";
 import clsx from "clsx";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { MaskContext } from "@/contexts/MaskContext";
-import { convertUnit, isUnitValue } from "@/lib/Converter/adjustUnits";
+import { convertUnit } from "@/lib/Converter/adjustUnits";
 import { getInMask } from "@/lib/Converter/Masks";
-export type AmountFieldProps<T extends FieldValues> = InputProps<T> &
+export type ClientAmountFieldProps<T extends FieldValues> = InputProps<T> &
   VariantProps<typeof amountFieldStyles> & {
     amountType?: UnitTypes;
     unit?: UnitNames;
@@ -70,7 +70,7 @@ const amountFieldStyles = cva(
   }
 );
 
-export function AmountField<T extends FieldValues>({
+export function ClientAmountField<T extends FieldValues>({
   name,
   label,
   error,
@@ -83,32 +83,32 @@ export function AmountField<T extends FieldValues>({
   control,
   value: val,
   ...props
-}: AmountFieldProps<T>) {
+}: ClientAmountFieldProps<T>) {
   const id = `${name}-field`;
-  // const { mask } = useContext(MaskContext);
-  // const preferenceContext = useContext(UserPreferencesContext);
+  const { mask } = useContext(MaskContext);
+  const preferenceContext = useContext(UserPreferencesContext);
   const { register } = useFormContext();
   // const mn = mask[(name ?? "") as keyof typeof mask] as any;
-  // const mn = getInMask(mask, name);
-  // const maskV = Array.isArray(mn) ? mn[0] : mn;
-  // const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
+  const mn = getInMask(mask, name);
+  const maskV = Array.isArray(mn) ? mn[0] : mn;
+  const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
 
   // const unitN = _unit ?? (amountType ? preferenceContext?.[amountType!] : "");
-  // const unit = _unit ?? s ?? BASE_UNITS[maskV as UnitTypes];
-  const unitName = isUnitValue(val) ? val.unit : _unit;
-  // maskV === "percent"
-  // ? PercentUnits[preferenceContext?.percent ?? "number"]
-  // : unit;
+  const unit = _unit ?? s ?? BASE_UNITS[maskV as UnitTypes];
+  const unitName =
+    maskV === "percent"
+      ? PercentUnits[preferenceContext?.percent ?? "number"]
+      : unit;
   const value = typeof val === "number" ? val : val?.value;
   // console.log({ maskV, value, unit, s, unitName });
-  // const convert = (v: number, dir = true) =>
-  //   convertUnit({
-  //     value: v,
-  //     type: maskV,
-  //     unit,
-  //     inline: true,
-  //     dir,
-  //   });
+  const convert = (v: number, dir = true) =>
+    convertUnit({
+      value: v,
+      type: maskV,
+      unit,
+      inline: true,
+      dir,
+    });
   /**const options = (UnitTypeDict[amountType] ?? []).reduce((acc, unit) => {
     acc[unit] = unit;
     return acc;
@@ -129,52 +129,6 @@ export function AmountField<T extends FieldValues>({
     cb(newValue);
   };
 
-  const { onChange, ...inputProps } = register(`${name}.value`, {
-    valueAsNumber: true,
-  });
-  return (
-    <Field
-      className="bg-white px-3 py-2 my-2 rounded-md"
-      orientation={orientation}
-      // data-invalid={!!fieldState.error}
-    >
-      <FieldContent className="grow grid w-full gap-2 ">
-        <FieldLabel htmlFor={id}>{label}</FieldLabel>
-        <FieldDescription>{description}</FieldDescription>
-      </FieldContent>
-
-      <InputGroup
-        className="gap-2 w-full grow"
-        // aria-invalid={!!fieldState.error}
-      >
-        <input type="hidden" value={unitName} name={`${name}.unit`} />
-
-        <InputGroupInput
-          className="text-center grow"
-          id={id}
-          type="number"
-          {...inputProps}
-          // ref={field.ref}
-          // name={`${field.name}.value`}
-          // name={field.name}
-          // value={field.value}
-          step={props.step ?? 0.1}
-          // onChange={(e) => onValueChange(onChange)(parseFloat(e.target.value))}
-          // onBlur={field.onBlur}
-        />
-
-        <InputGroupAddon
-          // aria-invalid={!!fieldState.error}
-          className="w-4"
-          align="inline-end"
-        >
-          <InputGroupText>{unitName}</InputGroupText>
-        </InputGroupAddon>
-      </InputGroup>
-      <FieldError>{error}</FieldError>
-    </Field>
-  );
-  /**
   return (
     <FieldGroup>
       <Controller
@@ -197,6 +151,11 @@ export function AmountField<T extends FieldValues>({
             >
               <input
                 type="hidden"
+                value={field.value}
+                name={`${field.name}.value`}
+              />
+              <input
+                type="hidden"
                 value={unitName}
                 name={`${field.name}.unit`}
               />
@@ -205,9 +164,8 @@ export function AmountField<T extends FieldValues>({
                 className="text-center grow"
                 id={id}
                 type="number"
-                ref={field.ref}
-                name={`${field.name}.value`}
-                // name={field.name}
+                // ref={field.ref}
+                name={field.name}
                 value={field.value}
                 step={props.step ?? 0.1}
                 onChange={(e) =>
@@ -232,7 +190,6 @@ export function AmountField<T extends FieldValues>({
       />
     </FieldGroup>
   );
- */
 }
 
-export default AmountField;
+export default ClientAmountField;
