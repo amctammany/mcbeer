@@ -11,6 +11,7 @@ export const getFermentationProfiles = async (args: any = {}) => {
 };
 
 export const getFermentationProfile = async (slug: string) => {
+  "use cache";
   const profile = await prisma.fermentationProfile.findFirst({
     where: { slug },
     include: {

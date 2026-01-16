@@ -1,14 +1,19 @@
 "use server";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { prisma } from "@/lib/prisma";
-import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { adjustUnits, reduceUnits } from "@/lib/Converter/adjustUnits";
 import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
 import { redirect } from "next/navigation";
 import { mashProfileSchema } from "@/schemas/ProfileSchemas";
 import { revalidatePath } from "next/cache";
 import { MashProfileMask } from "@/lib/Converter/Masks";
-import { MashStepType } from "@/types/Profile";
+import {
+  AdjustedMashProfileType,
+  BaseMashProfile,
+  MashProfileType,
+  MashStepType,
+} from "@/types/Profile";
 export async function createMashProfile(
   prefs: UserPreferencesType,
   prev: any,
@@ -41,31 +46,36 @@ export async function createMashProfile(
 }
 
 export async function updateMashProfile(
-  prefs: UserPreferencesType,
+  // prefs: UserPreferencesType,
   prev: any,
   formData: FormData
 ) {
+  console.log(Object.fromEntries(formData.entries()), mashProfileSchema);
   const v = validateSchema(formData, mashProfileSchema);
   if (v.errors) console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
   }
+  const r = reduceUnits(v.data);
+  /**
   const adj = adjustUnits({
     src: v.data,
     prefs,
     mask: MashProfileMask,
     inline: true,
     dir: false,
-  });
-  const { steps, ...data } = adj;
+  }); */
+  const { steps, ...data } = r as BaseMashProfile;
 
   const stepData = await prisma.$transaction(async (tx) => {
     return Promise.all(
       (steps as MashStepType[]).map(async ({ id, ...d }) => {
         return await tx.mashStep.upsert({
-          where: { mashIndex: { mashProfileId: data.id!, index: d.index } },
-          create: { ...d, mashProfileId: data.id! },
+          where: {
+            mashIndex: { mashProfileId: data.id! as string, index: d.index },
+          },
+          create: { ...d, mashProfileId: data.id! as string },
           update: d,
         });
       })
@@ -77,6 +87,7 @@ export async function updateMashProfile(
     },
     data: {
       ...data,
+      userId: data.userId!,
       slug: slugify(v.data.name),
       steps: {
         connect: stepData.map(({ id }) => ({ id })),

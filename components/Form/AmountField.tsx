@@ -92,7 +92,7 @@ export function AmountField<T extends FieldValues>({
   const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
 
   // const unitN = _unit ?? (amountType ? preferenceContext?.[amountType!] : "");
-  const unit = s ?? BASE_UNITS[maskV as UnitTypes];
+  const unit = _unit ?? s ?? BASE_UNITS[maskV as UnitTypes];
   const unitName =
     maskV === "percent"
       ? PercentUnits[preferenceContext?.percent ?? "number"]
@@ -123,7 +123,7 @@ export function AmountField<T extends FieldValues>({
       },
     });
     const converted = convert(newValue, false);
-    console.log({ name, value, newValue, converted });
+    // console.log({ name, value, newValue, converted });
     cb(converted);
   };
 

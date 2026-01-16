@@ -1,17 +1,15 @@
-import { Metadata } from "next";
+"use client";
+import { MaskContext } from "@/contexts/MaskContext";
+import { MashProfileMask } from "@/lib/Converter/Masks";
 import { Suspense } from "react";
-
-export const metadata: Metadata = {
-  title: "McBeer: Mash Profiles",
-  description: "Where to make good beer",
-};
-
 export default function MashProfilesLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <Suspense fallback={<div>Mash Profiles Loading</div>}>{children}</Suspense>
+    <MaskContext value={{ mask: MashProfileMask }}>{children}</MaskContext>
+    // <Suspense fallback={<div>Mash Profiles Loading</div>}>
+    // </Suspense>
   );
 }

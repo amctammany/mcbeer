@@ -36,21 +36,21 @@ export const waterProfileSchema = zfd.formData({
   name: zfd.text(),
   description: zfd.text(),
 
-  calcium: zfd.numeric(z.number().min(0)),
-  magnesium: zfd.numeric(z.number().min(0)),
-  sodium: zfd.numeric(z.number().min(0)),
-  sulfate: zfd.numeric(z.number().min(0)),
-  chloride: zfd.numeric(z.number().min(0)),
-  bicarbonate: zfd.numeric(z.number().min(0)),
+  calcium: unitValueSchema(z.number().min(0)),
+  magnesium: unitValueSchema(z.number().min(0)),
+  sodium: unitValueSchema(z.number().min(0)),
+  sulfate: unitValueSchema(z.number().min(0)),
+  chloride: unitValueSchema(z.number().min(0)),
+  bicarbonate: unitValueSchema(z.number().min(0)),
 });
 export const fermentationStepSchema = zfd.formData({
   fermentationProfileId: zfd.text(z.string().optional()),
   index: zfd.numeric(),
   id: zfd.numeric(z.number().optional()),
   name: zfd.text(z.string().optional()),
-  temperature: zfd.numeric(z.number()),
-  time: zfd.numeric(z.number()),
-  rampTime: zfd.numeric(z.number().default(0)),
+  temperature: unitValueSchema(z.number()),
+  time: unitValueSchema(z.number()),
+  rampTime: unitValueSchema(z.number().default(0)),
 });
 export const fermentationProfileSchema = zfd.formData({
   //userId: zfd.text(),
@@ -67,9 +67,9 @@ export const mashStepSchema = zfd.formData({
   index: zfd.numeric(),
   id: zfd.numeric(z.number().optional()),
   name: zfd.text(z.string().optional()),
-  temperature: zfd.numeric(z.number()),
-  time: zfd.numeric(z.number()),
-  rampTime: zfd.numeric(z.number().default(0)),
+  temperature: unitValueSchema(z.number()),
+  time: unitValueSchema(z.number()),
+  rampTime: unitValueSchema(z.number().default(0)),
   type: z.enum($Enums.MashStepType).default($Enums.MashStepType.temperature),
 });
 export const mashProfileSchema = zfd.formData({
@@ -79,8 +79,8 @@ export const mashProfileSchema = zfd.formData({
   userId: zfd.text(z.string().optional()),
   name: zfd.text(),
   description: zfd.text(),
-  mashTunTemp: zfd.numeric(z.number().default(72)),
-  grainTemp: zfd.numeric(z.number().default(72)),
-  spargeTemp: zfd.numeric(z.number().default(72)),
+  mashTunTemp: unitValueSchema(z.number().default(72)).optional(),
+  grainTemp: unitValueSchema(z.number().default(72)).optional(),
+  spargeTemp: unitValueSchema(z.number().default(72)).optional(),
   steps: zfd.repeatableOfType(mashStepSchema).default([]),
 });

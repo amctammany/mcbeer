@@ -41,6 +41,9 @@ export type AdjustedFermentationProfileType = Omit<
   "steps"
 > & {
   steps: AdjustedFermentationStepType[];
+  "steps.temperature": "temperature";
+  "steps.time": ["time", "days"];
+  "steps.rampTime": ["time", "days"];
 };
 type MashProfileAmountFieldNames = "spargeTemp" | "grainTemp" | "mashTunTemp";
 export type AdjustedMashProfileType = Omit<
