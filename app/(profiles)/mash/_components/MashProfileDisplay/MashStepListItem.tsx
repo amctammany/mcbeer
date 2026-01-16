@@ -35,13 +35,20 @@ export default function MashStepListItem({ src }: MashStepListItemProps) {
         </div>
         <div className="grow grid grid-flow-col auto-cols-auto gap-2 justify-items-stretch">
           <BadgeProp
-            Icon={Thermometer}
+            Icon={<Thermometer />}
+            name="temperature"
             text={src.temperature}
             unit={src.temperature}
           />
-          <BadgeProp Icon={Timer} text={src.time} unit={src.time} />
           <BadgeProp
-            Icon={TriangleRight}
+            name="time"
+            Icon={<Timer />}
+            text={src.time}
+            unit={src.time}
+          />
+          <BadgeProp
+            name="rampTime"
+            Icon={<TriangleRight />}
             text={src.rampTime}
             unit={src.rampTime}
           />

@@ -38,7 +38,11 @@ export const FermentationStepMask: UnitMaskType<Partial<MashStepType>> = {
   rampTime: ["time", "days"],
 };
 export const FermentationProfileMask: UnitMaskType<
-  Partial<AdjustedFermentationProfileType>
+  Partial<AdjustedFermentationProfileType> & {
+    "steps.temperature": "temperature";
+    "steps.time": ["time", "days"];
+    "steps.rampTime": ["time", "days"];
+  }
 > = {
   steps: FermentationStepMask,
   "steps.temperature": "temperature",
