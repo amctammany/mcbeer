@@ -22,6 +22,8 @@ import {
 } from "react-hook-form";
 import { RevisionContext } from "@/contexts/RevisionContext";
 import { useContext } from "react";
+import { get } from "@/lib/utils";
+import { FormStateContext } from "@/contexts/FormStateContext";
 
 export type TextFieldProps<T extends FieldValues> = InputProps<T> &
   VariantProps<typeof textFieldStyles>;
@@ -79,6 +81,7 @@ export function TextField<T extends FieldValues>({
       // console.log({ name, value, newValue, converted });
     };
 
+  const state = useContext(FormStateContext);
   const regProps = register(name);
   const fieldState = getFieldState(name);
   return (
@@ -99,7 +102,9 @@ export function TextField<T extends FieldValues>({
           type="text"
           {...regProps}
           onBlur={onValueChange(getValues(name))}
-          defaultValue={formState.defaultValues?.[name]}
+          // defaultValue={formState.defaultValues?.[name]}
+
+          defaultValue={get(formState.defaultValues ?? {}, name)}
           // onChange={(e) => onValueChange(regProps.onChange)(e.target.value)}
         />
         <FieldError>{fieldState.error?.message}</FieldError>

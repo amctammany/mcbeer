@@ -40,22 +40,15 @@ export function EquipmentProfileFormContainer({
   //   form.getValues() as any,
   //   form.setValue as any
   // );
-  const [state, formAction] = useActionState<any, FormData>(action, {
-    success: true,
-    data: profile,
-    errors: [],
-  });
+  // const [state, formAction] = useActionState<any, FormData>(action, {
+  //   success: true,
+  //   data: profile,
+  //   errors: [],
+  // });
 
-  console.log(state);
+  // console.log(state);
   return (
-    <Form
-      action={formAction}
-      formProps={{
-        values: state.data,
-        defaultValues: profile,
-        errors: state?.errors,
-      }}
-    >
+    <Form src={profile} action={action}>
       {children}
     </Form>
   );

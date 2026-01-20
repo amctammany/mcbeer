@@ -48,6 +48,8 @@ import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { MaskContext } from "@/contexts/MaskContext";
 import { convertUnit, isUnitValue } from "@/lib/Converter/adjustUnits";
 import { getInMask } from "@/lib/Converter/Masks";
+import { FormStateContext } from "@/contexts/FormStateContext";
+import { get } from "@/lib/utils";
 export type AmountFieldProps<T extends FieldValues> = InputProps<T> &
   VariantProps<typeof amountFieldStyles> & {
     amountType?: UnitTypes;
@@ -73,7 +75,7 @@ const amountFieldStyles = cva(
 export function AmountField<T extends FieldValues>({
   name,
   label,
-  error,
+  // error,
   amountType,
   unit: _unit,
   description,
@@ -116,8 +118,8 @@ export function AmountField<T extends FieldValues>({
     return acc;
   }, {} as Record<UnitNames, UnitNames>);
   */
-  console.log(formState);
   const revisionContext = useContext(RevisionContext);
+  const state = useContext(FormStateContext);
   const { ...inputProps } = register(`${name}.value`, {
     valueAsNumber: true,
   });
@@ -137,14 +139,15 @@ export function AmountField<T extends FieldValues>({
       // const converted = convert(newValue, false);
       // console.log({ name, value, newValue, converted });
     };
+  const error = state.errors?.[`${name}.value`]; //get(state.errors ?? {}, `${name}.value`);
   const fieldState = getFieldState(name);
-  // console.log(fieldState);
+  console.log(name, error);
 
   return (
     <Field
       className="bg-white px-3 py-2 my-2 rounded-md"
       orientation={orientation}
-      data-invalid={!!fieldState.error}
+      data-invalid={!!error}
     >
       <FieldContent className="grow grid w-full gap-2 ">
         <FieldLabel htmlFor={id}>{label}</FieldLabel>
@@ -167,20 +170,20 @@ export function AmountField<T extends FieldValues>({
           // name={field.name}
           // value={field.value}
           step={props.step ?? 0.1}
-          defaultValue={formState.defaultValues?.[name]?.value}
+          defaultValue={get(formState.defaultValues ?? {}, `${name}.value`)}
           onBlur={onValueChange(getValues(`${name}.value`))}
           // onBlur={field.onBlur}
         />
 
         <InputGroupAddon
-          aria-invalid={!!fieldState.error}
+          aria-invalid={!!error}
           className="w-4"
           align="inline-end"
         >
           <InputGroupText>{unitName}</InputGroupText>
         </InputGroupAddon>
       </InputGroup>
-      <FieldError>{fieldState.error?.message}</FieldError>
+      <FieldError>{error?.message}</FieldError>
     </Field>
   );
   /**
