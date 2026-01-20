@@ -19,7 +19,7 @@ import {
 import React, { useActionState, useContext } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 export type EquipmentProfileFormContainerProps<S = unknown> = {
-  profile: EquipmentProfileType;
+  profile: AdjustedEquipmentProfileType;
   // preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];

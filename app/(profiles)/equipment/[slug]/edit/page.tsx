@@ -37,12 +37,12 @@ export default async function EquipmentProfileEditorPage({
     src: profile,
     mask: EquipmentProfileMask,
     prefs,
-    inline: true,
+    inline: false,
     dir: true,
   }) as AdjustedEquipmentProfileType;
   return (
     <EquipmentProfileEditor
-      profile={profile}
+      profile={adjusted}
       // preferences={prefs}
       action={updateEquipmentProfile.bind(null, prefs)}
     />

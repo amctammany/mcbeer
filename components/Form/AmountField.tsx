@@ -95,10 +95,11 @@ export function AmountField<T extends FieldValues>({
 
   // const unitN = _unit ?? (amountType ? preferenceContext?.[amountType!] : "");
   // const unit = _unit ?? s ?? BASE_UNITS[maskV as UnitTypes];
-  const unitName = isUnitValue(val) ? val.unit : _unit;
-  // maskV === "percent"
-  // ? PercentUnits[preferenceContext?.percent ?? "number"]
-  // : unit;
+  const unitName = isUnitValue(val)
+    ? val.unit
+    : amountType === "percent"
+      ? PercentUnits[amountType]
+      : BASE_UNITS[amountType!];
   const value = typeof val === "number" ? val : val?.value;
   // console.log({ maskV, value, unit, s, unitName });
   // const convert = (v: number, dir = true) =>
@@ -129,7 +130,7 @@ export function AmountField<T extends FieldValues>({
     cb(newValue);
   };
 
-  const { onChange, ...inputProps } = register(`${name}.value`, {
+  const { ...inputProps } = register(`${name}.value`, {
     valueAsNumber: true,
   });
   return (

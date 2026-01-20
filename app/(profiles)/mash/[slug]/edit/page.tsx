@@ -34,7 +34,7 @@ export default async function MashProfileEditorPage({
     getMashProfile,
     slug
   );
-  const prefs = await getPreferences();
+  // const prefs = await getPreferences();
   return (
     <MashProfileEditor
       profile={profile}

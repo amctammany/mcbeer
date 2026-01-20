@@ -12,7 +12,7 @@ import {
 import EquipmentProfileEditorToolbar from "./EquipmentProfileEditorToolbar";
 
 export type EquipmentProfileEditorProps = {
-  profile: EquipmentProfileType;
+  profile: AdjustedEquipmentProfileType;
   preferences?: UserPreferencesType;
   action: any;
 };
