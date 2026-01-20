@@ -1,11 +1,12 @@
 "use server";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
-import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { adjustUnits, reduceUnits } from "@/lib/Converter/adjustUnits";
 import { FermentableMask } from "@/lib/Converter/Masks";
 import { prisma } from "@/lib/prisma";
 import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
 import { fermentableSchema } from "@/schemas/IngredientSchemas";
+import { BaseFermentableType } from "@/types/Ingredient";
 import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -44,6 +45,9 @@ export async function updateFermentable(
   if (!v.success) {
     return Promise.resolve(v);
   }
+  const r = reduceUnits(v.data) as BaseFermentableType;
+  /**
+   * 
   const adj = adjustUnits({
     src: v.data,
     prefs,
@@ -53,12 +57,14 @@ export async function updateFermentable(
     precision: 4,
   });
 
+   */
   const res = await prisma.fermentable.update({
     where: {
       id: v.data.id,
     },
-    data: { ...adj, slug: slugify(v.data.name) },
+    data: { ...r, slug: slugify(v.data.name) },
   });
+  updateTag(`fermentables-${res.id}`);
   revalidatePath(`/fermentables/${res.slug}`);
   return redirect(`/fermentables/${res.slug}`);
 }

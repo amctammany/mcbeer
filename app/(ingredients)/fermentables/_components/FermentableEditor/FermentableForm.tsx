@@ -23,7 +23,7 @@ import { useActionState } from "react";
 import { useFormContext } from "react-hook-form";
 
 export type FermentableFormContainerProps<S = unknown> = {
-  src: FermentableType;
+  src: AdjustedFermentableType;
   // preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
@@ -56,7 +56,7 @@ export function FermentableFormContainer({
 }
 export type FermentableFormProps = {
   // preferences: UserPreferencesType;
-  src: FermentableType;
+  src: AdjustedFermentableType;
   countries: string[];
 };
 export function FermentableForm({

@@ -7,7 +7,7 @@ import { AdjustedFermentableType, FermentableType } from "@/types/Ingredient";
 import { Redo, Save, Undo } from "lucide-react";
 import React, { useContext } from "react";
 export type FermentableEditorToolbarProps = {
-  src: FermentableType;
+  src: AdjustedFermentableType;
 };
 export default function FermentableEditorToolbar({
   src,
@@ -28,14 +28,14 @@ export default function FermentableEditorToolbar({
               },
             ]
           : src.origin
-          ? [
-              {
-                title: src.origin.name,
-                url: `/fermentables/${src.origin.slug}`,
-              },
-              { title: "Fork" },
-            ]
-          : [{ title: "New" }]),
+            ? [
+                {
+                  title: src.origin.name,
+                  url: `/fermentables/${src.origin.slug}`,
+                },
+                { title: "Fork" },
+              ]
+            : [{ title: "New" }]),
       ]}
     >
       <IconButton

@@ -85,7 +85,7 @@ export function Input<T extends FieldValues>({
     ? register(props.name)
     : formContext.register(props.name);
   const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    revisionContext?.updateHistory(e);
+    // revisionContext?.updateHistory(e);
     if (_onBlur) {
       _onBlur(e);
     }

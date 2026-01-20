@@ -60,20 +60,25 @@ export function TextField<T extends FieldValues>({
   ...props
 }: TextFieldProps<T>) {
   const id = `${name}-field`;
-  const { control, register, getFieldState } = useFormContext();
+  const { getValues, register, getFieldState } = useFormContext();
   const revisionContext = useContext(RevisionContext);
-  const onValueChange = (cb: (newValue: any) => void) => (newValue: any) => {
-    revisionContext?.update({
-      type: "SET",
-      payload: {
-        name,
-        prev: value,
-        value: newValue,
-      },
-    });
-    // console.log({ name, value, newValue });
-    cb(newValue);
-  };
+  const onValueChange: (o: any) => React.ChangeEventHandler<HTMLInputElement> =
+    (old) => (e) => {
+      const newValue = e.target.value;
+      if (old !== newValue)
+        revisionContext?.update({
+          type: "SET",
+          payload: {
+            name,
+            prev: old,
+            value: newValue,
+          },
+        });
+      // cb(e);
+      // const converted = convert(newValue, false);
+      // console.log({ name, value, newValue, converted });
+    };
+
   const regProps = register(name);
   const fieldState = getFieldState(name);
   return (
@@ -93,7 +98,8 @@ export function TextField<T extends FieldValues>({
           id={id}
           type="text"
           {...regProps}
-          onChange={(e) => onValueChange(regProps.onChange)(e.target.value)}
+          onBlur={onValueChange(getValues(name))}
+          // onChange={(e) => onValueChange(regProps.onChange)(e.target.value)}
         />
         <FieldError>{fieldState.error?.message}</FieldError>
       </Field>
