@@ -53,23 +53,24 @@ export function YeastFormContainer({
     inline: false,
     dir: true,
   });
-  const [state, formAction] = useActionState<any, FormData>(action, {
-    success: true,
-    data: adjusted,
-    errors: [],
-  });
+  // const [state, formAction] = useActionState<any, FormData>(action, {
+  // success: true,
+  // data: adjusted,
+  // errors: [],
+  // });
 
-  console.log(state);
+  // console.log(state);
   return (
     <Form
-      action={formAction}
+      action={action}
+      src={adjusted}
       // mask={YeastMask}
-      formProps={{
-        values: state.data,
-        mode: "onBlur",
-        // defaultValues: adjusted,
-        errors: state?.errors,
-      }}
+      // formProps={{
+      //   values: state.data,
+      //   mode: "onBlur",
+      //   // defaultValues: adjusted,
+      //   errors: state?.errors,
+      // }}
     >
       {children}
     </Form>

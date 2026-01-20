@@ -58,7 +58,9 @@ export type EquipmentProfileFormProps = {
 };
 export function EquipmentProfileForm({}: // preferences,
 EquipmentProfileFormProps) {
-  const { register, control } = useFormContext<EquipmentProfileType>();
+  const { formState, register, control } =
+    useFormContext<EquipmentProfileType>();
+  console.log(formState.errors);
   return (
     <div className="bg-blue-200">
       <div className="max-w-2xl p-2 gap-2 *:mb-2 mx-auto">

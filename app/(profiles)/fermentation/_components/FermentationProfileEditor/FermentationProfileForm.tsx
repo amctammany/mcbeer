@@ -29,12 +29,13 @@ export function FermentationProfileFormContainer({
   //   form.getValues() as any,
   //   form.setValue as any
   // );
-  const [state, formAction] = useActionState<any, FormData>(action, null);
+  // const [state, formAction] = useActionState<any, FormData>(action, null);
 
   return (
     <Form
-      action={formAction}
-      formProps={{ defaultValues: profile, errors: state?.errors }}
+      action={action}
+      src={profile}
+      // formProps={{ defaultValues: profile, errors: state?.errors }}
     >
       {children}
     </Form>

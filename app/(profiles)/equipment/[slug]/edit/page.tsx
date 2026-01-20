@@ -30,7 +30,7 @@ export default async function EquipmentProfileEditorPage({
   const profile = await authorizeResource(
     `/equipment/${slug}/edit`,
     getEquipmentProfile,
-    slug
+    slug,
   );
   const prefs = await getPreferences();
   const adjusted = adjustUnits({

@@ -7,4 +7,5 @@ export type FromStateContextType<T extends FieldValues = FieldValues> =
   State<T>;
 export const FormStateContext = createContext<FromStateContextType>({
   success: false,
+  data: {},
 });

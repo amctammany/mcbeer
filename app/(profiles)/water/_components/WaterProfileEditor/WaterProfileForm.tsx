@@ -36,12 +36,13 @@ export function WaterProfileFormContainer({
   //   form.getValues() as any,
   //   form.setValue as any
   // );
-  const [state, formAction] = useActionState<any, FormData>(action, null);
+  // const [state, formAction] = useActionState<any, FormData>(action, null);
 
   return (
     <Form
-      action={formAction}
-      formProps={{ defaultValues: profile, errors: state?.errors }}
+      action={action}
+      src={profile}
+      // formProps={{ defaultValues: profile, errors: state?.errors }}
     >
       {children}
     </Form>
@@ -51,7 +52,8 @@ export type WaterProfileFormProps = {
   preferences?: UserPreferencesType;
 };
 export function WaterProfileForm({ preferences }: WaterProfileFormProps) {
-  const { register, control } = useFormContext<WaterProfileType>();
+  const { register, control, formState } = useFormContext<WaterProfileType>();
+  console.log(formState.errors);
   return (
     <div className="m-2 p-2 gap-2 *:mb-2">
       <input type="hidden" {...register("id")} />

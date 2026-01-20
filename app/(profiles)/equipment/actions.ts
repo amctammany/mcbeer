@@ -40,14 +40,14 @@ export async function createEquipmentProfile(
 
 export async function updateEquipmentProfile(prev: any, formData: FormData) {
   const v = validateSchema(formData, equipmentProfileSchema);
-  console.log(v);
+  // console.log(v);
   if (v.errors) console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
   }
   const r = reduceUnits(v.data) as BaseEquipmentProfile;
-  console.log("update equipment", v.data, r);
+  // console.log("update equipment", v.data, r);
   // console.log(v.data, r);
   // const adj = adjustUnits({
   //   src: v.data,

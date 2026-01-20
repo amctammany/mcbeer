@@ -140,8 +140,7 @@ export function AmountField<T extends FieldValues>({
       // console.log({ name, value, newValue, converted });
     };
   const error = state.errors?.[`${name}.value`]; //get(state.errors ?? {}, `${name}.value`);
-  const fieldState = getFieldState(name);
-  console.log(name, error);
+  // const fieldState = getFieldState(name);
 
   return (
     <Field
@@ -170,7 +169,7 @@ export function AmountField<T extends FieldValues>({
           // name={field.name}
           // value={field.value}
           step={props.step ?? 0.1}
-          defaultValue={get(formState.defaultValues ?? {}, `${name}.value`)}
+          // defaultValue={get(state.data ?? {}, `${name}.value`)}
           onBlur={onValueChange(getValues(`${name}.value`))}
           // onBlur={field.onBlur}
         />

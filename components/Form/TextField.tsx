@@ -49,7 +49,7 @@ const textFieldStyles = cva(
 );
 export function TextField<T extends FieldValues>({
   name,
-  error,
+  // error,
   className,
   label,
   description,
@@ -64,6 +64,9 @@ export function TextField<T extends FieldValues>({
   const id = `${name}-field`;
   const { getValues, register, getFieldState, formState } = useFormContext();
   const revisionContext = useContext(RevisionContext);
+  const state = useContext(FormStateContext);
+  const regProps = register(name);
+  const fieldState = getFieldState(name);
   const onValueChange: (o: any) => React.ChangeEventHandler<HTMLInputElement> =
     (old) => (e) => {
       const newValue = e.target.value;
@@ -72,7 +75,7 @@ export function TextField<T extends FieldValues>({
           type: "SET",
           payload: {
             name,
-            prev: old,
+            prev: get(state.data, name),
             value: newValue,
           },
         });
@@ -81,9 +84,8 @@ export function TextField<T extends FieldValues>({
       // console.log({ name, value, newValue, converted });
     };
 
-  const state = useContext(FormStateContext);
-  const regProps = register(name);
-  const fieldState = getFieldState(name);
+  const error = state.errors?.[`${name}.value`]; //get(state.errors ?? {}, `${name}.value`);
+
   return (
     <FieldGroup>
       <Field
@@ -104,10 +106,10 @@ export function TextField<T extends FieldValues>({
           onBlur={onValueChange(getValues(name))}
           // defaultValue={formState.defaultValues?.[name]}
 
-          defaultValue={get(formState.defaultValues ?? {}, name)}
+          // defaultValue={get(state.data ?? {}, name)}
           // onChange={(e) => onValueChange(regProps.onChange)(e.target.value)}
         />
-        <FieldError>{fieldState.error?.message}</FieldError>
+        <FieldError>{error?.message}</FieldError>
       </Field>
     </FieldGroup>
   );

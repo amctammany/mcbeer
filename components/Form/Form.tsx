@@ -40,19 +40,19 @@ export default function Form<T extends FieldValues>({
     data: src,
     // errors: [],
   });
-  const [state, setState] = React.useState(_state);
+  // const [state, setState] = React.useState(_state);
 
   const form = useForm({
     // reValidateMode: "onBlur",
-    mode: "onTouched",
-    resetOptions: {
-      keepDefaultValues: true,
-      keepDirtyValues: true,
-      keepValues: true,
-    },
-    // values: state.data,
-    defaultValues: state.data as any,
-    errors: state.errors,
+    // mode: "onTouched",
+    // resetOptions: {
+    //   keepDefaultValues: true,
+    //   keepDirtyValues: true,
+    //   keepValues: true,
+    // },
+    values: _state.data,
+    defaultValues: _state.data as any,
+    errors: _state.errors,
 
     // ...formProps,
   });
@@ -60,14 +60,14 @@ export default function Form<T extends FieldValues>({
     form.getValues() as any,
     form.setValue as any,
   );
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FormData> = (data) => {
     // Wrap the async operation in startTransition
     // console.log(Promise.resolve(action(data)));
     startTransition(async () => {
       // Perform your non-urgent updates here, e.g., API call or server action
-      console.log("Submitting data:", state, data);
-      const r = await action(state, data);
-      setState(r);
+      console.log("Submitting data:", _state, data);
+      const r = await formAction(data);
+      // setState(r);
       // await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate an async call
       console.log("Submission complete", r);
     });
@@ -76,10 +76,9 @@ export default function Form<T extends FieldValues>({
   return (
     <FormProvider {...form}>
       {/* <UserPreferencesContext value={preferences}> */}
-      <FormStateContext value={state}>
+      <FormStateContext value={_state}>
         <RevisionContext value={revision}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>{children}</form>
-          99k
+          <form action={formAction}>{children}</form>
         </RevisionContext>
       </FormStateContext>
       {/* </UserPreferencesContext> */}

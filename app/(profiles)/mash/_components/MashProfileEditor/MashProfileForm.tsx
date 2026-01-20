@@ -52,12 +52,13 @@ export function MashProfileFormContainer({
 
   return (
     <Form
-      action={formAction}
-      formProps={{
-        defaultValues: adjusted,
-        errors: state?.errors,
-        resetOptions: { keepDefaultValues: true, keepDirtyValues: true },
-      }}
+      src={adjusted}
+      action={action}
+      // formProps={{
+      // defaultValues: adjusted,
+      // errors: state?.errors,
+      // resetOptions: { keepDefaultValues: true, keepDirtyValues: true },
+      // }}
     >
       {children}
     </Form>

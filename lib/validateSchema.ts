@@ -8,7 +8,7 @@ export type SchemaFieldError = FieldError & {
 type ErrRes<T extends object> = {
   success: false;
   errors: Record<keyof T, SchemaFieldError>;
-  data: never;
+  data: T;
 };
 type SuccessRes<T extends object> = {
   success: true;
@@ -19,7 +19,7 @@ export type State<I extends object> =
   | {
       success: false;
       errors?: Record<keyof I, SchemaFieldError>;
-      data?: never;
+      data: I;
     }
   | { success: true; data: I; errors?: never };
 
@@ -35,9 +35,10 @@ export function validateSchema<
 >(formData: FormData, schema: S): State<I> {
   const valid = schema.safeParse(formData);
   if (!valid.success) {
+    // console.log(Object.fromEntries(formData.entries()));
     return {
       success: valid.success,
-      // data: reduceUnits(Object.fromEntries(formData.entries()) as any),
+      data: reduceUnits(Object.fromEntries(formData.entries()) as any),
       //data: null, //valid.data, //Object.fromEntries(formData.entries()) as any,
       errors: Object.entries(valid.error.issues)?.reduce(
         //eslint-disable-next-line
