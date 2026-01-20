@@ -2,8 +2,9 @@ import { deepSet, get } from "@/lib/utils";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FieldValues } from "react-hook-form";
 export type RevisionActionTypes = "SET" | "ADD" | "REMOVE";
-export interface AddRevisionAction<T extends FieldValues>
-  extends RevisionAction<T> {
+export interface AddRevisionAction<
+  T extends FieldValues,
+> extends RevisionAction<T> {
   type: "ADD";
   payload: {
     name: keyof T;
@@ -11,8 +12,9 @@ export interface AddRevisionAction<T extends FieldValues>
     prev?: T[keyof T];
   };
 }
-export interface RemoveRevisionAction<T extends FieldValues>
-  extends RevisionAction<T> {
+export interface RemoveRevisionAction<
+  T extends FieldValues,
+> extends RevisionAction<T> {
   type: "REMOVE";
   payload: {
     name: keyof T;
@@ -20,8 +22,9 @@ export interface RemoveRevisionAction<T extends FieldValues>
     prev?: T[keyof T];
   };
 }
-export interface SetRevisionAction<T extends FieldValues>
-  extends RevisionAction<T> {
+export interface SetRevisionAction<
+  T extends FieldValues,
+> extends RevisionAction<T> {
   type: "SET";
   payload: {
     name: keyof T;
@@ -139,7 +142,7 @@ function useRevisionHistory<T extends FieldValues>(
       const newState = revisionReducer(state, action);
       setState(newState);
       updateFn(action.payload.name, action.payload.value);
-      // console.log("update", newState, { action, history: history.current });
+      console.log("update", newState, { action, history: history.current });
     },
     [history, historyPointer, state, updateFn]
   );
@@ -148,14 +151,14 @@ function useRevisionHistory<T extends FieldValues>(
     if (historyPointer <= 0) return;
     const previousAction = history.current[historyPointer - 1];
     const newState = revisionReducer(state, reverse(previousAction));
-    // console.log("undo", newState, { previousAction, state });
+    console.log("undo", newState, { previousAction, state });
     updateFn(previousAction.payload.name, previousAction.payload.prev!);
     setState(newState);
     setHistoryPointer(historyPointer - 1);
   }, [history, historyPointer, state, updateFn]);
   const redo = useCallback(() => {
     // console.log("current state", state, history.current, historyPointer);
-    // console.log("History => redo", history.current, historyPointer);
+    console.log("History => redo", history.current, historyPointer);
     if (history.current.length === 0) return;
     if (historyPointer > history.current.length) return;
     const nextAction = history.current[historyPointer];

@@ -18,6 +18,7 @@ import {
 } from "@/types/Profile";
 import React, { useActionState, useContext } from "react";
 import { useForm, useFormContext } from "react-hook-form";
+import { success } from "zod";
 export type EquipmentProfileFormContainerProps<S = unknown> = {
   profile: AdjustedEquipmentProfileType;
   // preferences: UserPreferencesType;
@@ -39,12 +40,20 @@ export function EquipmentProfileFormContainer({
   //   form.getValues() as any,
   //   form.setValue as any
   // );
-  const [state, formAction] = useActionState<any, FormData>(action, null);
+  const [state, formAction] = useActionState<any, FormData>(action, {
+    success: true,
+    data: profile,
+    errors: [],
+  });
 
   return (
     <Form
       action={formAction}
-      formProps={{ defaultValues: profile, errors: state?.errors }}
+      formProps={{
+        values: state.data,
+        defaultValues: profile,
+        errors: state?.errors,
+      }}
     >
       {children}
     </Form>

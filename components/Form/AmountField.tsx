@@ -87,7 +87,7 @@ export function AmountField<T extends FieldValues>({
   const id = `${name}-field`;
   // const { mask } = useContext(MaskContext);
   // const preferenceContext = useContext(UserPreferencesContext);
-  const { register } = useFormContext();
+  const { register, getValues } = useFormContext();
   // const mn = mask[(name ?? "") as keyof typeof mask] as any;
   // const mn = getInMask(mask, name);
   // const maskV = Array.isArray(mn) ? mn[0] : mn;
@@ -101,6 +101,7 @@ export function AmountField<T extends FieldValues>({
       ? PercentUnits[amountType]
       : BASE_UNITS[amountType!];
   const value = typeof val === "number" ? val : val?.value;
+  // console.log({ val, value, unitName });
   // console.log({ maskV, value, unit, s, unitName });
   // const convert = (v: number, dir = true) =>
   //   convertUnit({
@@ -109,30 +110,33 @@ export function AmountField<T extends FieldValues>({
   //     unit,
   //     inline: true,
   //     dir,
-  //   });
+  //   }.);
   /**const options = (UnitTypeDict[amountType] ?? []).reduce((acc, unit) => {
     acc[unit] = unit;
     return acc;
   }, {} as Record<UnitNames, UnitNames>);
   */
   const revisionContext = useContext(RevisionContext);
-  const onValueChange = (cb: (newValue: any) => void) => (newValue: any) => {
-    revisionContext?.update({
-      type: "SET",
-      payload: {
-        name,
-        prev: value,
-        value: newValue,
-      },
-    });
-    // const converted = convert(newValue, false);
-    // console.log({ name, value, newValue, converted });
-    cb(newValue);
-  };
-
   const { ...inputProps } = register(`${name}.value`, {
     valueAsNumber: true,
   });
+  const onValueChange: (o: any) => React.ChangeEventHandler<HTMLInputElement> =
+    (old) => (e) => {
+      const newValue = parseFloat(e.target.value);
+      if (old !== newValue)
+        revisionContext?.update({
+          type: "SET",
+          payload: {
+            name: `${name}.value`,
+            prev: old,
+            value: newValue,
+          },
+        });
+      // cb(e);
+      // const converted = convert(newValue, false);
+      // console.log({ name, value, newValue, converted });
+    };
+
   return (
     <Field
       className="bg-white px-3 py-2 my-2 rounded-md"
@@ -160,7 +164,7 @@ export function AmountField<T extends FieldValues>({
           // name={field.name}
           // value={field.value}
           step={props.step ?? 0.1}
-          // onChange={(e) => onValueChange(onChange)(parseFloat(e.target.value))}
+          onBlur={onValueChange(getValues(`${name}.value`))}
           // onBlur={field.onBlur}
         />
 
