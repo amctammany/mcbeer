@@ -10,6 +10,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { customSession, oneTap, username } from "better-auth/plugins";
 import { prisma } from "./lib/prisma";
 import { inferAdditionalFields } from "better-auth/client/plugins";
+import { nextCookies } from "better-auth/next-js";
 
 const options = {
   trustedOrigins: [
@@ -72,5 +73,6 @@ export const auth = betterAuth({
         user,
       };
     }, options),
+    nextCookies(),
   ],
 });

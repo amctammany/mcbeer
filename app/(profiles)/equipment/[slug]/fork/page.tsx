@@ -45,8 +45,8 @@ export default async function EquipmentProfileForkPage({
       userId: session.user.id,
     },
   });
-   * 
-   */ const adjusted = adjustUnits({
+   */
+  const adjusted = adjustUnits({
     src: fork,
     mask: EquipmentProfileMask,
     prefs,
@@ -55,9 +55,9 @@ export default async function EquipmentProfileForkPage({
   }) as AdjustedEquipmentProfileType;
   return (
     <EquipmentProfileEditor
-      profile={fork}
-      action={createEquipmentProfile.bind(null, prefs)}
-      preferences={prefs}
+      profile={adjusted}
+      action={createEquipmentProfile}
+      // preferences={prefs}
     />
   );
 }

@@ -44,7 +44,7 @@ export default async function EquipmentProfileEditorPage({
     <EquipmentProfileEditor
       profile={adjusted}
       // preferences={prefs}
-      action={updateEquipmentProfile.bind(null, prefs)}
+      action={updateEquipmentProfile}
     />
   );
 }

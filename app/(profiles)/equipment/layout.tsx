@@ -9,10 +9,6 @@ export default function EquipmentProfilesLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Suspense fallback={<div>Equipment Profiles Loading</div>}>
-      <MaskContext value={{ mask: EquipmentProfileMask }}>
-        {children}
-      </MaskContext>
-    </Suspense>
+    <MaskContext value={{ mask: EquipmentProfileMask }}>{children}</MaskContext>
   );
 }

@@ -4,13 +4,15 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 
-export const cachedAuth = cache(async function () {
+export const cachedAuth = async function () {
+  "use server";
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
   });
   return session;
-});
+};
 export const verifySession = async function (redirect_url = "") {
+  "use server";
   const session = await cachedAuth();
   if (!session?.user) {
     const url = new URLSearchParams({
