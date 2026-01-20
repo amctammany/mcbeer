@@ -43,7 +43,7 @@ const textFieldStyles = cva(
       },
     },
     defaultVariants: { size: "default", variant: "default", suffix: "default" },
-  }
+  },
 );
 export function TextField<T extends FieldValues>({
   name,
@@ -60,7 +60,7 @@ export function TextField<T extends FieldValues>({
   ...props
 }: TextFieldProps<T>) {
   const id = `${name}-field`;
-  const { getValues, register, getFieldState } = useFormContext();
+  const { getValues, register, getFieldState, formState } = useFormContext();
   const revisionContext = useContext(RevisionContext);
   const onValueChange: (o: any) => React.ChangeEventHandler<HTMLInputElement> =
     (old) => (e) => {
@@ -99,6 +99,7 @@ export function TextField<T extends FieldValues>({
           type="text"
           {...regProps}
           onBlur={onValueChange(getValues(name))}
+          defaultValue={formState.defaultValues?.[name]}
           // onChange={(e) => onValueChange(regProps.onChange)(e.target.value)}
         />
         <FieldError>{fieldState.error?.message}</FieldError>

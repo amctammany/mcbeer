@@ -56,6 +56,7 @@ export const FermentableMask: UnitMaskType<Partial<FermentableType>> = {
   protein: "percent",
   friability: "percent",
   yield: "percent",
+  power: "percent",
   potential: ["gravity", "PPG"],
   coarseFineDiff: "percent",
   moisture: "percent",
@@ -111,7 +112,7 @@ import { FermentableType, HopType, YeastType } from "@/types/Ingredient";
 
 export function getInMask<T extends FieldValues>(
   mask: UnitMaskType<T>,
-  path: FieldPath<T>
+  path: FieldPath<T>,
 ) {
   const crumbs = path.split(".");
   const res = crumbs.reduce((acc, p) => {

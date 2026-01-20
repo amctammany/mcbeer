@@ -12,7 +12,7 @@ import { BaseEquipmentProfile, EquipmentProfileType } from "@/types/Profile";
 export async function createEquipmentProfile(
   // prefs: UserPreferencesType,
   prev: any,
-  formData: FormData
+  formData: FormData,
 ) {
   const v = validateSchema(formData, equipmentProfileSchema);
   // console.log(v.errors);
@@ -40,6 +40,7 @@ export async function createEquipmentProfile(
 
 export async function updateEquipmentProfile(prev: any, formData: FormData) {
   const v = validateSchema(formData, equipmentProfileSchema);
+  console.log(v);
   if (v.errors) console.log(v);
   if (v.errors) return v;
   if (!v.success) {

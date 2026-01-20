@@ -1,5 +1,6 @@
 import { FieldError } from "react-hook-form";
 import { ZodSchema, z } from "zod";
+import { reduceUnits } from "./Converter/adjustUnits";
 export type SchemaFieldError = FieldError & {
   path?: string; //| (string | number)[];
   extra?: string;
@@ -28,7 +29,7 @@ export function validateSchema<
   //T extends FieldValues,
   S extends ZodSchema = ZodSchema,
   // @ts-expect-error notsure
-  I extends object = z.infer<S> //State<T> //T["safeParse"]
+  I extends object = z.infer<S>, //State<T> //T["safeParse"]
   //> & { errors: undefined }
   //S extends any //<T> = ZodEffects<T>
 >(formData: FormData, schema: S): State<I> {
@@ -36,6 +37,7 @@ export function validateSchema<
   if (!valid.success) {
     return {
       success: valid.success,
+      // data: reduceUnits(Object.fromEntries(formData.entries()) as any),
       //data: null, //valid.data, //Object.fromEntries(formData.entries()) as any,
       errors: Object.entries(valid.error.issues)?.reduce(
         //eslint-disable-next-line
@@ -52,7 +54,7 @@ export function validateSchema<
           //issue as unknown as SchemaFieldError;
           return acc;
         },
-        {} as Record<any, SchemaFieldError>
+        {} as Record<any, SchemaFieldError>,
       ),
     };
   } else {

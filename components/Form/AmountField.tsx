@@ -67,7 +67,7 @@ const amountFieldStyles = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
+  },
 );
 
 export function AmountField<T extends FieldValues>({
@@ -87,7 +87,7 @@ export function AmountField<T extends FieldValues>({
   const id = `${name}-field`;
   // const { mask } = useContext(MaskContext);
   // const preferenceContext = useContext(UserPreferencesContext);
-  const { register, getValues } = useFormContext();
+  const { register, getFieldState, formState, getValues } = useFormContext();
   // const mn = mask[(name ?? "") as keyof typeof mask] as any;
   // const mn = getInMask(mask, name);
   // const maskV = Array.isArray(mn) ? mn[0] : mn;
@@ -116,6 +116,7 @@ export function AmountField<T extends FieldValues>({
     return acc;
   }, {} as Record<UnitNames, UnitNames>);
   */
+  console.log(formState);
   const revisionContext = useContext(RevisionContext);
   const { ...inputProps } = register(`${name}.value`, {
     valueAsNumber: true,
@@ -136,12 +137,14 @@ export function AmountField<T extends FieldValues>({
       // const converted = convert(newValue, false);
       // console.log({ name, value, newValue, converted });
     };
+  const fieldState = getFieldState(name);
+  // console.log(fieldState);
 
   return (
     <Field
       className="bg-white px-3 py-2 my-2 rounded-md"
       orientation={orientation}
-      // data-invalid={!!fieldState.error}
+      data-invalid={!!fieldState.error}
     >
       <FieldContent className="grow grid w-full gap-2 ">
         <FieldLabel htmlFor={id}>{label}</FieldLabel>
@@ -164,19 +167,20 @@ export function AmountField<T extends FieldValues>({
           // name={field.name}
           // value={field.value}
           step={props.step ?? 0.1}
+          defaultValue={formState.defaultValues?.[name]?.value}
           onBlur={onValueChange(getValues(`${name}.value`))}
           // onBlur={field.onBlur}
         />
 
         <InputGroupAddon
-          // aria-invalid={!!fieldState.error}
+          aria-invalid={!!fieldState.error}
           className="w-4"
           align="inline-end"
         >
           <InputGroupText>{unitName}</InputGroupText>
         </InputGroupAddon>
       </InputGroup>
-      <FieldError>{error}</FieldError>
+      <FieldError>{fieldState.error?.message}</FieldError>
     </Field>
   );
   /**

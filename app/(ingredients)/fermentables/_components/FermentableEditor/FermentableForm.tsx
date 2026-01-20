@@ -43,12 +43,20 @@ export function FermentableFormContainer({
   //   form.getValues() as any,
   //   form.setValue as any
   // );
-  const [state, formAction] = useActionState<any, FormData>(action, null);
+  const [state, formAction] = useActionState<any, FormData>(action, {
+    success: true,
+    data: src,
+    errors: [],
+  });
 
   return (
     <Form
       action={formAction}
-      formProps={{ defaultValues: src, errors: state?.errors }}
+      formProps={{
+        values: state.data,
+        defaultValues: src,
+        errors: state.errors,
+      }}
     >
       {children}
     </Form>

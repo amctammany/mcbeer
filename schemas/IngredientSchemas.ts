@@ -15,25 +15,28 @@ export const schemas = zfd.formData({
 
 export const fermentableSchema = zfd.formData({
   id: zfd.text(z.string().optional()),
-  userId: zfd.text(z.string().optional()),
+  userId: zfd.text(z.string().optional()).nullable(),
+  forkedFrom: zfd.text(z.string().optional()).nullable(),
   name: zfd.text(),
   type: z.enum(FermentableType).optional().default(FermentableType.Grain),
   usage: z.enum(IngredientUsage).optional().default(IngredientUsage.Mash),
-  manufacturer: zfd.text(z.string().optional()),
-  description: zfd.text(z.string().optional()),
-  country: zfd.text(z.string().optional()),
-  notes: zfd.text(z.string().optional()),
-  stability: zfd.text(z.string().optional()),
-  power: unitValueSchema(z.number().min(0).max(120).optional()),
-  maxUsage: unitValueSchema(z.number().min(0).max(100).optional()),
-  color: unitValueSchema(z.number().min(0).max(600).optional()),
-  potential: unitValueSchema(z.number().min(0).max(2).optional()),
-  moisture: unitValueSchema(z.number().min(0).max(100).optional()),
-  protein: unitValueSchema(z.number().min(0).max(100).optional()),
-  coarseFineDiff: unitValueSchema(z.number().min(0).max(100).optional()),
-  friability: unitValueSchema(z.number().min(0).max(100).optional()),
-  yield: unitValueSchema(z.number().min(0).max(100).optional()),
-  extract: unitValueSchema(z.number().optional()),
+  manufacturer: zfd.text(z.string().optional()).nullable(),
+  description: zfd.text(z.string().optional()).nullable(),
+  country: zfd.text(z.string().optional()).nullable(),
+  notes: zfd.text(z.string().optional()).nullable(),
+  stability: zfd.text(z.string().optional()).nullable(),
+  power: unitValueSchema(z.number().min(0).max(120).optional()).nullable(),
+  maxUsage: unitValueSchema(z.number().min(0).max(100).optional()).nullable(),
+  color: unitValueSchema(z.number().min(0).max(600).optional()).nullable(),
+  potential: unitValueSchema(z.number().min(0).max(2).optional()).nullable(),
+  moisture: unitValueSchema(z.number().min(0).max(100).optional()).nullable(),
+  protein: unitValueSchema(z.number().min(0).max(100).optional()).nullable(),
+  coarseFineDiff: unitValueSchema(
+    z.number().min(0).max(100).optional(),
+  ).nullable(),
+  friability: unitValueSchema(z.number().min(0).max(100).optional()).nullable(),
+  yield: unitValueSchema(z.number().min(0).max(100).optional()).nullable(),
+  extract: unitValueSchema(z.number().optional()).nullable(),
 });
 export const hopSchema = zfd.formData({
   id: zfd.text(z.string().optional()),
@@ -73,10 +76,10 @@ export const yeastSchema = zfd.formData({
   attenuationHigh: unitValueSchema(z.number().optional()),
   // attenuationRange: zfd.numeric(z.number().optional()),
   attenuationRange: zfd.repeatable(
-    z.array(unitValueSchema(z.number().optional())).length(2)
+    z.array(unitValueSchema(z.number().optional())).length(2),
   ),
   tempRange: zfd.repeatable(
-    z.array(unitValueSchema(z.number().optional())).length(2)
+    z.array(unitValueSchema(z.number().optional())).length(2),
   ),
   tempLow: unitValueSchema(z.number().optional()),
   tempHigh: unitValueSchema(z.number().optional()),

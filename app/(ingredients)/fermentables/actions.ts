@@ -11,24 +11,26 @@ import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function createFermentable(
-  prefs: UserPreferencesType,
+  // prefs: UserPreferencesType,
   prev: any,
-  formData: FormData
+  formData: FormData,
 ) {
   const v = validateSchema(formData, fermentableSchema);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const adj = adjustUnits({
-    src: v.data,
-    prefs,
-    mask: FermentableMask,
-    inline: true,
-    dir: false,
-  });
+  // const adj = adjustUnits({
+  //   src: v.data,
+  //   prefs,
+  //   mask: FermentableMask,
+  //   inline: true,
+  //   dir: false,
+  // });
+
+  const r = reduceUnits(v.data) as BaseFermentableType;
   const res = await prisma.fermentable.create({
-    data: { ...adj, slug: slugify(v.data.name) },
+    data: { ...r, slug: slugify(v.data.name) },
   });
   updateTag("fermentables");
   return redirect(`/fermentables/${res.slug}`);
@@ -36,16 +38,17 @@ export async function createFermentable(
 }
 
 export async function updateFermentable(
-  prefs: UserPreferencesType,
+  // prefs: UserPreferencesType,
   prev: any,
-  formData: FormData
+  formData: FormData,
 ) {
   const v = validateSchema(formData, fermentableSchema);
   if (v.errors) return v;
   if (!v.success) {
-    return Promise.resolve(v);
+    return v;
   }
   const r = reduceUnits(v.data) as BaseFermentableType;
+  console.log(v, r);
   /**
    * 
   const adj = adjustUnits({
@@ -65,6 +68,6 @@ export async function updateFermentable(
     data: { ...r, slug: slugify(v.data.name) },
   });
   updateTag(`fermentables-${res.id}`);
-  revalidatePath(`/fermentables/${res.slug}`);
+  // revalidatePath(`/fermentables/${res.slug}`);
   return redirect(`/fermentables/${res.slug}`);
 }

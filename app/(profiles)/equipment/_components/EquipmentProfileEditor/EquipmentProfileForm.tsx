@@ -46,6 +46,7 @@ export function EquipmentProfileFormContainer({
     errors: [],
   });
 
+  console.log(state);
   return (
     <Form
       action={formAction}

@@ -31,13 +31,19 @@ export default function Form({
   formProps,
   children,
 }: FormProps) {
-  const form = useForm(formProps);
+  const form = useForm({
+    reValidateMode: "onBlur",
+    resetOptions: { keepDirtyValues: true, keepValues: true },
+    ...formProps,
+  });
   const revision = useRevisionHistory<ExtendedUser>(
     form.getValues() as any,
-    form.setValue as any
+    form.setValue as any,
   );
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     // Wrap the async operation in startTransition
+    console.log(action);
+    // console.log(Promise.resolve(action(data)));
     startTransition(async () => {
       // Perform your non-urgent updates here, e.g., API call or server action
       console.log("Submitting data:", data);
@@ -51,7 +57,7 @@ export default function Form({
     <FormProvider {...form}>
       {/* <UserPreferencesContext value={preferences}> */}
       <RevisionContext value={revision}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>{children}</form>
+        <form action={action}>{children}</form>
       </RevisionContext>
       {/* </UserPreferencesContext> */}
     </FormProvider>

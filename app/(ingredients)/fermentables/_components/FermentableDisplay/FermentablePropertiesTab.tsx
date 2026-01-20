@@ -17,7 +17,12 @@ export default function FermentablePropertiesTab({
         variant={"inline"}
         value={src.color}
       />
-      <Prop label="Power" variant={"inline"} value={src.power} />
+      <AmountProp
+        name="power"
+        label="Power"
+        variant={"inline"}
+        value={src.power}
+      />
       <AmountProp
         name="potential"
         precision={4}
