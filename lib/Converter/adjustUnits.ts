@@ -12,7 +12,7 @@ export type UnitMask<T> = {
 
 export type UnitValues<
   T extends FieldValues,
-  Q extends Partial<Record<keyof T, UnitNames>>
+  Q extends Partial<Record<keyof T, UnitNames>>,
 > = {
   [P in keyof T]: Q[P] extends UnitNames ? UnitValue : T[P];
 };
@@ -125,11 +125,11 @@ export function reduceUnits<T extends FieldValues>(
           unit: v.unit,
           precision,
           inline: true,
-          dir: true,
+          dir: false,
         })
       : Array.isArray(v)
-      ? v.map((a) => reduceUnits(a))
-      : v;
+        ? v.map((a) => reduceUnits(a))
+        : v;
     return acc;
   }, {} as T); //Record<keyof T, T[keyof T]>);
   return res;

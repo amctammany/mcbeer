@@ -7,7 +7,7 @@ import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
 import { redirect } from "next/navigation";
 import { equipmentProfileSchema } from "@/schemas/ProfileSchemas";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag, updateTag } from "next/cache";
 import { BaseEquipmentProfile, EquipmentProfileType } from "@/types/Profile";
 export async function createEquipmentProfile(
   // prefs: UserPreferencesType,
@@ -33,6 +33,7 @@ export async function createEquipmentProfile(
     data: { ...r, slug: slugify(v.data.name) },
   });
   revalidatePath("/equipment");
+  updateTag("equipment");
   return redirect(`/equipment/${res.slug}`);
   //  return { success: true, data: res };
 }
@@ -45,6 +46,7 @@ export async function updateEquipmentProfile(prev: any, formData: FormData) {
     return Promise.resolve(v);
   }
   const r = reduceUnits(v.data) as BaseEquipmentProfile;
+  console.log("update equipment", v.data, r);
   // console.log(v.data, r);
   // const adj = adjustUnits({
   //   src: v.data,
@@ -60,5 +62,6 @@ export async function updateEquipmentProfile(prev: any, formData: FormData) {
     },
     data: { ...r, slug: slugify(v.data.name) },
   });
+  updateTag(`equipment-${res.id}`);
   return redirect(`/equipment/${res.slug}`);
 }

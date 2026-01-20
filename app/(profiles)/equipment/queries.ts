@@ -22,6 +22,6 @@ export const getEquipmentProfile = async (slug: string) => {
     },
   });
   if (!profile) notFound();
-  cacheTag("equipment", profile?.id);
+  cacheTag(`equipment-${profile.id}`);
   return profile as EquipmentProfileType;
 };

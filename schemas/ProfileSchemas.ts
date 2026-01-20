@@ -9,8 +9,8 @@ export const unitValueSchema = (numSchema: any = z.number()) =>
 export const equipmentProfileSchema = zfd.formData({
   //userId: zfd.text(),
   id: zfd.text(z.string().optional()),
-  forkedFrom: zfd.text(z.string().optional()),
-  userId: zfd.text(z.string().optional()),
+  forkedFrom: zfd.text(z.string().optional()).nullable(),
+  userId: zfd.text(z.string().optional()).nullable(),
   name: zfd.text(),
   description: zfd.text(),
   brewEfficiency: unitValueSchema(z.number().min(0).default(68)),

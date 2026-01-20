@@ -48,14 +48,12 @@ export default function Form({
   };
   // const onSubmit = startTransition(() => form.handleSubmit(action));
   return (
-    <div>
-      <FormProvider {...form}>
-        {/* <UserPreferencesContext value={preferences}> */}
-        <RevisionContext value={revision}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>{children}</form>
-        </RevisionContext>
-        {/* </UserPreferencesContext> */}
-      </FormProvider>
-    </div>
+    <FormProvider {...form}>
+      {/* <UserPreferencesContext value={preferences}> */}
+      <RevisionContext value={revision}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>{children}</form>
+      </RevisionContext>
+      {/* </UserPreferencesContext> */}
+    </FormProvider>
   );
 }

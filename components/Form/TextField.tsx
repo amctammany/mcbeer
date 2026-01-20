@@ -60,7 +60,7 @@ export function TextField<T extends FieldValues>({
   ...props
 }: TextFieldProps<T>) {
   const id = `${name}-field`;
-  const { control } = useFormContext();
+  const { control, register, getFieldState } = useFormContext();
   const revisionContext = useContext(RevisionContext);
   const onValueChange = (cb: (newValue: any) => void) => (newValue: any) => {
     revisionContext?.update({
@@ -74,35 +74,29 @@ export function TextField<T extends FieldValues>({
     // console.log({ name, value, newValue });
     cb(newValue);
   };
+  const regProps = register(name);
+  const fieldState = getFieldState(name);
   return (
     <FieldGroup>
-      <Controller
-        name={name}
-        control={control}
-        render={({ field, fieldState }) => (
-          <Field
-            className="bg-white p-2 m-1 lg:px-3 lg:py-2 lg:my-2 rounded-md"
-            orientation={orientation}
-            data-invalid={!!fieldState.error}
-          >
-            <FieldContent className="grid w-full gap-2 ">
-              <FieldLabel htmlFor={id}>{label}</FieldLabel>
+      <Field
+        className="bg-white p-2 lg:px-3 lg:py-2 lg:my-2 rounded-md"
+        orientation={orientation}
+        data-invalid={!!fieldState.error}
+      >
+        <FieldContent className="grid w-full gap-2 ">
+          <FieldLabel htmlFor={id}>{label}</FieldLabel>
 
-              <FieldDescription>{description}</FieldDescription>
-            </FieldContent>
-            <Input
-              className="grow"
-              id={id}
-              type="text"
-              value={field.value ?? ""}
-              name={field.name}
-              onChange={(e) => onValueChange(field.onChange)(e.target.value)}
-              onBlur={field.onBlur}
-            />
-            <FieldError>{fieldState.error?.message}</FieldError>
-          </Field>
-        )}
-      />
+          <FieldDescription>{description}</FieldDescription>
+        </FieldContent>
+        <Input
+          className="grow"
+          id={id}
+          type="text"
+          {...regProps}
+          onChange={(e) => onValueChange(regProps.onChange)(e.target.value)}
+        />
+        <FieldError>{fieldState.error?.message}</FieldError>
+      </Field>
     </FieldGroup>
   );
   /**

@@ -57,29 +57,25 @@ export function EquipmentProfileForm({}: // preferences,
 EquipmentProfileFormProps) {
   const { register, control } = useFormContext<EquipmentProfileType>();
   return (
-    <div className="m-2 p-2 gap-2 *:mb-2">
-      <input type="hidden" {...register("id")} />
-      <input type="hidden" {...register("userId")} />
-      <input type="hidden" {...register("forkedFrom")} />
-      <TextField
-        control={control}
-        {...register("name")}
-        label="Name "
-        // onBlur={updateHistory}
-      />
-      <TextField
-        control={control}
-        {...register("description")}
-        label="Description"
-        // onBlur={updateHistory}
-      />
-      <div className="grid lg:grid-cols-3 gap-2">
-        <Card className="grid">
-          <CardHeader>
-            <CardTitle>Volumes</CardTitle>
-          </CardHeader>
-          <CardContent>
-            Fields
+    <div className="bg-blue-200">
+      <div className="max-w-2xl p-2 gap-2 *:mb-2 mx-auto">
+        <input type="hidden" {...register("id")} />
+        <input type="hidden" {...register("userId")} />
+        <input type="hidden" {...register("forkedFrom")} />
+        <TextField
+          control={control}
+          {...register("name")}
+          label="Name "
+          // onBlur={updateHistory}
+        />
+        <TextField
+          control={control}
+          {...register("description")}
+          label="Description"
+          // onBlur={updateHistory}
+        />
+        <div className="grid lg:grid-cols-2 gap-2">
+          <div>
             <AmountField
               amountType="time"
               unit="min"
@@ -94,7 +90,7 @@ EquipmentProfileFormProps) {
               unit="gal"
               type="number"
               amountType="volume"
-              step={1}
+              step={0.01}
               label="Preboil Volume"
             />
             <AmountField
@@ -102,7 +98,7 @@ EquipmentProfileFormProps) {
               unit="gal"
               type="number"
               amountType="volume"
-              step={1}
+              step={0.01}
               label="Boil Volume"
             />
             <AmountField
@@ -110,7 +106,7 @@ EquipmentProfileFormProps) {
               unit="gal"
               type="number"
               amountType="volume"
-              step={1}
+              step={0.01}
               label="Batch Volume"
             />
             <TextField
@@ -124,7 +120,7 @@ EquipmentProfileFormProps) {
               name="mashLoss"
               unit="gal"
               type="number"
-              step={1}
+              step={0.01}
               label="Mash Loss"
             />
             <AmountField
@@ -132,7 +128,7 @@ EquipmentProfileFormProps) {
               unit="gal"
               name="fermenterLoss"
               type="number"
-              step={1}
+              step={0.01}
               label="Fermenter Loss"
             />
             <AmountField
@@ -140,16 +136,11 @@ EquipmentProfileFormProps) {
               unit="gal"
               name="trubLoss"
               type="number"
-              step={1}
+              step={0.01}
               label="Trub Loss"
             />
-          </CardContent>
-        </Card>
-        <Card className="grid">
-          <CardHeader>
-            <CardTitle>Efficiency</CardTitle>
-          </CardHeader>
-          <CardContent>
+          </div>
+          <div>
             <AmountField
               amountType="percent"
               name="mashEfficiency"
@@ -164,8 +155,8 @@ EquipmentProfileFormProps) {
               step={1}
               label="Brew Efficiency "
             />
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   );
