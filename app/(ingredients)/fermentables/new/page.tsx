@@ -14,7 +14,7 @@ export default async function FermentableCreatorPage() {
   const countries = await getCountries();
   const src = {
     userId: session.user.id,
-  } as FermentableType;
+  } as AdjustedFermentableType;
   return (
     <FermentableEditor
       countries={countries}
