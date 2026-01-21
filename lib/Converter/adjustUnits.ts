@@ -57,7 +57,7 @@ export function convertUnit({
             unit: unit ?? BASE_UNITS[type as UnitTypes],
             inline,
             dir,
-          })
+          }),
     );
     // console.log("convertUnit: array", { value, type, unit, inline, dir, a });
     return a;
@@ -98,7 +98,7 @@ export function convertUnit({
 export function getUnits<T extends FieldValues>(
   src: T,
   mask: Partial<Record<keyof T, UnitTypes | object>>,
-  prefs: UserPreferencesType
+  prefs: UserPreferencesType,
 ) {
   //  console.log({ src, mask, prefs });
   return Object.keys(src).reduce((acc, k) => {
@@ -115,7 +115,7 @@ export const isUnitValue = (s: unknown) => {
 };
 export function reduceUnits<T extends FieldValues>(
   src: T,
-  precision: number = 2
+  precision: number = 2,
 ) {
   const res = Object.entries(src).reduce((acc, [k, v]) => {
     acc[k as keyof T] = isUnitValue(v)
@@ -163,7 +163,7 @@ export function adjustUnits<T extends FieldValues>({
                 inline,
                 dir,
                 precision,
-              })
+              }),
             )
           : convertUnit({
               value: src[k as keyof typeof src],
@@ -183,7 +183,7 @@ export function adjustUnits<T extends FieldValues>({
             inline,
             dir,
             precision,
-          })
+          }),
         );
       } else {
         acc[k] =
@@ -203,7 +203,7 @@ export function adjustUnits<T extends FieldValues>({
       }
       return acc;
     },
-    { ...src } as any
+    { ...src } as any,
   );
   return s as any;
 }

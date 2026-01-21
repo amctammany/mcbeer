@@ -32,8 +32,8 @@ const colorConverter: Record<UserColorPreference, ConversionType> = {
   SRM: 100,
 };
 const percentConverter: Record<PercentUnit, ConversionType> = {
-  number: 1,
-  percent: 0.01,
+  number: 0.01,
+  percent: 1,
 };
 
 const gravityConverter: Record<UserGravityPreference, ConversionType> = {
@@ -94,7 +94,7 @@ function makeConvertFn(src: ConverterDict) {
   return (
     value: number,
     from: keyof ConverterDict,
-    to: keyof ConverterDict
+    to: keyof ConverterDict,
   ) => {
     if (!src.hasOwnProperty(from) || !src.hasOwnProperty(to)) throw new Error();
     const baseValue =
@@ -111,16 +111,19 @@ export type ConverterType = {
   from: (v: number) => number;
 };
 function makeConverter(src: ConverterDict) {
-  return Object.entries(src).reduce((acc, [unit, converter]) => {
-    const to = Array.isArray(converter)
-      ? converter[0]
-      : (v: number) => v / converter;
-    const from = Array.isArray(converter)
-      ? converter[1]
-      : (v: number) => v * converter;
-    acc[unit as UnitNames] = { to, from };
-    return acc;
-  }, {} as Record<UnitNames, ConverterType>);
+  return Object.entries(src).reduce(
+    (acc, [unit, converter]) => {
+      const to = Array.isArray(converter)
+        ? converter[0]
+        : (v: number) => v / converter;
+      const from = Array.isArray(converter)
+        ? converter[1]
+        : (v: number) => v * converter;
+      acc[unit as UnitNames] = { to, from };
+      return acc;
+    },
+    {} as Record<UnitNames, ConverterType>,
+  );
 }
 export function Converter(value: number, from: UnitNames, to: UnitNames) {
   const group = UnitDict[from];

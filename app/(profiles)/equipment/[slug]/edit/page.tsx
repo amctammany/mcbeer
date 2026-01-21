@@ -27,11 +27,11 @@ export default async function EquipmentProfileEditorPage({
 }: EquipmentProfileEditorPageProps) {
   const { slug } = await params;
 
-  const profile = await authorizeResource(
+  const profile = await getEquipmentProfile(slug); /**authorizeResource(
     `/equipment/${slug}/edit`,
     getEquipmentProfile,
     slug,
-  );
+  );*/
   const prefs = await getPreferences();
   const adjusted = adjustUnits({
     src: profile,

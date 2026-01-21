@@ -7,7 +7,11 @@ import {
   UnitNames,
   UnitTypes,
 } from "@/lib/Converter/UnitDict";
-import { convertUnit, UnitValue } from "@/lib/Converter/adjustUnits";
+import {
+  convertUnit,
+  isUnitValue,
+  UnitValue,
+} from "@/lib/Converter/adjustUnits";
 import { useContext } from "react";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { MaskContext } from "@/contexts/MaskContext";
@@ -24,6 +28,17 @@ export function AmountProp({
   precision = 1,
   ...props
 }: AmountPropProps) {
+  if (!isUnitValue(val))
+    return <Prop value={val as number} unit="" {...props} />;
+  return (
+    <Prop
+      value={(val as UnitValue).value}
+      unit={(val as UnitValue).unit}
+      {...props}
+    />
+  );
+
+  /**
   const { mask } = useContext(MaskContext);
   const preferenceContext = useContext(UserPreferencesContext);
   const mn = mask[(name ?? "") as keyof typeof mask] as any;
@@ -33,12 +48,15 @@ export function AmountProp({
 
   const value = typeof val === "number" ? val : val?.value;
   const unit = s ?? BASE_UNITS[maskV as UnitTypes];
+  return <Prop value={value} unit={unit} {...props} />;
+ * 
   // console.log({ maskV, value, unit, s });
   const converted = convertUnit({
     value,
     type: maskV,
     unit,
     inline: true,
+    dir: false,
   });
   // console.log(converted);
   // const { value, unit: _u } = val ?? {};
@@ -46,7 +64,7 @@ export function AmountProp({
   const u = unit === "percent" || unit === "number" ? PercentUnits[unit] : unit;
   const v =
     converted !== undefined ? precisionRound(converted ?? 0, precision) : "";
-  // console.log({ name, val, _unit, maskV, s, converted, u, v });
+  console.log({ name, val, _unit, maskV, s, converted, u, v });
   return <Prop value={v} unit={u} {...props} />;
   /**
    * return (

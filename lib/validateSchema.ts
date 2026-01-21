@@ -1,4 +1,4 @@
-import { FieldError } from "react-hook-form";
+import { FieldError, FieldErrors } from "react-hook-form";
 import { ZodSchema, z } from "zod";
 import { reduceUnits } from "./Converter/adjustUnits";
 export type SchemaFieldError = FieldError & {
@@ -7,7 +7,7 @@ export type SchemaFieldError = FieldError & {
 };
 type ErrRes<T extends object> = {
   success: false;
-  errors: Record<keyof T, SchemaFieldError>;
+  errors: FieldErrors<T>; //Record<keyof T, SchemaFieldError>;
   data: T;
 };
 type SuccessRes<T extends object> = {
