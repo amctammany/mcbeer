@@ -63,7 +63,7 @@ export function AmountProp({
       : unit;
   const v =
     converted !== undefined ? precisionRound(converted ?? 0, precision) : "";
-  console.log({ name, val, unit, value, _unit, maskV, s, converted, u, v });
+  // console.log({ name, val, unit, value, _unit, maskV, s, converted, u, v });
 
   return <Prop value={v} unit={u} {...props} />;
   /**

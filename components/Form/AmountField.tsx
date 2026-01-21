@@ -144,9 +144,9 @@ export function AmountField<T extends FieldValues>({
     // const converted = convert(newValue, false);
     // console.log({ name, value, newValue, converted });
   };
-  const _v = state.data?.[`${name}`]; //get(state.errors ?? {}, `${name}.value`);
+  // const _v = state.data?.[`${name}`]; //get(state.errors ?? {}, `${name}.value`);
   const error = state.errors?.[`${name}.value`]; //get(state.errors ?? {}, `${name}.value`);
-  console.log(name, _v);
+  // console.log(name, _v);
   // const fieldState = getFieldState(name);
 
   return (
