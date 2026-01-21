@@ -123,7 +123,7 @@ export function AmountField<T extends FieldValues>({
   const { ...inputProps } = register(`${name}.value`, {
     valueAsNumber: true,
   });
-  const unit = _unit ?? get(state.data, `${name}.unit`);
+  const unit = _unit ?? unitName ?? get(state.data, `${name}.unit`);
   const u =
     unit === "percent" || unit === "number"
       ? PercentUnits[unit as PercentUnit]
@@ -164,7 +164,7 @@ export function AmountField<T extends FieldValues>({
         className="gap-2 w-full grow"
         // aria-invalid={!!fieldState.error}
       >
-        <input type="hidden" value={u} name={`${name}.unit`} />
+        <input type="hidden" value={unit} name={`${name}.unit`} />
 
         <InputGroupInput
           className="text-center grow"

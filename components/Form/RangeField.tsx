@@ -97,15 +97,15 @@ export default function RangeField<T extends FieldValues>({
             <input
               type="hidden"
               name={`${low}.value`}
-              value={field.value?.[0]}
+              value={field.value?.[0] / 100}
             />
-            <input type="hidden" name={`${low}.unit`} value={"%"} />
+            <input type="hidden" name={`${low}.unit`} value={"number"} />
             <input
               type="hidden"
               name={`${high}.value`}
-              value={field.value?.[1]}
+              value={field.value?.[1] / 100}
             />
-            <input type="hidden" name={`${high}.unit`} value={"%"} />
+            <input type="hidden" name={`${high}.unit`} value={"number"} />
 
             <div className="flex justify-between px-2">
               <span className="font-bold m-auto">{min}</span>

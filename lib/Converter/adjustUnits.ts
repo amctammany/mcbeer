@@ -115,7 +115,7 @@ export const isUnitValue = (s: unknown) => {
 };
 export function reduceUnits<T extends FieldValues>(
   src: T,
-  precision: number = 2,
+  precision: number = 4,
 ) {
   const res = Object.entries(src).reduce((acc, [k, v]) => {
     acc[k as keyof T] = isUnitValue(v)

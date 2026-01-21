@@ -47,15 +47,8 @@ export default function HopPropertiesTab({ src }: HopPropertiesTabProps) {
             unit={"%"}
             className="col-span-2"
           >
-            {
-              (src[`${field.name}Low` as keyof HopType] as UnitValue)
-                ?.value as any
-            }
-            -
-            {
-              (src[`${field.name}High` as keyof HopType] as UnitValue)
-                ?.value as any
-            }
+            {src[`${field.name}Low` as keyof HopType] as number}-
+            {src[`${field.name}High` as keyof HopType] as number}
           </Prop>
         </div>
       ))}
