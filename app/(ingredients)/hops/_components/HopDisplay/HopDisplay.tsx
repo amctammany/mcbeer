@@ -12,7 +12,7 @@ export type HopDisplayProps = {
 };
 export function HopDisplay({ src, prefs }: HopDisplayProps) {
   return (
-    <div className="mx-auto grid lg:grid-cols-2 gap-1 bg-gray-200/40">
+    <div className="mx-auto grid lg:grid-cols-2 gap-1 max-w-3xl ">
       <Suspense fallback={<div>Loading...</div>}>
         <HopDetailsTab src={src} />
       </Suspense>

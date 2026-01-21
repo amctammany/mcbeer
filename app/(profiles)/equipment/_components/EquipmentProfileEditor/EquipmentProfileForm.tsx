@@ -51,18 +51,8 @@ export function EquipmentProfileFormContainer({
   // });
 
   // console.log(state);
-  const { mask } = useContext(MaskContext);
-  const preferenceContext = useContext(UserPreferencesContext);
-  const adjusted = adjustUnits({
-    src: profile,
-    mask,
-    prefs: preferenceContext,
-    inline: false,
-    dir: true,
-  });
-
   return (
-    <Form src={adjusted} action={action}>
+    <Form src={profile} action={action}>
       {children}
     </Form>
   );

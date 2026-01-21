@@ -5,6 +5,7 @@ import Form from "@/components/Form/Form";
 import RangeField from "@/components/Form/RangeField";
 import { TextAreaField } from "@/components/Form/TextAreaField";
 import { TextField } from "@/components/Form/TextField";
+import Section from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -63,6 +64,7 @@ export function HopFormContainer({
   //   form.setValue as any
   // );
   // const [state, formAction] = useActionState<any, FormData>(action, null);
+  console.log(action, src);
 
   return (
     <Form
@@ -82,44 +84,48 @@ export type HopFormProps = {
 export function HopForm({ countries, src }: HopFormProps) {
   const { register, control } = useFormContext<HopType>();
   return (
-    <div className="m-0 lg:m-2 lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid bg-gray-200/40 lg:grid-cols-2">
+    <div className="m-0 lg:m-2 lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid  lg:grid-cols-2">
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("userId")} />
-      <TextField name="name" label="Name" />
-      <TextAreaField name="description" label="Description" />
-      <ComboboxField
-        name="country"
-        label="Country"
-        options={countries.map((country) => ({
-          value: country,
-          label: country,
-        }))}
-      />
-      <TextAreaField name="notes" label="Notes" />
-      <div className="*:p-0 *:border-b-2">
-        {rangeFields.map((field) => (
-          <div className="lg:grid lg:grid-cols-3" key={field.name}>
-            <AmountField
-              amountType="percent"
-              name={field.name}
-              step="0.1"
-              type="percent"
-              label={field.label}
-              control={control}
-            />
-            <RangeField
-              className="col-span-2 "
-              name={`${field.name}Range` as FieldPath<HopType>}
-              low={`${field.name}Low` as FieldPath<HopType>}
-              high={`${field.name}High` as FieldPath<HopType>}
-              label={`${field.label} Range`}
-              min={field.min}
-              max={field.max}
-              control={control}
-            />
-          </div>
-        ))}
-      </div>
+      <Section title="General">
+        <TextField name="name" label="Name" />
+        <TextAreaField name="description" label="Description" />
+        <ComboboxField
+          name="country"
+          label="Country"
+          options={countries.map((country) => ({
+            value: country,
+            label: country,
+          }))}
+        />
+        <TextAreaField name="notes" label="Notes" />
+      </Section>
+      <Section title="Ranges">
+        <div className="*:p-0 *:border-b-2">
+          {rangeFields.map((field) => (
+            <div className="lg:grid lg:grid-cols-3" key={field.name}>
+              <AmountField
+                amountType="percent"
+                name={field.name}
+                step="0.1"
+                type="percent"
+                label={field.label}
+                control={control}
+              />
+              <RangeField
+                className="col-span-2 "
+                name={`${field.name}Range` as FieldPath<HopType>}
+                low={`${field.name}Low` as FieldPath<HopType>}
+                high={`${field.name}High` as FieldPath<HopType>}
+                label={`${field.label} Range`}
+                min={field.min}
+                max={field.max}
+                control={control}
+              />
+            </div>
+          ))}
+        </div>
+      </Section>
     </div>
   );
 }

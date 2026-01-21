@@ -33,7 +33,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SidebarProvider>
-          <Suspense fallback={<div>Loading RouteChangeListener...</div>}>
+          <Suspense>
             <RouteChangeListener />
           </Suspense>
           <NavSidebar />

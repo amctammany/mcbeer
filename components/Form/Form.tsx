@@ -1,5 +1,6 @@
 "use client";
 import { FormStateContext } from "@/contexts/FormStateContext";
+import { MaskContext } from "@/contexts/MaskContext";
 import { RevisionContext } from "@/contexts/RevisionContext";
 import {
   UserPreferencesContext,
@@ -7,10 +8,11 @@ import {
 } from "@/contexts/UserPreferencesContext";
 import { UserPreferences } from "@/generated/prisma/client";
 import useRevisionHistory from "@/hooks/useRevisionHistory";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { UnitTypeDict } from "@/lib/Converter/UnitDict";
 import { State } from "@/lib/validateSchema";
 import { ExtendedUser } from "@/types/User";
-import React, { startTransition, useActionState } from "react";
+import React, { startTransition, useActionState, useContext } from "react";
 import {
   FieldValues,
   FormProvider,
@@ -35,9 +37,19 @@ export default function Form<T extends FieldValues>({
   formProps,
   children,
 }: FormProps<T>) {
+  const { mask } = useContext(MaskContext);
+  const preferenceContext = useContext(UserPreferencesContext);
+  const adjusted = adjustUnits({
+    src,
+    mask,
+    prefs: preferenceContext,
+    inline: false,
+    dir: true,
+  });
+
   const [_state, formAction] = useActionState<State<T>, FormData>(action, {
     success: true,
-    data: src,
+    data: adjusted,
     // errors: [],
   });
   // const [state, setState] = React.useState(_state);
@@ -60,6 +72,7 @@ export default function Form<T extends FieldValues>({
     form.getValues() as any,
     form.setValue as any,
   );
+
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Wrap the async operation in startTransition
     // console.log(Promise.resolve(action(data)));
