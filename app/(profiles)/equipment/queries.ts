@@ -12,7 +12,7 @@ export const getEquipmentProfiles = async (args: any = {}) => {
 };
 
 export const getEquipmentProfile = async (slug: string) => {
-  "use cache";
+  // "use cache";
   const profile = await prisma.equipmentProfile.findFirst({
     where: { slug },
     include: {
@@ -21,7 +21,8 @@ export const getEquipmentProfile = async (slug: string) => {
       forks: { select: { name: true, id: true } },
     },
   });
+  console.log({ profile });
   if (!profile) notFound();
-  cacheTag(`equipment-${profile.id}`);
+  // cacheTag(`equipment-${profile.id}`);
   return profile as EquipmentProfileType;
 };

@@ -4,14 +4,17 @@ import {
   AdjustedFermentationProfileType,
   FermentationProfileType,
 } from "@/types/Profile";
+import { cacheTag } from "next/cache";
 import { cache } from "react";
 export const getFermentationProfiles = async (args: any = {}) => {
+  "use cache";
+  cacheTag("fermentationProfiles");
   const profiles = await prisma.fermentationProfile.findMany(args);
   return profiles;
 };
 
 export const getFermentationProfile = async (slug: string) => {
-  "use cache";
+  // "use cache";
   const profile = await prisma.fermentationProfile.findFirst({
     where: { slug },
     include: {

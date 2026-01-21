@@ -1,9 +1,11 @@
 "use server";
 import { prisma } from "@/lib/prisma";
 import { AdjustedMashProfileType, MashProfileType } from "@/types/Profile";
+import { cacheTag } from "next/cache";
 import { cache } from "react";
 export const getMashProfiles = async (args: any = {}) => {
   "use cache";
+  cacheTag("mashProfiles");
   const profiles = await prisma.mashProfile.findMany(args);
   return profiles;
 };
