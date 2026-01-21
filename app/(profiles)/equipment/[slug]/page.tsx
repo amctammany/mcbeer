@@ -10,6 +10,7 @@ import EquipmentProfileDisplay from "../_components/EquipmentProfileDisplay/Equi
 import { EquipmentProfileMask } from "@/lib/Converter/Masks";
 import { getPreferences } from "@/app/admin/queries";
 import { Metadata, ResolvingMetadata } from "next";
+import { BASE_UNITS } from "@/lib/Converter/UnitDict";
 
 export type EquipmentProfileDisplayPageProps = {
   params: Promise<{ slug: string }>;
@@ -35,7 +36,7 @@ export default async function EquipmentProfileDisplayPage({
   const adjusted = adjustUnits({
     src: profile,
     mask: EquipmentProfileMask,
-    prefs,
+    prefs: BASE_UNITS,
     inline: false,
     dir: true,
   }) as AdjustedEquipmentProfileType;

@@ -10,7 +10,7 @@ import {
 import { Redo, Undo } from "lucide-react";
 import React, { useContext } from "react";
 export type EquipmentProfileEditorToolbarProps = {
-  profile: AdjustedEquipmentProfileType;
+  profile: EquipmentProfileType;
 };
 export default function EquipmentProfileEditorToolbar({
   profile,

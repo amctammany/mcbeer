@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 export default async function EquipmentProfileCreatorPage() {
   const session = await verifySession("/equipment/new");
-  const prefs = await getPreferences();
+  // const prefs = await getPreferences();
 
   const profile = {
     userId: session.user.id,
@@ -35,6 +35,8 @@ export default async function EquipmentProfileCreatorPage() {
     fermenterTopOff: 0,
   } as EquipmentProfileType;
   //console.log(adjusted);
+  /**
+   * 
   const adjusted = adjustUnits({
     src: profile,
     mask: EquipmentProfileMask,
@@ -42,10 +44,11 @@ export default async function EquipmentProfileCreatorPage() {
     inline: true,
     dir: true,
   }) as AdjustedEquipmentProfileType;
+   */
   return (
     <EquipmentProfileEditor
-      profile={adjusted}
-      preferences={prefs}
+      profile={profile}
+      // preferences={prefs}
       action={createEquipmentProfile}
     />
   );

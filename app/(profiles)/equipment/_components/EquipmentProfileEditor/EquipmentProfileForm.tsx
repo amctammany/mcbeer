@@ -5,12 +5,14 @@ import HistoryForm from "@/components/Form/HistoryForm";
 import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MaskContext } from "@/contexts/MaskContext";
 import { RevisionContext } from "@/contexts/RevisionContext";
 import {
   UserPreferencesContext,
   type UserPreferencesType,
 } from "@/contexts/UserPreferencesContext";
 import useRevisionHistory from "@/hooks/useRevisionHistory";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { EquipmentProfileMask } from "@/lib/Converter/Masks";
 import {
   AdjustedEquipmentProfileType,
@@ -20,7 +22,7 @@ import React, { useActionState, useContext } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 import { success } from "zod";
 export type EquipmentProfileFormContainerProps<S = unknown> = {
-  profile: AdjustedEquipmentProfileType;
+  profile: EquipmentProfileType;
   // preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
@@ -47,8 +49,18 @@ export function EquipmentProfileFormContainer({
   // });
 
   // console.log(state);
+  const { mask } = useContext(MaskContext);
+  const preferenceContext = useContext(UserPreferencesContext);
+  const adjusted = adjustUnits({
+    src: profile,
+    mask,
+    prefs: preferenceContext,
+    inline: false,
+    dir: true,
+  });
+
   return (
-    <Form src={profile} action={action}>
+    <Form src={adjusted} action={action}>
       {children}
     </Form>
   );
@@ -82,35 +94,35 @@ EquipmentProfileFormProps) {
         <div className="grid lg:grid-cols-2 gap-2">
           <div>
             <AmountField
-              amountType="time"
-              unit="min"
+              // amountType="time"
+              // unit="min"
               name="boilTime"
               type="number"
-              control={control}
+              // control={control}
               step={1}
               label="Boil Time "
             />
             <AmountField
               name="preboilVolume"
-              unit="gal"
+              // unit="gal"
               type="number"
-              amountType="volume"
+              // amountType="volume"
               step={0.01}
               label="Preboil Volume"
             />
             <AmountField
               name="boilVolume"
-              unit="gal"
+              // unit="gal"
               type="number"
-              amountType="volume"
+              // amountType="volume"
               step={0.01}
               label="Boil Volume"
             />
             <AmountField
               name="batchVolume"
-              unit="gal"
+              // unit="gal"
               type="number"
-              amountType="volume"
+              // amountType="volume"
               step={0.01}
               label="Batch Volume"
             />
@@ -121,24 +133,24 @@ EquipmentProfileFormProps) {
               onBlur={(e) => console.log(e.currentTarget.form)}
             />
             <AmountField
-              amountType="volume"
+              // amountType="volume"
               name="mashLoss"
-              unit="gal"
+              // unit="gal"
               type="number"
               step={0.01}
               label="Mash Loss"
             />
             <AmountField
-              amountType="volume"
-              unit="gal"
+              // amountType="volume"
+              // unit="gal"
               name="fermenterLoss"
               type="number"
               step={0.01}
               label="Fermenter Loss"
             />
             <AmountField
-              amountType="volume"
-              unit="gal"
+              // amountType="volume"
+              // unit="gal"
               name="trubLoss"
               type="number"
               step={0.01}
@@ -147,14 +159,14 @@ EquipmentProfileFormProps) {
           </div>
           <div>
             <AmountField
-              amountType="percent"
+              // amountType="percent"
               name="mashEfficiency"
               type="number"
               step={1}
               label="Mash Efficiency "
             />
             <AmountField
-              amountType="percent"
+              // amountType="percent"
               name="brewEfficiency"
               type="number"
               step={1}

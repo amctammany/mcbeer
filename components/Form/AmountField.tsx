@@ -50,6 +50,7 @@ import { convertUnit, isUnitValue } from "@/lib/Converter/adjustUnits";
 import { getInMask } from "@/lib/Converter/Masks";
 import { FormStateContext } from "@/contexts/FormStateContext";
 import { get } from "@/lib/utils";
+import { PercentUnit } from "@/generated/prisma/enums";
 export type AmountFieldProps<T extends FieldValues> = InputProps<T> &
   VariantProps<typeof amountFieldStyles> & {
     amountType?: UnitTypes;
@@ -87,16 +88,15 @@ export function AmountField<T extends FieldValues>({
   ...props
 }: AmountFieldProps<T>) {
   const id = `${name}-field`;
-  // const { mask } = useContext(MaskContext);
-  // const preferenceContext = useContext(UserPreferencesContext);
   const { register, getFieldState, formState, getValues } = useFormContext();
-  // const mn = mask[(name ?? "") as keyof typeof mask] as any;
-  // const mn = getInMask(mask, name);
-  // const maskV = Array.isArray(mn) ? mn[0] : mn;
-  // const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
-
+  /** 
+  const preferenceContext = useContext(UserPreferencesContext);
+  const { mask } = useContext(MaskContext);
+  const mn = getInMask(mask, name);
+  const maskV = Array.isArray(mn) ? mn[0] : mn;
+  const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
   // const unitN = _unit ?? (amountType ? preferenceContext?.[amountType!] : "");
-  // const unit = _unit ?? s ?? BASE_UNITS[maskV as UnitTypes];
+*/
   const unitName = isUnitValue(val)
     ? val.unit
     : amountType === "percent"
@@ -123,22 +123,27 @@ export function AmountField<T extends FieldValues>({
   const { ...inputProps } = register(`${name}.value`, {
     valueAsNumber: true,
   });
-  const onValueChange: (o: any) => React.ChangeEventHandler<HTMLInputElement> =
-    (old) => (e) => {
-      const newValue = parseFloat(e.target.value);
-      if (old !== newValue)
-        revisionContext?.update({
-          type: "SET",
-          payload: {
-            name: `${name}.value`,
-            prev: old,
-            value: newValue,
-          },
-        });
-      // cb(e);
-      // const converted = convert(newValue, false);
-      // console.log({ name, value, newValue, converted });
-    };
+  const unit = get(state.data, `${name}.unit`);
+  const u =
+    unit === "percent" || unit === "number"
+      ? PercentUnits[unit as PercentUnit]
+      : unit;
+  const onValueChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const old = get(state.data, `${name}.value`);
+    const newValue = parseFloat(e.target.value);
+    if (old !== newValue)
+      revisionContext?.update({
+        type: "SET",
+        payload: {
+          name: `${name}.value`,
+          prev: old,
+          value: newValue,
+        },
+      });
+    // cb(e);
+    // const converted = convert(newValue, false);
+    // console.log({ name, value, newValue, converted });
+  };
   const error = state.errors?.[`${name}.value`]; //get(state.errors ?? {}, `${name}.value`);
   // const fieldState = getFieldState(name);
 
@@ -157,7 +162,7 @@ export function AmountField<T extends FieldValues>({
         className="gap-2 w-full grow"
         // aria-invalid={!!fieldState.error}
       >
-        <input type="hidden" value={unitName} name={`${name}.unit`} />
+        <input type="hidden" value={u} name={`${name}.unit`} />
 
         <InputGroupInput
           className="text-center grow"
@@ -169,8 +174,8 @@ export function AmountField<T extends FieldValues>({
           // name={field.name}
           // value={field.value}
           step={props.step ?? 0.1}
-          // defaultValue={get(state.data ?? {}, `${name}.value`)}
-          onBlur={onValueChange(getValues(`${name}.value`))}
+          // defaultValue={get(state.data, `${name}.value`)}
+          onBlur={onValueChange}
           // onBlur={field.onBlur}
         />
 
@@ -179,7 +184,7 @@ export function AmountField<T extends FieldValues>({
           className="w-4"
           align="inline-end"
         >
-          <InputGroupText>{unitName}</InputGroupText>
+          <InputGroupText>{u}</InputGroupText>
         </InputGroupAddon>
       </InputGroup>
       <FieldError>{error?.message}</FieldError>

@@ -27,11 +27,12 @@ export default async function EquipmentProfileEditorPage({
 }: EquipmentProfileEditorPageProps) {
   const { slug } = await params;
 
-  const profile = await getEquipmentProfile(slug); /**authorizeResource(
+  const profile = await getEquipmentProfile(slug);
+  /**authorizeResource(
     `/equipment/${slug}/edit`,
     getEquipmentProfile,
     slug,
-  );*/
+  );
   const prefs = await getPreferences();
   const adjusted = adjustUnits({
     src: profile,
@@ -40,9 +41,10 @@ export default async function EquipmentProfileEditorPage({
     inline: false,
     dir: true,
   }) as AdjustedEquipmentProfileType;
+*/
   return (
     <EquipmentProfileEditor
-      profile={adjusted}
+      profile={profile}
       // preferences={prefs}
       action={updateEquipmentProfile}
     />

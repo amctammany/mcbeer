@@ -28,28 +28,20 @@ export function AmountProp({
   precision = 1,
   ...props
 }: AmountPropProps) {
-  if (!isUnitValue(val))
-    return <Prop value={val as number} unit="" {...props} />;
-  return (
-    <Prop
-      value={(val as UnitValue).value}
-      unit={(val as UnitValue).unit}
-      {...props}
-    />
-  );
-
-  /**
-  const { mask } = useContext(MaskContext);
   const preferenceContext = useContext(UserPreferencesContext);
+  const { mask } = useContext(MaskContext);
   const mn = mask[(name ?? "") as keyof typeof mask] as any;
   const maskV = Array.isArray(mn) ? mn[0] : mn;
   const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
-  // const unitN = unit ?? (amountType ? preferenceContext?.[amountType!] : "");
 
   const value = typeof val === "number" ? val : val?.value;
   const unit = s ?? BASE_UNITS[maskV as UnitTypes];
-  return <Prop value={value} unit={unit} {...props} />;
- * 
+  // if (!isUnitValue(val))
+  // return <Prop value={val as number} unit="" {...props} />;
+
+  // const unitN = unit ?? (amountType ? preferenceContext?.[amountType!] : "");
+
+  // return <Prop value={value} unit={unit} {...props} />;
   // console.log({ maskV, value, unit, s });
   const converted = convertUnit({
     value,
@@ -65,6 +57,7 @@ export function AmountProp({
   const v =
     converted !== undefined ? precisionRound(converted ?? 0, precision) : "";
   console.log({ name, val, _unit, maskV, s, converted, u, v });
+
   return <Prop value={v} unit={u} {...props} />;
   /**
    * return (
