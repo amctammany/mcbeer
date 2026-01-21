@@ -3,8 +3,10 @@ import { notFound, unauthorized } from "next/navigation";
 import MashProfileEditor from "@/app/(profiles)/mash/_components/MashProfileEditor/MashProfileEditor";
 import { createMashProfile } from "@/app/(profiles)/mash/actions";
 import { getPreferences } from "@/app/admin/queries";
-import { MashProfileType } from "@/types/Profile";
+import { AdjustedMashProfileType, MashProfileType } from "@/types/Profile";
 import { verifySession } from "@/lib/verifySession";
+import { MashProfileMask } from "@/lib/Converter/Masks";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
 
 export default async function MashProfileCreatorPage() {
   const session = await verifySession("/mash/new");
@@ -12,13 +14,20 @@ export default async function MashProfileCreatorPage() {
   const prefs = await getPreferences();
   const profile = {
     userId: session.user.id,
-  } as MashProfileType;
+  } as AdjustedMashProfileType;
+  const adjusted = adjustUnits({
+    src: profile,
+    prefs,
+    mask: MashProfileMask,
+    inline: false,
+    dir: true,
+  });
   if (!profile) notFound();
   return (
     <MashProfileEditor
-      profile={profile}
+      profile={adjusted}
       // preferences={prefs}
-      action={createMashProfile.bind(null, prefs)}
+      action={createMashProfile}
     />
   );
 }

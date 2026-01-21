@@ -5,9 +5,11 @@ import { Metadata, ResolvingMetadata } from "next";
 import MashProfileEditor from "../../_components/MashProfileEditor/MashProfileEditor";
 import { createMashProfile } from "../../actions";
 import { getPreferences } from "@/app/admin/queries";
-import { MashProfileType } from "@/types/Profile";
+import { AdjustedMashProfileType, MashProfileType } from "@/types/Profile";
 import { prisma } from "@/lib/prisma";
 import { verifySession } from "@/lib/verifySession";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { MashProfileMask } from "@/lib/Converter/Masks";
 
 export type MashProfileForkPageProps = {
   params: Promise<{ slug: string }>;
@@ -35,13 +37,20 @@ export default async function MashProfileForkPage({
   });
   const name = `${session.user.name} - ${old.name} (${count})`;
   const prefs = await getPreferences();
+  const adjusted = adjustUnits({
+    src: old,
+    prefs,
+    mask: MashProfileMask,
+    inline: false,
+    dir: true,
+  });
   const fork = {
-    ...old,
+    ...adjusted,
     name,
     userId: session?.user.id,
     origin: old,
     forkedFrom: id,
-  } as MashProfileType;
+  } as AdjustedMashProfileType;
   return (
     <MashProfileEditor
       profile={fork}
