@@ -1,5 +1,5 @@
 import React from "react";
-import type { MashProfileType } from "@/types/Profile";
+import type { AdjustedMashProfileType, MashProfileType } from "@/types/Profile";
 import Link from "next/link";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { MashProfileForm, MashProfileFormContainer } from "./MashProfileForm";
