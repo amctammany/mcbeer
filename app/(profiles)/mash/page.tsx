@@ -7,6 +7,10 @@ import IconButton from "@/components/Button/IconButton";
 import { Plus } from "lucide-react";
 import { Metadata } from "next";
 import MashProfilesList from "./_components/MashProfilesList/MashProfilesList";
+export async function generateStaticParams() {
+  const profiles = await getMashProfiles();
+  return profiles.map(({ slug }) => ({ slug }));
+}
 
 export const metadata: Metadata = {
   title: "Mash Profiles",

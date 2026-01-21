@@ -8,6 +8,10 @@ import IconButton from "@/components/Button/IconButton";
 import { Plus } from "lucide-react";
 import { Metadata } from "next";
 
+export async function generateStaticParams() {
+  const profiles = await getEquipmentProfiles();
+  return profiles.map(({ slug }) => ({ slug }));
+}
 export const metadata: Metadata = {
   title: "Equipment Profiles",
   description: "List of equipment profiles",

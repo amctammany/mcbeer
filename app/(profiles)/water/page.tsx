@@ -7,6 +7,10 @@ import IconButton from "@/components/Button/IconButton";
 import { Plus } from "lucide-react";
 import { Metadata } from "next";
 import WaterProfilesList from "./_components/WaterProfilesList/WaterProfilesList";
+export async function generateStaticParams() {
+  const profiles = await getWaterProfiles();
+  return profiles.map(({ slug }) => ({ slug }));
+}
 
 export const metadata: Metadata = {
   title: "Water Profiles",
