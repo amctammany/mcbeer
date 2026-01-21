@@ -1,15 +1,15 @@
-import { Metadata } from "next";
+"use client";
+import { MaskContext } from "@/contexts/MaskContext";
+import { HopMask } from "@/lib/Converter/Masks";
 import { Suspense } from "react";
 
-export const metadata: Metadata = {
-  title: "McBeer: Hops",
-  description: "Where to make good beer",
-};
-
+const mask = { mask: HopMask };
 export default function HopsLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <Suspense fallback={<div>Hops Loading</div>}>{children}</Suspense>;
+  return <MaskContext value={mask}>{children}</MaskContext>;
+  // <Suspense fallback={<div>Hops Loading</div>}>
+  // </Suspense>
 }

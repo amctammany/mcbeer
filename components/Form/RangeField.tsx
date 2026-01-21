@@ -73,7 +73,7 @@ export default function RangeField<T extends FieldValues>({
       console.log({ name, value, newValue });
       cb(newValue);
     },
-    [name, revisionContext, value]
+    [name, revisionContext, value],
   );
 
   return (
@@ -94,8 +94,8 @@ export default function RangeField<T extends FieldValues>({
                 {JSON.stringify(field.value)}
               </FieldDescription>
             </FieldContent>
-            <input type="hidden" name={low} value={field.value?.[0]?.value} />
-            <input type="hidden" name={high} value={field.value?.[1]?.value} />
+            <input type="hidden" name={low} value={field.value?.[0]} />
+            <input type="hidden" name={high} value={field.value?.[1]} />
 
             <div className="flex justify-between px-2">
               <span className="font-bold m-auto">{min}</span>

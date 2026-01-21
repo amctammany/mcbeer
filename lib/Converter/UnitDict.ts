@@ -13,7 +13,7 @@ import {
 export type PercentUnitType = "%" | "#";
 export const PercentUnits: Record<PercentUnit, PercentUnitType> = {
   percent: "%",
-  number: "#",
+  number: "%",
 };
 export type UnitNames =
   //  | (typeof PercentUnits)[keyof typeof PercentUnits]
@@ -41,7 +41,7 @@ export const UNITS = {
 };
 export const BASE_UNITS = {
   time: TimeUnit.min,
-  percent: PercentUnit.percent,
+  percent: PercentUnit.number,
   mass: UserMassPreference.Kg,
   temperature: UserTemperaturePreference.F,
   color: UserColorPreference.L,
@@ -55,14 +55,20 @@ export const UnitTypesType = Object.keys(UNITS);
   acc[v] = k;
   return acc;
 }, {} as Record<UnitTypes, UnitNames>);*/
-export const UnitTypeDict = Object.entries(UNITS).reduce((acc, [k, v]) => {
-  acc[k as UnitTypes] = Object.values(v);
+export const UnitTypeDict = Object.entries(UNITS).reduce(
+  (acc, [k, v]) => {
+    acc[k as UnitTypes] = Object.values(v);
 
-  return acc;
-}, {} as Record<UnitTypes, UnitNames[]>);
-export const UnitDict = Object.entries(UNITS).reduce((acc, [k, v]) => {
-  return Object.values(v).reduce((dict, unit) => {
-    dict[unit] = k as UnitTypes;
-    return dict;
-  }, acc);
-}, {} as Record<UnitNames, UnitTypes>);
+    return acc;
+  },
+  {} as Record<UnitTypes, UnitNames[]>,
+);
+export const UnitDict = Object.entries(UNITS).reduce(
+  (acc, [k, v]) => {
+    return Object.values(v).reduce((dict, unit) => {
+      dict[unit] = k as UnitTypes;
+      return dict;
+    }, acc);
+  },
+  {} as Record<UnitNames, UnitTypes>,
+);

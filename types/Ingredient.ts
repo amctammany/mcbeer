@@ -1,8 +1,10 @@
 import { Fermentable, Hop, Yeast } from "@/generated/prisma/client";
 import { AmountFields, OptionalNullable } from "@/lib/utils";
 import { BaseUser } from "./User";
-export interface BaseHopType
-  extends Omit<OptionalNullable<Hop>, "id" | "userId"> {
+export interface BaseHopType extends Omit<
+  OptionalNullable<Hop>,
+  "id" | "userId"
+> {
   id?: string;
   userId?: string;
 }
@@ -29,10 +31,13 @@ type HopAmountFieldNames =
   | "myrcene"
   | "humulene"
   | "caryophyllene"
+  | "totalOil"
   | "farnesene";
 export type AdjustedHopType = AmountFields<HopType, HopAmountFieldNames>;
-export interface BaseYeastType
-  extends Omit<OptionalNullable<Yeast>, "id" | "userId"> {
+export interface BaseYeastType extends Omit<
+  OptionalNullable<Yeast>,
+  "id" | "userId"
+> {
   attenuationRange: [number, number];
   tempRange: [number, number];
   id?: string;
@@ -53,8 +58,10 @@ type YeastAmountFieldNames =
   | "tempHigh";
 export type AdjustedYeastType = AmountFields<YeastType, YeastAmountFieldNames>;
 
-export interface BaseFermentableType
-  extends Omit<OptionalNullable<Fermentable>, "id" | "userId"> {
+export interface BaseFermentableType extends Omit<
+  OptionalNullable<Fermentable>,
+  "id" | "userId"
+> {
   id?: string;
   userId?: string;
 }

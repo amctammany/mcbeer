@@ -33,6 +33,7 @@ type RangeProp<T extends FieldValues> = {
 const rangeFields: RangeProp<HopType>[] = [
   { name: "alpha", label: "Alpha", min: 0, max: 60 },
   { name: "beta", label: "Beta", min: 0, max: 60 },
+  { name: "caryophyllene", label: "Caryophyllene", min: 0, max: 40 },
   { name: "cohumulone", label: "Cohumulone", min: 0, max: 60 },
   { name: "humulene", label: "Humulene", min: 0, max: 30 },
   { name: "farnesene", label: "Farnesene", min: 0, max: 20 },
@@ -105,12 +106,13 @@ export function HopForm({ countries, src }: HopFormProps) {
           {rangeFields.map((field) => (
             <div className="lg:grid lg:grid-cols-3" key={field.name}>
               <AmountField
-                amountType="percent"
+                // amountType="percent"
+                // unit="percent"
                 name={field.name}
-                step="0.1"
-                type="percent"
+                step="0.01"
+                // type="percent"
                 label={field.label}
-                control={control}
+                // control={control}
               />
               <RangeField
                 className="col-span-2 "

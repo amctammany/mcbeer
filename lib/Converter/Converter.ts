@@ -32,8 +32,8 @@ const colorConverter: Record<UserColorPreference, ConversionType> = {
   SRM: 100,
 };
 const percentConverter: Record<PercentUnit, ConversionType> = {
-  number: 0.01,
-  percent: 1,
+  number: 1,
+  percent: 0.01,
 };
 
 const gravityConverter: Record<UserGravityPreference, ConversionType> = {

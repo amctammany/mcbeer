@@ -60,7 +60,7 @@ const options = {
       clientSecret: process.env.AUTH_GOOGLE_SECRET || "",
     },
   },
-  plugins: [username()],
+  plugins: [(username as any)()],
 } satisfies BetterAuthOptions;
 export const auth = betterAuth({
   ...options,
@@ -72,7 +72,7 @@ export const auth = betterAuth({
         session: { ...session, role: user.role },
         user,
       };
-    }, options),
+    }, options) as any,
     nextCookies(),
   ],
 });

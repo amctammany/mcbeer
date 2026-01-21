@@ -14,8 +14,8 @@ export async function authorizeResource<T extends { userId?: string }>(
   console.log(resource);
 
   if (!resource) return notFound();
-  if (session?.role === "SUPERUSER") return resource;
+  if ((session as any)?.role === "SUPERUSER") return resource;
   if (resource.userId && resource.userId === user.id) return resource;
-  if (session?.role === "ADMIN") return resource;
+  if ((session as any)?.role === "ADMIN") return resource;
   return forbidden();
 }

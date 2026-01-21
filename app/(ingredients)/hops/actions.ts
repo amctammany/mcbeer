@@ -13,7 +13,7 @@ import { redirect } from "next/navigation";
 export async function createHop(
   // prefs: UserPreferencesType,
   prev: any,
-  formData: FormData
+  formData: FormData,
 ) {
   const v = validateSchema(formData, hopSchema);
   if (v.errors) return v;
@@ -42,9 +42,10 @@ export async function createHop(
 export async function updateHop(
   // prefs: UserPreferencesType,
   prev: any,
-  formData: FormData
+  formData: FormData,
 ) {
   const v = validateSchema(formData, hopSchema);
+  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
@@ -62,6 +63,7 @@ export async function updateHop(
   });
 
    */
+  console.log(r);
   const res = await prisma.hop.update({
     where: {
       id: v.data.id,
