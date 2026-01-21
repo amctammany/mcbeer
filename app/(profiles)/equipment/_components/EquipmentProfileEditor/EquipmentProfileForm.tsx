@@ -3,6 +3,7 @@ import AmountField from "@/components/Form/AmountField";
 import Form from "@/components/Form/Form";
 import HistoryForm from "@/components/Form/HistoryForm";
 import { TextField } from "@/components/Form/TextField";
+import Section from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MaskContext } from "@/contexts/MaskContext";
@@ -74,7 +75,7 @@ EquipmentProfileFormProps) {
     useFormContext<EquipmentProfileType>();
   console.log(formState.errors);
   return (
-    <div className="bg-blue-200">
+    <div className="">
       <div className="max-w-2xl p-2 gap-2 *:mb-2 mx-auto">
         <input type="hidden" {...register("id")} />
         <input type="hidden" {...register("userId")} />
@@ -92,7 +93,7 @@ EquipmentProfileFormProps) {
           // onBlur={updateHistory}
         />
         <div className="grid lg:grid-cols-2 gap-2">
-          <div>
+          <Section title="Volumes">
             <AmountField
               // amountType="time"
               // unit="min"
@@ -156,8 +157,8 @@ EquipmentProfileFormProps) {
               step={0.01}
               label="Trub Loss"
             />
-          </div>
-          <div>
+          </Section>
+          <Section title="Efficiency">
             <AmountField
               // amountType="percent"
               name="mashEfficiency"
@@ -172,7 +173,7 @@ EquipmentProfileFormProps) {
               step={1}
               label="Brew Efficiency "
             />
-          </div>
+          </Section>
         </div>
       </div>
     </div>

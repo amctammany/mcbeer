@@ -14,7 +14,7 @@ export default function EquipmentProfileDisplay({
   profile,
 }: EquipmentProfileDisplayProps) {
   return (
-    <div className="max-w-2xl grid grid-cols-2 bg-blue-200 mx-auto m-3">
+    <div className="max-w-2xl grid grid-cols-2 mx-auto m-3">
       <div className="col-span-2 m-2 ">
         <Prop label="Name" value={profile.name} />
         <Prop label="Author" value={profile.owner?.name} />

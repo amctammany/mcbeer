@@ -4,14 +4,14 @@ import dynamic from "next/dynamic";
 import CollapsibleCard from "@/components/CollapsibleCard";
 const FermentableDetailsTab = dynamic(() => import("./FermentableDetailsTab"));
 const FermentablePropertiesTab = dynamic(
-  () => import("./FermentablePropertiesTab")
+  () => import("./FermentablePropertiesTab"),
 );
 export type FermentableDisplayProps = {
   src: AdjustedFermentableType;
 };
 export function FermentableDisplay({ src }: FermentableDisplayProps) {
   return (
-    <div className="mx-auto grid lg:grid-cols-2 gap-1 bg-gray-200/40">
+    <div className="max-w-3xl mx-auto grid lg:grid-cols-2 gap-1 bg-gray-200/40">
       <FermentableDetailsTab src={src} />
       <FermentablePropertiesTab src={src} />
     </div>

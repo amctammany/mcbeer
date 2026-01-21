@@ -149,7 +149,7 @@ export function AmountField<T extends FieldValues>({
 
   return (
     <Field
-      className="bg-white px-3 py-2 my-2 rounded-md"
+      className="bg-white lg:px-3 lg:py-2 m-1 lg:my-2 rounded-md"
       orientation={orientation}
       data-invalid={!!error}
     >

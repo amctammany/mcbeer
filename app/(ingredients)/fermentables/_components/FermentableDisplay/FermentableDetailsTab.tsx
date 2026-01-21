@@ -10,7 +10,7 @@ export default function FermentableDetailsTab({
   src,
 }: FermentableDetailsTabProps) {
   return (
-    <div className="grid lg:grid-cols-1 ">
+    <div className="grid lg:grid-cols-1 *:p-0 ">
       <Prop label="Name" value={src.name} />
       <Prop label="Description" value={src.description} />
       <Prop label="Manufacturer" value={src.manufacturer} />
