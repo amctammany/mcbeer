@@ -32,14 +32,14 @@ export default async function EquipmentProfileDisplayPage({
   const { slug } = await params;
   const profile = await getEquipmentProfile(slug);
   if (!profile) notFound();
-  const prefs = await getPreferences();
-  const adjusted = adjustUnits({
-    src: profile,
-    mask: EquipmentProfileMask,
-    prefs: BASE_UNITS,
-    inline: false,
-    dir: true,
-  }) as AdjustedEquipmentProfileType;
+  // const prefs = await getPreferences();
+  // const adjusted = adjustUnits({
+  //   src: profile,
+  //   mask: EquipmentProfileMask,
+  //   prefs: BASE_UNITS,
+  //   inline: false,
+  //   dir: true,
+  // }) as AdjustedEquipmentProfileType;
   // console.log(profile, adjusted);
   return (
     <div>
@@ -58,7 +58,7 @@ export default async function EquipmentProfileDisplayPage({
           Edit
         </IconButton>
       </TopBar>
-      <EquipmentProfileDisplay profile={adjusted} />
+      <EquipmentProfileDisplay profile={profile} />
     </div>
   );
 }

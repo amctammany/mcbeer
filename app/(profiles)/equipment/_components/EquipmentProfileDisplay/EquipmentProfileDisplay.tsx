@@ -8,7 +8,7 @@ import {
 import Link from "next/link";
 
 export type EquipmentProfileDisplayProps = {
-  profile: AdjustedEquipmentProfileType; //UnitValues<EquipmentProfileType, UnitMask<EquipmentProfileType>>;
+  profile: EquipmentProfileType; //UnitValues<EquipmentProfileType, UnitMask<EquipmentProfileType>>;
 };
 export default function EquipmentProfileDisplay({
   profile,

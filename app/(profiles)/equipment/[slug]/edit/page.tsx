@@ -16,7 +16,9 @@ export async function generateMetadata({
 }: EquipmentProfileEditorPageProps): Promise<Metadata> {
   // read route params
   const { slug } = await params;
+  console.log(slug);
   const profile = await getEquipmentProfile(slug);
+  console.log(profile);
   return {
     title: `Editing Equipment Profile: ${profile.name}`,
     description: "Equipment profile Editor",
