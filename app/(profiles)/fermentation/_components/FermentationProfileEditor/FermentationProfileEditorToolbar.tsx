@@ -10,7 +10,7 @@ import {
 import { Redo, Undo } from "lucide-react";
 import React, { useContext } from "react";
 export type FermentationProfileEditorToolbarProps = {
-  profile: AdjustedFermentationProfileType;
+  profile: FermentationProfileType;
 };
 export default function FermentationProfileEditorToolbar({
   profile,

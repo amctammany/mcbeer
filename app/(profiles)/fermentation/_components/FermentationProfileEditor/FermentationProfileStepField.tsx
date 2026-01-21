@@ -23,12 +23,12 @@ export const Unit = (text?: string) =>
     );
   };
 export type FermentationProfileStepFieldProps = {
-  src: AdjustedFermentationStepType;
+  src: FermentationStepType;
   index: number;
   remove: any;
   swap: any;
   length: number;
-  control: Control<AdjustedFermentationProfileType>;
+  control: Control<FermentationProfileType>;
 };
 export default function FermentationProfileStepField({
   src,

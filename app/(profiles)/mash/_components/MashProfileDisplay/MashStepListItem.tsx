@@ -10,7 +10,7 @@ import { SectionIcon, Thermometer, Timer, TriangleRight } from "lucide-react";
 import React from "react";
 
 export type MashStepListItemProps = {
-  src: AdjustedMashStepType;
+  src: MashStepType;
 };
 export default function MashStepListItem({ src }: MashStepListItemProps) {
   return (
@@ -39,20 +39,20 @@ export default function MashStepListItem({ src }: MashStepListItemProps) {
           <BadgeProp
             Icon={<Thermometer />}
             name="temperature"
-            text={src.temperature.value}
-            unit={src.temperature.unit}
+            text={src.temperature}
+            unit={src.temperature}
           />
           <BadgeProp
             name="time"
             Icon={<Timer />}
-            text={src.time.value}
-            unit={src.time.unit}
+            text={src.time}
+            unit={src.time}
           />
           <BadgeProp
             name="rampTime"
             Icon={<TriangleRight />}
-            text={src.rampTime?.value}
-            unit={src.rampTime?.unit}
+            text={src.rampTime}
+            unit={src.rampTime}
           />
         </div>
       </div>

@@ -23,12 +23,12 @@ export const Unit = (text?: string) =>
     );
   };
 export type MashProfileStepFieldProps = {
-  src: AdjustedMashStepType;
+  src: MashStepType;
   index: number;
   remove: any;
   swap: any;
   length: number;
-  control: Control<AdjustedMashProfileType>;
+  control: Control<MashProfileType>;
 };
 export default function MashProfileStepField({
   src,

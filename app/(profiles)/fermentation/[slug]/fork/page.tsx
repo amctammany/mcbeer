@@ -40,7 +40,6 @@ export default async function FermentationProfileForkPage({
     where: { userId: session.user.id, forkedFrom: id },
   });
   const name = `${session.user.name} - ${old.name} (${count})`;
-  const prefs = await getPreferences();
   const fork = {
     ...old,
     name,
@@ -48,6 +47,9 @@ export default async function FermentationProfileForkPage({
     origin: old,
     forkedFrom: id,
   } as FermentationProfileType;
+  /**
+   * 
+  const prefs = await getPreferences();
   const adjusted = adjustUnits({
     src: fork,
     mask: FermentationProfileMask,
@@ -55,9 +57,10 @@ export default async function FermentationProfileForkPage({
     inline: true,
     dir: true,
   }) as AdjustedFermentationProfileType;
+   */
   return (
     <FermentationProfileEditor
-      profile={adjusted}
+      profile={fork}
       // preferences={prefs}
       action={createFermentationProfile}
     />

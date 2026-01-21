@@ -38,6 +38,7 @@ export default async function MashProfileEditorPage({
     slug,
   );
   // const prefs = await getPreferences();
+  /**
   const prefs = await getPreferences();
   const adjusted = adjustUnits({
     src: profile,
@@ -46,9 +47,10 @@ export default async function MashProfileEditorPage({
     inline: false,
     dir: true,
   }) as AdjustedMashProfileType;
+ */
   return (
     <MashProfileEditor
-      profile={adjusted}
+      profile={profile}
       // preferences={prefs}
       action={updateMashProfile}
     />

@@ -12,10 +12,9 @@ import { verifySession } from "@/lib/verifySession";
 export default async function FermentationProfileCreatorPage() {
   const session = await verifySession("/fermentation/new");
   if (!session?.user) unauthorized();
-  const prefs = await getPreferences();
   const profile = {
     userId: session.user.id,
-  } as AdjustedFermentationProfileType;
+  } as FermentationProfileType;
   if (!profile) notFound();
   return (
     <FermentationProfileEditor

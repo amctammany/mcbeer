@@ -19,7 +19,7 @@ import { MashProfileStepsForm } from "./MashProfileStepsForm";
 import { MashProfileMask } from "@/lib/Converter/Masks";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
 export type MashProfileFormContainerProps<S = unknown> = {
-  profile: AdjustedMashProfileType;
+  profile: MashProfileType;
   // preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
@@ -65,7 +65,7 @@ export function MashProfileFormContainer({
 }
 export type MashProfileFormProps = {
   // preferences: UserPreferencesType;
-  profile: AdjustedMashProfileType;
+  profile: MashProfileType;
 };
 export function MashProfileForm({
   // preferences,

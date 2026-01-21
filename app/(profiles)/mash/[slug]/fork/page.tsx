@@ -36,6 +36,7 @@ export default async function MashProfileForkPage({
     where: { userId: session.user.id, forkedFrom: id },
   });
   const name = `${session.user.name} - ${old.name} (${count})`;
+  /**
   const prefs = await getPreferences();
   const adjusted = adjustUnits({
     src: old,
@@ -43,19 +44,19 @@ export default async function MashProfileForkPage({
     mask: MashProfileMask,
     inline: false,
     dir: true,
-  });
+  }); */
   const fork = {
-    ...adjusted,
+    ...old,
     name,
     userId: session?.user.id,
     origin: old,
     forkedFrom: id,
-  } as AdjustedMashProfileType;
+  } as MashProfileType;
   return (
     <MashProfileEditor
       profile={fork}
       // preferences={prefs}
-      action={createMashProfile.bind(null, prefs)}
+      action={createMashProfile}
     />
   );
 }

@@ -7,7 +7,7 @@ import { AdjustedMashProfileType, MashProfileType } from "@/types/Profile";
 import { Redo, Undo } from "lucide-react";
 import React, { useContext } from "react";
 export type MashProfileEditorToolbarProps = {
-  profile: AdjustedMashProfileType;
+  profile: MashProfileType;
 };
 export default function MashProfileEditorToolbar({
   profile,

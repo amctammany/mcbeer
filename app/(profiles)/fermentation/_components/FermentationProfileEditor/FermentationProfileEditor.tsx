@@ -12,7 +12,7 @@ import {
 import FermentationProfileEditorToolbar from "./FermentationProfileEditorToolbar";
 
 export type FermentationProfileEditorProps = {
-  profile: AdjustedFermentationProfileType;
+  profile: FermentationProfileType;
   action: any;
 };
 export function FermentationProfileEditor({

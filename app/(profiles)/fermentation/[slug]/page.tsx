@@ -32,6 +32,8 @@ export default async function FermentationProfileDisplayPage({
 
   const profile = await getFermentationProfile(slug);
   if (!profile) notFound();
+  /**
+   * 
   const prefs = await getPreferences();
   const adjusted = adjustUnits({
     src: profile,
@@ -40,6 +42,7 @@ export default async function FermentationProfileDisplayPage({
     inline: false,
     dir: true,
   }) as AdjustedFermentationProfileType;
+   */
   return (
     <div>
       <TopBar
@@ -57,7 +60,7 @@ export default async function FermentationProfileDisplayPage({
           Edit
         </IconButton>
       </TopBar>
-      <FermentationProfileDisplay profile={adjusted} />
+      <FermentationProfileDisplay profile={profile} />
     </div>
   );
 }

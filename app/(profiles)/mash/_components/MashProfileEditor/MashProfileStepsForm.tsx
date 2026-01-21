@@ -6,13 +6,8 @@ import React from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import MashProfileStepField from "./MashProfileStepField";
 
-export function MashProfileStepsForm({
-  src,
-}: {
-  src: AdjustedMashProfileType;
-}) {
-  const { register, control, watch } =
-    useFormContext<AdjustedMashProfileType>();
+export function MashProfileStepsForm({ src }: { src: MashProfileType }) {
+  const { register, control, watch } = useFormContext<MashProfileType>();
   const { fields, append, insert, swap, remove } = useFieldArray({
     control,
     name: "steps",
@@ -36,9 +31,9 @@ export function MashProfileStepsForm({
                 index: fields.length + 1,
                 mashProfileId: src.id,
                 type: "infusion",
-                time: { value: 0, unit: "min" },
-                temperature: { value: 0, unit: "F" },
-                rampTime: { value: 0, unit: "min" },
+                time: 0,
+                temperature: 0,
+                rampTime: 0,
               });
               return false;
             }}
