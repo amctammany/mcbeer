@@ -18,10 +18,10 @@ import FermentationProfileStepField from "./FermentationProfileStepField";
 export function FermentationProfileStepsForm({
   src,
 }: {
-  src: FermentationProfileType;
+  src: AdjustedFermentationProfileType;
 }) {
   const { register, control, watch } =
-    useFormContext<FermentationProfileType>();
+    useFormContext<AdjustedFermentationProfileType>();
   const { fields, append, insert, swap, remove } = useFieldArray({
     control,
     name: "steps",
@@ -45,9 +45,9 @@ export function FermentationProfileStepsForm({
                 index: fields.length + 1,
                 type: "primary",
                 fermentationProfileId: src.id,
-                time: 0,
-                temperature: 0,
-                rampTime: 0,
+                time: { value: 0, unit: "min" },
+                temperature: { value: 0, unit: "F" },
+                rampTime: { value: 0, unit: "min" },
               });
               return false;
             }}

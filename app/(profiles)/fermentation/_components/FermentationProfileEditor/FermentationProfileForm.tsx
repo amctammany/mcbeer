@@ -11,7 +11,7 @@ import { useFormContext } from "react-hook-form";
 import { FermentationProfileStepsForm } from "./FermentationProfileStepsForm";
 import { FermentationProfileMask } from "@/lib/Converter/Masks";
 export type FermentationProfileFormContainerProps<S = unknown> = {
-  profile: FermentationProfileType;
+  profile: AdjustedFermentationProfileType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
 };
@@ -42,12 +42,13 @@ export function FermentationProfileFormContainer({
   );
 }
 export type FermentationProfileFormProps = {
-  profile: FermentationProfileType;
+  profile: AdjustedFermentationProfileType;
 };
 export function FermentationProfileForm({
   profile,
 }: FermentationProfileFormProps) {
-  const { register, control } = useFormContext<FermentationProfileType>();
+  const { register, control } =
+    useFormContext<AdjustedFermentationProfileType>();
   return (
     <div className="m-2 p-2 gap-2 *:mb-2">
       <input type="hidden" {...register("id")} />

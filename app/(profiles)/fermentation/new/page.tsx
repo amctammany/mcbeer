@@ -15,12 +15,12 @@ export default async function FermentationProfileCreatorPage() {
   const prefs = await getPreferences();
   const profile = {
     userId: session.user.id,
-  } as FermentationProfileType;
+  } as AdjustedFermentationProfileType;
   if (!profile) notFound();
   return (
     <FermentationProfileEditor
       profile={profile}
-      action={createFermentationProfile.bind(null, prefs)}
+      action={createFermentationProfile}
     />
   );
 }

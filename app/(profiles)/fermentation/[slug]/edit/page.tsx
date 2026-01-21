@@ -38,20 +38,19 @@ export default async function FermentationProfileEditorPage({
   const profile = await authorizeResource(
     `/fermentation/${slug}/edit`,
     getFermentationProfile,
-    slug
+    slug,
   );
-  /**
   const prefs = await getPreferences();
   const adjusted = adjustUnits({
     src: profile,
     mask: FermentationProfileMask,
     prefs,
-    inline: true,
+    inline: false,
     dir: true,
-  }) as AdjustedFermentationProfileType; */
+  }) as AdjustedFermentationProfileType;
   return (
     <FermentationProfileEditor
-      profile={profile}
+      profile={adjusted}
       // preferences={prefs}
       action={updateFermentationProfile}
     />

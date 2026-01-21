@@ -33,9 +33,8 @@ export default async function FermentationProfileForkPage({
 }: FermentationProfileForkPageProps) {
   const { slug } = await params;
   const session = await verifySession(`/fermentation/${slug}/fork`);
-  const { id, owner, origin, forks, ...old } = await getFermentationProfile(
-    slug
-  );
+  const { id, owner, origin, forks, ...old } =
+    await getFermentationProfile(slug);
   if (!old) notFound();
   const count = await prisma.equipmentProfile.count({
     where: { userId: session.user.id, forkedFrom: id },
@@ -58,9 +57,9 @@ export default async function FermentationProfileForkPage({
   }) as AdjustedFermentationProfileType;
   return (
     <FermentationProfileEditor
-      profile={fork}
+      profile={adjusted}
       // preferences={prefs}
-      action={createFermentationProfile.bind(null, prefs)}
+      action={createFermentationProfile}
     />
   );
 }

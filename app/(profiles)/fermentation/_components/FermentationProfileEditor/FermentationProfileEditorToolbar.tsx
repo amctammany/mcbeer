@@ -10,7 +10,7 @@ import {
 import { Redo, Undo } from "lucide-react";
 import React, { useContext } from "react";
 export type FermentationProfileEditorToolbarProps = {
-  profile: FermentationProfileType;
+  profile: AdjustedFermentationProfileType;
 };
 export default function FermentationProfileEditorToolbar({
   profile,
@@ -31,14 +31,14 @@ export default function FermentationProfileEditorToolbar({
               },
             ]
           : profile.origin
-          ? [
-              {
-                title: profile.origin.name,
-                url: `/fermentation/${profile.slug}`,
-              },
-              { title: "Fork" },
-            ]
-          : [{ title: "New" }]),
+            ? [
+                {
+                  title: profile.origin.name,
+                  url: `/fermentation/${profile.slug}`,
+                },
+                { title: "Fork" },
+              ]
+            : [{ title: "New" }]),
       ]}
     >
       <IconButton

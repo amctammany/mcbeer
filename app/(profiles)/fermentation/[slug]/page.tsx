@@ -57,7 +57,7 @@ export default async function FermentationProfileDisplayPage({
           Edit
         </IconButton>
       </TopBar>
-      <FermentationProfileDisplay profile={profile} />
+      <FermentationProfileDisplay profile={adjusted} />
     </div>
   );
 }

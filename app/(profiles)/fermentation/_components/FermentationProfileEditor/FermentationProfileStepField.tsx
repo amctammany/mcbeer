@@ -4,7 +4,12 @@ import { SelectField } from "@/components/Form/SelectField";
 import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
 import { $Enums } from "@/generated/prisma/browser";
-import { FermentationProfileType, FermentationStepType } from "@/types/Profile";
+import {
+  AdjustedFermentationProfileType,
+  AdjustedFermentationStepType,
+  FermentationProfileType,
+  FermentationStepType,
+} from "@/types/Profile";
 import { cx } from "class-variance-authority";
 import { ArrowDown, ArrowUp, X } from "lucide-react";
 import React from "react";
@@ -18,12 +23,12 @@ export const Unit = (text?: string) =>
     );
   };
 export type FermentationProfileStepFieldProps = {
-  src: FermentationStepType;
+  src: AdjustedFermentationStepType;
   index: number;
   remove: any;
   swap: any;
   length: number;
-  control: Control<FermentationProfileType>;
+  control: Control<AdjustedFermentationProfileType>;
 };
 export default function FermentationProfileStepField({
   src,
