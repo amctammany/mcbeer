@@ -1,4 +1,4 @@
-import { AdjustedFermentableType } from "@/types/Ingredient";
+import { AdjustedFermentableType, FermentableType } from "@/types/Ingredient";
 import React from "react";
 import dynamic from "next/dynamic";
 import CollapsibleCard from "@/components/CollapsibleCard";
@@ -7,7 +7,7 @@ const FermentablePropertiesTab = dynamic(
   () => import("./FermentablePropertiesTab"),
 );
 export type FermentableDisplayProps = {
-  src: AdjustedFermentableType;
+  src: FermentableType;
 };
 export function FermentableDisplay({ src }: FermentableDisplayProps) {
   return (

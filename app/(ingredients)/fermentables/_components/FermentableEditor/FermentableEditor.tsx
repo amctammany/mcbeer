@@ -9,14 +9,14 @@ import { FermentableForm, FermentableFormContainer } from "./FermentableForm";
 import FermentableEditorToolbar from "./FermentableEditorToolbar";
 
 export type FermentableEditorProps = {
-  src: AdjustedFermentableType;
+  src: FermentableType;
   // preferences: UserPreferencesType;
-  countries: string[];
-  action: any;
+  countries?: string[];
+  action?: any;
 };
 export function FermentableEditor({
   src,
-  countries,
+  countries = [],
   action,
 }: // preferences,
 FermentableEditorProps) {

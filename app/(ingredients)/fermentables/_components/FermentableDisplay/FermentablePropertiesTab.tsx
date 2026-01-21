@@ -1,10 +1,10 @@
 import { AmountProp } from "@/components/Prop/AmountProp";
 import Prop from "@/components/Prop/Prop";
-import { AdjustedFermentableType } from "@/types/Ingredient";
+import { FermentableType } from "@/types/Ingredient";
 import React from "react";
 
 export type FermentablePropertiesTabProps = {
-  src: AdjustedFermentableType;
+  src: FermentableType;
 };
 export default function FermentablePropertiesTab({
   src,

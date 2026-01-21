@@ -33,10 +33,12 @@ export default async function FermentableEditorPage({
   const src = await authorizeResource(
     `/fermentables/${slug}/edit`,
     getFermentable,
-    slug
+    slug,
   );
-  const prefs = await getPreferences();
   const countries = await getCountries();
+  /**
+   * 
+  const prefs = await getPreferences();
   const adjusted = adjustUnits({
     src,
     mask: FermentableMask,
@@ -45,9 +47,10 @@ export default async function FermentableEditorPage({
     dir: true,
     precision: 4,
   }) as AdjustedFermentableType;
+   */
   return (
     <FermentableEditor
-      src={adjusted}
+      src={src}
       countries={countries}
       // preferences={prefs}
       action={updateFermentable}

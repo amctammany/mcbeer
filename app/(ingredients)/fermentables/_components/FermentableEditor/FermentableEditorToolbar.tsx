@@ -7,7 +7,7 @@ import { AdjustedFermentableType, FermentableType } from "@/types/Ingredient";
 import { Redo, Save, Undo } from "lucide-react";
 import React, { useContext } from "react";
 export type FermentableEditorToolbarProps = {
-  src: AdjustedFermentableType;
+  src: FermentableType;
 };
 export default function FermentableEditorToolbar({
   src,

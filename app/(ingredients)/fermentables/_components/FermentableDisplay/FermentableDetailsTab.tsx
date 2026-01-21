@@ -1,10 +1,10 @@
 import Prop from "@/components/Prop/Prop";
 import { Fermentable } from "@/generated/prisma/client";
-import { AdjustedFermentableType } from "@/types/Ingredient";
+import { AdjustedFermentableType, FermentableType } from "@/types/Ingredient";
 import React from "react";
 
 export type FermentableDetailsTabProps = {
-  src: AdjustedFermentableType;
+  src: FermentableType;
 };
 export default function FermentableDetailsTab({
   src,

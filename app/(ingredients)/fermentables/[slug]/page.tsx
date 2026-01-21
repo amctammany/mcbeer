@@ -20,6 +20,8 @@ export default async function FermentableDisplayPage({
   const { slug } = await params;
   const [fermentable] = await Promise.all([getFermentable(slug)]);
   if (!fermentable) notFound();
+  /**
+   * 
   const adjusted = adjustUnits({
     src: fermentable,
     prefs: {},
@@ -28,10 +30,11 @@ export default async function FermentableDisplayPage({
     precision: 4,
     dir: true,
   });
+   */
   return (
     <div>
-      <FermentableDisplayToolbar fermentable={adjusted} />
-      <FermentableDisplay src={adjusted} />
+      <FermentableDisplayToolbar fermentable={fermentable} />
+      <FermentableDisplay src={fermentable} />
     </div>
   );
 }

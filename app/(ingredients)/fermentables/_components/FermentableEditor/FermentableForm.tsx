@@ -3,7 +3,9 @@ import AmountField from "@/components/Form/AmountField";
 import { ComboboxField } from "@/components/Form/ComboboxField";
 import Form from "@/components/Form/Form";
 import { SelectField } from "@/components/Form/SelectField";
+import { TextAreaField } from "@/components/Form/TextAreaField";
 import { TextField } from "@/components/Form/TextField";
+import Section from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,7 +25,7 @@ import { useActionState } from "react";
 import { useFormContext } from "react-hook-form";
 
 export type FermentableFormContainerProps<S = unknown> = {
-  src: AdjustedFermentableType;
+  src: FermentableType;
   // preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
@@ -65,111 +67,120 @@ export function FermentableFormContainer({
 }
 export type FermentableFormProps = {
   // preferences: UserPreferencesType;
-  src: AdjustedFermentableType;
-  countries: string[];
+  src?: FermentableType;
+  countries?: string[];
 };
 export function FermentableForm({
-  countries,
+  countries = [],
   // preferences,
   src,
 }: FermentableFormProps) {
   const { register, control } = useFormContext<FermentableType>();
   return (
-    <div className="m-0 lg:m-2 lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid  lg:grid-cols-2">
-      <input type="hidden" {...register("id")} />
-      <input type="hidden" {...register("userId")} />
-      <input type="hidden" {...register("forkedFrom")} />
-      <TextField name="name" control={control} label="Name" />
-      <TextField name="description" label="Description" control={control} />
-      <SelectField
-        name="type"
-        label="Type"
-        control={control}
-        options={FermentableTypeEnum}
-      />
-      <SelectField
-        name="usage"
-        label="Usage"
-        control={control}
-        options={IngredientUsage}
-      />
-      <ComboboxField
-        name="country"
-        label="Country"
-        options={countries.map((country) => ({
-          value: country,
-          label: country,
-        }))}
-      />
+    <div>
+      <div className="lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid  lg:grid-cols-2 lg:col-span-2 max-w-3xl mx-auto">
+        <input type="hidden" {...register("id")} />
+        <input type="hidden" {...register("userId")} />
+        <input type="hidden" {...register("forkedFrom")} />
+        <TextField name="name" control={control} label="Name" />
+        <TextField name="description" label="Description" control={control} />
+        <SelectField
+          name="type"
+          label="Type"
+          control={control}
+          options={FermentableTypeEnum}
+        />
+        <SelectField
+          name="usage"
+          label="Usage"
+          control={control}
+          options={IngredientUsage}
+        />
+        <ComboboxField
+          name="country"
+          label="Country"
+          options={countries.map((country) => ({
+            value: country,
+            label: country,
+          }))}
+        />
 
-      <TextField name="manufacturer" label="Manufacturer" control={control} />
-      <TextField name="notes" label="Notes" control={control} />
-      <div className="grid grid-cols-2 gap-1">
-        <AmountField
-          amountType="percent"
-          name="maxUsage"
-          step="0.1"
-          type="percent"
-          label="Max Usage"
+        <TextField name="manufacturer" label="Manufacturer" control={control} />
+        <TextAreaField
+          name="notes"
+          label="Notes"
+          control={control}
+          className="col-span-2"
         />
-        <AmountField name="price" step="0.1" type="number" label="Price" />
-        <AmountField
-          name="potential"
-          step="0.001"
-          type="number"
-          label="Potential"
-          amountType="gravity"
-          unit="PPG"
-        />
-        <AmountField
-          name="yield"
-          step="0.01"
-          type="number"
-          label="Yield"
-          amountType="percent"
-        />
-        <AmountField
-          name="color"
-          step="0.01"
-          type="number"
-          label="Color"
-          amountType="color"
-        />
-        <AmountField
-          name="protein"
-          step="0.01"
-          type="number"
-          label="Protein"
-          amountType="percent"
-        />
-        <AmountField
-          name="coarseFineDiff"
-          step="0.01"
-          type="number"
-          label="Coarse Fine Diff"
-          amountType="percent"
-        />
-        <AmountField
-          name="power"
-          step="0.01"
-          type="number"
-          label="Diastatic Power"
-          amountType="percent"
-        />
-        <AmountField
-          name="moisture"
-          step="0.01"
-          type="number"
-          label="Moisture"
-          amountType="percent"
-        />
-        <AmountField
-          name="friability"
-          step="0.01"
-          type="number"
-          label="Friability"
-          amountType="percent"
-        />
+        <Section title="Properties">
+          <div className="grid grid-cols-2 gap-1">
+            <AmountField
+              amountType="percent"
+              name="maxUsage"
+              step="0.1"
+              type="percent"
+              label="Max Usage"
+            />
+            <AmountField name="price" step="0.1" type="number" label="Price" />
+            <AmountField
+              name="potential"
+              step="0.001"
+              type="number"
+              label="Potential"
+              amountType="gravity"
+              unit="PPG"
+            />
+            <AmountField
+              name="yield"
+              step="0.01"
+              type="number"
+              label="Yield"
+              amountType="percent"
+            />
+            <AmountField
+              name="color"
+              step="0.01"
+              type="number"
+              label="Color"
+              amountType="color"
+            />
+            <AmountField
+              name="protein"
+              step="0.01"
+              type="number"
+              label="Protein"
+              amountType="percent"
+            />
+            <AmountField
+              name="coarseFineDiff"
+              step="0.01"
+              type="number"
+              label="Coarse Fine Diff"
+              amountType="percent"
+            />
+            <AmountField
+              name="power"
+              step="0.01"
+              type="number"
+              label="Diastatic Power"
+              amountType="percent"
+            />
+            <AmountField
+              name="moisture"
+              step="0.01"
+              type="number"
+              label="Moisture"
+              amountType="percent"
+            />
+            <AmountField
+              name="friability"
+              step="0.01"
+              type="number"
+              label="Friability"
+              amountType="percent"
+            />
+          </div>
+        </Section>
       </div>
     </div>
   );
