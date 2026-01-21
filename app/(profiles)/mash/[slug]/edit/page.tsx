@@ -9,6 +9,9 @@ import MashProfileEditor from "../../_components/MashProfileEditor/MashProfileEd
 import { updateMashProfile } from "../../actions";
 import { getPreferences } from "@/app/admin/queries";
 import { authorizeResource } from "@/lib/authorizeResource";
+import { MashProfileMask } from "@/lib/Converter/Masks";
+import { AdjustedMashProfileType } from "@/types/Profile";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
 
 export type MashProfileEditorPageProps = {
   params: Promise<{ slug: string }>;
@@ -32,12 +35,20 @@ export default async function MashProfileEditorPage({
   const profile = await authorizeResource(
     `/mash/${slug}/edit`,
     getMashProfile,
-    slug
+    slug,
   );
   // const prefs = await getPreferences();
+  const prefs = await getPreferences();
+  const adjusted = adjustUnits({
+    src: profile,
+    mask: MashProfileMask,
+    prefs,
+    inline: false,
+    dir: true,
+  }) as AdjustedMashProfileType;
   return (
     <MashProfileEditor
-      profile={profile}
+      profile={adjusted}
       // preferences={prefs}
       action={updateMashProfile}
     />
