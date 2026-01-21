@@ -3,11 +3,11 @@ import IconButton from "@/components/Button/IconButton";
 import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
 import { RevisionContext } from "@/contexts/RevisionContext";
-import { MashProfileType } from "@/types/Profile";
+import { AdjustedMashProfileType, MashProfileType } from "@/types/Profile";
 import { Redo, Undo } from "lucide-react";
 import React, { useContext } from "react";
 export type MashProfileEditorToolbarProps = {
-  profile: MashProfileType;
+  profile: AdjustedMashProfileType;
 };
 export default function MashProfileEditorToolbar({
   profile,
@@ -28,14 +28,14 @@ export default function MashProfileEditorToolbar({
               },
             ]
           : profile.origin
-          ? [
-              {
-                title: profile.origin.name,
-                url: `/mash/${profile.slug}`,
-              },
-              { title: "Fork" },
-            ]
-          : [{ title: "New" }]),
+            ? [
+                {
+                  title: profile.origin.name,
+                  url: `/mash/${profile.slug}`,
+                },
+                { title: "Fork" },
+              ]
+            : [{ title: "New" }]),
       ]}
     >
       <IconButton

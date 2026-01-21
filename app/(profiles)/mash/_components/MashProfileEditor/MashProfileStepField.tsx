@@ -4,7 +4,12 @@ import { SelectField } from "@/components/Form/SelectField";
 import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
 import { $Enums } from "@/generated/prisma/browser";
-import { MashProfileType, MashStepType } from "@/types/Profile";
+import {
+  AdjustedMashProfileType,
+  AdjustedMashStepType,
+  MashProfileType,
+  MashStepType,
+} from "@/types/Profile";
 import { cx } from "class-variance-authority";
 import { ArrowDown, ArrowUp, X } from "lucide-react";
 import React from "react";
@@ -18,12 +23,12 @@ export const Unit = (text?: string) =>
     );
   };
 export type MashProfileStepFieldProps = {
-  src: MashStepType;
+  src: AdjustedMashStepType;
   index: number;
   remove: any;
   swap: any;
   length: number;
-  control: Control<MashProfileType>;
+  control: Control<AdjustedMashProfileType>;
 };
 export default function MashProfileStepField({
   src,

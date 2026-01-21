@@ -6,7 +6,7 @@ import { MashProfileForm, MashProfileFormContainer } from "./MashProfileForm";
 import MashProfileEditorToolbar from "./MashProfileEditorToolbar";
 
 export type MashProfileEditorProps = {
-  profile: MashProfileType;
+  profile: AdjustedMashProfileType;
   // preferences: UserPreferencesType;
   action: any;
 };

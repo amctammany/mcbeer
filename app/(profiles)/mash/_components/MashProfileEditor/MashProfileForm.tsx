@@ -12,14 +12,14 @@ import {
   type UserPreferencesType,
 } from "@/contexts/UserPreferencesContext";
 import useRevisionHistory from "@/hooks/useRevisionHistory";
-import { MashProfileType } from "@/types/Profile";
+import { AdjustedMashProfileType, MashProfileType } from "@/types/Profile";
 import React, { useActionState, useContext } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 import { MashProfileStepsForm } from "./MashProfileStepsForm";
 import { MashProfileMask } from "@/lib/Converter/Masks";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
 export type MashProfileFormContainerProps<S = unknown> = {
-  profile: MashProfileType;
+  profile: AdjustedMashProfileType;
   // preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
@@ -66,7 +66,7 @@ export function MashProfileFormContainer({
 }
 export type MashProfileFormProps = {
   // preferences: UserPreferencesType;
-  profile: MashProfileType;
+  profile: AdjustedMashProfileType;
 };
 export function MashProfileForm({
   // preferences,
