@@ -31,7 +31,7 @@ export default function MashProfileDisplay({
         <CardHeader>
           <CardTitle>Steps</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-0">
           {profile.steps?.map((step) => (
             <MashStepListItem key={step.id} src={step} />
           ))}

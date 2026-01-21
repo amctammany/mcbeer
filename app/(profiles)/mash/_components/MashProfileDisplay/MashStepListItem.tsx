@@ -14,10 +14,12 @@ export type MashStepListItemProps = {
 };
 export default function MashStepListItem({ src }: MashStepListItemProps) {
   return (
-    <div className="flex w-full">
+    <div className="flex w-full p-1 lg:p-3 odd:bg-gray-200/20">
       <div className="shrink m-auto mr-2">
         <Avatar>
-          <AvatarFallback>{src.index}</AvatarFallback>
+          <AvatarFallback className="border border-black">
+            {src.index}
+          </AvatarFallback>
         </Avatar>
       </div>
       <div className="grow flex gap-2 flex-col">

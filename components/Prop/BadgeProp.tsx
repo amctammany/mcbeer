@@ -21,7 +21,7 @@ export default function BadgeProp({ Icon, name, text, unit }: BadgePropProps) {
   const s = prefs[r as keyof typeof prefs];
   // console.log(name, r, s, unit);
   return (
-    <div className="border border-black rounded-md inline-flex items-stretch justify-center m-auto pr-2 *:my-auto">
+    <div className="border border-black rounded-md inline-flex items-stretch bg-white justify-center m-auto pr-2 *:my-auto">
       <div className="p-1  rounded-l-md border-r-2 bg-accent text-primary">
         {Icon}
       </div>

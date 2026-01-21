@@ -11,7 +11,7 @@ import clsx from "clsx";
 import { BadgeCheckIcon } from "lucide-react";
 
 const propVariants = cva(
-  "m-1 border-b-lack block bordr-b-2 rounded-b-one bg-white px-1 lg:px-3 py-1 lg:py-4",
+  "m-1 border-b-lack block bordr-b-2 rounded-b-one px-1 lg:px-3 py-1 lg:py-4",
   {
     variants: {
       variant: {
@@ -23,7 +23,7 @@ const propVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
+  },
 );
 export type PropProps = {
   className?: string;
