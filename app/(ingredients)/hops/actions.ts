@@ -45,7 +45,11 @@ export async function updateHop(
   formData: FormData,
 ) {
   const v = validateSchema(formData, hopSchema);
-  if (v.errors) return v;
+
+  if (v.errors) {
+    console.log(v);
+    return v;
+  }
   if (!v.success) {
     return Promise.resolve(v);
   }

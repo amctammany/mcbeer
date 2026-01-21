@@ -8,7 +8,7 @@ import HopDetailsTab from "./HopDetailsTab";
 import HopPropertiesTab from "./HopPropertiesTab";
 export type HopDisplayProps = {
   src: HopType;
-  prefs: UserPreferencesType;
+  prefs?: UserPreferencesType;
 };
 export function HopDisplay({ src, prefs }: HopDisplayProps) {
   return (

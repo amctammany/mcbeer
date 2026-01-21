@@ -123,7 +123,7 @@ export function AmountField<T extends FieldValues>({
   const { ...inputProps } = register(`${name}.value`, {
     valueAsNumber: true,
   });
-  const unit = get(state.data, `${name}.unit`);
+  const unit = _unit ?? get(state.data, `${name}.unit`);
   const u =
     unit === "percent" || unit === "number"
       ? PercentUnits[unit as PercentUnit]
@@ -144,7 +144,9 @@ export function AmountField<T extends FieldValues>({
     // const converted = convert(newValue, false);
     // console.log({ name, value, newValue, converted });
   };
+  const _v = state.data?.[`${name}`]; //get(state.errors ?? {}, `${name}.value`);
   const error = state.errors?.[`${name}.value`]; //get(state.errors ?? {}, `${name}.value`);
+  console.log(name, _v);
   // const fieldState = getFieldState(name);
 
   return (

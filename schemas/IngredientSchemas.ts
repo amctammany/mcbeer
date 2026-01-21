@@ -45,8 +45,8 @@ export const hopSchema = zfd.formData({
   country: zfd.text(z.string().optional()),
   usage: z.enum(HopUsage).optional().default(HopUsage.dual),
   alpha: unitValueSchema(z.number().min(0).max(100).optional()).nullable(),
-  alphaLow: unitValueSchema(z.number().min(0).max(100).optional()).nullable(),
-  alphaHigh: unitValueSchema(z.number().min(0).max(100).optional()).nullable(),
+  alphaLow: unitValueSchema(z.number().min(0).max(1000).optional()).nullable(),
+  alphaHigh: unitValueSchema(z.number().min(0).max(1000).optional()).nullable(),
   beta: unitValueSchema(z.number().min(0).max(40).optional()).nullable(),
   caryophyllene: unitValueSchema(
     z.number().min(0).max(40).optional(),

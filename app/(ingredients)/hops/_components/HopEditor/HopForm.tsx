@@ -107,7 +107,7 @@ export function HopForm({ countries, src }: HopFormProps) {
             <div className="lg:grid lg:grid-cols-3" key={field.name}>
               <AmountField
                 // amountType="percent"
-                // unit="percent"
+                unit="percent"
                 name={field.name}
                 step="0.01"
                 // type="percent"

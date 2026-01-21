@@ -38,6 +38,7 @@ export default function HopPropertiesTab({ src }: HopPropertiesTabProps) {
         <div className="grid grid-cols-3 gap-1" key={field.name}>
           <AmountProp
             name={field.name}
+            // unit="number"
             label={field.label}
             value={src[field.name] as any}
           />

@@ -35,9 +35,11 @@ export function AmountProp({
   const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
 
   const value = typeof val === "number" ? val : val?.value;
-  const unit = isUnitValue(val)
-    ? (val as any).unit
-    : (s ?? BASE_UNITS[maskV as UnitTypes]);
+  const unit =
+    _unit ??
+    (isUnitValue(val)
+      ? (val as any).unit
+      : (s ?? BASE_UNITS[maskV as UnitTypes]));
   // if (!isUnitValue(val))
   // return <Prop value={val as number} unit="" {...props} />;
 
@@ -50,7 +52,7 @@ export function AmountProp({
     type: maskV,
     unit,
     inline: true,
-    dir: false,
+    dir: true,
   });
   // console.log(converted);
   // const { value, unit: _u } = val ?? {};
