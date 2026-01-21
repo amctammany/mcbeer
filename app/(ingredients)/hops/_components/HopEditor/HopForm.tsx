@@ -3,6 +3,7 @@ import AmountField from "@/components/Form/AmountField";
 import { ComboboxField } from "@/components/Form/ComboboxField";
 import Form from "@/components/Form/Form";
 import RangeField from "@/components/Form/RangeField";
+import { TextAreaField } from "@/components/Form/TextAreaField";
 import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
 import {
@@ -85,7 +86,7 @@ export function HopForm({ countries, src }: HopFormProps) {
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("userId")} />
       <TextField name="name" label="Name" />
-      <TextField name="description" label="Description" />
+      <TextAreaField name="description" label="Description" />
       <ComboboxField
         name="country"
         label="Country"
@@ -94,7 +95,7 @@ export function HopForm({ countries, src }: HopFormProps) {
           label: country,
         }))}
       />
-      <TextField name="notes" label="Notes" />
+      <TextAreaField name="notes" label="Notes" />
       <div className="*:p-0 *:border-b-2">
         {rangeFields.map((field) => (
           <div className="lg:grid lg:grid-cols-3" key={field.name}>

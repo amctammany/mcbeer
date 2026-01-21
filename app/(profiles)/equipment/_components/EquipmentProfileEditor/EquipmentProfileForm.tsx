@@ -2,6 +2,7 @@
 import AmountField from "@/components/Form/AmountField";
 import Form from "@/components/Form/Form";
 import HistoryForm from "@/components/Form/HistoryForm";
+import { TextAreaField } from "@/components/Form/TextAreaField";
 import { TextField } from "@/components/Form/TextField";
 import Section from "@/components/Section";
 import { Button } from "@/components/ui/button";
@@ -73,7 +74,6 @@ export function EquipmentProfileForm({}: // preferences,
 EquipmentProfileFormProps) {
   const { formState, register, control } =
     useFormContext<EquipmentProfileType>();
-  console.log(formState.errors);
   return (
     <div className="">
       <div className="max-w-2xl p-2 gap-2 *:mb-2 mx-auto">
@@ -86,7 +86,7 @@ EquipmentProfileFormProps) {
           label="Name "
           // onBlur={updateHistory}
         />
-        <TextField
+        <TextAreaField
           control={control}
           {...register("description")}
           label="Description"
@@ -94,69 +94,71 @@ EquipmentProfileFormProps) {
         />
         <div className="grid lg:grid-cols-2 gap-2">
           <Section title="Volumes">
-            <AmountField
-              // amountType="time"
-              // unit="min"
-              name="boilTime"
-              type="number"
-              // control={control}
-              step={1}
-              label="Boil Time "
-            />
-            <AmountField
-              name="preboilVolume"
-              // unit="gal"
-              type="number"
-              // amountType="volume"
-              step={0.01}
-              label="Preboil Volume"
-            />
-            <AmountField
-              name="boilVolume"
-              // unit="gal"
-              type="number"
-              // amountType="volume"
-              step={0.01}
-              label="Boil Volume"
-            />
-            <AmountField
-              name="batchVolume"
-              // unit="gal"
-              type="number"
-              // amountType="volume"
-              step={0.01}
-              label="Batch Volume"
-            />
-            <TextField
-              {...register("boilOffRate")}
-              step={1}
-              label="Boil Off Rate"
-              onBlur={(e) => console.log(e.currentTarget.form)}
-            />
-            <AmountField
-              // amountType="volume"
-              name="mashLoss"
-              // unit="gal"
-              type="number"
-              step={0.01}
-              label="Mash Loss"
-            />
-            <AmountField
-              // amountType="volume"
-              // unit="gal"
-              name="fermenterLoss"
-              type="number"
-              step={0.01}
-              label="Fermenter Loss"
-            />
-            <AmountField
-              // amountType="volume"
-              // unit="gal"
-              name="trubLoss"
-              type="number"
-              step={0.01}
-              label="Trub Loss"
-            />
+            <div className="grid lg:grid-cols-2">
+              <AmountField
+                // amountType="time"
+                // unit="min"
+                name="boilTime"
+                type="number"
+                // control={control}
+                step={1}
+                label="Boil Time "
+              />
+              <AmountField
+                name="preboilVolume"
+                // unit="gal"
+                type="number"
+                // amountType="volume"
+                step={0.01}
+                label="Preboil Volume"
+              />
+              <AmountField
+                name="boilVolume"
+                // unit="gal"
+                type="number"
+                // amountType="volume"
+                step={0.01}
+                label="Boil Volume"
+              />
+              <AmountField
+                name="batchVolume"
+                // unit="gal"
+                type="number"
+                // amountType="volume"
+                step={0.01}
+                label="Batch Volume"
+              />
+              <TextField
+                {...register("boilOffRate")}
+                step={1}
+                label="Boil Off Rate"
+                onBlur={(e) => console.log(e.currentTarget.form)}
+              />
+              <AmountField
+                // amountType="volume"
+                name="mashLoss"
+                // unit="gal"
+                type="number"
+                step={0.01}
+                label="Mash Loss"
+              />
+              <AmountField
+                // amountType="volume"
+                // unit="gal"
+                name="fermenterLoss"
+                type="number"
+                step={0.01}
+                label="Fermenter Loss"
+              />
+              <AmountField
+                // amountType="volume"
+                // unit="gal"
+                name="trubLoss"
+                type="number"
+                step={0.01}
+                label="Trub Loss"
+              />
+            </div>
           </Section>
           <Section title="Efficiency">
             <AmountField

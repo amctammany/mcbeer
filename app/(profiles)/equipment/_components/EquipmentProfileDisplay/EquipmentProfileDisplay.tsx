@@ -2,7 +2,7 @@ import { AmountProp } from "@/components/Prop/AmountProp";
 import Prop from "@/components/Prop/Prop";
 import { Item, ItemContent, ItemHeader, ItemTitle } from "@/components/ui/item";
 import {
-  AdjustedEquipmentProfileType,
+  // AdjustedEquipmentProfileType,
   EquipmentProfileType,
 } from "@/types/Profile";
 import Link from "next/link";
@@ -14,7 +14,7 @@ export default function EquipmentProfileDisplay({
   profile,
 }: EquipmentProfileDisplayProps) {
   return (
-    <div className="max-w-2xl grid grid-cols-2 mx-auto m-3">
+    <div className="max-w-3xl grid grid-cols-2 mx-auto m-3">
       <div className="col-span-2 m-2 ">
         <Prop label="Name" value={profile.name} />
         <Prop label="Author" value={profile.owner?.name} />
@@ -37,7 +37,7 @@ export default function EquipmentProfileDisplay({
             <ItemHeader>
               <ItemTitle>Volumes</ItemTitle>
             </ItemHeader>
-            <ItemContent>
+            <ItemContent className="grid lg:grid-cols-2">
               <AmountProp
                 label="Boil Time"
                 value={profile.boilTime}
