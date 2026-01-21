@@ -56,7 +56,7 @@ export function AmountProp({
   const u = unit === "percent" || unit === "number" ? PercentUnits[unit] : unit;
   const v =
     converted !== undefined ? precisionRound(converted ?? 0, precision) : "";
-  console.log({ name, val, _unit, maskV, s, converted, u, v });
+  // console.log({ name, val, _unit, maskV, s, converted, u, v });
 
   return <Prop value={v} unit={u} {...props} />;
   /**

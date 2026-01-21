@@ -75,7 +75,7 @@ export function FermentableForm({
 }: FermentableFormProps) {
   const { register, control } = useFormContext<FermentableType>();
   return (
-    <div className="m-0 lg:m-2 lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid bg-gray-200/40 lg:grid-cols-2">
+    <div className="m-0 lg:m-2 lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid  lg:grid-cols-2">
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("userId")} />
       <input type="hidden" {...register("forkedFrom")} />

@@ -11,7 +11,7 @@ export type FermentableDisplayProps = {
 };
 export function FermentableDisplay({ src }: FermentableDisplayProps) {
   return (
-    <div className="max-w-3xl mx-auto grid lg:grid-cols-2 gap-1 bg-gray-200/40">
+    <div className="max-w-3xl mx-auto grid lg:grid-cols-2 gap-1 ">
       <FermentableDetailsTab src={src} />
       <FermentablePropertiesTab src={src} />
     </div>
