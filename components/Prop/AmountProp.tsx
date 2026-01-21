@@ -35,7 +35,9 @@ export function AmountProp({
   const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
 
   const value = typeof val === "number" ? val : val?.value;
-  const unit = s ?? BASE_UNITS[maskV as UnitTypes];
+  const unit = isUnitValue(val)
+    ? (val as any).unit
+    : (s ?? BASE_UNITS[maskV as UnitTypes]);
   // if (!isUnitValue(val))
   // return <Prop value={val as number} unit="" {...props} />;
 
@@ -53,10 +55,13 @@ export function AmountProp({
   // console.log(converted);
   // const { value, unit: _u } = val ?? {};
   //  const prefs = getPreferences();
-  const u = unit === "percent" || unit === "number" ? PercentUnits[unit] : unit;
+  const u =
+    unit === "percent" || unit === "number"
+      ? PercentUnits[unit as keyof typeof PercentUnits]
+      : unit;
   const v =
     converted !== undefined ? precisionRound(converted ?? 0, precision) : "";
-  // console.log({ name, val, _unit, maskV, s, converted, u, v });
+  console.log({ name, val, unit, value, _unit, maskV, s, converted, u, v });
 
   return <Prop value={v} unit={u} {...props} />;
   /**

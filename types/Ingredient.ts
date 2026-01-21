@@ -26,6 +26,8 @@ export interface HopType extends BaseHopType {
 }
 type HopAmountFieldNames =
   | "alpha"
+  | "alphaLow"
+  | "alphaHigh"
   | "beta"
   | "cohumulone"
   | "myrcene"

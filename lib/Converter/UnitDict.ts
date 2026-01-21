@@ -13,7 +13,7 @@ import {
 export type PercentUnitType = "%" | "#";
 export const PercentUnits: Record<PercentUnit, PercentUnitType> = {
   percent: "%",
-  number: "%",
+  number: "#",
 };
 export type UnitNames =
   //  | (typeof PercentUnits)[keyof typeof PercentUnits]
@@ -41,7 +41,7 @@ export const UNITS = {
 };
 export const BASE_UNITS = {
   time: TimeUnit.min,
-  percent: PercentUnit.number,
+  percent: PercentUnit.percent,
   mass: UserMassPreference.Kg,
   temperature: UserTemperaturePreference.F,
   color: UserColorPreference.L,

@@ -64,7 +64,7 @@ export const FermentableMask: UnitMaskType<Partial<FermentableType>> = {
 };
 
 export const HopMask: UnitMaskType<Partial<HopType>> = {
-  alpha: ["percent", "number"],
+  alpha: ["percent", "percent"],
   beta: ["percent", "number"],
   humulene: ["percent", "number"],
   bPinene: ["percent", "number"],

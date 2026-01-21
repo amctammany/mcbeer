@@ -125,7 +125,7 @@ export function reduceUnits<T extends FieldValues>(
           unit: v.unit,
           precision,
           inline: true,
-          dir: false,
+          dir: true,
         })
       : Array.isArray(v)
         ? v.map((a) => reduceUnits(a))
