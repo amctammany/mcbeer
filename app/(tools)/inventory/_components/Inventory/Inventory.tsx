@@ -107,7 +107,7 @@ export default function Inventory({
   };
   return (
     <>
-      <div className="grid grid-cols-2 max-w-3xl m-auto gap-4">
+      <div className="grid grid-cols-2 *:max-w-2xl *:w-full justify-items-center m-auto gap-4 p-2 lg:p-4">
         <Section
           title="Hops"
           actions={
