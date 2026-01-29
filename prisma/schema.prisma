@@ -241,6 +241,7 @@ model User {
   fermentables         Fermentable[]
   hops                 Hop[]
   yeasts               Yeast[]
+  inventories          Inventory[]
 
   @@unique([email])
   @@map("user")
@@ -484,6 +485,7 @@ model Fermentable {
   forks          Fermentable[]    @relation("origin")
 
   //FermentableIngredient FermentableIngredient[]
+  fermentableInventoryItems FermentableInventoryItem[]
 }
 
 enum HopUsage {
@@ -546,7 +548,8 @@ model Hop {
   //  hopSensoryPanels  HopSensoryPanel[]
   //  hopNote           HopNote[]
   userId            String?
-  owner             User?    @relation(fields: [userId], references: [id])
+  owner             User?              @relation(fields: [userId], references: [id])
+  hopInventoryItems HopInventoryItem[]
 }
 
 enum YeastForm {
@@ -595,4 +598,45 @@ model Yeast {
   owner           User?              @relation(fields: [userId], references: [id])
 
   //  YeastIngredient YeastIngredient[]
+  yeastInventoryItems YeastInventoryItem[]
+}
+
+model Inventory {
+  id                        String                     @id @unique @default(cuid())
+  userId                    String                     @unique
+  owner                     User                       @relation(fields: [userId], references: [id])
+  hopInventoryItems         HopInventoryItem[]
+  yeastInventoryItems       YeastInventoryItem[]
+  fermentableInventoryItems FermentableInventoryItem[]
+}
+
+model HopInventoryItem {
+  id          String    @id @default(cuid())
+  inventoryId String
+  hopId       String?
+  name        String
+  date        DateTime
+  amount      Float
+  hop         Hop?      @relation(fields: [name], references: [slug])
+  Inventory   Inventory @relation(fields: [inventoryId], references: [id])
+}
+
+model YeastInventoryItem {
+  id          String    @id @default(cuid())
+  inventoryId String
+  yeastId     String
+  date        DateTime
+  amount      Float
+  yeast       Yeast     @relation(fields: [yeastId], references: [id])
+  Inventory   Inventory @relation(fields: [inventoryId], references: [id])
+}
+
+model FermentableInventoryItem {
+  id            String      @id @default(cuid())
+  inventoryId   String
+  fermentableId String
+  date          DateTime
+  amount        Float
+  fermentable   Fermentable @relation(fields: [fermentableId], references: [id])
+  Inventory     Inventory   @relation(fields: [inventoryId], references: [id])
 }

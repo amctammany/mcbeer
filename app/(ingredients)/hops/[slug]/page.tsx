@@ -13,12 +13,12 @@ export type HopDisplayPageProps = {
 export default async function HopDisplayPage({ params }: HopDisplayPageProps) {
   const { slug } = await params;
   const hop = await getHop(slug);
-  const prefs = await getPreferences();
+  // const prefs = await getPreferences();
   if (!hop) notFound();
   return (
     <div>
       <HopDisplayToolbar hop={hop} />
-      <HopDisplay src={hop} prefs={prefs} />
+      <HopDisplay src={hop} />
     </div>
   );
 }

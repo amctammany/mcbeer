@@ -111,6 +111,7 @@ const data = {
       icon: ToolCase,
       url: "/tools",
       items: [
+        { title: "Inventory", url: "/inventory" },
         { title: "ABV Calculator", url: "#" },
         { title: "IBU Calculator", url: "#" },
         { title: "Color Calculator", url: "#" },

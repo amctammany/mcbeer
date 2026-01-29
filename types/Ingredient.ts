@@ -1,13 +1,19 @@
-import { Fermentable, Hop, Yeast } from "@/generated/prisma/client";
+import {
+  Fermentable,
+  Hop,
+  HopInventoryItem,
+  Yeast,
+} from "@/generated/prisma/client";
 import { AmountFields, OptionalNullable } from "@/lib/utils";
 import { BaseUser } from "./User";
 export interface BaseHopType extends Omit<
   OptionalNullable<Hop>,
-  "id" | "userId"
+  "id" | "userId" | "hopInventoryItems"
 > {
   id?: string;
   userId?: string;
 }
+type B = Hop["alpha"];
 export interface HopType extends BaseHopType {
   alphaRange: [number, number];
   betaRange: [number, number];
@@ -22,6 +28,7 @@ export interface HopType extends BaseHopType {
   humuleneRange: [number, number];
   owner?: Partial<BaseUser>;
   origin?: BaseHopType;
+  hopInventoryItems: HopInventoryItem[];
   forks?: BaseHopType[];
 }
 type HopAmountFieldNames =
