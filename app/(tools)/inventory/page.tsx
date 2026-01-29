@@ -12,19 +12,14 @@ import { getFermentableNames } from "@/app/(ingredients)/fermentables/queries";
 import { getYeastNames } from "@/app/(ingredients)/yeasts/queries";
 export type SearchParams = { [key: string]: string | string[] | undefined };
 
-export type InventoryPageProps = {
-  searchParams?: Promise<SearchParams>;
-};
-export default async function InventoryPage({
-  searchParams,
-}: InventoryPageProps) {
+export default async function InventoryPage() {
   const session = await verifySession();
   if (!session) {
     return unauthorized();
   }
   const inventory = await getInventory(session.user.id);
-  const params = await searchParams;
-  console.log(params);
+  // const params = await searchParams;
+  // console.log(params);
   if (!inventory) {
     await prisma.inventory.create({
       data: {
@@ -33,22 +28,13 @@ export default async function InventoryPage({
     });
     return redirect("/inventory");
   }
-  const hopNames = await prisma.hop.findMany({
-    select: {
-      id: true,
-      name: true,
-      slug: true,
-    },
-  });
-  const h = hopNames.map(({ name, slug }) => ({ label: name, value: slug }));
   return (
     <Inventory
       src={inventory}
-      searchParams={params}
+      // searchParams={params}
       getFermentableNames={getFermentableNames()}
       getHopNames={getHopNames()}
       getYeastNames={getYeastNames()}
-      hops={h}
     />
   );
 }

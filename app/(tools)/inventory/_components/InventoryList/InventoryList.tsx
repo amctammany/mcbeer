@@ -4,10 +4,16 @@ import InventoryListItem, { InventoryListItemProps } from "./InventoryListItem";
 import { Beaker, Hop, Wheat } from "lucide-react";
 // import { FermentableInventoryItem, HopInventoryItem } from "@/generated/prisma/client";
 export type InventoryListProps = {
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: InventoryItemType; //| "default";
   items?: InventoryListItemType[];
 };
 
+const Icons: Record<InventoryItemType, typeof Hop> = {
+  Hop: Hop,
+  Yeast: Beaker,
+  Fermentable: Wheat,
+};
 const HopInventoryListItem = ({ name, amount }: InventoryListItemProps) => (
   <InventoryListItem Icon={Hop} name={name} type="Hop" amount={amount} />
 );
@@ -37,13 +43,21 @@ const comps: Record<
 };
 export default function InventoryList({
   type,
+  onClick,
   items = [],
 }: InventoryListProps) {
   const Comp = comps[type ?? "default"];
   return (
     <div>
       {items.map((item) => (
-        <Comp key={item.id} type={type} name={item.name} amount={item.amount} />
+        <InventoryListItem
+          key={item.id}
+          type={type}
+          Icon={Icons[type!]}
+          name={item.name}
+          amount={item.amount}
+          onClick={onClick}
+        />
       ))}
     </div>
   );

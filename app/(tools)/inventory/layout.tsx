@@ -11,7 +11,7 @@ export default function InventoryLayout({ children }: { children: any }) {
           Update
         </IconButton>
       </TopBar>
-      <Suspense>{children}</Suspense>
+      <Suspense fallback={<div>Loading Inventory</div>}>{children}</Suspense>
     </div>
   );
 }
