@@ -1,5 +1,6 @@
 import { AmountProp } from "@/components/Prop/AmountProp";
 import Prop from "@/components/Prop/Prop";
+import Section from "@/components/Section";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { adjustUnits, UnitValue } from "@/lib/Converter/adjustUnits";
 import { HopMask } from "@/lib/Converter/Masks";
@@ -33,7 +34,7 @@ export default function HopPropertiesTab({ src }: HopPropertiesTabProps) {
   });
    */
   return (
-    <div className="grid lg:grid-cols-1 ">
+    <Section title="Properties" className="grid lg:grid-cols-1 ">
       {rangeProps.map((field) => (
         <div className="grid grid-cols-3 gap-1" key={field.name}>
           <AmountProp
@@ -58,6 +59,6 @@ export default function HopPropertiesTab({ src }: HopPropertiesTabProps) {
           {src["totalOilLow"]} - {src["totalOilHigh"]}
         </Prop>
       </div>
-    </div>
+    </Section>
   );
 }
