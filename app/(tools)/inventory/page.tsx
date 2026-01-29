@@ -10,13 +10,21 @@ import { verifySession } from "@/lib/verifySession";
 import { getHopNames } from "@/app/(ingredients)/hops/queries";
 import { getFermentableNames } from "@/app/(ingredients)/fermentables/queries";
 import { getYeastNames } from "@/app/(ingredients)/yeasts/queries";
+export type SearchParams = { [key: string]: string | string[] | undefined };
 
-export default async function InventoryPage() {
+export type InventoryPageProps = {
+  searchParams?: Promise<SearchParams>;
+};
+export default async function InventoryPage({
+  searchParams,
+}: InventoryPageProps) {
   const session = await verifySession();
   if (!session) {
     return unauthorized();
   }
   const inventory = await getInventory(session.user.id);
+  const params = await searchParams;
+  console.log(params);
   if (!inventory) {
     await prisma.inventory.create({
       data: {
@@ -36,6 +44,7 @@ export default async function InventoryPage() {
   return (
     <Inventory
       src={inventory}
+      searchParams={params}
       getFermentableNames={getFermentableNames()}
       getHopNames={getHopNames()}
       getYeastNames={getYeastNames()}

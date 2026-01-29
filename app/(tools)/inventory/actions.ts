@@ -40,7 +40,7 @@ const models: Record<keyof typeof IngredientTypeEnum, any> = {
 };
 export async function addToInventory(prev: any, data: FormData) {
   const res = validateSchema(data, AddToInventorySchema);
-  console.log(res);
+  // console.log(res);
   if (res.errors) return res;
   const { type, ...d } = res.data;
   const model = models[type as keyof typeof IngredientTypeEnum];
@@ -58,7 +58,8 @@ export async function addToInventory(prev: any, data: FormData) {
       },
     },
   });
-  console.log(item.Inventory);
+  // console.log(item.Inventory);
+  redirect("/inventory");
   return { success: true, data: item.Inventory };
 }
 export async function updateInventory(

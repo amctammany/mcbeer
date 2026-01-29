@@ -12,12 +12,14 @@ export type AddHopInput = {
 };
 export type AddHopFormProps = {
   inventoryId?: string;
+  type?: "Hop" | "Yeast" | "Fermentable";
   action: any;
   options?: Option[];
   getOptions: Promise<Option[]>;
 };
 export default function AddHopForm({
   action,
+  type,
   inventoryId,
   options,
   getOptions,
@@ -30,7 +32,7 @@ export default function AddHopForm({
     <div className="relative grow w-full">
       <FormProvider {...form}>
         <form action={action}>
-          <input type="hidden" name="type" value="Hop" />
+          <input type="hidden" name="type" value={type} />
           <input type="hidden" name="inventoryId" value={inventoryId} />
           <ComboboxField name="name" label="Name" options={opts} />
           <TextField type="number" name="amount" label="Amount" />
