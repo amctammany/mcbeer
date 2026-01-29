@@ -27,7 +27,7 @@ export default function AddHopForm({
     defaultValues: { inventoryId, name: "", amount: 0 },
   });
   return (
-    <div className="grow w-full">
+    <div className="relative grow w-full">
       <FormProvider {...form}>
         <form action={action}>
           <input type="hidden" name="type" value="Hop" />

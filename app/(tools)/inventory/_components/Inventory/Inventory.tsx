@@ -1,12 +1,12 @@
 "use client";
 import Section from "@/components/Section";
 import { InventoryItemType, InventoryType } from "@/types/Inventory";
-import React, { useActionState } from "react";
+import React, { use, useActionState } from "react";
 import InventoryList from "../InventoryList/InventoryList";
 import AddInventoryButton from "./AddInventoryButton";
 import AddHopForm from "./AddHopForm";
 import { addToInventory } from "../../actions";
-import { Option } from "@/components/Form/Combobox";
+import { Combobox, Option } from "@/components/Form/Combobox";
 
 export type InventoryProps = {
   src: InventoryType;
@@ -22,6 +22,7 @@ export default function Inventory({ src, hops, getHopNames }: InventoryProps) {
     data: src,
   });
 
+  const opts = use(getHopNames);
   return (
     <div className="grid grid-cols-2 max-w-3xl m-auto gap-4">
       <Section
@@ -37,6 +38,7 @@ export default function Inventory({ src, hops, getHopNames }: InventoryProps) {
           </AddInventoryButton>
         }
       >
+        <Combobox name="name" options={opts} />
         <InventoryList type="Hop" items={state.data?.hopInventoryItems} />
       </Section>
       <Section title="Yeasts" actions={<AddInventoryButton type="Yeast" />}>

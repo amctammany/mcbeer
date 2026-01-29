@@ -32,7 +32,8 @@ export const AddInventoryButton = ({
           <DialogTitle>Add {type}</DialogTitle>
           <DialogDescription>Add to Inventory</DialogDescription>
         </DialogHeader>
-        <div className="flex items-center gap-2">{children}</div>
+        <div className="flex items-center gap-2 relative">{children}</div>
+
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
             <Button type="button">Close</Button>
