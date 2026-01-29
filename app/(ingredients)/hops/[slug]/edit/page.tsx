@@ -29,7 +29,8 @@ export async function generateMetadata({
 export default async function HopEditorPage({ params }: HopEditorPageProps) {
   const { slug } = await params;
 
-  const src = await authorizeResource(`/hops/${slug}/edit`, getHop, slug);
+  const src = await getHop(slug);
+  // const src = await authorizeResource(`/hops/${slug}/edit`, getHop, slug);
   // const prefs = await getPreferences();
   const countries = await getCountries();
   /**
