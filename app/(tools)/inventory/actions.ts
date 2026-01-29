@@ -42,43 +42,48 @@ const models: Record<keyof typeof IngredientTypeEnum, any> = {
 };
 export async function addToInventory(prev: any, data: FormData) {
   const res = validateSchema(data, AddToInventorySchema);
-  console.log(res);
   if (res.errors) return res;
   const { id, type, ...d } = res.data;
   const model = models[type as keyof typeof IngredientTypeEnum];
 
-  const item = await model.upsert({
-    where: { id },
-    create: {
-      ...d,
-    },
-    update: {
-      ...d,
-    },
-    include: {
-      Inventory: {
+  const item = id
+    ? await model.update({
+        where: { id },
+        data: d,
         include: {
-          hopInventoryItems: true,
-          yeastInventoryItems: true,
-          fermentableInventoryItems: true,
+          Inventory: {
+            include: {
+              hopInventoryItems: true,
+              yeastInventoryItems: true,
+              fermentableInventoryItems: true,
+            },
+          },
         },
-      },
-    },
-  });
-  console.log(item.Inventory.hopInventoryItems);
+      })
+    : await model.create({
+        data: d,
+        include: {
+          Inventory: {
+            include: {
+              hopInventoryItems: true,
+              yeastInventoryItems: true,
+              fermentableInventoryItems: true,
+            },
+          },
+        },
+      });
   // redirect("/inventory");
   const r = {
     success: true,
     data: { selected: undefined, ...item.Inventory },
   };
-  console.log(r);
   return r;
 }
 export async function updateInventory(
   prev: InventoryInputType,
   data: FormData,
 ) {
-  console.log(prev);
+  // console.log(prev);
   if (prev?.status === "RAW") {
     const res = validateSchema(data, RawInventorySchema);
     if (res.errors)
@@ -96,7 +101,7 @@ export async function updateInventory(
     const res = validateSchema(data, ItemizedInventorySchema);
     if (res.errors)
       return { status: "ITEMIZED", errors: res.errors, data: res.data };
-    console.log("itemized", res);
+    // console.log("itemized", res);
     const date = new Date(Date.now());
     const hops = res.data.items
       .filter((i) => i.type === "Hop")
@@ -107,7 +112,7 @@ export async function updateInventory(
         hopInventoryItems: { createMany: { data: hops } },
       },
     });
-    console.log(r);
+    // console.log(r);
     redirect("/inventory");
   }
 }
