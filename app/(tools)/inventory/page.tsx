@@ -22,5 +22,6 @@ export default async function InventoryPage() {
     });
     return redirect("/inventory");
   }
+  console.log(inventory);
   return <Inventory src={inventory} />;
 }

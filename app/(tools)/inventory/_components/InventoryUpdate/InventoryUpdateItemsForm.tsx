@@ -18,7 +18,7 @@ type InventoryUpdateItemsInput = {
   items?: {
     type: string;
     name: string;
-    value: string;
+    value: string | number;
   }[];
 };
 export default function InventoryUpdateItemsForm({
@@ -42,6 +42,7 @@ export default function InventoryUpdateItemsForm({
       <FormProvider {...form}>
         <form action={action}>
           <input type="hidden" name="id" value={src?.data?.id} />
+          <input type="hidden" name="userId" value={src?.data?.userId} />
           <div className="grid grid-cols-2">
             {fields.map((field, index) => (
               <React.Fragment

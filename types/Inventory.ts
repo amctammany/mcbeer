@@ -8,12 +8,15 @@ import { BaseFermentableType, BaseHopType, BaseYeastType } from "./Ingredient";
 import { OptionalNullable } from "@/lib/utils";
 
 export interface HopInventoryItemType extends OptionalNullable<HopInventoryItem> {
+  type: "Hop";
   hop: BaseHopType;
 }
 export interface YeastInventoryItemType extends OptionalNullable<YeastInventoryItem> {
+  type: "Yeast";
   yeast: BaseYeastType;
 }
 export interface FermentableInventoryItemType extends OptionalNullable<FermentableInventoryItem> {
+  type: "Fermentable";
   fermentable: BaseFermentableType;
 }
 
@@ -27,8 +30,9 @@ export type InventoryRawInput = {
 };
 export type InventoryItemInput = {
   type: InventoryItemType;
+  id: string;
   name: string;
-  value: string;
+  value: string | number;
 };
 export type InventoryItemizedInput = {
   id: string;
@@ -55,3 +59,8 @@ export interface InventoryType extends Inventory {
   yeastInventoryItems: YeastInventoryItemType[];
   fermentableInventoryItems: FermentableInventoryItemType[];
 }
+
+export type InventoryListItemType =
+  | HopInventoryItemType
+  | YeastInventoryItemType
+  | FermentableInventoryItemType;
