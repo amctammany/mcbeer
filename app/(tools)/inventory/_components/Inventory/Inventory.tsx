@@ -6,12 +6,17 @@ import InventoryList from "../InventoryList/InventoryList";
 import AddInventoryButton from "./AddInventoryButton";
 import AddHopForm from "./AddHopForm";
 import { addToInventory } from "../../actions";
+import { Option } from "@/components/Form/Combobox";
 
 export type InventoryProps = {
   src: InventoryType;
+  hops: Option[];
+  getHopNames: Promise<Option[]>;
+  getFermentableNames: Promise<Option[]>;
+  getYeastNames: Promise<Option[]>;
 };
 
-export default function Inventory({ src }: InventoryProps) {
+export default function Inventory({ src, hops, getHopNames }: InventoryProps) {
   const [state, formAction] = useActionState(addToInventory, {
     success: true,
     data: src,
@@ -23,7 +28,12 @@ export default function Inventory({ src }: InventoryProps) {
         title="Hops"
         actions={
           <AddInventoryButton type="Hop">
-            <AddHopForm action={formAction} inventoryId={src?.id} />
+            <AddHopForm
+              action={formAction}
+              inventoryId={src?.id}
+              options={hops}
+              getOptions={getHopNames}
+            />
           </AddInventoryButton>
         }
       >

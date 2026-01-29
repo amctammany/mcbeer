@@ -1,7 +1,9 @@
 "use client";
+import { ComboboxField } from "@/components/Form/ComboboxField";
+import { Option } from "@/components/Form/Combobox";
 import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
-import React, { useActionState } from "react";
+import React, { use, useActionState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 export type AddHopInput = {
   inventoryId?: string;
@@ -11,16 +13,26 @@ export type AddHopInput = {
 export type AddHopFormProps = {
   inventoryId?: string;
   action: any;
+  options?: Option[];
+  getOptions: Promise<Option[]>;
 };
-export default function AddHopForm({ action, inventoryId }: AddHopFormProps) {
-  const form = useForm<AddHopInput>();
+export default function AddHopForm({
+  action,
+  inventoryId,
+  options,
+  getOptions,
+}: AddHopFormProps) {
+  const opts = use(getOptions);
+  const form = useForm<AddHopInput>({
+    defaultValues: { inventoryId, name: "", amount: 0 },
+  });
   return (
     <div className="grow w-full">
       <FormProvider {...form}>
         <form action={action}>
           <input type="hidden" name="type" value="Hop" />
           <input type="hidden" name="inventoryId" value={inventoryId} />
-          <TextField name="name" label="Name" />
+          <ComboboxField name="name" label="Name" options={opts} />
           <TextField type="number" name="amount" label="Amount" />
           <Button type="submit">Save</Button>
         </form>

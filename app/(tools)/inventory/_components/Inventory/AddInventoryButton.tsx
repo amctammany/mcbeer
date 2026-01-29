@@ -24,7 +24,7 @@ export const AddInventoryButton = ({
 }: AddInventoryButtonProps) => {
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <IconButton icon={PlusCircleIcon} label="Add" />
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">

@@ -1,7 +1,19 @@
 import { prisma } from "@/lib/prisma";
 import { HopType } from "@/types/Ingredient";
 import { cacheTag } from "next/cache";
-
+export const getHopNames = async () => {
+  "use cache";
+  cacheTag("hops");
+  const hops = await prisma.hop.findMany({
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+    },
+  });
+  const names = hops.map(({ name, slug }) => ({ label: name, value: slug }));
+  return names;
+};
 export const getHops = async (args: any = {}) => {
   "use cache";
   cacheTag("hops");

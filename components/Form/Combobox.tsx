@@ -42,7 +42,7 @@ const options = [
   },
 ];
 
-type Option = { value: string; label: string };
+export type Option = { value: string; label: string };
 export type ComboboxProps = {
   name?: string;
   options: Option[];
@@ -92,7 +92,7 @@ export function Combobox({ name, options, value, onChange }: ComboboxProps) {
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === option.value ? "opacity-100" : "opacity-0"
+                      value === option.value ? "opacity-100" : "opacity-0",
                     )}
                   />
                 </CommandItem>

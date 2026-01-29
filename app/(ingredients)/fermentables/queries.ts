@@ -3,6 +3,23 @@ import { FermentableType } from "@/types/Ingredient";
 import { cacheTag } from "next/cache";
 import { notFound } from "next/navigation";
 
+export const getFermentableNames = async () => {
+  "use cache";
+  cacheTag("fermentables");
+  const fermentables = await prisma.fermentable.findMany({
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+    },
+  });
+  const names = fermentables.map(({ name, slug }) => ({
+    label: name,
+    value: slug,
+  }));
+  return names;
+};
+
 export const getFermentables = async (args: any = {}) => {
   "use cache";
   cacheTag("fermentables");

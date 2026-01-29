@@ -14,7 +14,7 @@ export default function InventoryListItem({
   amount,
 }: InventoryListItemProps) {
   return (
-    <div className="list-item py-2 group hover:bg-slate-200">
+    <div className="list-item list-none py-2 group hover:bg-slate-200">
       <div className="inline-flex w-full">
         <div className="shrink p-2 mx-2 my-auto ">
           <Icon />
