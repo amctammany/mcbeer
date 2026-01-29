@@ -1,21 +1,36 @@
+"use client";
 import Section from "@/components/Section";
 import { InventoryItemType, InventoryType } from "@/types/Inventory";
-import React from "react";
+import React, { useActionState } from "react";
 import InventoryList from "../InventoryList/InventoryList";
 import AddInventoryButton from "./AddInventoryButton";
+import AddHopForm from "./AddHopForm";
+import { addToInventory } from "../../actions";
 
 export type InventoryProps = {
-  src?: InventoryType;
+  src: InventoryType;
 };
 
 export default function Inventory({ src }: InventoryProps) {
+  const [state, formAction] = useActionState(addToInventory, {
+    success: true,
+    data: src,
+  });
+
   return (
     <div className="grid grid-cols-2 max-w-3xl m-auto gap-4">
-      <Section title="Hops" actions={<AddInventoryButton type="Hop" />}>
-        <InventoryList type="Hop" items={src?.hopInventoryItems} />
+      <Section
+        title="Hops"
+        actions={
+          <AddInventoryButton type="Hop">
+            <AddHopForm action={formAction} inventoryId={src?.id} />
+          </AddInventoryButton>
+        }
+      >
+        <InventoryList type="Hop" items={state.data?.hopInventoryItems} />
       </Section>
       <Section title="Yeasts" actions={<AddInventoryButton type="Yeast" />}>
-        <InventoryList type="Yeast" items={src?.yeastInventoryItems} />
+        <InventoryList type="Yeast" items={state.data?.yeastInventoryItems} />
       </Section>
       <Section
         title="Fermentables"
@@ -23,7 +38,7 @@ export default function Inventory({ src }: InventoryProps) {
       >
         <InventoryList
           type="Fermentable"
-          items={src?.fermentableInventoryItems}
+          items={state.data?.fermentableInventoryItems}
         />
       </Section>
       <Section title="Other"></Section>

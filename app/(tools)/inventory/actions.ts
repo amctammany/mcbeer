@@ -22,6 +22,45 @@ const ItemizedInventorySchema = zfd.formData({
   ),
 });
 
+const IngredientTypeEnum = {
+  Hop: "Hop",
+  Yeast: "Yeast",
+  Fermentable: "Fermentable",
+};
+const AddToInventorySchema = zfd.formData({
+  inventoryId: zfd.text(z.string()),
+  type: z.enum(IngredientTypeEnum),
+  name: zfd.text(z.string()),
+  amount: zfd.numeric(z.number()),
+});
+const models: Record<keyof typeof IngredientTypeEnum, any> = {
+  Hop: prisma.hopInventoryItem,
+  Yeast: prisma.yeastInventoryItem,
+  Fermentable: prisma.fermentableInventoryItem,
+};
+export async function addToInventory(prev: any, data: FormData) {
+  const res = validateSchema(data, AddToInventorySchema);
+  console.log(res);
+  if (res.errors) return res;
+  const { type, ...d } = res.data;
+  const model = models[type as keyof typeof IngredientTypeEnum];
+  const item = await model.create({
+    data: {
+      ...d,
+    },
+    include: {
+      Inventory: {
+        include: {
+          hopInventoryItems: true,
+          yeastInventoryItems: true,
+          fermentableInventoryItems: true,
+        },
+      },
+    },
+  });
+  console.log(item.Inventory);
+  return { success: true, data: item.Inventory };
+}
 export async function updateInventory(
   prev: InventoryInputType,
   data: FormData,

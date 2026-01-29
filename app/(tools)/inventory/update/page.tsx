@@ -3,7 +3,7 @@ import { unauthorized } from "next/navigation";
 import React from "react";
 import { getInventory } from "../queries";
 import { updateInventory } from "../actions";
-import InventoryUpdate from "../_components/Inventory/InventoryUpdate/InventoryUpdate";
+import InventoryUpdate from "../_components/InventoryUpdate/InventoryUpdate";
 
 export default async function InventoryUpdatePage() {
   const session = await verifySession();
