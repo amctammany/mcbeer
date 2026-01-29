@@ -4,21 +4,26 @@ import InventoryListItem, { InventoryListItemProps } from "./InventoryListItem";
 import { Beaker, Hop, Wheat } from "lucide-react";
 // import { FermentableInventoryItem, HopInventoryItem } from "@/generated/prisma/client";
 export type InventoryListProps = {
-  type?: InventoryItemType | "default";
+  type?: InventoryItemType; //| "default";
   items?: InventoryListItemType[];
 };
 
 const HopInventoryListItem = ({ name, amount }: InventoryListItemProps) => (
-  <InventoryListItem Icon={Hop} name={name} amount={amount} />
+  <InventoryListItem Icon={Hop} name={name} type="Hop" amount={amount} />
 );
 const YeastInventoryListItem = ({ name, amount }: InventoryListItemProps) => (
-  <InventoryListItem Icon={Beaker} name={name} amount={amount} />
+  <InventoryListItem Icon={Beaker} type="Yeast" name={name} amount={amount} />
 );
 const FermentableInventoryListItem = ({
   name,
   amount,
 }: InventoryListItemProps) => (
-  <InventoryListItem Icon={Wheat} name={name} amount={amount} />
+  <InventoryListItem
+    type="Fermentable"
+    Icon={Wheat}
+    name={name}
+    amount={amount}
+  />
 );
 
 const comps: Record<
@@ -31,14 +36,14 @@ const comps: Record<
   default: InventoryListItem,
 };
 export default function InventoryList({
-  type = "default",
+  type,
   items = [],
 }: InventoryListProps) {
-  const Comp = comps[type];
+  const Comp = comps[type ?? "default"];
   return (
     <div>
       {items.map((item) => (
-        <Comp key={item.id} name={item.name} amount={item.amount} />
+        <Comp key={item.id} type={type} name={item.name} amount={item.amount} />
       ))}
     </div>
   );

@@ -28,6 +28,7 @@ const IngredientTypeEnum = {
   Fermentable: "Fermentable",
 };
 const AddToInventorySchema = zfd.formData({
+  id: zfd.text(z.string().optional()),
   inventoryId: zfd.text(z.string()),
   type: z.enum(IngredientTypeEnum),
   name: zfd.text(z.string()),
@@ -42,10 +43,15 @@ export async function addToInventory(prev: any, data: FormData) {
   const res = validateSchema(data, AddToInventorySchema);
   // console.log(res);
   if (res.errors) return res;
-  const { type, ...d } = res.data;
+  const { id, type, ...d } = res.data;
   const model = models[type as keyof typeof IngredientTypeEnum];
-  const item = await model.create({
-    data: {
+
+  const item = await model.upsert({
+    where: { id },
+    create: {
+      ...d,
+    },
+    update: {
       ...d,
     },
     include: {

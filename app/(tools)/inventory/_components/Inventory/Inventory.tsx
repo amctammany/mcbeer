@@ -34,6 +34,11 @@ export type InventoryProps = {
   searchParams?: SearchParams;
 };
 
+const itemNameDict: Record<InventoryItemType, keyof InventoryType> = {
+  Hop: "hopInventoryItems",
+  Fermentable: "fermentableInventoryItems",
+  Yeast: "yeastInventoryItems",
+};
 export default function Inventory({
   src,
   searchParams,
@@ -53,8 +58,17 @@ export default function Inventory({
       : searchParams?.fermentable
         ? "Fermentable"
         : undefined;
+  const selectedName =
+    searchParams?.hop ?? searchParams?.yeast ?? searchParams?.fermentable;
+  const selected =
+    type !== undefined
+      ? state.data?.[itemNameDict[type]].find((s: any) => {
+          return s.name === selectedName;
+        })
+      : undefined;
+  console.log({ data: state.data, type, selected, selectedName });
   const modalOpen = !!type;
-  const getFns: Record<"Hop" | "Fermentable" | "Yeast", any> = {
+  const getFns: Record<InventoryItemType, any> = {
     Hop: getHopNames,
     Yeast: getYeastNames,
     Fermentable: getFermentableNames,
@@ -114,6 +128,7 @@ export default function Inventory({
           </DialogHeader>
           <div className="flex items-center gap-2 relative">
             <AddHopForm
+              src={selected}
               action={formAction}
               type={type}
               inventoryId={state.data?.id}

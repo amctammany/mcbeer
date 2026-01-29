@@ -10,6 +10,7 @@ export async function getInventory(userId: string) {
         include: {
           fermentable: {
             select: {
+              slug: true,
               name: true,
               potential: true,
               color: true,
@@ -21,6 +22,7 @@ export async function getInventory(userId: string) {
         include: {
           yeast: {
             select: {
+              slug: true,
               name: true,
               attenuation: true,
               tolerance: true,
@@ -32,6 +34,7 @@ export async function getInventory(userId: string) {
         include: {
           hop: {
             select: {
+              slug: true,
               name: true,
               alpha: true,
             },
