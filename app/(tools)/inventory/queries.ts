@@ -8,7 +8,7 @@ export async function getInventory(userId: string) {
     include: {
       fermentableInventoryItems: {
         include: {
-          fermentable: {
+          origin: {
             select: {
               slug: true,
               name: true,
@@ -20,7 +20,7 @@ export async function getInventory(userId: string) {
       },
       yeastInventoryItems: {
         include: {
-          yeast: {
+          origin: {
             select: {
               slug: true,
               name: true,
@@ -32,7 +32,7 @@ export async function getInventory(userId: string) {
       },
       hopInventoryItems: {
         include: {
-          hop: {
+          origin: {
             select: {
               slug: true,
               name: true,

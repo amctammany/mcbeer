@@ -67,11 +67,14 @@ export default function Inventory({
   // const selectedName =
   // searchParams?.hop ?? searchParams?.yeast ?? searchParams?.fermentable;
   const sel: SelectedState = selected;
+  /**
+   * 
   console.log(
     state.data,
     sel,
     state.data?.[sel?.type ? itemNameDict[sel.type] : "selected"],
   );
+   */
   const _selected =
     sel?.type !== undefined
       ? (state.data?.[itemNameDict[sel.type]] ?? []).find((s: any) => {
@@ -79,7 +82,7 @@ export default function Inventory({
         })
       : undefined;
   // console.log({ data: state.data, type, selected, _selected });
-  console.log({ data: state.data, selected, sel, _selected });
+  // console.log({ data: state.data, selected, sel, _selected });
   const modalOpen = !!sel?.type;
   const getFns: Record<InventoryItemType, any> = {
     Hop: getHopNames,
@@ -95,16 +98,17 @@ export default function Inventory({
       name: e.currentTarget.dataset.name,
     };
     setSelected(n);
-    console.log(n);
+    // console.log(n);
   };
   const onSubmit = (d: any) => {
-    console.log(d);
+    // console.log(d);
     setSelected(undefined);
   };
   const onOpenChange = (open: boolean) => {
-    console.log(open);
+    // console.log(open);
     if (!open) setSelected(undefined);
   };
+  // console.log(src);
   return (
     <>
       <div className="grid grid-cols-2 *:max-w-2xl *:w-full justify-items-center m-auto gap-4 p-2 lg:p-4">

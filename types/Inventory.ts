@@ -9,15 +9,15 @@ import { OptionalNullable } from "@/lib/utils";
 
 export interface HopInventoryItemType extends OptionalNullable<HopInventoryItem> {
   type: "Hop";
-  hop: BaseHopType;
+  origin: BaseHopType;
 }
 export interface YeastInventoryItemType extends OptionalNullable<YeastInventoryItem> {
   type: "Yeast";
-  yeast: BaseYeastType;
+  origin: BaseYeastType;
 }
 export interface FermentableInventoryItemType extends OptionalNullable<FermentableInventoryItem> {
   type: "Fermentable";
-  fermentable: BaseFermentableType;
+  origin: BaseFermentableType;
 }
 
 export type InventoryItemType = "Hop" | "Yeast" | "Fermentable";

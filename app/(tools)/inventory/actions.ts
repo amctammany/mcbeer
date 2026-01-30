@@ -44,6 +44,7 @@ export async function addToInventory(prev: any, data: FormData) {
   const res = validateSchema(data, AddToInventorySchema);
   if (res.errors) return res;
   const { id, type, ...d } = res.data;
+
   const model = models[type as keyof typeof IngredientTypeEnum];
 
   const item = id
@@ -51,6 +52,7 @@ export async function addToInventory(prev: any, data: FormData) {
         where: { id },
         data: d,
         include: {
+          origin: true,
           Inventory: {
             include: {
               hopInventoryItems: true,
@@ -63,11 +65,16 @@ export async function addToInventory(prev: any, data: FormData) {
     : await model.create({
         data: d,
         include: {
+          origin: true,
           Inventory: {
             include: {
-              hopInventoryItems: true,
-              yeastInventoryItems: true,
-              fermentableInventoryItems: true,
+              Inventory: {
+                include: {
+                  hopInventoryItems: true,
+                  yeastInventoryItems: true,
+                  fermentableInventoryItems: true,
+                },
+              },
             },
           },
         },

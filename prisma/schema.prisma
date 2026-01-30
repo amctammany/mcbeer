@@ -617,7 +617,7 @@ model HopInventoryItem {
   name        String
   date        DateTime  @default(now())
   amount      Float
-  hop         Hop?      @relation(fields: [name], references: [slug])
+  origin      Hop?      @relation(fields: [name], references: [slug])
   Inventory   Inventory @relation(fields: [inventoryId], references: [id])
 }
 
@@ -628,7 +628,7 @@ model YeastInventoryItem {
   name        String
   date        DateTime  @default(now())
   amount      Float
-  yeast       Yeast?    @relation(fields: [name], references: [slug])
+  origin      Yeast?    @relation(fields: [name], references: [slug])
   Inventory   Inventory @relation(fields: [inventoryId], references: [id])
 }
 
@@ -639,6 +639,6 @@ model FermentableInventoryItem {
   name          String
   date          DateTime     @default(now())
   amount        Float
-  fermentable   Fermentable? @relation(fields: [name], references: [slug])
+  origin        Fermentable? @relation(fields: [name], references: [slug])
   Inventory     Inventory    @relation(fields: [inventoryId], references: [id])
 }

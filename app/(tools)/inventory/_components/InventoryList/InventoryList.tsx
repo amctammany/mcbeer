@@ -14,6 +14,10 @@ const Icons: Record<InventoryItemType, typeof Hop> = {
   Yeast: Beaker,
   Fermentable: Wheat,
 };
+/**
+ * 
+ * @param param0 
+ * @returns 
 const HopInventoryListItem = ({ name, amount }: InventoryListItemProps) => (
   <InventoryListItem Icon={Hop} name={name} type="Hop" amount={amount} />
 );
@@ -41,21 +45,24 @@ const comps: Record<
   Fermentable: FermentableInventoryListItem,
   default: InventoryListItem,
 };
+ */
 export default function InventoryList({
   type,
   onClick,
   items = [],
 }: InventoryListProps) {
-  const Comp = comps[type ?? "default"];
+  // const Comp = comps[type ?? "default"];
   return (
     <div>
       {items.map((item) => (
         <InventoryListItem
           key={item.id}
-          type={type}
+          // type={type}
           Icon={Icons[type!]}
-          name={item.name}
-          amount={item.amount}
+          src={item}
+          // label={item.origin.name}
+          // name={item.name}
+          // amount={item.amount}
           onClick={onClick}
         />
       ))}
