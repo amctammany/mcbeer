@@ -15,6 +15,7 @@ import {
 import { useContext } from "react";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { MaskContext } from "@/contexts/MaskContext";
+import { PercentUnit } from "@/generated/prisma/browser";
 export type AmountPropProps = Omit<PropProps, "value"> & {
   name?: string;
   value?: UnitValue | number;
@@ -35,7 +36,9 @@ export function AmountProp({
   const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
 
   const value = typeof val === "number" ? val : val?.value;
-  const unit =
+
+  const unitName = isUnitValue(val) ? (val as UnitValue).unit : s;
+  const unit2 =
     _unit ??
     (isUnitValue(val)
       ? (val as any).unit
@@ -44,13 +47,13 @@ export function AmountProp({
   // return <Prop value={val as number} unit="" {...props} />;
 
   // const unitN = unit ?? (amountType ? preferenceContext?.[amountType!] : "");
-
+  const unit = _unit ?? unitName;
   // return <Prop value={value} unit={unit} {...props} />;
   // console.log({ maskV, value, unit, s });
   const converted = convertUnit({
     value,
     type: maskV,
-    unit,
+    unit: s ?? BASE_UNITS[maskV as keyof typeof BASE_UNITS],
     inline: true,
     dir: true,
   });

@@ -97,7 +97,7 @@ export function AmountField<T extends FieldValues>({
   // const unitN = _unit ?? (amountType ? preferenceContext?.[amountType!] : "");
   /**
    */
-  console.log({ name, _unit, s, mn, maskV, val, amountType });
+  // console.log({ name, _unit, s, mn, maskV, val, amountType });
   const unitName = isUnitValue(val) ? val.unit : s;
   // : amountType === "percent"
   // ? PercentUnits[amountType]
