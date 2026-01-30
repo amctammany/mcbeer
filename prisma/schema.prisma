@@ -86,7 +86,8 @@ model Style {
 
   abvHigh Float?
 
-  abvFlex Boolean @default(false)
+  abvFlex Boolean  @default(false)
+  recipes Recipe[]
 }
 
 enum UserRoles {
@@ -242,6 +243,7 @@ model User {
   hops                 Hop[]
   yeasts               Yeast[]
   inventories          Inventory[]
+  recipes              Recipe[]
 
   @@unique([email])
   @@map("user")
@@ -333,6 +335,7 @@ model EquipmentProfile {
   owner                  User?                       @relation(fields: [userId], references: [id])
   //  Recipe          Recipe[]
   //  UserPreferences UserPreferences[]
+  recipes                Recipe[]
 }
 
 model WaterProfile {
@@ -371,8 +374,9 @@ model MashProfile {
   origin           MashProfile?  @relation("origin", fields: [forkedFrom], references: [id])
   forks            MashProfile[] @relation("origin")
 
-  steps MashStep[]
-  owner User?      @relation(fields: [userId], references: [id])
+  steps   MashStep[]
+  owner   User?      @relation(fields: [userId], references: [id])
+  recipes Recipe[]
 }
 
 enum MashStepType {
@@ -486,6 +490,7 @@ model Fermentable {
 
   //FermentableIngredient FermentableIngredient[]
   fermentableInventoryItems FermentableInventoryItem[]
+  fermentableIngredients    FermentableIngredient[]
 }
 
 enum HopUsage {
@@ -550,6 +555,7 @@ model Hop {
   userId            String?
   owner             User?              @relation(fields: [userId], references: [id])
   hopInventoryItems HopInventoryItem[]
+  hopIngredients    HopIngredient[]
 }
 
 enum YeastForm {
@@ -641,4 +647,93 @@ model FermentableInventoryItem {
   amount        Float
   origin        Fermentable? @relation(fields: [name], references: [slug])
   Inventory     Inventory    @relation(fields: [inventoryId], references: [id])
+}
+
+model Recipe {
+  id                     String                  @id @default(cuid())
+  name                   String
+  description            String?
+  userId                 String
+  equipmentProfileId     String?
+  EquipmentProfile       EquipmentProfile?       @relation(fields: [equipmentProfileId], references: [id])
+  batchVolume            Float?                  @default(22)
+  boilVolume             Float?                  @default(25)
+  preboilVolume          Float?                  @default(25)
+  boilTime               Float?                  @default(60)
+  brewEfficiency         Float?                  @default(0.6)
+  mashEfficiency         Float?                  @default(0.7)
+  boilOffRate            Float?                  @default(2)
+  trubLoss               Float?                  @default(0)
+  mashLoss               Float?                  @default(0)
+  fermenterLoss          Float?                  @default(0)
+  grainAbsorption        Float?                  @default(0.5)
+  mashProfileId          String?
+  MashProfile            MashProfile?            @relation(fields: [mashProfileId], references: [id])
+  ownerUsername          String?
+  ownerEmail             String?
+  owner                  User                    @relation(fields: [userId], references: [id])
+  forkedFrom             String?
+  origin                 Recipe?                 @relation("origin", fields: [forkedFrom], references: [id])
+  forks                  Recipe[]                @relation("origin")
+  styleIdentifier        String?
+  styleId                Int?
+  style                  Style?                  @relation(fields: [styleId], references: [id])
+  hopIngredients         HopIngredient[]
+  fermentableIngredients FermentableIngredient[]
+}
+
+enum HopIngredientUsage {
+  Boil
+  Whirlpool
+  DryHop
+  Mash
+}
+
+enum HopIngredientType {
+  Pellet
+  Cryo
+  Whole
+  Extract
+}
+
+model HopIngredient {
+  id           String             @default(cuid())
+  recipeId     String
+  recipe       Recipe             @relation(fields: [recipeId], references: [id])
+  amount       Float
+  usage        HopIngredientUsage
+  amountType   MassUnit
+  temperature  Float?
+  type         HopIngredientType  @default(Pellet)
+  duration     Float
+  durationType TimeUnit
+  hopId        String
+  hop          Hop                @relation(fields: [hopId], references: [id])
+  alpha        Float?
+
+  @@id([recipeId, id])
+}
+
+enum FermentableIngredientUsage {
+  Mash
+  Extract
+  Steep
+  Late
+}
+
+model FermentableIngredient {
+  id            String                     @default(cuid())
+  recipeId      String
+  recipe        Recipe                     @relation(fields: [recipeId], references: [id])
+  usage         FermentableIngredientUsage @default(Mash)
+  amount        Float
+  amountType    MassUnit
+  //duration      Float
+  //durationType  TimeUnit
+  fermentableId String
+  fermentable   Fermentable                @relation(fields: [fermentableId], references: [id])
+  color         Float?
+  potential     Float?
+
+  @@id([recipeId, id])
 }

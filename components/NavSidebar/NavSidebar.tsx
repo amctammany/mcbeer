@@ -35,11 +35,11 @@ const data = {
     {
       title: "Recipes",
       icon: BookOpen,
-      url: "#",
+      url: "/recipes",
       items: [
         {
           title: "Library",
-          url: "#",
+          url: "/recipes",
         },
         {
           title: "Public",

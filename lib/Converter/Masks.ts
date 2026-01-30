@@ -8,6 +8,7 @@ import {
 import { UnitMaskType } from "./adjustUnits";
 import { FermentableType, HopType, YeastType } from "@/types/Ingredient";
 import { FieldPath, FieldValues, Path } from "react-hook-form";
+import { RecipeType } from "@/types/Recipe";
 
 export const EquipmentProfileMask: UnitMaskType<Partial<EquipmentProfileType>> =
   {
@@ -51,6 +52,9 @@ export const FermentationProfileMask: UnitMaskType<
   "steps.rampTime": ["time", "days"],
 };
 
+export const RecipeMask: UnitMaskType<Partial<RecipeType>> = {
+  boilTime: "time",
+};
 export const FermentableMask: UnitMaskType<Partial<FermentableType>> = {
   maxUsage: "percent",
   protein: "percent",
