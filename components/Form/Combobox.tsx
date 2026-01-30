@@ -48,8 +48,15 @@ export type ComboboxProps = {
   options: Option[];
   value?: string;
   onChange?: (value: string) => void;
+  placeholder?: React.ReactNode;
 };
-export function Combobox({ name, options, value, onChange }: ComboboxProps) {
+export function Combobox({
+  placeholder = "Select option...",
+  name,
+  options,
+  value,
+  onChange,
+}: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -63,7 +70,7 @@ export function Combobox({ name, options, value, onChange }: ComboboxProps) {
         >
           {value
             ? options.find((option) => option.value === value)?.label
-            : "Select option..."}
+            : placeholder}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>

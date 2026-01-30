@@ -95,6 +95,7 @@ export function ComboboxField<T extends FieldValues>({
               value={field.value ?? undefined}
             />
             <Combobox
+              placeholder={placeholder}
               name={field.name}
               value={field.value}
               onChange={onValueChange(field.onChange)}

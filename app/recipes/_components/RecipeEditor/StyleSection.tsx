@@ -7,7 +7,12 @@ export default function StyleSection({ styles }: { styles: any }) {
   const opts = use(styles);
   return (
     <Section title="Style">
-      <ComboboxField name="styleIdentifier" label="Style" options={opts} />
+      <ComboboxField
+        name="styleIdentifier"
+        label="Style"
+        options={opts}
+        placeholder="Select Style"
+      />
       Chart to Come
     </Section>
   );

@@ -11,6 +11,7 @@ export const recipeSchema = zfd.formData({
   mashProfileId: zfd.text(z.string().optional()),
   waterProfileId: zfd.text(z.string().optional()),
   styleId: zfd.numeric(z.number().optional()),
+  styleIdentifier: zfd.text(z.string().optional()),
   //styleIdentifer: zfd.text(z.string().optional()),
   equipmentProfileId: zfd.text(z.string().optional()),
   boilTime: unitValueSchema(z.number().min(0).optional()),
