@@ -1,3 +1,4 @@
+"use client";
 import AmountField from "@/components/Form/AmountField";
 import { TextField } from "@/components/Form/TextField";
 import Section from "@/components/Section";

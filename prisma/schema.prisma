@@ -677,7 +677,7 @@ model Recipe {
   forks                  Recipe[]                @relation("origin")
   styleIdentifier        String?
   styleId                Int?
-  style                  Style?                  @relation(fields: [styleId], references: [id])
+  style                  Style?                  @relation(fields: [styleIdentifier], references: [identifier])
   hopIngredients         HopIngredient[]
   fermentableIngredients FermentableIngredient[]
 }

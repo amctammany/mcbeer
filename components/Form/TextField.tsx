@@ -102,6 +102,7 @@ export function TextField<T extends FieldValues>({
           className="grow"
           id={id}
           type="text"
+          {...props}
           {...regProps}
           onBlur={onValueChange(getValues(name))}
           // defaultValue={formState.defaultValues?.[name]}
