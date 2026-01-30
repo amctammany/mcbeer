@@ -89,19 +89,19 @@ export function AmountField<T extends FieldValues>({
 }: AmountFieldProps<T>) {
   const id = `${name}-field`;
   const { register, getFieldState, formState, getValues } = useFormContext();
-  /** 
   const preferenceContext = useContext(UserPreferencesContext);
   const { mask } = useContext(MaskContext);
   const mn = getInMask(mask, name);
   const maskV = Array.isArray(mn) ? mn[0] : mn;
   const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
   // const unitN = _unit ?? (amountType ? preferenceContext?.[amountType!] : "");
-*/
-  const unitName = isUnitValue(val)
-    ? val.unit
-    : amountType === "percent"
-      ? PercentUnits[amountType]
-      : BASE_UNITS[amountType!];
+  /**
+   */
+  console.log({ name, _unit, s, mn, maskV, val, amountType });
+  const unitName = isUnitValue(val) ? val.unit : s;
+  // : amountType === "percent"
+  // ? PercentUnits[amountType]
+  // : BASE_UNITS[amountType!];
   const value = typeof val === "number" ? val : val?.value;
   // console.log({ val, value, unitName });
   // console.log({ maskV, value, unit, s, unitName });

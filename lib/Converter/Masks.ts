@@ -54,6 +54,14 @@ export const FermentationProfileMask: UnitMaskType<
 
 export const RecipeMask: UnitMaskType<Partial<RecipeType>> = {
   boilTime: "time",
+  batchVolume: "volume",
+  brewEfficiency: "percent",
+  mashEfficiency: "percent",
+  boilVolume: "volume",
+  preboilVolume: "volume",
+  trubLoss: "volume",
+  mashLoss: "volume",
+  fermenterLoss: "volume",
 };
 export const FermentableMask: UnitMaskType<Partial<FermentableType>> = {
   maxUsage: "percent",

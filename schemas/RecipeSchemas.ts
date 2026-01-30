@@ -1,5 +1,6 @@
 import z from "zod";
 import { zfd } from "zod-form-data";
+import { unitValueSchema } from "./ProfileSchemas";
 
 export const recipeSchema = zfd.formData({
   //id: zfd.numeric(z.number()),
@@ -12,12 +13,12 @@ export const recipeSchema = zfd.formData({
   styleId: zfd.numeric(z.number().optional()),
   //styleIdentifer: zfd.text(z.string().optional()),
   equipmentProfileId: zfd.text(z.string().optional()),
-  boilTime: zfd.numeric(z.number().min(0).optional()),
-  batchVolume: zfd.numeric(z.number().min(0).optional()),
-  mashEfficiency: zfd.numeric(
+  boilTime: unitValueSchema(z.number().min(0).optional()),
+  batchVolume: unitValueSchema(z.number().min(0).optional()),
+  mashEfficiency: unitValueSchema(
     z.number().min(0).max(100).optional().default(65),
-  ),
-  brewEfficiency: zfd.numeric(
+  ).optional(),
+  brewEfficiency: unitValueSchema(
     z.number().min(0).max(100).optional().default(60),
   ),
   calcium: zfd.numeric(z.number().optional()),

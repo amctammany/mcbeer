@@ -21,8 +21,10 @@ export async function createRecipe(prev: any, formData: FormData) {
     v.data,
   ) as BaseRecipe;
    */
+  const r = reduceUnits(v.data) as BaseRecipe;
+  const { id, ...data } = r;
   const res = await prisma.recipe.create({
-    data: v.data,
+    data,
   });
   updateTag("recipes");
   return redirect(`/recipes/${res.id}`);
@@ -40,7 +42,8 @@ export async function updateRecipe(prev: any, formData: FormData) {
     v.data,
   ) as BaseRecipe;
    */
-  const { id, ...data } = v.data;
+  const r = reduceUnits(v.data) as BaseRecipe;
+  const { id, ...data } = r;
   const res = await prisma.recipe.update({
     where: { id },
     data,
