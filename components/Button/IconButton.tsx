@@ -7,17 +7,21 @@ import { Route } from "next";
 
 function getIconSize(
   size:
+    | "xs"
     | "sm"
     | "md"
     | "lg"
     | "default"
     | "icon"
     | "xl"
+    | "icon-xs"
     | "icon-sm"
     | "icon-md"
-    | "icon-lg"
+    | "icon-lg",
 ) {
   switch (size) {
+    case "xs":
+      return 12;
     case "sm":
       return 16;
     case "md":
@@ -28,6 +32,14 @@ function getIconSize(
       return 28;
     case "icon":
       return 14;
+    case "icon-xs":
+      return 12;
+    case "icon-sm":
+      return 16;
+    case "icon-md":
+      return 20;
+    case "icon-lg":
+      return 24;
 
     case "default":
       return 20;

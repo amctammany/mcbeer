@@ -1,6 +1,6 @@
 "use client";
 import { ComboBoxField } from "@/components/Form/ComboBoxField";
-import { Option } from "@/components/Form/ComboBox";
+import type { Option } from "@/components/Form/ComboBox";
 import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
 import React, { use, useActionState } from "react";

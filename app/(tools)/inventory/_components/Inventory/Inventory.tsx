@@ -6,7 +6,7 @@ import InventoryList from "../InventoryList/InventoryList";
 import AddInventoryButton from "./AddInventoryButton";
 import AddHopForm from "./AddHopForm";
 import { addToInventory } from "../../actions";
-import { Combobox, Option } from "@/components/Form/ComboBox";
+import { ComboBox, Option } from "@/components/Form/ComboBox";
 import { LinkButton } from "@/components/Button/LinkButton";
 import { PlusCircle, PlusCircleIcon } from "lucide-react";
 import IconButton from "@/components/Button/IconButton";

@@ -1,6 +1,6 @@
 "use client";
 import AmountField from "@/components/Form/AmountField";
-import { ComboboxField } from "@/components/Form/ComboBoxField";
+import { ComboBoxField } from "@/components/Form/ComboBoxField";
 import Form from "@/components/Form/Form";
 import RangeField from "@/components/Form/RangeField";
 import { TextAreaField } from "@/components/Form/TextAreaField";
@@ -91,7 +91,7 @@ export function HopForm({ countries, src }: HopFormProps) {
       <Section title="General">
         <TextField name="name" label="Name" />
         <TextAreaField name="description" label="Description" />
-        <ComboboxField
+        <ComboBoxField
           name="country"
           label="Country"
           options={countries.map((country) => ({

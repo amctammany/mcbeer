@@ -1,5 +1,6 @@
 "use cache";
 import { prisma } from "@/lib/prisma";
+import type { Option } from "@/components/Form/ComboBox";
 import { cacheTag } from "next/cache";
 
 export const getStyle = async (slug: string) => {
@@ -25,9 +26,12 @@ export const getStyleNames = async () => {
       identifier: true,
     },
   });
-  const names = styles.map(({ name, identifier }) => ({
-    label: `${identifier}: ${name}`,
-    value: identifier,
-  }));
+  const names = styles.map(
+    ({ name, identifier }) =>
+      ({
+        label: `${identifier}: ${name}`,
+        value: identifier,
+      }) as Option,
+  );
   return names;
 };

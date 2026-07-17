@@ -7,11 +7,12 @@ import EquipmentSection from "./EquipmentSection";
 import StyleSection from "./StyleSection";
 import IngredientsSection from "./IngredientsSection";
 import { Style } from "@/generated/prisma/client";
+import { type Option } from "@/components/Form/ComboBox";
 
 export type RecipeEditorProps = {
   src: RecipeType;
   action: any;
-  styles: Promise<Partial<Style>[]>;
+  styles: Promise<Option[]>;
 };
 export default function RecipeEditor({
   src,

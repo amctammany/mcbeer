@@ -14,6 +14,6 @@ export default async function RecipeEditorPage({
   const { id } = await params;
   const recipe = await getRecipe(id);
   if (!recipe) notFound();
-  const styles = getStyleNames() as Promise<Partial<Style>[]>;
+  const styles = getStyleNames();
   return <RecipeEditor styles={styles} src={recipe} action={updateRecipe} />;
 }

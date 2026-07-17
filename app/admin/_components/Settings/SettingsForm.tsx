@@ -5,7 +5,7 @@ import SelectInput from "@/components/Form/SelectInput";
 import TextInput from "@/components/Form/TextInput";
 */
 import { Button } from "@/components/ui/button";
-import { Controller, Form } from "react-hook-form";
+import { Controller, FieldValues, Form } from "react-hook-form";
 // import { RevisionContext } from "@/contexts/RevisionContext";
 import useRevisionHistory from "@/hooks/useRevisionHistory";
 //  import { get } from "@/lib/utils";
@@ -48,25 +48,22 @@ import {
 } from "@/components/Form/RadioGroupField";
 import { ExtendedUser } from "@/types/User";
 
-export type SettingsFormContainerProps<S = unknown> = {
-  user: ExtendedUser;
-  action: (state: S, formData: FormData) => S | Promise<S>;
+export type SettingsFormContainerProps<S = unknown, T = S | Promise<S>> = {
+  user: FieldValues;
+  action: (state: S, formData: FormData) => T;
   children: React.ReactNode;
 };
-export function SettingsContainerForm({
+export function SettingsContainerForm<S, T>({
   user,
   action,
   children,
 }: SettingsFormContainerProps) {
   const [state, formAction] = useActionState<any, FormData>(action, null);
-  const form = useForm<ExtendedUser>({
+  const form = useForm({
     defaultValues: user,
     errors: state?.errors,
   });
-  const revision = useRevisionHistory<ExtendedUser>(
-    form.getValues(),
-    form.setValue
-  );
+  const revision = useRevisionHistory(form.getValues(), form.setValue);
 
   return (
     <HistoryForm formProps={form} historyProps={revision}>

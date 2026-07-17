@@ -1,6 +1,6 @@
 "use client";
 import AmountField from "@/components/Form/AmountField";
-import { ComboboxField } from "@/components/Form/ComboBoxField";
+import { ComboBoxField } from "@/components/Form/ComboBoxField";
 import Form from "@/components/Form/Form";
 import RangeField from "@/components/Form/RangeField";
 import { SelectField } from "@/components/Form/SelectField";
@@ -107,7 +107,7 @@ export function YeastForm({ countries, preferences, src }: YeastFormProps) {
         name="usage"
         options={$Enums.YeastType}
       />
-      <ComboboxField
+      <ComboBoxField
         name="country"
         label="Country"
         options={countries.map((country) => ({
