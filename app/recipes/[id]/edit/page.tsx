@@ -4,6 +4,7 @@ import { getRecipe } from "../../queries";
 import { updateRecipe } from "../../actions";
 import { getStyleNames } from "@/app/styles/queries";
 import { Style } from "@/generated/prisma/client";
+import { getEquipmentProfileNames } from "@/app/(profiles)/equipment/queries";
 
 export type RecipeEditorPageProps = {
   params: Promise<{ id: string }>;
@@ -15,5 +16,12 @@ export default async function RecipeEditorPage({
   const recipe = await getRecipe(id);
   if (!recipe) notFound();
   const styles = getStyleNames();
-  return <RecipeEditor styles={styles} src={recipe} action={updateRecipe} />;
+  return (
+    <RecipeEditor
+      styles={styles}
+      src={recipe}
+      action={updateRecipe}
+      equipmentProfiles={getEquipmentProfileNames()}
+    />
+  );
 }

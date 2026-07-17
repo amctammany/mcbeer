@@ -9,6 +9,9 @@ import EquipmentSection from "./EquipmentSection";
 import { FormStateContext } from "@/contexts/FormStateContext";
 import StyleSection from "./StyleSection";
 import IngredientsSection from "./IngredientsSection";
+import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { RecipeMask } from "@/lib/Converter/Masks";
 
 export type RecipeFormContainerProps<S = unknown> = {
   src: RecipeType;
@@ -21,6 +24,36 @@ export default function RecipeFormContainer({
   src,
   children,
 }: RecipeFormContainerProps) {
+  const prefs = useContext(UserPreferencesContext);
+  const adjusted = adjustUnits({
+    src,
+    mask: RecipeMask,
+    prefs,
+    inline: false,
+    dir: true,
+  });
+  // const [state, formAction] = useActionState<any, FormData>(action, {
+  // success: true,
+  // data: adjusted,
+  // errors: [],
+  // });
+
+  // console.log(state);
+  return (
+    <Form
+      action={action}
+      src={adjusted}
+      // mask={YeastMask}
+      // formProps={{
+      //   values: state.data,
+      //   mode: "onBlur",
+      //   // defaultValues: adjusted,
+      //   errors: state?.errors,
+      // }}
+    >
+      {children}
+    </Form>
+  );
   return (
     <Form action={action} src={src}>
       {children}

@@ -11,6 +11,7 @@ export default async function RecipeDisplayPage({
 }: RecipeDisplayPageProps) {
   const { id } = await params;
   const recipe = await getRecipe(id);
+  console.log(recipe);
   if (!recipe) notFound();
   return (
     <div>

@@ -6,18 +6,20 @@ import GeneralSection from "./GeneralSection";
 import EquipmentSection from "./EquipmentSection";
 import StyleSection from "./StyleSection";
 import IngredientsSection from "./IngredientsSection";
-import { Style } from "@/generated/prisma/client";
+import { EquipmentProfile, Style } from "@/generated/prisma/client";
 import { type Option } from "@/components/Form/ComboBox";
 
 export type RecipeEditorProps = {
   src: RecipeType;
   action: any;
   styles: Promise<Option[]>;
+  equipmentProfiles: Promise<EquipmentProfile[]>;
 };
 export default function RecipeEditor({
   src,
   styles,
   action,
+  equipmentProfiles,
 }: RecipeEditorProps) {
   return (
     <RecipeFormContainer src={src} action={action}>
@@ -27,7 +29,7 @@ export default function RecipeEditor({
         <RecipeForm src={src} />
         <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
           <GeneralSection src={src} />
-          <EquipmentSection />
+          <EquipmentSection options={equipmentProfiles} />
           <StyleSection styles={styles} />
         </div>
         <div>

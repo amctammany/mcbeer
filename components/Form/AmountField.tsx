@@ -113,6 +113,13 @@ export function AmountField<T extends FieldValues>({
   //     inline: true,
   //     dir,
   //   }.);
+  const convert = convertUnit({
+    value,
+    type: maskV,
+    unit: unitName,
+    inline: false,
+    dir: true,
+  });
   /**const options = (UnitTypeDict[amountType] ?? []).reduce((acc, unit) => {
     acc[unit] = unit;
     return acc;
@@ -144,6 +151,7 @@ export function AmountField<T extends FieldValues>({
     // const converted = convert(newValue, false);
     // console.log({ name, value, newValue, converted });
   };
+  console.log({ name, value, convert });
   // const _v = state.data?.[`${name}`]; //get(state.errors ?? {}, `${name}.value`);
   const error = state.errors?.[`${name}.value`]; //get(state.errors ?? {}, `${name}.value`);
   // console.log(name, _v);

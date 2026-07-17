@@ -10,7 +10,15 @@ export const getEquipmentProfiles = async (args: any = {}) => {
   const profiles = await prisma.equipmentProfile.findMany(args);
   return profiles;
 };
-
+export const getEquipmentProfileNames = async (args: any = {}) => {
+  "use cache";
+  cacheTag("equipmentNames");
+  const profiles = await prisma.equipmentProfile.findMany({
+    select: { id: true, name: true },
+    ...args,
+  });
+  return profiles;
+};
 export const getEquipmentProfile = async (slug: string) => {
   // "use cache";
   const profile = await prisma.equipmentProfile.findFirst({

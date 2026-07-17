@@ -4,6 +4,7 @@ import { unauthorized } from "next/navigation";
 import React from "react";
 import RecipeEditor from "../_components/RecipeEditor/RecipeEditor";
 import { createRecipe } from "../actions";
+import { getEquipmentProfileNames } from "@/app/(profiles)/equipment/queries";
 import { getStyleNames } from "@/app/styles/queries";
 import { BaseUser } from "@/types/User";
 
@@ -23,6 +24,7 @@ export default async function RecipeCreatorPage() {
     <RecipeEditor
       src={src}
       styles={styles}
+      equipmentProfiles={getEquipmentProfileNames()}
       // preferences={prefs}
       action={createRecipe}
     />
