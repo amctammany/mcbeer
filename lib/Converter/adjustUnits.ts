@@ -21,7 +21,7 @@ export type UnitValue = {
   value: any;
   unit: UnitNames;
 };
-export function convertUnit2(
+export function convertUnitRaw(
   value: number,
   unit: UnitNames,
   otherUnit?: UnitNames,
@@ -29,6 +29,30 @@ export function convertUnit2(
   const res = Converter(value, unit, otherUnit ?? BASE_UNITS[UnitDict[unit]]);
   console.log(res);
   return res;
+}
+export type Value = number | UnitValue | number[] | UnitValue[];
+export function inlinify(
+  value: number,
+  unit: UnitNames,
+  inline = false,
+): number | UnitValue {
+  return inline ? { value, unit } : value;
+}
+export function adjustUnit(
+  value: number | number[] | UnitValue | UnitValue[],
+  unit: UnitNames,
+  inline = false,
+): number | UnitValue | UnitValue[] | number[] {
+  if (Array.isArray(value)) {
+    return value.map((v) => adjustUnit(v, unit, inline)) as
+      | number[]
+      | UnitValue[];
+  }
+  const res = convertUnitRaw(
+    typeof value === "number" ? value : value.value,
+    unit,
+  );
+  return inlinify(res, unit, inline);
 }
 export function convertUnit({
   value,

@@ -11,10 +11,10 @@ describe("Converter", () => {
   });
   test("Mass conversion", () => {
     const input = 1;
-    const to = converters?.mass?.g?.to(input);
-    const from = converters?.mass?.g?.from(input);
-    expect(to).toBe(1000);
-    expect(from).toBe(0.001);
+    const to = converters?.mass?.Kg?.to(input);
+    const from = converters?.mass?.Kg?.from(input);
+    expect(from).toBe(1000);
+    expect(to).toBe(0.001);
   });
   test("Volume conversion", () => {
     const input = 1;
@@ -29,5 +29,14 @@ describe("Converter", () => {
     const input = 4;
     const res = Converter(input, "C", "F");
     expect(res).toBe(39.2);
+  });
+  test("Mass conversion", () => {
+    const input = 4;
+    const kgres = Converter(input, "Kg", "g");
+    expect(kgres).toBe(4000);
+    const lbres = Converter(input, "Lb");
+    expect(lbres).toBeCloseTo(1818.18);
+    const ozres = Converter(input, "Oz");
+    expect(ozres).toBeCloseTo(113.398);
   });
 });

@@ -7,13 +7,13 @@ import {
   UserTemperaturePreference,
   UserVolumePreference,
 } from "@/generated/prisma/client";
-import { UnitDict, UnitNames, UnitTypes } from "./UnitDict";
+import { BASE_UNITS, UnitDict, UnitNames, UnitTypes } from "./UnitDict";
 
 const massConverter: Record<MassUnit, ConversionType> = {
-  Kg: 1,
-  g: 1000,
-  Lb: [(t: number) => t * 2.2, (t: number) => t / 2.2],
-  Oz: 35.2,
+  g: 1,
+  Kg: 1 / 1000,
+  Lb: [(t: number) => (t * 2.2) / 1000, (t: number) => (1000 * t) / 2.2],
+  Oz: 0.035274,
 };
 const volumeConverter: Record<UserVolumePreference, ConversionType> = {
   L: 1,
@@ -125,13 +125,14 @@ function makeConverter(src: ConverterDict) {
     {} as Record<UnitNames, ConverterType>,
   );
 }
-export function Converter(value: number, from: UnitNames, to: UnitNames) {
+export function Converter(value: number, from: UnitNames, to?: UnitNames) {
   const group = UnitDict[from];
-  if (UnitDict[to] !== group)
+  const _to = to ?? BASE_UNITS[group];
+  if (UnitDict[_to] !== group)
     throw new Error("Cannot convert between two different measurements");
   const convert = converters[group];
   if (!convert) throw new Error("Converter not available");
   const baseValue = convert[from].from(value);
-  const newValue = convert[to].to(baseValue);
+  const newValue = convert[_to].to(baseValue);
   return newValue;
 }
