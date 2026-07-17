@@ -17,7 +17,7 @@ const massConverter: Record<MassUnit, ConversionType> = {
 };
 const volumeConverter: Record<UserVolumePreference, ConversionType> = {
   L: 1,
-  gal: [(t: number) => t * 0.26417, (t: number) => t * 3.7854],
+  gal: [(t: number) => t * 3.7854, (t: number) => t * 0.26417],
   bbl: [(t: number) => t * 0.00852166, (t: number) => t * 117.34784],
 };
 
@@ -115,10 +115,10 @@ function makeConverter(src: ConverterDict) {
     (acc, [unit, converter]) => {
       const to = Array.isArray(converter)
         ? converter[0]
-        : (v: number) => v / converter;
+        : (v: number) => v * converter;
       const from = Array.isArray(converter)
         ? converter[1]
-        : (v: number) => v * converter;
+        : (v: number) => v / converter;
       acc[unit as UnitNames] = { to, from };
       return acc;
     },

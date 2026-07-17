@@ -1,7 +1,7 @@
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { BASE_UNITS, UnitDict, UnitNames, UnitTypes } from "./UnitDict";
 import { FieldValues } from "react-hook-form";
-import { converters } from "./Converter";
+import { Converter, converters } from "./Converter";
 import { precisionRound } from "../utils";
 export type UnitMaskType<T> = {
   [K in keyof T]?: UnitTypes | [UnitTypes, UnitNames] | undefined | object;
@@ -21,6 +21,15 @@ export type UnitValue = {
   value: any;
   unit: UnitNames;
 };
+export function convertUnit2(
+  value: number,
+  unit: UnitNames,
+  otherUnit?: UnitNames,
+): number {
+  const res = Converter(value, unit, otherUnit ?? BASE_UNITS[UnitDict[unit]]);
+  console.log(res);
+  return res;
+}
 export function convertUnit({
   value,
   type,
