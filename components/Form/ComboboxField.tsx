@@ -24,19 +24,21 @@ import {
 } from "../ui/field";
 import { Input, InputProps } from "./Input";
 import { RevisionContext } from "@/contexts/RevisionContext";
+import { ComboBox } from "./ComboBox";
 
 export type ComboBoxFieldProps<T extends FieldValues> = {
   register?: UseFormRegister<T>;
   className?: string;
   control?: Control<T>;
   name: FieldPath<T>;
+  itemToStringValue?: (item: any) => string;
   description?: string | React.ReactNode;
   label?: string | React.ReactNode;
   suffix?: string | React.ReactNode;
   defaultValue?: any;
   disabled?: boolean;
   error?: string | React.ReactNode;
-  placeholder?: string | React.ReactNode;
+  placeholder?: string;
   includeBlank?: boolean;
   children?: React.ReactNode | React.ReactNode[];
   options?: any; //Record<string | number, string | number>;
@@ -56,13 +58,15 @@ export function ComboBoxField<T extends FieldValues>({
   placeholder,
   options,
   orientation = "responsive",
+  itemToStringValue,
   value,
 }: ComboBoxFieldProps<T>) {
   const { register, getFieldState, control } = useFormContext<T>();
   const id = `${name}-combobox`;
   const revisionContext = useContext(RevisionContext);
   const onValueChange = (cb: (newValue: any) => void) => (newValue: any) => {
-    console.log("Value changed:", newValue);
+    const opt = options[options.findIndex((o: any) => o.value === newValue)];
+    console.log("Value changed:", options, newValue, opt);
     revisionContext?.update({
       type: "SET",
       payload: {
@@ -71,7 +75,7 @@ export function ComboBoxField<T extends FieldValues>({
         value: newValue,
       },
     });
-    cb(newValue);
+    cb(opt);
   };
   return (
     <Controller
@@ -88,18 +92,14 @@ export function ComboBoxField<T extends FieldValues>({
               <FieldLabel htmlFor={id}>{label ?? ""}</FieldLabel>
               <FieldDescription>{description ?? ""}</FieldDescription>
             </FieldContent>
-            <input
-              type="hidden"
-              name={field.name}
-              value={field.value ?? undefined}
-            />
+
             <ComboBox
               placeholder={placeholder}
               name={field.name}
               value={field.value}
               onChange={onValueChange(field.onChange)}
               options={options}
-              itemToStringValue={(item: any) => (item ? item.value : "")}
+              itemToStringValue={itemToStringValue ?? ((item) => item.value)}
             />
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>

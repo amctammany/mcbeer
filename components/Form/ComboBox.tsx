@@ -25,6 +25,7 @@ import {
   ComboboxEmpty,
   ComboboxList,
   ComboboxItem,
+  ComboboxValue,
 } from "../ui/combobox";
 
 const options = [
@@ -54,28 +55,49 @@ export type Option = { value: string; label: string };
 export type ComboBoxProps = {
   name?: string;
   options: Option[];
-  value?: string;
+  value?: any;
+  itemToStringLabel?: (item: Option) => string;
   itemToStringValue?: (item: Option) => string;
-  onChange?: (value: string) => void;
-  placeholder?: React.ReactNode;
+  onChange: (value: Option | string | null) => void;
+  placeholder?: string;
 };
 export function ComboBox({
-  placeholder = "Select option...",
+  placeholder,
   name,
   options,
   value,
+  itemToStringLabel = (item) => item.label,
+  itemToStringValue = (item) => item.value,
   onChange,
 }: ComboBoxProps) {
   const [open, setOpen] = React.useState(false);
+  const selectedOption =
+    options[
+      options.findIndex(
+        (o) => o.value === (typeof value === "string" ? value : value?.value),
+      )
+    ] ?? null;
+  console.log(value, selectedOption);
+
   return (
-    <Combobox items={options}>
-      <ComboboxInput placeholder="Select an option" />
+    <Combobox
+      name={name}
+      value={selectedOption}
+      items={options}
+      onValueChange={onChange}
+      itemToStringLabel={itemToStringLabel}
+      itemToStringValue={itemToStringValue}
+    >
+      <ComboboxInput placeholder={placeholder ?? "Select an option"} />
       <ComboboxContent>
         <ComboboxEmpty>No items found.</ComboboxEmpty>
         <ComboboxList>
           {(item) => (
-            <ComboboxItem key={item} value={item}>
-              {item}
+            <ComboboxItem
+              key={itemToStringValue(item)}
+              value={itemToStringValue(item)}
+            >
+              {itemToStringLabel(item)}
             </ComboboxItem>
           )}
         </ComboboxList>

@@ -47,7 +47,7 @@ export const BASE_UNITS = {
   color: UserColorPreference.L,
   pressure: UserPressurePreference.PSI,
   gravity: UserGravityPreference.Brix,
-  volume: UserVolumePreference.gal,
+  volume: UserVolumePreference.L,
 };
 export type UnitTypes = keyof typeof UNITS;
 export const UnitTypesType = Object.keys(UNITS);

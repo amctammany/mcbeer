@@ -8,6 +8,7 @@ export type RecipeDisplayProps = {
   src: RecipeType;
 };
 export default function RecipeDisplay({ src }: RecipeDisplayProps) {
+  console.log(src);
   return (
     <div>
       <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
@@ -29,7 +30,7 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
           />
         </Section>
         <Section title="Style">
-          <Prop label="Style" value={src.style?.name} />
+          <Prop label="Style" value={src.style?.identifier} />
         </Section>
       </div>
     </div>

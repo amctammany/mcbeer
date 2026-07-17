@@ -46,14 +46,14 @@ export type RevisionActionType<T extends FieldValues> =
   | SetRevisionAction<T>;
 function revisionReducer<T extends FieldValues>(
   state: T,
-  action: RevisionActionType<T>
+  action: RevisionActionType<T>,
 ) {
   switch (action.type) {
     case "SET": {
       return deepSet(
         state,
         action.payload.name as any,
-        action.payload.value as any
+        action.payload.value as any,
       );
       /**
        * 
@@ -80,7 +80,7 @@ function revisionReducer<T extends FieldValues>(
         return {
           ...state,
           [action.payload.name]: current.filter(
-            (v: any) => v !== action.payload.value
+            (v: any) => v !== action.payload.value,
           ),
         };
       }
@@ -94,7 +94,7 @@ function revisionReducer<T extends FieldValues>(
 }
 
 function reverse<T extends FieldValues>(
-  action: RevisionActionType<T>
+  action: RevisionActionType<T>,
 ): RevisionActionType<T> {
   switch (action.type) {
     case "SET":
@@ -123,7 +123,7 @@ function useRevisionHistory<T extends FieldValues>(
   initialState: T,
   updateFn: (name: keyof T, value: T[keyof T]) => void,
   //  updateFn: (state: T) => void,
-  initialHistory: RevisionActionType<T>[] = []
+  initialHistory: RevisionActionType<T>[] = [],
 ) {
   const history = useRef(initialHistory);
 
@@ -140,11 +140,12 @@ function useRevisionHistory<T extends FieldValues>(
       history.current = newHistory;
       setHistoryPointer(newHistory.length - 0);
       const newState = revisionReducer(state, action);
+      console.log("Old state", state);
       setState(newState);
       updateFn(action.payload.name, action.payload.value);
       console.log("update", newState, { action, history: history.current });
     },
-    [history, historyPointer, state, updateFn]
+    [history, historyPointer, state, updateFn],
   );
   const undo = useCallback(() => {
     if (history.current.length === 0) return;
@@ -174,7 +175,7 @@ function useRevisionHistory<T extends FieldValues>(
   const [canRedo, setCanRedo] = useState(false);
   useEffect(
     () => setCanRedo(historyPointer <= history.current.length - 1),
-    [historyPointer]
+    [historyPointer],
   );
   /**
    * 
@@ -188,7 +189,7 @@ function useRevisionHistory<T extends FieldValues>(
       (
         e:
           | React.ChangeEvent<HTMLInputElement>
-          | React.FocusEvent<HTMLInputElement>
+          | React.FocusEvent<HTMLInputElement>,
       ) => {
         const oldValue = get(state as any, e.target.name);
         const newValue =
@@ -206,7 +207,7 @@ function useRevisionHistory<T extends FieldValues>(
             },
           });
       },
-    [update, state]
+    [update, state],
   ) as
     | React.FocusEventHandler<HTMLElement>
     | React.ChangeEventHandler<HTMLElement>;
@@ -215,14 +216,14 @@ function useRevisionHistory<T extends FieldValues>(
       e.preventDefault();
       undo();
     },
-    [undo]
+    [undo],
   );
   const handleRedo = useMemo(
     () => (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       redo();
     },
-    [redo]
+    [redo],
   );
   return useMemo(
     () => ({
@@ -246,7 +247,7 @@ function useRevisionHistory<T extends FieldValues>(
       updateHistory,
       handleRedo,
       handleUndo,
-    ]
+    ],
   );
 }
 

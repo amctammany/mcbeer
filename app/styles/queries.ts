@@ -18,6 +18,7 @@ export const getStyleNames = async () => {
   "use cache";
   cacheTag("styles");
   const styles = await prisma.style.findMany({
+    orderBy: [{ subcategoryId: "asc" }, { identifier: "asc" }],
     select: {
       id: true,
       name: true,
@@ -25,7 +26,7 @@ export const getStyleNames = async () => {
     },
   });
   const names = styles.map(({ name, identifier }) => ({
-    label: name,
+    label: `${identifier}: ${name}`,
     value: identifier,
   }));
   return names;

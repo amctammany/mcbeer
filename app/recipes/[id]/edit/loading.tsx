@@ -16,6 +16,7 @@ export default function Loading() {
     slug: "loading",
     userId: "",
     owner: {},
+    style: {},
   } as RecipeType;
   return (
     <div>

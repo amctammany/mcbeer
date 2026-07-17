@@ -175,7 +175,7 @@ export function AmountField<T extends FieldValues>({
           // name={`${field.name}.value`}
           // name={field.name}
           // value={field.value}
-          step={props.step ?? 0.1}
+          step={props.step ?? 0.01}
           // defaultValue={get(state.data, `${name}.value`)}
           onBlur={onValueChange}
           // onBlur={field.onBlur}
