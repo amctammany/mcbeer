@@ -1,7 +1,7 @@
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { BASE_UNITS, UnitDict, UnitNames, UnitTypes } from "./UnitDict";
 import { FieldValues } from "react-hook-form";
-import { Converter, converters } from "./Converter";
+import { Converter, converters, getBaseUnit } from "./Converter";
 import { precisionRound } from "../utils";
 export type UnitMaskType<T> = {
   [K in keyof T]?: UnitTypes | [UnitTypes, UnitNames] | undefined | object;
@@ -27,7 +27,6 @@ export function convertUnitRaw(
   otherUnit?: UnitNames,
 ): number {
   const res = Converter(value, unit, otherUnit ?? BASE_UNITS[UnitDict[unit]]);
-  console.log(res);
   return res;
 }
 export type Value = number | UnitValue | number[] | UnitValue[];
@@ -36,23 +35,43 @@ export function inlinify(
   unit: UnitNames,
   inline = false,
 ): number | UnitValue {
-  return inline ? { value, unit } : value;
+  return inline ? value : { value, unit };
 }
-export function adjustUnit(
-  value: number | number[] | UnitValue | UnitValue[],
-  unit: UnitNames,
+export function adjustUnit({
+  value,
+  unit,
   inline = false,
-): number | UnitValue | UnitValue[] | number[] {
+  precision = 2,
+}: {
+  value: number | number[] | UnitValue;
+  unit: UnitNames;
+  inline?: boolean;
+  precision?: number;
+}): any {
+  if (value === undefined || value === null) return value as any;
+  const baseUnit = getBaseUnit(unit);
   if (Array.isArray(value)) {
-    return value.map((v) => adjustUnit(v, unit, inline)) as
-      | number[]
-      | UnitValue[];
+    return value.map((v) =>
+      adjustUnit({ value: v, unit, inline, precision }),
+    ) as number[] | UnitValue[];
   }
-  const res = convertUnitRaw(
-    typeof value === "number" ? value : value.value,
-    unit,
-  );
-  return inlinify(res, unit, inline);
+  if (typeof value !== "number" && value?.unit && value?.value !== undefined)
+    return inline ? value.value : value;
+
+  if (typeof value === "number") {
+    // const convert = converters[type as UnitTypes];
+    // if (!convert) return value; //throw new Error("Converter not available");
+    // const baseValue = convert[unit].from(value);
+    // const newValue = convert[unit].to(value);
+    // const val = dir ? newValue : baseValue;
+    // const v = precisionRound(val, precision);
+    // const r = inline ? v : ({ value: v, unit } as UnitValue);
+    // console.log("convertUnit: number", { value, type, unit, inline, dir, r });
+    // return r;
+    const res = convertUnitRaw(value, unit, baseUnit);
+    const preciseRes = precisionRound(res, precision);
+    return inlinify(preciseRes, unit, inline);
+  }
 }
 export function convertUnit({
   value,

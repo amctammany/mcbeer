@@ -125,6 +125,15 @@ function makeConverter(src: ConverterDict) {
     {} as Record<UnitNames, ConverterType>,
   );
 }
+export function getUnitGroup(unit: UnitNames): UnitTypes {
+  const group = UnitDict[unit];
+  if (!group) throw new Error(`Unit ${unit} not found in UnitDict`);
+  return group;
+}
+export function getBaseUnit(unit: UnitNames): UnitNames {
+  const group = getUnitGroup(unit);
+  return BASE_UNITS[group];
+}
 export function Converter(value: number, from: UnitNames, to?: UnitNames) {
   const group = UnitDict[from];
   const _to = to ?? BASE_UNITS[group];
