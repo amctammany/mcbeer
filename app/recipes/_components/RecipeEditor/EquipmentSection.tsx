@@ -9,7 +9,7 @@ export default function EquipmentSection() {
     <Section title="Equipment">
       <AmountField name="boilTime" label="Boil Time" />
       <AmountField name="batchVolume" label="Batch Volume" />
-      <AmountField name="brewEfficiency" label="Efficiency" />
+      <AmountField name="brewEfficiency" label="Efficiency" step={0.01} />
     </Section>
   );
 }

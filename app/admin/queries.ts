@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
+import { BASE_UNITS } from "@/lib/Converter/UnitDict";
 import { prisma } from "@/lib/prisma";
 import { headers } from "next/headers";
 
@@ -8,7 +9,7 @@ export async function getPreferences() {
     headers: await headers(),
   });
   if (!session?.user?.id) {
-    return {} as Partial<UserPreferencesType>;
+    return BASE_UNITS as Partial<UserPreferencesType>;
   }
   return getUserPreferences(session.user.id)!;
 }

@@ -1,6 +1,6 @@
 "use client";
-import { ComboboxField } from "@/components/Form/ComboboxField";
-import { Option } from "@/components/Form/Combobox";
+import { ComboBoxField } from "@/components/Form/ComboBoxField";
+import { Option } from "@/components/Form/ComboBox";
 import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
 import React, { use, useActionState } from "react";
@@ -46,7 +46,7 @@ export default function AddHopForm({
           <input type="hidden" {...form.register("id")} />
           <input type="hidden" name="type" value={type} />
           <input type="hidden" name="inventoryId" value={inventoryId} />
-          <ComboboxField name="name" label="Name" options={opts} />
+          <ComboBoxField name="name" label="Name" options={opts} />
           <TextField
             type="number"
             name="amount"

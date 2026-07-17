@@ -1,6 +1,6 @@
 "use client";
 import AmountField from "@/components/Form/AmountField";
-import { ComboboxField } from "@/components/Form/ComboboxField";
+import { ComboboxField } from "@/components/Form/ComboBoxField";
 import Form from "@/components/Form/Form";
 import { SelectField } from "@/components/Form/SelectField";
 import { TextAreaField } from "@/components/Form/TextAreaField";

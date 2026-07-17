@@ -18,6 +18,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  ComboboxInput,
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxList,
+  ComboboxItem,
+} from "../ui/combobox";
 
 const options = [
   {
@@ -43,22 +51,38 @@ const options = [
 ];
 
 export type Option = { value: string; label: string };
-export type ComboboxProps = {
+export type ComboBoxProps = {
   name?: string;
   options: Option[];
   value?: string;
+  itemToStringValue?: (item: Option) => string;
   onChange?: (value: string) => void;
   placeholder?: React.ReactNode;
 };
-export function Combobox({
+export function ComboBox({
   placeholder = "Select option...",
   name,
   options,
   value,
   onChange,
-}: ComboboxProps) {
+}: ComboBoxProps) {
   const [open, setOpen] = React.useState(false);
-
+  return (
+    <Combobox items={options}>
+      <ComboboxInput placeholder="Select an option" />
+      <ComboboxContent>
+        <ComboboxEmpty>No items found.</ComboboxEmpty>
+        <ComboboxList>
+          {(item) => (
+            <ComboboxItem key={item} value={item}>
+              {item}
+            </ComboboxItem>
+          )}
+        </ComboboxList>
+      </ComboboxContent>
+    </Combobox>
+  );
+  /**
   return (
     <Popover modal={true} open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -110,4 +134,5 @@ export function Combobox({
       </PopoverContent>
     </Popover>
   );
+*/
 }

@@ -1,4 +1,4 @@
-import { Recipe } from "@/generated/prisma/client";
+import { Recipe, Style } from "@/generated/prisma/client";
 import { BaseUser } from "./User";
 import { AmountFields, OptionalNullable } from "@/lib/utils";
 
@@ -11,6 +11,7 @@ export interface BaseRecipe extends Omit<
 }
 export interface RecipeType extends BaseRecipe {
   owner: Partial<BaseUser>;
+  style: Partial<Style> | null;
   origin?: BaseRecipe;
   forks?: BaseRecipe[];
 }

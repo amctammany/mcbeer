@@ -14,6 +14,7 @@ export const getRecipe = async (id: string) => {
   const recipe = await prisma.recipe.findFirst({
     where: { id },
     include: {
+      style: { select: { name: true, id: true } },
       owner: true,
     },
   });

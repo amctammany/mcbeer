@@ -1,13 +1,18 @@
 "use client";
-import { ComboboxField } from "@/components/Form/ComboboxField";
+import { ComboBoxField } from "@/components/Form/ComboBoxField";
 import Section from "@/components/Section";
-import React, { use } from "react";
+import { Style } from "@/generated/prisma/client";
+import React, { Usable, use } from "react";
 
-export default function StyleSection({ styles }: { styles: any }) {
+export default function StyleSection({
+  styles,
+}: {
+  styles: Usable<Partial<Style>[]>;
+}) {
   const opts = use(styles);
   return (
     <Section title="Style">
-      <ComboboxField
+      <ComboBoxField
         name="styleIdentifier"
         label="Style"
         options={opts}

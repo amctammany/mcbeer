@@ -10,7 +10,7 @@ export type RecipeDisplayProps = {
 export default function RecipeDisplay({ src }: RecipeDisplayProps) {
   return (
     <div>
-      <div className="lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
+      <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
         <Section title="General">
           <Prop label="Name" value={src.name} />
           <Prop label="Owner" value={src.owner.name} />
@@ -27,6 +27,9 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
             name="batchVolume"
             value={src.batchVolume}
           />
+        </Section>
+        <Section title="Style">
+          <Prop label="Style" value={src.style?.name} />
         </Section>
       </div>
     </div>

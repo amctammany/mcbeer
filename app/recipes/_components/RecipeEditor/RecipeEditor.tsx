@@ -6,11 +6,12 @@ import GeneralSection from "./GeneralSection";
 import EquipmentSection from "./EquipmentSection";
 import StyleSection from "./StyleSection";
 import IngredientsSection from "./IngredientsSection";
+import { Style } from "@/generated/prisma/client";
 
 export type RecipeEditorProps = {
   src: RecipeType;
   action: any;
-  styles: any;
+  styles: Promise<Partial<Style>[]>;
 };
 export default function RecipeEditor({
   src,
@@ -23,7 +24,7 @@ export default function RecipeEditor({
 
       <div>
         <RecipeForm src={src} />
-        <div className="lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
+        <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
           <GeneralSection src={src} />
           <EquipmentSection />
           <StyleSection styles={styles} />

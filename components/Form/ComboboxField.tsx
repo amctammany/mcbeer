@@ -5,7 +5,6 @@ import { VariantProps, cva } from "class-variance-authority";
 //import { SchemaFieldError } from "@/lib/validateSchema";
 //import { inputStyles } from "./Input";
 import clsx from "clsx";
-import { Combobox } from "@/components/Form/Combobox";
 import { Label } from "./Label";
 import {
   Control,
@@ -26,7 +25,7 @@ import {
 import { Input, InputProps } from "./Input";
 import { RevisionContext } from "@/contexts/RevisionContext";
 
-export type ComboboxFieldProps<T extends FieldValues> = {
+export type ComboBoxFieldProps<T extends FieldValues> = {
   register?: UseFormRegister<T>;
   className?: string;
   control?: Control<T>;
@@ -49,7 +48,7 @@ export type ComboboxFieldProps<T extends FieldValues> = {
   value?: any;
   ref?: any;
 };
-export function ComboboxField<T extends FieldValues>({
+export function ComboBoxField<T extends FieldValues>({
   name,
   className,
   description,
@@ -58,7 +57,7 @@ export function ComboboxField<T extends FieldValues>({
   options,
   orientation = "responsive",
   value,
-}: ComboboxFieldProps<T>) {
+}: ComboBoxFieldProps<T>) {
   const { register, getFieldState, control } = useFormContext<T>();
   const id = `${name}-combobox`;
   const revisionContext = useContext(RevisionContext);
@@ -94,12 +93,13 @@ export function ComboboxField<T extends FieldValues>({
               name={field.name}
               value={field.value ?? undefined}
             />
-            <Combobox
+            <ComboBox
               placeholder={placeholder}
               name={field.name}
               value={field.value}
               onChange={onValueChange(field.onChange)}
               options={options}
+              itemToStringValue={(item: any) => (item ? item.value : "")}
             />
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
