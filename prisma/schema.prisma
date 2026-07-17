@@ -1,18 +1,477 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider   = "prisma-client"
+  output     = "../generated/prisma"
   engineType = "client"
-
-  output = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+model Style {
+  id            Int           @id @default(autoincrement())
+  userId        String?
+  name          String
+  slug          String        @unique
+  category      StyleCategory
+  subcategoryId Int
+  identifier    String        @unique
+  overall       String?
+  aroma         String?
+  appearance    String?
+  flavor        String?
+  mouthfeel     String?
+  comments      String?
+  history       String?
+  ingredients   String?
+  comparison    String?
+  examples      String?
+  ibuLow        Float?
+  ibuHigh       Float?
+  ibuFlex       Boolean       @default(false)
+  ogLow         Float?
+  ogHigh        Float?
+  ogFlex        Boolean       @default(false)
+  fgLow         Float?
+  fgHigh        Float?
+  fgFlex        Boolean       @default(false)
+  srmLow        Float?
+  srmHigh       Float?
+  srmFlex       Boolean       @default(false)
+  abvLow        Float?
+  abvHigh       Float?
+  abvFlex       Boolean       @default(false)
+  recipes       Recipe[]
+}
+
+model UserPreferences {
+  id              Int                       @id @default(autoincrement())
+  userId          String                    @unique
+  theme           String                    @default("system")
+  language        String                    @default("en")
+  timezone        String?
+  fontSize        String                    @default("medium")
+  massSystem      MassSystem                @default(US)
+  color           UserColorPreference       @default(L)
+  flow            FlowUnit                  @default(gpm)
+  concentration   ConcentrationUnit         @default(ppm)
+  time            TimeUnit                  @default(min)
+  percent         PercentUnit               @default(percent)
+  volume          UserVolumePreference      @default(gal)
+  mass            UserMassPreference        @default(LbOz)
+  hopMass         UserMassPreference        @default(Oz)
+  fermentableMass UserMassPreference        @default(Lb)
+  gravity         UserGravityPreference     @default(SG)
+  temperature     UserTemperaturePreference @default(F)
+  pressure        UserPressurePreference    @default(PSI)
+  createdAt       DateTime                  @default(now())
+  updatedAt       DateTime                  @updatedAt
+  user            User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id                   String                @id
+  name                 String
+  username             String?
+  email                String                @unique
+  image                String?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  displayUsername      String?
+  emailVerified        Boolean               @default(false)
+  role                 UserRoles?            @default(USER)
+  equipmentProfiles    EquipmentProfile[]
+  fermentables         Fermentable[]
+  fermentationProfiles FermentationProfile[]
+  hops                 Hop[]
+  inventories          Inventory?
+  mashProfiles         MashProfile[]
+  recipes              Recipe[]
+  UserPreferences      UserPreferences?
+  waterProfiles        WaterProfile[]
+  yeasts               Yeast[]
+  accounts             Account[]
+  sessions             Session[]
+
+  @@map("user")
+}
+
+model Session {
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  expiresAt DateTime
+  token     String   @unique
+  ipAddress String?
+  userAgent String?
+  id        String   @id
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  userId                String
+  scope                 String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  password              String?
+  id                    String    @id
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+model EquipmentProfile {
+  id                     String                      @id @default(cuid())
+  name                   String
+  slug                   String                      @unique
+  description            String?
+  batchVolume            Float?
+  boilVolume             Float?
+  preboilVolume          Float?
+  boilTime               Float?
+  brewEfficiency         Float?
+  mashEfficiency         Float?
+  boilOffRate            Float?
+  trubLoss               Float?                      @default(0)
+  mashLoss               Float?                      @default(0)
+  fermenterLoss          Float?                      @default(0)
+  grainAbsorption        Float?                      @default(0.5)
+  waterGrainRatio        Float?                      @default(1.5)
+  mashTunVolume          Float?                      @default(100)
+  mashTunWeight          Float?                      @default(100)
+  mashTunSpecificHeat    Float?                      @default(0.12)
+  mashTunDeadSpace       Float?                      @default(0)
+  waterCalculationMethod MashSpargeWaterCalculations @default(Default)
+  boilExpansion          Float?                      @default(0.04)
+  fermenterTopOff        Float?                      @default(0)
+  forkedFrom             String?
+  userId                 String?
+  origin                 EquipmentProfile?           @relation("origin", fields: [forkedFrom], references: [id])
+  forks                  EquipmentProfile[]          @relation("origin")
+  owner                  User?                       @relation(fields: [userId], references: [id])
+  recipes                Recipe[]
+}
+
+model WaterProfile {
+  id          String         @id @default(cuid())
+  userId      String?
+  name        String
+  slug        String         @unique
+  calcium     Int?           @default(0)
+  magnesium   Int?           @default(0)
+  sodium      Int?           @default(0)
+  chloride    Int?           @default(0)
+  sulfate     Int?           @default(0)
+  bicarbonate Int?           @default(0)
+  description String?
+  forkedFrom  String?
+  origin      WaterProfile?  @relation("origin", fields: [forkedFrom], references: [id])
+  forks       WaterProfile[] @relation("origin")
+  owner       User?          @relation(fields: [userId], references: [id])
+}
+
+model MashProfile {
+  id               String        @id @default(cuid())
+  name             String
+  slug             String        @unique
+  spargeTemp       Float         @default(168)
+  grainTemp        Float         @default(72)
+  grainWeightBasis Float?        @default(10)
+  mashPh           Float?        @default(5.4)
+  mashTunTemp      Float         @default(72)
+  description      String?
+  userId           String?
+  forkedFrom       String?
+  origin           MashProfile?  @relation("origin", fields: [forkedFrom], references: [id])
+  forks            MashProfile[] @relation("origin")
+  owner            User?         @relation(fields: [userId], references: [id])
+  steps            MashStep[]
+  recipes          Recipe[]
+}
+
+model MashStep {
+  id            Int           @id @default(autoincrement())
+  type          MashStepType? @default(temperature)
+  name          String?
+  temperature   Int
+  time          Int
+  rampTime      Int?          @default(0)
+  index         Int
+  mashProfileId String
+  MashProfile   MashProfile   @relation(fields: [mashProfileId], references: [id], onDelete: Cascade)
+
+  @@unique([mashProfileId, index], name: "mashIndex")
+}
+
+model FermentationProfile {
+  id          String                @id @default(cuid())
+  name        String
+  slug        String                @unique
+  description String?
+  userId      String?
+  forkedFrom  String?
+  origin      FermentationProfile?  @relation("origin", fields: [forkedFrom], references: [id])
+  forks       FermentationProfile[] @relation("origin")
+  owner       User?                 @relation(fields: [userId], references: [id])
+  steps       FermentationStep[]
+}
+
+model FermentationStep {
+  type                  FermentationStepType @default(primary)
+  name                  String?
+  temperature           Float
+  time                  Float
+  rampTime              Float                @default(0)
+  fermentationProfileId String
+  index                 Int
+  id                    Int                  @id @default(autoincrement())
+  FermentationProfile   FermentationProfile  @relation(fields: [fermentationProfileId], references: [id])
+
+  @@unique([fermentationProfileId, index], name: "fermentationIndex")
+}
+
+model Fermentable {
+  id                        String                     @id @unique @default(cuid())
+  name                      String
+  slug                      String                     @unique
+  description               String?
+  notes                     String?
+  manufacturer              String?
+  country                   String?
+  price                     Float?
+  type                      FermentableType?           @default(Grain)
+  power                     Float?
+  maxUsage                  Float?
+  color                     Float?
+  potential                 Float?
+  moisture                  Float?
+  protein                   Float?
+  coarseFineDiff            Float?
+  extract                   Float?
+  friability                Float?
+  yield                     Float?
+  stability                 String?
+  userId                    String?
+  usage                     IngredientUsage?           @default(Mash)
+  forkedFrom                String?
+  origin                    Fermentable?               @relation("origin", fields: [forkedFrom], references: [id])
+  forks                     Fermentable[]              @relation("origin")
+  owner                     User?                      @relation(fields: [userId], references: [id])
+  fermentableIngredients    FermentableIngredient[]
+  fermentableInventoryItems FermentableInventoryItem[]
+}
+
+model Hop {
+  id                String             @id @default(cuid())
+  name              String
+  slug              String             @unique
+  description       String?
+  characteristics   String?
+  country           String?
+  usage             HopUsage?
+  alpha             Float?
+  alphaLow          Float?
+  alphaHigh         Float?
+  beta              Float?
+  betaLow           Float?
+  betaHigh          Float?
+  caryophyllene     Float?
+  caryophylleneLow  Float?
+  caryophylleneHigh Float?
+  cohumulone        Float?
+  cohumuloneLow     Float?
+  cohumuloneHigh    Float?
+  farnesene         Float?
+  farneseneLow      Float?
+  farneseneHigh     Float?
+  humulene          Float?
+  humuleneLow       Float?
+  humuleneHigh      Float?
+  myrcene           Float?
+  myrceneLow        Float?
+  myrceneHigh       Float?
+  totalOil          Float?
+  totalOilLow       Float?
+  totalOilHigh      Float?
+  geraniol          Float?
+  geraniolLow       Float?
+  geraniolHigh      Float?
+  other             Float?
+  otherLow          Float?
+  otherHigh         Float?
+  linalool          Float?
+  linaloolLow       Float?
+  linaloolHigh      Float?
+  bPinene           Float?
+  bPineneLow        Float?
+  bPineneHigh       Float?
+  purpose           String?
+  flavor            String?
+  notes             String?
+  substitutesString String[]
+  styles            String[]
+  userId            String?
+  owner             User?              @relation(fields: [userId], references: [id])
+  hopIngredients    HopIngredient[]
+  hopInventoryItems HopInventoryItem[]
+}
+
+model Yeast {
+  id                  String               @id @unique @default(cuid())
+  name                String
+  slug                String               @unique
+  usage               String?
+  description         String?
+  notes               String?
+  manufacturer        String?
+  type                YeastType?
+  form                YeastForm?
+  price               Float?
+  tempLow             Float?
+  tempHigh            Float?
+  flocculation        YeastFlocculation?
+  tolerance           Float?
+  attenuation         Float?
+  attenuationLow      Float?
+  attenuationHigh     Float?
+  cellsPerUnit        Float?
+  productId           String?
+  userId              String?
+  diastatic           Boolean?             @default(false)
+  country             String?
+  owner               User?                @relation(fields: [userId], references: [id])
+  yeastInventoryItems YeastInventoryItem[]
+}
+
+model Inventory {
+  id                        String                     @id @unique @default(cuid())
+  userId                    String                     @unique
+  fermentableInventoryItems FermentableInventoryItem[]
+  hopInventoryItems         HopInventoryItem[]
+  owner                     User                       @relation(fields: [userId], references: [id])
+  yeastInventoryItems       YeastInventoryItem[]
+}
+
+model HopInventoryItem {
+  id          String    @id @default(cuid())
+  inventoryId String
+  hopId       String?
+  date        DateTime  @default(now())
+  amount      Float
+  name        String
+  Inventory   Inventory @relation(fields: [inventoryId], references: [id])
+  origin      Hop       @relation(fields: [name], references: [slug])
+}
+
+model YeastInventoryItem {
+  id          String    @id @default(cuid())
+  inventoryId String
+  yeastId     String?
+  date        DateTime  @default(now())
+  amount      Float
+  name        String
+  Inventory   Inventory @relation(fields: [inventoryId], references: [id])
+  origin      Yeast     @relation(fields: [name], references: [slug])
+}
+
+model FermentableInventoryItem {
+  id            String      @id @default(cuid())
+  inventoryId   String
+  fermentableId String?
+  date          DateTime    @default(now())
+  amount        Float
+  name          String
+  Inventory     Inventory   @relation(fields: [inventoryId], references: [id])
+  origin        Fermentable @relation(fields: [name], references: [slug])
+}
+
+model Recipe {
+  id                     String                  @id @default(cuid())
+  name                   String
+  description            String?
+  userId                 String
+  equipmentProfileId     String?
+  batchVolume            Float?                  @default(22)
+  boilVolume             Float?                  @default(25)
+  preboilVolume          Float?                  @default(25)
+  boilTime               Float?                  @default(60)
+  brewEfficiency         Float?                  @default(0.6)
+  mashEfficiency         Float?                  @default(0.7)
+  boilOffRate            Float?                  @default(2)
+  trubLoss               Float?                  @default(0)
+  mashLoss               Float?                  @default(0)
+  fermenterLoss          Float?                  @default(0)
+  grainAbsorption        Float?                  @default(0.5)
+  mashProfileId          String?
+  ownerUsername          String?
+  ownerEmail             String?
+  forkedFrom             String?
+  styleIdentifier        String?
+  styleId                Int?
+  fermentableIngredients FermentableIngredient[]
+  hopIngredients         HopIngredient[]
+  EquipmentProfile       EquipmentProfile?       @relation(fields: [equipmentProfileId], references: [id])
+  origin                 Recipe?                 @relation("origin", fields: [forkedFrom], references: [id])
+  forks                  Recipe[]                @relation("origin")
+  MashProfile            MashProfile?            @relation(fields: [mashProfileId], references: [id])
+  style                  Style?                  @relation(fields: [styleIdentifier], references: [identifier])
+  owner                  User                    @relation(fields: [userId], references: [id])
+}
+
+model HopIngredient {
+  id           String             @default(cuid())
+  recipeId     String
+  amount       Float
+  usage        HopIngredientUsage
+  amountType   MassUnit
+  temperature  Float?
+  type         HopIngredientType  @default(Pellet)
+  duration     Float
+  durationType TimeUnit
+  hopId        String
+  alpha        Float?
+  hop          Hop                @relation(fields: [hopId], references: [id])
+  recipe       Recipe             @relation(fields: [recipeId], references: [id])
+
+  @@id([recipeId, id])
+}
+
+model FermentableIngredient {
+  id            String                     @default(cuid())
+  recipeId      String
+  usage         FermentableIngredientUsage @default(Mash)
+  amount        Float
+  amountType    MassUnit
+  fermentableId String
+  color         Float?
+  potential     Float?
+  fermentable   Fermentable                @relation(fields: [fermentableId], references: [id])
+  recipe        Recipe                     @relation(fields: [recipeId], references: [id])
+
+  @@id([recipeId, id])
 }
 
 enum StyleCategory {
@@ -21,124 +480,10 @@ enum StyleCategory {
   cider
 }
 
-model Style {
-  id Int @id @default(autoincrement())
-
-  userId String?
-  // owner         User?         @relation(fields: [userId], references: [id])
-
-  name String
-
-  slug String @unique
-  //recipes       Recipe[]
-
-  category StyleCategory
-
-  subcategoryId Int
-
-  identifier String @unique
-
-  overall String?
-
-  aroma String?
-
-  appearance String?
-
-  flavor String?
-
-  mouthfeel String?
-
-  comments String?
-
-  history String?
-
-  ingredients String?
-
-  comparison String?
-
-  examples String?
-
-  ibuLow Float?
-
-  ibuHigh Float?
-
-  ibuFlex Boolean @default(false)
-
-  ogLow Float?
-
-  ogHigh Float?
-
-  ogFlex Boolean @default(false)
-
-  fgLow Float?
-
-  fgHigh Float?
-
-  fgFlex Boolean @default(false)
-
-  srmLow Float?
-
-  srmHigh Float?
-
-  srmFlex Boolean @default(false)
-
-  abvLow Float?
-
-  abvHigh Float?
-
-  abvFlex Boolean  @default(false)
-  recipes Recipe[]
-}
-
 enum UserRoles {
   SUPERUSER
   ADMIN
   USER
-}
-
-model UserPreferences {
-  id Int @id @default(autoincrement())
-
-  userId String @unique
-
-  theme String @default("system") // Options: light, dark, system
-
-  language String @default("en") // ISO language code, e.g., en, es, fr
-
-  timezone String? // e.g., America/New_York
-
-  fontSize String @default("medium") // Options: small, medium, large
-
-  massSystem MassSystem @default(US)
-
-  color UserColorPreference @default(L)
-
-  flow FlowUnit @default(gpm)
-
-  concentration ConcentrationUnit @default(ppm)
-
-  time TimeUnit @default(min)
-
-  percent PercentUnit @default(percent)
-
-  volume UserVolumePreference @default(gal)
-
-  mass UserMassPreference @default(LbOz)
-
-  hopMass UserMassPreference @default(Oz)
-
-  fermentableMass UserMassPreference @default(Lb)
-
-  gravity UserGravityPreference @default(SG)
-
-  temperature UserTemperaturePreference @default(F)
-
-  pressure UserPressurePreference @default(PSI)
-
-  createdAt DateTime @default(now())
-
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum MassSystem {
@@ -210,91 +555,14 @@ enum UserGravityPreference {
   Brix
   Plato
   nD
-  PPG
   GCM3
+  PPG
 }
 
 enum UserColorPreference {
   L
   EBC
   SRM
-}
-
-model User {
-  id              String           @id
-  name            String
-  email           String
-  emailVerified   Boolean          @default(false)
-  image           String?
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  username        String?
-  sessions        Session[]
-  accounts        Account[]
-  UserPreferences UserPreferences?
-
-  role                 UserRoles?            @default(USER)
-  displayUsername      String?
-  equipmentProfiles    EquipmentProfile[]
-  waterProfiles        WaterProfile[]
-  mashProfiles         MashProfile[]
-  fermentationProfiles FermentationProfile[]
-  fermentables         Fermentable[]
-  hops                 Hop[]
-  yeasts               Yeast[]
-  inventories          Inventory[]
-  recipes              Recipe[]
-
-  @@unique([email])
-  @@map("user")
-}
-
-model Session {
-  id        String   @id
-  expiresAt DateTime
-  token     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  ipAddress String?
-  userAgent String?
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([token])
-  @@index([userId])
-  @@map("session")
-}
-
-model Account {
-  id                    String    @id
-  accountId             String
-  providerId            String
-  userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken           String?
-  refreshToken          String?
-  idToken               String?
-  accessTokenExpiresAt  DateTime?
-  refreshTokenExpiresAt DateTime?
-  scope                 String?
-  password              String?
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
-
-  @@index([userId])
-  @@map("account")
-}
-
-model Verification {
-  id         String   @id
-  identifier String
-  value      String
-  expiresAt  DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  @@index([identifier])
-  @@map("verification")
 }
 
 enum MashSpargeWaterCalculations {
@@ -304,114 +572,10 @@ enum MashSpargeWaterCalculations {
   IgnoreExpansion
 }
 
-model EquipmentProfile {
-  id                     String                      @id @default(cuid())
-  name                   String
-  slug                   String                      @unique
-  description            String?
-  batchVolume            Float?
-  boilVolume             Float?
-  preboilVolume          Float?
-  boilTime               Float?
-  brewEfficiency         Float?
-  mashEfficiency         Float?
-  boilOffRate            Float?
-  trubLoss               Float?                      @default(0)
-  mashLoss               Float?                      @default(0)
-  fermenterLoss          Float?                      @default(0)
-  grainAbsorption        Float?                      @default(0.5)
-  waterGrainRatio        Float?                      @default(1.5)
-  mashTunVolume          Float?                      @default(100)
-  mashTunWeight          Float?                      @default(100)
-  mashTunSpecificHeat    Float?                      @default(0.12)
-  mashTunDeadSpace       Float?                      @default(0)
-  waterCalculationMethod MashSpargeWaterCalculations @default(Default)
-  boilExpansion          Float?                      @default(0.04)
-  fermenterTopOff        Float?                      @default(0)
-  forkedFrom             String?
-  origin                 EquipmentProfile?           @relation("origin", fields: [forkedFrom], references: [id])
-  forks                  EquipmentProfile[]          @relation("origin")
-  userId                 String?
-  owner                  User?                       @relation(fields: [userId], references: [id])
-  //  Recipe          Recipe[]
-  //  UserPreferences UserPreferences[]
-  recipes                Recipe[]
-}
-
-model WaterProfile {
-  id          String         @id @default(cuid())
-  userId      String?
-  owner       User?          @relation(fields: [userId], references: [id])
-  name        String
-  slug        String         @unique
-  calcium     Int?           @default(0)
-  magnesium   Int?           @default(0)
-  sodium      Int?           @default(0)
-  chloride    Int?           @default(0)
-  sulfate     Int?           @default(0)
-  bicarbonate Int?           @default(0)
-  description String?
-  //  Recipe         Recipe[]
-  //  DefaultSources UserPreferences[] @relation("SourceWater")
-  //  TargetSources  UserPreferences[] @relation("TargetWater")
-  forkedFrom  String?
-  origin      WaterProfile?  @relation("origin", fields: [forkedFrom], references: [id])
-  forks       WaterProfile[] @relation("origin")
-}
-
-model MashProfile {
-  id               String        @id @default(cuid())
-  name             String
-  slug             String        @unique
-  spargeTemp       Float         @default(168)
-  grainTemp        Float         @default(72)
-  grainWeightBasis Float?        @default(10)
-  mashPh           Float?        @default(5.4)
-  mashTunTemp      Float         @default(72)
-  description      String?
-  userId           String?
-  forkedFrom       String?
-  origin           MashProfile?  @relation("origin", fields: [forkedFrom], references: [id])
-  forks            MashProfile[] @relation("origin")
-
-  steps   MashStep[]
-  owner   User?      @relation(fields: [userId], references: [id])
-  recipes Recipe[]
-}
-
 enum MashStepType {
   temperature
   infusion
   decoction
-}
-
-model MashStep {
-  id          Int           @id @default(autoincrement())
-  type        MashStepType? @default(temperature)
-  name        String?
-  temperature Int
-  time        Int
-  rampTime    Int?          @default(0)
-  index       Int
-
-  MashProfile   MashProfile @relation(fields: [mashProfileId], references: [id], onDelete: Cascade)
-  mashProfileId String
-
-  @@unique(name: "mashIndex", fields: [mashProfileId, index])
-}
-
-model FermentationProfile {
-  id          String                @id @default(cuid())
-  name        String
-  slug        String                @unique
-  description String?
-  steps       FermentationStep[]
-  userId      String?
-  owner       User?                 @relation(fields: [userId], references: [id])
-  forkedFrom  String?
-  origin      FermentationProfile?  @relation("origin", fields: [forkedFrom], references: [id])
-  forks       FermentationProfile[] @relation("origin")
-  //  Recipe          Recipe[]
 }
 
 enum FermentationStepType {
@@ -420,21 +584,6 @@ enum FermentationStepType {
   tertiary
   coldcrash
   conditioning
-}
-
-model FermentationStep {
-  id                    Int                  @id @default(autoincrement())
-  type                  FermentationStepType @default(primary)
-  name                  String?
-  index                 Int
-  temperature           Float
-  time                  Float
-  rampTime              Float                @default(0)
-  FermentationProfile   FermentationProfile  @relation(fields: [fermentationProfileId], references: [id])
-  fermentationProfileId String
-  //@@unique([mashProfileId, rank])
-
-  @@unique(name: "fermentationIndex", fields: [fermentationProfileId, index])
 }
 
 enum FermentableType {
@@ -460,102 +609,10 @@ enum IngredientUsage {
   Sparge
 }
 
-model Fermentable {
-  id             String           @id @unique @default(cuid())
-  name           String
-  slug           String           @unique
-  description    String?
-  notes          String?
-  manufacturer   String?
-  country        String?
-  price          Float?
-  type           FermentableType? @default(Grain)
-  power          Float?
-  maxUsage       Float?
-  color          Float?
-  potential      Float?
-  moisture       Float?
-  protein        Float?
-  coarseFineDiff Float?
-  extract        Float?
-  friability     Float?
-  yield          Float?
-  stability      String?
-  userId         String?
-  usage          IngredientUsage? @default(Mash)
-  owner          User?            @relation(fields: [userId], references: [id])
-  forkedFrom     String?
-  origin         Fermentable?     @relation("origin", fields: [forkedFrom], references: [id])
-  forks          Fermentable[]    @relation("origin")
-
-  //FermentableIngredient FermentableIngredient[]
-  fermentableInventoryItems FermentableInventoryItem[]
-  fermentableIngredients    FermentableIngredient[]
-}
-
 enum HopUsage {
   aroma
   bittering
   dual
-}
-
-model Hop {
-  id                String    @id @default(cuid())
-  name              String
-  slug              String    @unique
-  description       String?
-  characteristics   String?
-  country           String?
-  usage             HopUsage?
-  alpha             Float?
-  alphaLow          Float?
-  alphaHigh         Float?
-  beta              Float?
-  betaLow           Float?
-  betaHigh          Float?
-  caryophyllene     Float?
-  caryophylleneLow  Float?
-  caryophylleneHigh Float?
-  cohumulone        Float?
-  cohumuloneLow     Float?
-  cohumuloneHigh    Float?
-  farnesene         Float?
-  farneseneLow      Float?
-  farneseneHigh     Float?
-  humulene          Float?
-  humuleneLow       Float?
-  humuleneHigh      Float?
-  myrcene           Float?
-  myrceneLow        Float?
-  myrceneHigh       Float?
-  totalOil          Float?
-  totalOilLow       Float?
-  totalOilHigh      Float?
-  geraniol          Float?
-  geraniolLow       Float?
-  geraniolHigh      Float?
-  other             Float?
-  otherLow          Float?
-  otherHigh         Float?
-  linalool          Float?
-  linaloolLow       Float?
-  linaloolHigh      Float?
-
-  bPinene           Float?
-  bPineneLow        Float?
-  bPineneHigh       Float?
-  purpose           String?
-  flavor            String?
-  notes             String?
-  substitutesString String[]
-  styles            String[]
-  //HopIngredient     HopIngredient//[]
-  //  hopSensoryPanels  HopSensoryPanel[]
-  //  hopNote           HopNote[]
-  userId            String?
-  owner             User?              @relation(fields: [userId], references: [id])
-  hopInventoryItems HopInventoryItem[]
-  hopIngredients    HopIngredient[]
 }
 
 enum YeastForm {
@@ -578,110 +635,6 @@ enum YeastType {
   Wine
 }
 
-model Yeast {
-  id              String             @id @unique @default(cuid())
-  name            String
-  slug            String             @unique
-  usage           String?
-  description     String?
-  notes           String?
-  manufacturer    String?
-  type            YeastType?
-  form            YeastForm?
-  country         String?
-  price           Float?
-  tempLow         Float?
-  tempHigh        Float?
-  flocculation    YeastFlocculation?
-  tolerance       Float?
-  attenuation     Float?
-  attenuationLow  Float?
-  attenuationHigh Float?
-  cellsPerUnit    Float?
-  productId       String?
-  userId          String?
-  diastatic       Boolean?           @default(false)
-  owner           User?              @relation(fields: [userId], references: [id])
-
-  //  YeastIngredient YeastIngredient[]
-  yeastInventoryItems YeastInventoryItem[]
-}
-
-model Inventory {
-  id                        String                     @id @unique @default(cuid())
-  userId                    String                     @unique
-  owner                     User                       @relation(fields: [userId], references: [id])
-  hopInventoryItems         HopInventoryItem[]
-  yeastInventoryItems       YeastInventoryItem[]
-  fermentableInventoryItems FermentableInventoryItem[]
-}
-
-model HopInventoryItem {
-  id          String    @id @default(cuid())
-  inventoryId String
-  hopId       String?
-  name        String
-  date        DateTime  @default(now())
-  amount      Float
-  origin      Hop?      @relation(fields: [name], references: [slug])
-  Inventory   Inventory @relation(fields: [inventoryId], references: [id])
-}
-
-model YeastInventoryItem {
-  id          String    @id @default(cuid())
-  inventoryId String
-  yeastId     String?
-  name        String
-  date        DateTime  @default(now())
-  amount      Float
-  origin      Yeast?    @relation(fields: [name], references: [slug])
-  Inventory   Inventory @relation(fields: [inventoryId], references: [id])
-}
-
-model FermentableInventoryItem {
-  id            String       @id @default(cuid())
-  inventoryId   String
-  fermentableId String?
-  name          String
-  date          DateTime     @default(now())
-  amount        Float
-  origin        Fermentable? @relation(fields: [name], references: [slug])
-  Inventory     Inventory    @relation(fields: [inventoryId], references: [id])
-}
-
-model Recipe {
-  id                     String                  @id @default(cuid())
-  name                   String
-  description            String?
-  userId                 String
-  equipmentProfileId     String?
-  EquipmentProfile       EquipmentProfile?       @relation(fields: [equipmentProfileId], references: [id])
-  batchVolume            Float?                  @default(22)
-  boilVolume             Float?                  @default(25)
-  preboilVolume          Float?                  @default(25)
-  boilTime               Float?                  @default(60)
-  brewEfficiency         Float?                  @default(0.6)
-  mashEfficiency         Float?                  @default(0.7)
-  boilOffRate            Float?                  @default(2)
-  trubLoss               Float?                  @default(0)
-  mashLoss               Float?                  @default(0)
-  fermenterLoss          Float?                  @default(0)
-  grainAbsorption        Float?                  @default(0.5)
-  mashProfileId          String?
-  MashProfile            MashProfile?            @relation(fields: [mashProfileId], references: [id])
-  ownerUsername          String?
-  ownerEmail             String?
-  owner                  User                    @relation(fields: [userId], references: [id])
-  forkedFrom             String?
-  origin                 Recipe?                 @relation("origin", fields: [forkedFrom], references: [id])
-  forks                  Recipe[]                @relation("origin")
-  styleIdentifier        String?
-  styleId                Int?
-  style                  Style?                  @relation(fields: [styleIdentifier], references: [identifier])
-  hopIngredients         HopIngredient[]
-  fermentableIngredients FermentableIngredient[]
-}
-
 enum HopIngredientUsage {
   Boil
   Whirlpool
@@ -696,44 +649,9 @@ enum HopIngredientType {
   Extract
 }
 
-model HopIngredient {
-  id           String             @default(cuid())
-  recipeId     String
-  recipe       Recipe             @relation(fields: [recipeId], references: [id])
-  amount       Float
-  usage        HopIngredientUsage
-  amountType   MassUnit
-  temperature  Float?
-  type         HopIngredientType  @default(Pellet)
-  duration     Float
-  durationType TimeUnit
-  hopId        String
-  hop          Hop                @relation(fields: [hopId], references: [id])
-  alpha        Float?
-
-  @@id([recipeId, id])
-}
-
 enum FermentableIngredientUsage {
   Mash
   Extract
   Steep
   Late
-}
-
-model FermentableIngredient {
-  id            String                     @default(cuid())
-  recipeId      String
-  recipe        Recipe                     @relation(fields: [recipeId], references: [id])
-  usage         FermentableIngredientUsage @default(Mash)
-  amount        Float
-  amountType    MassUnit
-  //duration      Float
-  //durationType  TimeUnit
-  fermentableId String
-  fermentable   Fermentable                @relation(fields: [fermentableId], references: [id])
-  color         Float?
-  potential     Float?
-
-  @@id([recipeId, id])
 }
