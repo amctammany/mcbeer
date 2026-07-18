@@ -2,9 +2,10 @@ import Card from "@/components/Card";
 import { ComboBoxField } from "@/components/Form/ComboBoxField";
 import Form from "@/components/Form/Form";
 import { CardTitle } from "@/components/ui/card";
+import { IngredientContext } from "@/contexts/IngredientContext";
 import { HopIngredient } from "@/generated/prisma/client";
 import { RecipeType } from "@/types/Recipe";
-import React from "react";
+import React, { use, useContext } from "react";
 import {
   FieldValues,
   FormProvider,
@@ -14,6 +15,9 @@ import {
 } from "react-hook-form";
 
 export default function HopIngredientModal({ recipe }: { recipe: RecipeType }) {
+  const s = useContext(IngredientContext);
+  const hops = use(s.hopPromise);
+  const opts = hops.map((h) => ({ label: h.name, value: h.id }));
   const form = useForm<HopIngredient>({
     defaultValues: {
       recipeId: recipe.id,
@@ -28,7 +32,7 @@ export default function HopIngredientModal({ recipe }: { recipe: RecipeType }) {
             orientation="horizontal"
             name="hopId"
             label="Hop Variety"
-            options={[]}
+            options={opts}
           />
         </form>
       </FormProvider>
