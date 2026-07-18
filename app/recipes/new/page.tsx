@@ -7,6 +7,7 @@ import { createRecipe } from "../actions";
 import { getEquipmentProfileNames } from "@/app/(profiles)/equipment/queries";
 import { getStyleNames } from "@/app/styles/queries";
 import { BaseUser } from "@/types/User";
+import RecipeModals from "../_components/RecipeEditor/RecipeModals";
 
 export default async function RecipeCreatorPage() {
   const session = await verifySession("/recipes/new");
@@ -21,13 +22,14 @@ export default async function RecipeCreatorPage() {
   } as RecipeType;
   const styles = getStyleNames();
   return (
-    <RecipeEditor
-      src={src}
-      styles={styles}
-      equipmentProfiles={getEquipmentProfileNames()}
-      // preferences={prefs}
-      action={createRecipe}
-    />
+    <>
+      <RecipeModals src={src} />
+      <RecipeEditor
+        src={src}
+        // preferences={prefs}
+        action={createRecipe}
+      />
+    </>
   );
 
   return <div>RecipeCreatorPage</div>;

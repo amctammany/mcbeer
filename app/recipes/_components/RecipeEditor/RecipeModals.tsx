@@ -5,12 +5,13 @@ import { ModalContext } from "@/contexts/ModalContext";
 import styles from "./IngredientSection.module.css";
 import dynamic from "next/dynamic";
 import { RecipeType } from "@/types/Recipe";
+import FermentableIngredientModal from "./IngredientModals/FermentableIngredientModal";
 const HopIngredientModal = dynamic(
   () => import("./IngredientModals/HopIngredientModal"),
   { ssr: false },
 );
 
-export default function RecipeModals({ src }: { src: RecipeType }) {
+export default function RecipeModals({ src }: { src?: RecipeType }) {
   const { open, handleDialogOpen, triggerId } = useContext(ModalContext);
   return (
     <div>
@@ -29,13 +30,13 @@ export default function RecipeModals({ src }: { src: RecipeType }) {
 
               {triggerId === "hop" && (
                 <HopIngredientModal
-                  recipe={src}
+                  recipe={src!}
                   handleClose={handleDialogOpen()}
                 />
               )}
               {triggerId === "fermentable" && (
-                <HopIngredientModal
-                  recipe={src}
+                <FermentableIngredientModal
+                  recipe={src!}
                   handleClose={handleDialogOpen()}
                 />
               )}

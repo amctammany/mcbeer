@@ -10,7 +10,7 @@ export const getStyle = async (slug: string) => {
   });
   return style;
 };
-export const getStyles = async (args: any) => {
+export const getStyles = async (args = {}) => {
   const styles = await prisma.style.findMany({
     orderBy: [{ subcategoryId: "asc" }, { identifier: "asc" }],
     ...args,
