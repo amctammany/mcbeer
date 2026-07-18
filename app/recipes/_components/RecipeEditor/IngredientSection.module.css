@@ -94,8 +94,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 24rem;
-  max-width: calc(100vw - 3rem);
+  width: 50%;
   margin-top: -2rem;
   padding: 1rem;
   border: 1px solid oklch(14.5% 0 0deg);

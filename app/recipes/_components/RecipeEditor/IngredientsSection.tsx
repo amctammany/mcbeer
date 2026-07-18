@@ -33,6 +33,11 @@ import {
   WheatIcon,
 } from "lucide-react";
 import React from "react";
+import dynamic from "next/dynamic";
+const HopIngredientModal = dynamic(
+  () => import("./IngredientModals/HopIngredientModal"),
+  { ssr: false },
+);
 
 const demoDialog = _Dialog.createHandle<{ text: string }>();
 
@@ -123,7 +128,8 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
                 <_Dialog.Title className={styles.Title}>
                   Add {triggerId}
                 </_Dialog.Title>
-                {payload?.text}
+
+                {triggerId === "hop" && <HopIngredientModal recipe={src} />}
               </_Dialog.Popup>
             </_Dialog.Viewport>
           </_Dialog.Portal>
