@@ -44,7 +44,7 @@ function IngredientsSectionToolbar({
   handleDialogOpen: (id: string) => () => void;
 }) {
   return (
-    <TopBar>
+    <div className="flex items-center lg:gap-2 px-1 lg:px-4">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <IconButton icon={PlusIcon} label="Add" />
@@ -73,7 +73,7 @@ function IngredientsSectionToolbar({
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-    </TopBar>
+    </div>
   );
 }
 /**
