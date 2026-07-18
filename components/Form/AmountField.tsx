@@ -107,9 +107,10 @@ export function AmountField<T extends FieldValues>({
   // // ? PercentUnits[amountType]
   // // : BASE_UNITS[amountType!];
   const unit =
-    (_unit ?? (typeof val !== "number" && val?.unit))
+    _unit ??
+    (isUnitValue(val)
       ? val.unit
-      : BASE_UNITS[amountType as keyof typeof BASE_UNITS];
+      : BASE_UNITS[amountType as keyof typeof BASE_UNITS]);
 
   const value = typeof val === "number" ? val : val?.value;
   // console.log({ val, value, unitName });
