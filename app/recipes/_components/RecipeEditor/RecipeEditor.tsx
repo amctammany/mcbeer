@@ -34,7 +34,7 @@ export default function RecipeEditor({
           <VitalsSection src={src} />
         </div>
         <div>
-          <IngredientsSection />
+          <IngredientsSection src={src} />
         </div>
       </div>
     </RecipeFormContainer>

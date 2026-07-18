@@ -24,14 +24,14 @@ export default function RecipeFormContainer({
   src,
   children,
 }: RecipeFormContainerProps) {
-  const prefs = useContext(UserPreferencesContext);
-  const adjusted = adjustUnits({
-    src,
-    mask: RecipeMask,
-    prefs,
-    inline: false,
-    dir: true,
-  });
+  // const prefs = useContext(UserPreferencesContext);
+  // const adjusted = adjustUnits({
+  //   src,
+  //   mask: RecipeMask,
+  //   prefs,
+  //   inline: false,
+  //   dir: true,
+  // });
   // const [state, formAction] = useActionState<any, FormData>(action, {
   // success: true,
   // data: adjusted,
@@ -42,7 +42,7 @@ export default function RecipeFormContainer({
   return (
     <Form
       action={action}
-      src={adjusted}
+      src={src}
       // mask={YeastMask}
       // formProps={{
       //   values: state.data,
@@ -51,11 +51,6 @@ export default function RecipeFormContainer({
       //   errors: state?.errors,
       // }}
     >
-      {children}
-    </Form>
-  );
-  return (
-    <Form action={action} src={src}>
       {children}
     </Form>
   );

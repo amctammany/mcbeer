@@ -8,7 +8,7 @@ export default function BackButton({ text = "Cancel" }: { text?: string }) {
   const router = useRouter();
 
   return (
-    <IconButton icon={ArrowLeft} onClick={() => router.back()}>
+    <IconButton type="button" icon={ArrowLeft} onClick={() => router.back()}>
       {text}
     </IconButton>
   );

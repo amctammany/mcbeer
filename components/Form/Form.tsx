@@ -44,7 +44,7 @@ export default function Form<T extends FieldValues>({
     mask,
     prefs: preferenceContext,
     inline: false,
-    dir: true,
+    dir: false,
   });
   // console.log({ src, mask, adjusted });
 
