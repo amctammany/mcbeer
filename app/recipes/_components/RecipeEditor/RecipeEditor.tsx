@@ -28,7 +28,7 @@ export default function RecipeEditor({
       <div>
         <RecipeForm src={src} />
         <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
-          <GeneralSection src={src} />
+          <GeneralSection src={src} styles={styles} />
           <EquipmentSection options={equipmentProfiles} />
           <StyleSection styles={styles} />
         </div>
