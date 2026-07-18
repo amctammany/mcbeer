@@ -98,9 +98,9 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
     setOpen(isOpen);
     setTriggerId(eventDetails.trigger?.id ?? null);
   };
-  const handleDialogOpen = (id: string) => () => {
-    setOpen(true);
-    setTriggerId(id);
+  const handleDialogOpen = (id?: string) => () => {
+    setOpen(id === undefined ? false : true);
+    setTriggerId(id === undefined ? null : id);
   };
 
   return (
@@ -129,7 +129,12 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
                   Add {triggerId}
                 </_Dialog.Title>
 
-                {triggerId === "hop" && <HopIngredientModal recipe={src} />}
+                {triggerId === "hop" && (
+                  <HopIngredientModal
+                    recipe={src}
+                    handleClose={handleDialogOpen()}
+                  />
+                )}
               </_Dialog.Popup>
             </_Dialog.Viewport>
           </_Dialog.Portal>

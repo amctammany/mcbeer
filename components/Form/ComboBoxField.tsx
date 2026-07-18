@@ -47,6 +47,7 @@ export type ComboBoxFieldProps<T extends FieldValues> = {
 
   //onChange?: (e: SyntheticEvent) => void;
   //onBlur?: (e: SyntheticEvent) => void;
+  onChangeCallback?: any;
   value?: any;
   ref?: any;
 };
@@ -56,6 +57,7 @@ export function ComboBoxField<T extends FieldValues>({
   description,
   label,
   placeholder,
+  onChangeCallback,
   options,
   orientation = "responsive",
   itemToStringValue,
@@ -66,7 +68,7 @@ export function ComboBoxField<T extends FieldValues>({
   const revisionContext = useContext(RevisionContext);
   const onValueChange = (cb: (newValue: any) => void) => (newValue: any) => {
     const opt = options[options.findIndex((o: any) => o.value === newValue)];
-    console.log("Value changed:", options, newValue, opt);
+    // console.log("Value changed:", options, newValue, opt);
     revisionContext?.update({
       type: "SET",
       payload: {
@@ -75,6 +77,7 @@ export function ComboBoxField<T extends FieldValues>({
         value: newValue,
       },
     });
+    onChangeCallback?.(opt);
     cb(opt);
   };
   return (

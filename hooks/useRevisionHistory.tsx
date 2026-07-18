@@ -140,10 +140,10 @@ function useRevisionHistory<T extends FieldValues>(
       history.current = newHistory;
       setHistoryPointer(newHistory.length - 0);
       const newState = revisionReducer(state, action);
-      console.log("Old state", state);
+      // console.log("Old state", state);
       setState(newState);
       updateFn(action.payload.name, action.payload.value);
-      console.log("update", newState, { action, history: history.current });
+      // console.log("update", newState, { action, history: history.current });
     },
     [history, historyPointer, state, updateFn],
   );
@@ -159,7 +159,7 @@ function useRevisionHistory<T extends FieldValues>(
   }, [history, historyPointer, state, updateFn]);
   const redo = useCallback(() => {
     // console.log("current state", state, history.current, historyPointer);
-    console.log("History => redo", history.current, historyPointer);
+    // console.log("History => redo", history.current, historyPointer);
     if (history.current.length === 0) return;
     if (historyPointer > history.current.length) return;
     const nextAction = history.current[historyPointer];
