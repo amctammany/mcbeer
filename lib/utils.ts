@@ -32,7 +32,7 @@ export function precisionRound(v: number, precision: undefined | number = 1) {
 export function get<T extends FieldValues>(
   obj: T,
   path: Path<T>,
-  defaultValue?: T[Path<T>]
+  defaultValue?: T[Path<T>],
 ) {
   const pathParts = Array.isArray(path) ? path : path.split(".");
   let current = obj;
@@ -47,7 +47,7 @@ export function get<T extends FieldValues>(
 export function deepSet<T extends FieldValues>(
   src: T,
   path: Path<T>,
-  value: T[Path<T>]
+  value: T[Path<T>],
 ): T {
   const pathParts = Array.isArray(path) ? path : path.split(".");
   const obj = { ...src } as any;
@@ -63,9 +63,12 @@ export function deepSet<T extends FieldValues>(
   return obj;
 }
 export function toPercent(obj: Record<string, number>) {
-  return Object.keys(obj).reduce((acc, key) => {
-    const value = obj[key];
-    acc[key] = value != null ? value / 100 : null;
-    return acc;
-  }, {} as Record<string, number | null>);
+  return Object.keys(obj).reduce(
+    (acc, key) => {
+      const value = obj[key];
+      acc[key] = value != null ? value / 100 : null;
+      return acc;
+    },
+    {} as Record<string, number | null>,
+  );
 }

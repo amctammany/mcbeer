@@ -32,37 +32,45 @@ export function NavAdmin() {
 
       <SidebarMenu>
         <SidebarMenuItem hidden={session?.data?.user ? false : true}>
-          <SidebarMenuButton asChild>
-            <NavLink href="/admin">
-              <LayoutDashboardIcon />
-              Dashboard
-            </NavLink>
-          </SidebarMenuButton>
+          <SidebarMenuButton
+            render={
+              <NavLink href="/admin">
+                <LayoutDashboardIcon />
+                Dashboard
+              </NavLink>
+            }
+          ></SidebarMenuButton>
         </SidebarMenuItem>
         <SidebarMenuItem hidden={session?.data?.user ? false : true}>
-          <SidebarMenuButton asChild>
-            <NavLink href="/admin/settings">
-              <SettingsIcon />
-              Settings
-            </NavLink>
-          </SidebarMenuButton>
+          <SidebarMenuButton
+            render={
+              <NavLink href="/admin/settings">
+                <SettingsIcon />
+                Settings
+              </NavLink>
+            }
+          ></SidebarMenuButton>
         </SidebarMenuItem>
 
         <SidebarMenuItem>
           {session?.data?.user ? (
-            <SidebarMenuButton asChild>
-              <NavLink href="/logout">
-                <LogOutIcon />
-                Logout
-              </NavLink>
-            </SidebarMenuButton>
+            <SidebarMenuButton
+              render={
+                <NavLink href="/logout">
+                  <LogOutIcon />
+                  Logout
+                </NavLink>
+              }
+            ></SidebarMenuButton>
           ) : (
-            <SidebarMenuButton asChild>
-              <Link href="/login">
-                <LogInIcon />
-                Login
-              </Link>
-            </SidebarMenuButton>
+            <SidebarMenuButton
+              render={
+                <Link href="/login">
+                  <LogInIcon />
+                  Login
+                </Link>
+              }
+            ></SidebarMenuButton>
           )}
         </SidebarMenuItem>
       </SidebarMenu>

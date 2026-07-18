@@ -185,9 +185,9 @@ export default function Inventory({
           </div>
 
           <DialogFooter className="sm:justify-start">
-            <DialogClose asChild>
-              <Button type="button">Close</Button>
-            </DialogClose>
+            <DialogClose
+              render={<Button type="button">Close</Button>}
+            ></DialogClose>
           </DialogFooter>
         </DialogContent>
       </Dialog>

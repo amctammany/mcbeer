@@ -53,9 +53,9 @@ function IngredientsSectionToolbar({
   return (
     <div className="flex items-center lg:gap-2 px-1 lg:px-4">
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <IconButton icon={PlusIcon} label="Add" />
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger
+          render={<IconButton icon={PlusIcon} label="Add" />}
+        ></DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem onClick={handleDialogOpen("hop")} id="hop">
             <HopIcon />

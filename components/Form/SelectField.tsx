@@ -107,7 +107,7 @@ export function SelectField<T extends FieldValues>({
               >
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
-              <SelectContent position="item-aligned">
+              <SelectContent>
                 {Object.entries(options ?? {}).map(([key, value]) => (
                   <SelectItem key={key} value={value as any}>
                     <div className=" grow text-center">{value as any}</div>

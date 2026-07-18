@@ -188,15 +188,17 @@ export function VariableAmountField<T extends FieldValues>({
           align="inline-end"
         >
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <InputGroupButton
-                variant="ghost"
-                aria-label="More"
-                size="icon-xs"
-              >
-                <MoreHorizontal />
-              </InputGroupButton>
-            </DropdownMenuTrigger>
+            <DropdownMenuTrigger
+              render={
+                <InputGroupButton
+                  variant="ghost"
+                  aria-label="More"
+                  size="icon-xs"
+                >
+                  <MoreHorizontal />
+                </InputGroupButton>
+              }
+            ></DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuGroup>
                 <DropdownMenuItem>Settings</DropdownMenuItem>
@@ -211,11 +213,13 @@ export function VariableAmountField<T extends FieldValues>({
         <InputGroupInput placeholder="Enter search query" />
         <InputGroupAddon align="inline-end">
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <InputGroupButton variant="ghost" className="!pr-1.5 text-xs">
-                Search In... <ChevronDownIcon className="size-3" />
-              </InputGroupButton>
-            </DropdownMenuTrigger>
+            <DropdownMenuTrigger
+              render={
+                <InputGroupButton variant="ghost" className="!pr-1.5 text-xs">
+                  Search In... <ChevronDownIcon className="size-3" />
+                </InputGroupButton>
+              }
+            ></DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="[--radius:0.95rem]">
               <DropdownMenuGroup>
                 <DropdownMenuItem>Documentation</DropdownMenuItem>

@@ -70,7 +70,7 @@ DataTableProps<TData, TValue>) {
               <Checkbox
                 checked={
                   table.getIsAllPageRowsSelected() ||
-                  (table.getIsSomePageRowsSelected() && "indeterminate")
+                  table.getIsSomePageRowsSelected()
                 }
                 onCheckedChange={(value) =>
                   table.toggleAllPageRowsSelected(!!value)
@@ -114,7 +114,7 @@ DataTableProps<TData, TValue>) {
     () => (name: any, value: any) => {
       return table.getColumn(name)?.setFilterValue(value);
     },
-    [table]
+    [table],
   );
 
   return (
@@ -136,7 +136,7 @@ DataTableProps<TData, TValue>) {
               value={(table.getColumn(name)?.getFilterValue() as string) ?? ""}
               onChange={onFilterChange}
             />
-          )
+          ),
         )}
       </TableSearch>
       <div
@@ -166,7 +166,7 @@ DataTableProps<TData, TValue>) {
                           ? null
                           : flexRender(
                               header.column.columnDef.header,
-                              header.getContext()
+                              header.getContext(),
                             )}
                       </div>
                     </TableHead>

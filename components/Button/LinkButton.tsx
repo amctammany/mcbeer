@@ -6,7 +6,7 @@ import { Route } from "next";
 
 export type ButtonProps = React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
+    // asChild?: boolean;
   };
 export type LinkButtonProps = ButtonProps & {
   scroll?: boolean;

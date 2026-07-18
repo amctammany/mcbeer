@@ -52,9 +52,7 @@ export type IconButtonProps = {
   href?: string;
   label?: any;
 } & React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
-  };
+  VariantProps<typeof buttonVariants> & {};
 export default function IconButton({
   icon: Icon,
   label,

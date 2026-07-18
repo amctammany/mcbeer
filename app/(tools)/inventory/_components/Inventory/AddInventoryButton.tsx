@@ -24,9 +24,9 @@ export const AddInventoryButton = ({
 }: AddInventoryButtonProps) => {
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <IconButton icon={PlusCircleIcon} label="Add" />
-      </DialogTrigger>
+      <DialogTrigger
+        render={<IconButton icon={PlusCircleIcon} label="Add" />}
+      ></DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Add {type}</DialogTitle>
@@ -35,9 +35,9 @@ export const AddInventoryButton = ({
         <div className="flex items-center gap-2 relative">{children}</div>
 
         <DialogFooter className="sm:justify-start">
-          <DialogClose asChild>
-            <Button type="button">Close</Button>
-          </DialogClose>
+          <DialogClose
+            render={<Button type="button">Close</Button>}
+          ></DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

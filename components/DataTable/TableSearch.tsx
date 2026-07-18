@@ -29,16 +29,16 @@ export function TableSearch<T>({ table, children }: TableSearchProps<T>) {
           //className="max-w-sm"
         />
         <CollapsibleTrigger
-          asChild
           className={clsx("hidden", {
             "inline-flex": Array.isArray(children) && children.length > 0,
           })}
-        >
-          <Button variant="secondary" className="mx-2">
-            Advanced
-            <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-          </Button>
-        </CollapsibleTrigger>
+          render={
+            <Button variant="secondary" className="mx-2">
+              Advanced
+              <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+            </Button>
+          }
+        ></CollapsibleTrigger>
       </div>
       <CollapsibleContent className="bg-slate-200/50">
         {children}

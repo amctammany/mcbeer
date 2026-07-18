@@ -18,34 +18,41 @@ import { Route } from "next";
 export function YeastsTableRowActions<T>({ row }: CellContext<T, unknown>) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="m-auto w-full text-center" asChild>
-        <Button variant="ghost" className="h-8 w-8 p-0">
-          <span className="sr-only">Open menu</span>
-          <MoreHorizontal />
-        </Button>
-      </DropdownMenuTrigger>
+      <DropdownMenuTrigger
+        className="m-auto w-full text-center"
+        render={
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal />
+          </Button>
+        }
+      ></DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuItem asChild>
-          <Link
-            href={
-              `/yeasts/${slugify(row.getValue("name"), {
-                lower: true,
-              })}/fork` as Route
-            }
-          >
-            <span>Fork</span>
-          </Link>
-        </DropdownMenuItem>
+        <DropdownMenuItem
+          render={
+            <Link
+              href={
+                `/yeasts/${slugify(row.getValue("name"), {
+                  lower: true,
+                })}/fork` as Route
+              }
+            >
+              <span>Fork</span>
+            </Link>
+          }
+        ></DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <RemoveButton
-            name="slug"
-            id={slugify(row.getValue("name"), { lower: true })}
-            // eslint-disable-next-line
-            action={(e: any) => console.log(e)}
-          />
-        </DropdownMenuItem>
+        <DropdownMenuItem
+          render={
+            <RemoveButton
+              name="slug"
+              id={slugify(row.getValue("name"), { lower: true })}
+              // eslint-disable-next-line
+              action={(e: any) => console.log(e)}
+            />
+          }
+        ></DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
