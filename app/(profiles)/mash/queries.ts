@@ -7,7 +7,7 @@ export const getMashProfiles = async (args: any = {}) => {
   "use cache";
   cacheTag("mashProfiles");
   const profiles = await prisma.mashProfile.findMany(args);
-  return profiles;
+  return profiles as MashProfileType[];
 };
 
 export const getMashProfile = async (slug: string) => {

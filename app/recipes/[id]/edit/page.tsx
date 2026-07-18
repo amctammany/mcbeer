@@ -25,25 +25,25 @@ export default async function RecipeEditorPage({
   if (!session) {
     return unauthorized();
   }
-  const prefs = await getPreferences();
+  // const prefs = await getPreferences();
   const recipe = await getRecipe(id);
   if (!recipe) notFound();
-  const styles = getStyleNames();
-  const adjusted = adjustUnits({
-    src: recipe,
-    mask: RecipeMask,
-    inline: false,
-    dir: false,
-    prefs,
-  });
+  // const styles = getStyleNames();
+  // const adjusted = adjustUnits({
+  //   src: recipe,
+  //   mask: RecipeMask,
+  //   inline: false,
+  //   dir: false,
+  //   prefs,
+  // });
   // console.log(adjusted, recipe);
   return (
     <ModalProvider>
       <RecipeEditor
-        styles={styles}
-        src={adjusted}
+        // styles={styles}
+        src={recipe}
         action={updateRecipe}
-        equipmentProfiles={getEquipmentProfileNames()}
+        // equipmentProfiles={getEquipmentProfileNames()}
       />
     </ModalProvider>
   );

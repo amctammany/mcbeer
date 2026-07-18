@@ -3,8 +3,9 @@ import AmountField from "@/components/Form/AmountField";
 import { ComboBoxField } from "@/components/Form/ComboBoxField";
 import { TextField } from "@/components/Form/TextField";
 import Section from "@/components/Section";
+import { IngredientContext } from "@/contexts/IngredientContext";
 import { EquipmentProfile } from "@/generated/prisma/client";
-import React, { use } from "react";
+import React, { use, useContext } from "react";
 
 function EquipmentSectionToolbar() {
   const tools: any[] = [];
@@ -19,12 +20,9 @@ function EquipmentSectionToolbar() {
   );
 }
 
-export default function EquipmentSection({
-  options,
-}: {
-  options: Promise<EquipmentProfile[]>;
-}) {
-  const equipmentProfiles = use(options);
+export default function EquipmentSection() {
+  const { equipPromise } = useContext(IngredientContext);
+  const equipmentProfiles = use(equipPromise);
   return (
     <Section title="Equipment" actions={<EquipmentSectionToolbar />}>
       <ComboBoxField

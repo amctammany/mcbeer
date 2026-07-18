@@ -4,17 +4,19 @@ import { ComboBoxField } from "@/components/Form/ComboBoxField";
 import { TextAreaField } from "@/components/Form/TextAreaField";
 import { TextField } from "@/components/Form/TextField";
 import Section from "@/components/Section";
+import { IngredientContext } from "@/contexts/IngredientContext";
 import { RecipeType } from "@/types/Recipe";
-import React, { type Usable, use } from "react";
+import React, { type Usable, use, useContext } from "react";
 
 export default function GeneralSection({
   src,
-  styles,
+  // styles,
 }: {
-  styles: Usable<Option[]>;
+  // styles: Usable<Option[]>;
   src: RecipeType;
 }) {
-  const opts = use(styles);
+  const { stylePromise } = useContext(IngredientContext);
+  const opts = use(stylePromise);
   return (
     <Section title="General">
       <TextField name="name" label="Name" />

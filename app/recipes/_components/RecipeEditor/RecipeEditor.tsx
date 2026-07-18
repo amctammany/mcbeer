@@ -1,4 +1,3 @@
-"use client";
 import { RecipeType } from "@/types/Recipe";
 import React, { useContext } from "react";
 import styles from "./IngredientSection.module.css";
@@ -18,14 +17,14 @@ import RecipeModals from "./RecipeModals";
 export type RecipeEditorProps = {
   src: RecipeType;
   action: any;
-  styles: Promise<Option[]>;
-  equipmentProfiles: Promise<EquipmentProfile[]>;
+  // styles: Promise<Option[]>;
+  // equipmentProfiles: Promise<EquipmentProfile[]>;
 };
 export default function RecipeEditor({
   src,
-  styles: _styles,
+  // styles: _styles,
   action,
-  equipmentProfiles,
+  // equipmentProfiles,
 }: RecipeEditorProps) {
   return (
     <>
@@ -36,8 +35,8 @@ export default function RecipeEditor({
         <div>
           <RecipeForm src={src} />
           <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
-            <GeneralSection src={src} styles={_styles} />
-            <EquipmentSection options={equipmentProfiles} />
+            <GeneralSection src={src} />
+            <EquipmentSection />
             <VitalsSection src={src} />
           </div>
           <div>
