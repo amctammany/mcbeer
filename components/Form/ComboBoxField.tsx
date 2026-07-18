@@ -82,9 +82,9 @@ export function ComboBoxField<T extends FieldValues>({
       name={name}
       control={control}
       render={({ field, fieldState }) => (
-        <div className="w-full max-w-d">
+        <FieldGroup>
           <Field
-            className="bg-white p-2 m-1 lg:px-3 lg:py-2 lg:my-2 rounded-md"
+            className="bg-white p-2 m-0 lg:px-3 lg:py-2 lg:my-2 rounded-md"
             orientation={orientation}
             data-invalid={fieldState.invalid}
           >
@@ -103,7 +103,7 @@ export function ComboBoxField<T extends FieldValues>({
             />
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
-        </div>
+        </FieldGroup>
       )}
     />
   );

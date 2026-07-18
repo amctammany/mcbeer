@@ -77,7 +77,6 @@ export function ComboBox({
         (o) => o.value === (typeof value === "string" ? value : value?.value),
       )
     ] ?? null;
-  console.log(value, selectedOption);
 
   return (
     <Combobox

@@ -29,7 +29,7 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
           />
         </Section>
         <Section title="Style">
-          <Prop label="Style" value={src.style?.identifier} />
+          <Prop label="Style" value={src.styleIdentifier} />
         </Section>
       </div>
     </div>

@@ -53,22 +53,21 @@ export function AmountProp({
   // return <Prop value={value} unit={unit} {...props} />;
   // console.log({ maskV, value, unit, s });
   const oConverted = adjustUnit({ value, unit, inline: true, precision });
-  const converted = convertUnit({
-    value,
-    type: maskV,
-    unit: s ?? BASE_UNITS[maskV as keyof typeof BASE_UNITS],
-    inline: true,
-    dir: true,
-  });
-  console.log(converted, oConverted, { value, unit, s, maskV });
+  // const converted = convertUnit({
+  //   value,
+  //   type: maskV,
+  //   unit: s ?? BASE_UNITS[maskV as keyof typeof BASE_UNITS],
+  //   inline: true,
+  //   dir: true,
+  // });
+  // console.log(converted, oConverted, { value, unit, s, maskV });
   // const { value, unit: _u } = val ?? {};
   //  const prefs = getPreferences();
   const u =
     unit === "percent" || unit === "number"
       ? PercentUnits[unit as keyof typeof PercentUnits]
       : unit;
-  const v =
-    oConverted !== undefined ? precisionRound(oConverted ?? 0, precision) : "";
+  const v = oConverted ?? "";
   // converted !== undefined ? precisionRound(converted ?? 0, precision) : "";
   // console.log({ name, val, unit, value, _unit, maskV, s, converted, u, v });
 

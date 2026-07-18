@@ -46,7 +46,11 @@ import { RevisionContext } from "@/contexts/RevisionContext";
 import clsx from "clsx";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { MaskContext } from "@/contexts/MaskContext";
-import { convertUnit, isUnitValue } from "@/lib/Converter/adjustUnits";
+import {
+  adjustUnit,
+  convertUnit,
+  isUnitValue,
+} from "@/lib/Converter/adjustUnits";
 import { getInMask } from "@/lib/Converter/Masks";
 import { FormStateContext } from "@/contexts/FormStateContext";
 import { get } from "@/lib/utils";
@@ -89,19 +93,24 @@ export function AmountField<T extends FieldValues>({
 }: AmountFieldProps<T>) {
   const id = `${name}-field`;
   const { register, getFieldState, formState, getValues } = useFormContext();
-  const preferenceContext = useContext(UserPreferencesContext);
-  const { mask } = useContext(MaskContext);
-  const mn = getInMask(mask, name);
-  const maskV = Array.isArray(mn) ? mn[0] : mn;
-  const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
-  // const unitN = _unit ?? (amountType ? preferenceContext?.[amountType!] : "");
-  /**
-   */
-  // console.log({ name, _unit, s, mn, maskV, val, amountType });
-  const unitName = isUnitValue(val) ? val.unit : s;
-  // : amountType === "percent"
-  // ? PercentUnits[amountType]
-  // : BASE_UNITS[amountType!];
+  // const preferenceContext = useContext(UserPreferencesContext);
+  // const { mask } = useContext(MaskContext);
+  // const mn = getInMask(mask, name);
+  // const maskV = Array.isArray(mn) ? mn[0] : mn;
+  // const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
+  // // const unitN = _unit ?? (amountType ? preferenceContext?.[amountType!] : "");
+  // /**
+  //  */
+  // // console.log({ name, _unit, s, mn, maskV, val, amountType });
+  // const unitName = isUnitValue(val) ? val.unit : s;
+  // // : amountType === "percent"
+  // // ? PercentUnits[amountType]
+  // // : BASE_UNITS[amountType!];
+  const unit =
+    (_unit ?? (typeof val !== "number" && val?.unit))
+      ? val.unit
+      : BASE_UNITS[amountType as keyof typeof BASE_UNITS];
+
   const value = typeof val === "number" ? val : val?.value;
   // console.log({ val, value, unitName });
   // console.log({ maskV, value, unit, s, unitName });
@@ -113,13 +122,11 @@ export function AmountField<T extends FieldValues>({
   //     inline: true,
   //     dir,
   //   }.);
-  const convert = convertUnit({
-    value,
-    type: maskV,
-    unit: unitName,
-    inline: false,
-    dir: true,
-  });
+  // const convert = adjustUnit({
+  //   value,
+  //   unit,
+  //   inline: true,
+  // });
   /**const options = (UnitTypeDict[amountType] ?? []).reduce((acc, unit) => {
     acc[unit] = unit;
     return acc;
@@ -130,11 +137,12 @@ export function AmountField<T extends FieldValues>({
   const { ...inputProps } = register(`${name}.value`, {
     valueAsNumber: true,
   });
-  const unit = _unit ?? unitName ?? get(state.data, `${name}.unit`);
+  // const unit = _unit ?? unitName ?? get(state.data, `${name}.unit`);
   const u =
     unit === "percent" || unit === "number"
       ? PercentUnits[unit as PercentUnit]
       : unit;
+  const _u = get(state.data, `${name}.unit`);
   const onValueChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const old = get(state.data, `${name}.value`);
     const newValue = parseFloat(e.target.value);
@@ -151,54 +159,55 @@ export function AmountField<T extends FieldValues>({
     // const converted = convert(newValue, false);
     // console.log({ name, value, newValue, converted });
   };
-  console.log({ name, value, convert });
   // const _v = state.data?.[`${name}`]; //get(state.errors ?? {}, `${name}.value`);
   const error = state.errors?.[`${name}.value`]; //get(state.errors ?? {}, `${name}.value`);
   // console.log(name, _v);
   // const fieldState = getFieldState(name);
 
   return (
-    <Field
-      className="bg-white lg:px-3 lg:py-2 m-1 lg:my-2 rounded-md"
-      orientation={orientation}
-      data-invalid={!!error}
-    >
-      <FieldContent className="grow grid w-full gap-2 ">
-        <FieldLabel htmlFor={id}>{label}</FieldLabel>
-        <FieldDescription>{description}</FieldDescription>
-      </FieldContent>
-
-      <InputGroup
-        className="gap-2 w-full grow"
-        // aria-invalid={!!fieldState.error}
+    <FieldGroup>
+      <Field
+        className="bg-white lg:px-3 lg:py-2 m-0 lg:my-2 rounded-md flex  "
+        orientation={orientation}
+        data-invalid={!!error}
       >
-        <input type="hidden" value={unit} name={`${name}.unit`} />
+        <FieldContent className="grow grid w-full gap-2 ">
+          <FieldLabel htmlFor={id}>{label}</FieldLabel>
+          <FieldDescription>{description}</FieldDescription>
+        </FieldContent>
 
-        <InputGroupInput
-          className="text-center grow"
-          id={id}
-          type="number"
-          {...inputProps}
-          // ref={field.ref}
-          // name={`${field.name}.value`}
-          // name={field.name}
-          // value={field.value}
-          step={props.step ?? 0.01}
-          // defaultValue={get(state.data, `${name}.value`)}
-          onBlur={onValueChange}
-          // onBlur={field.onBlur}
-        />
-
-        <InputGroupAddon
-          aria-invalid={!!error}
-          className="w-4"
-          align="inline-end"
+        <InputGroup
+          className="gap-2 w-full gow"
+          // aria-invalid={!!fieldState.error}
         >
-          <InputGroupText>{u}</InputGroupText>
-        </InputGroupAddon>
-      </InputGroup>
-      <FieldError>{error?.message}</FieldError>
-    </Field>
+          <input type="hidden" value={_u} name={`${name}.unit`} />
+
+          <InputGroupInput
+            className="text-center gro"
+            id={id}
+            type="number"
+            {...inputProps}
+            // ref={field.ref}
+            // name={`${field.name}.value`}
+            // name={field.name}
+            // value={field.value}
+            step={props.step ?? 0.01}
+            // defaultValue={get(state.data, `${name}.value`)}
+            onBlur={onValueChange}
+            // onBlur={field.onBlur}
+          />
+
+          <InputGroupAddon
+            aria-invalid={!!error}
+            className="w-4 mr-2"
+            align="inline-end"
+          >
+            <InputGroupText>{_u === "percent" ? "%" : _u}</InputGroupText>
+          </InputGroupAddon>
+        </InputGroup>
+        <FieldError>{error?.message}</FieldError>
+      </Field>
+    </FieldGroup>
   );
   /**
   return (

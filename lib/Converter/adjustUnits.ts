@@ -125,7 +125,7 @@ export function convertUnit({
     const val = dir ? newValue : baseValue;
     const v = precisionRound(val, precision);
     const r = inline ? v : ({ value: v, unit } as UnitValue);
-    console.log("convertUnit: number", { value, type, unit, inline, dir, r });
+    // console.log("convertUnit: number", { value, type, unit, inline, dir, r });
     return r;
   }
 
