@@ -8,6 +8,7 @@ import StyleSection from "./StyleSection";
 import IngredientsSection from "./IngredientsSection";
 import { EquipmentProfile, Style } from "@/generated/prisma/client";
 import { type Option } from "@/components/Form/ComboBox";
+import VitalsSection from "./VitalsSection";
 
 export type RecipeEditorProps = {
   src: RecipeType;
@@ -30,7 +31,7 @@ export default function RecipeEditor({
         <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
           <GeneralSection src={src} styles={styles} />
           <EquipmentSection options={equipmentProfiles} />
-          <StyleSection styles={styles} />
+          <VitalsSection src={src} />
         </div>
         <div>
           <IngredientsSection />
