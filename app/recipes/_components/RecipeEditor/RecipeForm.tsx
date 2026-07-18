@@ -57,10 +57,10 @@ export default function RecipeFormContainer({
 }
 
 export type RecipeFormProps = {
-  src?: RecipeType;
+  // src?: RecipeType;
 };
 
-export function RecipeForm({ src }: RecipeFormProps) {
+export function RecipeForm({}: RecipeFormProps) {
   const { register } = useFormContext<RecipeType>();
   // console.log(formContext);
   return (

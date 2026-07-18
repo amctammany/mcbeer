@@ -4,7 +4,7 @@ import Section from "@/components/Section";
 import { RecipeType } from "@/types/Recipe";
 import React, { Usable, use } from "react";
 
-export default function VitalsSection({ src }: { src: RecipeType }) {
+export default function VitalsSection({}: {}) {
   return (
     <Section title="Vitals">
       <Prop label="OG" value="?" variant="inline" />

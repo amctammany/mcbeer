@@ -22,7 +22,6 @@ export default function Loading() {
     <div>
       <RecipeFormContainer src={src} action={updateRecipe}>
         <TopBar breadcrumbs={[{ title: "Ingredients" }]}></TopBar>
-        <RecipeForm src={{ owner: { name: "" } } as any} />
       </RecipeFormContainer>
     </div>
   );

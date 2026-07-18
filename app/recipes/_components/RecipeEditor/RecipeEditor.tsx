@@ -30,14 +30,14 @@ export default function RecipeEditor({
     <>
       <RecipeModals src={src} />
       <RecipeFormContainer src={src} action={action}>
-        <RecipeEditorToolbar src={src} />
+        <RecipeEditorToolbar />
 
         <div>
-          <RecipeForm src={src} />
+          <RecipeForm />
           <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
-            <GeneralSection src={src} />
+            <GeneralSection />
             <EquipmentSection />
-            <VitalsSection src={src} />
+            <VitalsSection />
           </div>
           <div>
             <IngredientsSection src={src} />
