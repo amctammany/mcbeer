@@ -22,15 +22,22 @@ import {
   useForm,
   type UseFormProps,
 } from "react-hook-form";
+import { FormStateContext } from "@/contexts/FormStateContext";
+import { ModalContext } from "@/contexts/ModalContext";
 
-export default function FermentableIngredientModal({
-  recipe,
-  handleClose,
-}: {
-  recipe: RecipeType;
-  handleClose: (id?: string) => void;
-}) {
+export default function FermentableIngredientModal(
+  {
+    // recipe,
+    // handleClose,
+  }: {
+    // recipe: RecipeType;
+    // handleClose: (id?: string) => void;
+  },
+) {
   const s = useContext(IngredientContext);
+  const { data: recipe } = useContext(FormStateContext);
+  const d = useContext(ModalContext);
+  const handleClose = d.handleOpenChange;
   const fermentables = use(s.fermPromise);
   const opts = fermentables.map((h) => ({ label: h.name, value: h.id }));
   const form = useForm<FermentableIngredient>({

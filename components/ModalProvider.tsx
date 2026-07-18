@@ -1,5 +1,6 @@
 "use client";
 import { ModalContext } from "@/contexts/ModalContext";
+import { Dialog } from "@base-ui/react";
 import React, { ReactNode, use, useMemo } from "react";
 
 export default function ModalProvider({
@@ -7,11 +8,13 @@ export default function ModalProvider({
 }: {
   children: ReactNode | ReactNode[];
 }) {
+  const handle = Dialog.createHandle();
   const [open, setOpen] = React.useState(false);
   const [triggerId, setTriggerId] = React.useState<string | null>(null);
   const handleOpenChange = (isOpen: boolean, eventDetails: any) => {
+    // console.log({ isOpen, eventDetails });
     setOpen(isOpen);
-    setTriggerId(eventDetails.trigger?.id ?? null);
+    // setTriggerId(eventDetails.trigger?.id ?? null);
   };
   const handleDialogOpen = (id?: string) => () => {
     setOpen(id === undefined ? false : true);
@@ -24,6 +27,8 @@ export default function ModalProvider({
     () => ({
       triggerId,
       open,
+      handle,
+      handleOpenChange,
       handleDialogOpen,
     }),
     [open, triggerId, handleDialogOpen],

@@ -22,15 +22,22 @@ import {
   useForm,
   type UseFormProps,
 } from "react-hook-form";
+import { FormStateContext } from "@/contexts/FormStateContext";
+import { ModalContext } from "@/contexts/ModalContext";
 
-export default function HopIngredientModal({
-  recipe,
-  handleClose,
-}: {
-  recipe: RecipeType;
-  handleClose: (id?: string) => void;
-}) {
+export default function HopIngredientModal(
+  {
+    // recipe,
+    // handleClose,
+  }: {
+    // recipe: RecipeType;
+    // handleClose: (id?: string) => void;
+  },
+) {
   const s = useContext(IngredientContext);
+  const { data: recipe } = useContext(FormStateContext);
+  const d = useContext(ModalContext);
+  const handleClose = d.handleOpenChange;
   const hops = use(s.hopPromise);
   const opts = hops.map((h) => ({ label: h.name, value: h.id }));
   const form = useForm<HopIngredient>({
@@ -43,41 +50,34 @@ export default function HopIngredientModal({
     handleClose();
   };
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3 gap-1">
-      <FormProvider {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <ComboBoxField
-            onChangeCallback={(f: string) => console.log("onchangecb", f)}
-            orientation="horizontal"
-            name="hopId"
-            className="col-span-2 lg:col-span-3"
-            label="Hop Variety"
-            options={opts}
+    <FormProvider {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <ComboBoxField
+          onChangeCallback={(f: string) => console.log("onchangecb", f)}
+          orientation="horizontal"
+          name="hopId"
+          className="col-span-2 lg:col-span-3"
+          label="Hop Variety"
+          options={opts}
+        />
+        <div className="grid grid-cols-2 lg:grid-cols-3">
+          <TextField type="number" step="0.1" name="alpha" label="Alpha" />
+          <AmountField type="number" step="0.1" name="amount" label="Amount" />
+          <SelectField
+            name="usage"
+            options={$Enums.HopIngredientUsage}
+            label="Usage"
           />
-          <div className="grid grid-cols-2 lg:grid-cols-3">
-            <TextField type="number" step="0.1" name="alpha" label="Alpha" />
-            <AmountField
-              type="number"
-              step="0.1"
-              name="amount"
-              label="Amount"
-            />
-            <SelectField
-              name="usage"
-              options={$Enums.HopIngredientUsage}
-              label="Usage"
-            />
-            <AmountField
-              type="number"
-              step="0.1"
-              unit="min"
-              name="duration"
-              label="Duration"
-            />
-          </div>
-          <IconButton type="submit" icon={SaveIcon} label="Create" />
-        </form>
-      </FormProvider>
-    </div>
+          <AmountField
+            type="number"
+            step="0.1"
+            unit="min"
+            name="duration"
+            label="Duration"
+          />
+        </div>
+        <IconButton type="submit" icon={SaveIcon} label="Create" />
+      </form>
+    </FormProvider>
   );
 }

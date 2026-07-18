@@ -14,9 +14,7 @@ export default function RecipeEditorLayout({
 }>) {
   return (
     <IngredientProvider
-      stylePromise={getStyles({
-        select: { name: true, id: true, identifier: true },
-      })}
+      stylePromise={getStyles()}
       equipPromise={getEquipmentProfiles({ select: { name: true, id: true } })}
       mashPromise={getMashProfiles({ select: { name: true, id: true } })}
       hopPromise={getHops({ select: { name: true, id: true, alpha: true } })}
