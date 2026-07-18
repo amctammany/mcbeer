@@ -9,7 +9,7 @@ import { TextField } from "@/components/Form/TextField";
 import { Button } from "@/components/ui/button";
 import { CardTitle } from "@/components/ui/card";
 import { IngredientContext } from "@/contexts/IngredientContext";
-import { HopIngredient } from "@/generated/prisma/client";
+import { FermentableIngredient } from "@/generated/prisma/client";
 import { $Enums } from "@/generated/prisma/browser";
 
 import { RecipeType } from "@/types/Recipe";
@@ -23,7 +23,7 @@ import {
   type UseFormProps,
 } from "react-hook-form";
 
-export default function HopIngredientModal({
+export default function FermentableIngredientModal({
   recipe,
   handleClose,
 }: {
@@ -31,9 +31,9 @@ export default function HopIngredientModal({
   handleClose: (id?: string) => void;
 }) {
   const s = useContext(IngredientContext);
-  const hops = use(s.hopPromise);
-  const opts = hops.map((h) => ({ label: h.name, value: h.id }));
-  const form = useForm<HopIngredient>({
+  const fermentables = use(s.fermPromise);
+  const opts = fermentables.map((h) => ({ label: h.name, value: h.id }));
+  const form = useForm<FermentableIngredient>({
     defaultValues: {
       recipeId: recipe.id,
     },
@@ -49,9 +49,9 @@ export default function HopIngredientModal({
           <ComboBoxField
             onChangeCallback={(f: string) => console.log("onchangecb", f)}
             orientation="horizontal"
-            name="hopId"
+            name="fermentableId"
             className="col-span-2 lg:col-span-3"
-            label="Hop Variety"
+            label="Fermentable Variety"
             options={opts}
           />
           <div className="grid grid-cols-2 lg:grid-cols-3">
@@ -64,7 +64,7 @@ export default function HopIngredientModal({
             />
             <SelectField
               name="usage"
-              options={$Enums.HopIngredientUsage}
+              options={$Enums.FermentableIngredientUsage}
               label="Usage"
             />
             <AmountField

@@ -10,6 +10,7 @@ import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { headers } from "next/headers";
 import { auth } from "@/auth";
 import { getPreferences } from "@/app/admin/queries";
+import ModalProvider from "@/components/ModalProvider";
 
 export type RecipeEditorPageProps = {
   params: Promise<{ id: string }>;
@@ -37,11 +38,13 @@ export default async function RecipeEditorPage({
   });
   // console.log(adjusted, recipe);
   return (
-    <RecipeEditor
-      styles={styles}
-      src={adjusted}
-      action={updateRecipe}
-      equipmentProfiles={getEquipmentProfileNames()}
-    />
+    <ModalProvider>
+      <RecipeEditor
+        styles={styles}
+        src={adjusted}
+        action={updateRecipe}
+        equipmentProfiles={getEquipmentProfileNames()}
+      />
+    </ModalProvider>
   );
 }

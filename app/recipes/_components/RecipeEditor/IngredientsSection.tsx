@@ -32,8 +32,9 @@ import {
   ShoppingBagIcon,
   WheatIcon,
 } from "lucide-react";
-import React from "react";
+import React, { useContext } from "react";
 import dynamic from "next/dynamic";
+import { ModalContext } from "@/contexts/ModalContext";
 const HopIngredientModal = dynamic(
   () => import("./IngredientModals/HopIngredientModal"),
   { ssr: false },
@@ -43,11 +44,12 @@ const demoDialog = _Dialog.createHandle<{ text: string }>();
 
 function IngredientsSectionToolbar({
   src,
-  handleDialogOpen,
+  // handleDialogOpen,
 }: {
   src: RecipeType;
-  handleDialogOpen: (id: string) => () => void;
+  // handleDialogOpen: (id: string) => () => void;
 }) {
+  const { open, handleDialogOpen, triggerId } = useContext(ModalContext);
   return (
     <div className="flex items-center lg:gap-2 px-1 lg:px-4">
       <DropdownMenu>
@@ -89,19 +91,19 @@ function IngredientsSectionToolbar({
             <IconButton icon={ShoppingBagIcon} label="Add Other" />
  */
 export default function IngredientsSection({ src }: { src: RecipeType }) {
-  const [open, setOpen] = React.useState(false);
-  const [triggerId, setTriggerId] = React.useState<string | null>(null);
-  const handleOpenChange = (
-    isOpen: boolean,
-    eventDetails: _Dialog.Root.ChangeEventDetails,
-  ) => {
-    setOpen(isOpen);
-    setTriggerId(eventDetails.trigger?.id ?? null);
-  };
-  const handleDialogOpen = (id?: string) => () => {
-    setOpen(id === undefined ? false : true);
-    setTriggerId(id === undefined ? null : id);
-  };
+  // const [open, setOpen] = React.useState(true);
+  // const [triggerId, setTriggerId] = React.useState<string | null>("hop");
+  // const handleOpenChange = (
+  //   isOpen: boolean,
+  //   eventDetails: _Dialog.Root.ChangeEventDetails,
+  // ) => {
+  //   setOpen(isOpen);
+  //   setTriggerId(eventDetails.trigger?.id ?? null);
+  // };
+  // const handleDialogOpen = (id?: string) => () => {
+  //   setOpen(id === undefined ? false : true);
+  //   setTriggerId(id === undefined ? null : id);
+  // };
 
   return (
     <Section
@@ -109,37 +111,11 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
       actions={
         <IngredientsSectionToolbar
           src={src}
-          handleDialogOpen={handleDialogOpen}
+          // handleDialogOpen={handleDialogOpen}
         />
       }
     >
       <div className="min-h-40"></div>
-      <_Dialog.Root
-        handle={demoDialog}
-        open={open}
-        onOpenChange={handleOpenChange}
-        triggerId={triggerId}
-      >
-        {({ payload }) => (
-          <_Dialog.Portal>
-            <_Dialog.Backdrop className={styles.Backdrop} />
-            <_Dialog.Viewport className={styles.Viewport}>
-              <_Dialog.Popup className={styles.Popup}>
-                <_Dialog.Title className={styles.Title}>
-                  Add {triggerId}
-                </_Dialog.Title>
-
-                {triggerId === "hop" && (
-                  <HopIngredientModal
-                    recipe={src}
-                    handleClose={handleDialogOpen()}
-                  />
-                )}
-              </_Dialog.Popup>
-            </_Dialog.Viewport>
-          </_Dialog.Portal>
-        )}
-      </_Dialog.Root>
     </Section>
   );
 }
