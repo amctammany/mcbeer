@@ -24,7 +24,7 @@ export default function Dashboard({ user }: DashboardProps) {
         <div>
           <Link href="/admin/settings">Settings</Link>
         </div>
-        <div>Stuff</div>
+        <div>Recipes</div>
       </div>
     </div>
   );
