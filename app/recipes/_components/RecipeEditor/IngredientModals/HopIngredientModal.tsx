@@ -50,34 +50,41 @@ export default function HopIngredientModal(
     handleClose();
   };
   return (
-    <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <ComboBoxField
-          onChangeCallback={(f: string) => console.log("onchangecb", f)}
-          orientation="horizontal"
-          name="hopId"
-          className="col-span-2 lg:col-span-3"
-          label="Hop Variety"
-          options={opts}
-        />
-        <div className="grid grid-cols-2 lg:grid-cols-3">
-          <TextField type="number" step="0.1" name="alpha" label="Alpha" />
-          <AmountField type="number" step="0.1" name="amount" label="Amount" />
-          <SelectField
-            name="usage"
-            options={$Enums.HopIngredientUsage}
-            label="Usage"
+    <div className="relative">
+      <FormProvider {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <ComboBoxField
+            onChangeCallback={(f: string) => console.log("onchangecb", f)}
+            orientation="horizontal"
+            name="hopId"
+            className="col-span-2 lg:col-span-3"
+            label="Hop Variety"
+            options={opts}
           />
-          <AmountField
-            type="number"
-            step="0.1"
-            unit="min"
-            name="duration"
-            label="Duration"
-          />
-        </div>
-        <IconButton type="submit" icon={SaveIcon} label="Create" />
-      </form>
-    </FormProvider>
+          <div className="grid grid-cols-2 lg:grid-cols-3">
+            <TextField type="number" step="0.1" name="alpha" label="Alpha" />
+            <AmountField
+              type="number"
+              step="0.1"
+              name="amount"
+              label="Amount"
+            />
+            <SelectField
+              name="usage"
+              options={$Enums.HopIngredientUsage}
+              label="Usage"
+            />
+            <AmountField
+              type="number"
+              step="0.1"
+              unit="min"
+              name="duration"
+              label="Duration"
+            />
+          </div>
+          <IconButton type="submit" icon={SaveIcon} label="Create" />
+        </form>
+      </FormProvider>
+    </div>
   );
 }
