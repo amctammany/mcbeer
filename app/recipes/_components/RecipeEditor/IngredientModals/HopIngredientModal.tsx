@@ -24,7 +24,12 @@ export default function HopIngredientModal({ recipe }: { recipe: RecipeType }) {
     <div className="grid grid-cols-2 lg:grid-cols-3 gap-1">
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <ComboBoxField name="hopId" label="Hop Variety" options={[]} />
+          <ComboBoxField
+            orientation="horizontal"
+            name="hopId"
+            label="Hop Variety"
+            options={[]}
+          />
         </form>
       </FormProvider>
     </div>
