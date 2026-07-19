@@ -13,6 +13,7 @@ import { type Option } from "@/components/Form/ComboBox";
 import VitalsSection from "./VitalsSection";
 import { ModalContext } from "@/contexts/ModalContext";
 import RecipeModals from "./RecipeModals";
+import RecipeProvider from "@/components/RecipeProvider";
 
 export type RecipeEditorProps = {
   src: RecipeType;
@@ -27,7 +28,7 @@ export default function RecipeEditor({
   // equipmentProfiles,
 }: RecipeEditorProps) {
   return (
-    <>
+    <RecipeProvider recipe={src}>
       <RecipeModals src={src} />
       <RecipeFormContainer src={src} action={action}>
         <RecipeEditorToolbar />
@@ -44,6 +45,6 @@ export default function RecipeEditor({
           </div>
         </div>
       </RecipeFormContainer>
-    </>
+    </RecipeProvider>
   );
 }

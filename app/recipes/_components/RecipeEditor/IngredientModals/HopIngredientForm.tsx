@@ -43,10 +43,10 @@ export default function HopIngredientForm() {
   const hops = use(s.hopPromise);
   const opts = hops.map((h) => ({ label: h.name, value: h.id }));
   const onChangeCb = (r: any) => {
-    console.log(r);
+    // console.log(r);
     handleClose();
   };
-  console.log({ data });
+  // console.log({ data });
   return (
     <div className="relative">
       <input type="hidden" name="recipeId" value={data?.recipeId} />

@@ -201,7 +201,7 @@ export function adjustUnits<T extends FieldValues>({
   dir?: boolean;
   precision?: number;
 }) {
-  console.log({ src, mask, prefs, inline, dir });
+  // console.log({ src, mask, prefs, inline, dir });
   const s = Object.entries(mask).reduce(
     (acc, [k, v]) => {
       if (Array.isArray(v)) {

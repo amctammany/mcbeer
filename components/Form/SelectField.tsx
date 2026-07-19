@@ -80,6 +80,12 @@ export function SelectField<T extends FieldValues>({
     });
     cb(newValue);
   };
+  const items = Object.entries(options ?? {}).map(
+    ([label, value]: [string | number, number | string]) => ({
+      label,
+      value,
+    }),
+  );
   return (
     <Controller
       name={name}
@@ -98,8 +104,9 @@ export function SelectField<T extends FieldValues>({
             <InputGroup className="gap-4 w-full grow">
               <Select
                 name={field.name}
-                value={field.value ?? ""}
+                value={field.value ?? items[0]}
                 onValueChange={onValueChange(field.onChange)}
+                items={items}
               >
                 <SelectTrigger
                   id={id}
@@ -110,8 +117,8 @@ export function SelectField<T extends FieldValues>({
                   <SelectValue placeholder={placeholder} />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(options ?? {}).map(([key, value]) => (
-                    <SelectItem key={key} value={value as any}>
+                  {items.map(({ label, value }) => (
+                    <SelectItem key={label} value={value as any}>
                       <div className=" grow text-center">{value as any}</div>
                     </SelectItem>
                   ))}

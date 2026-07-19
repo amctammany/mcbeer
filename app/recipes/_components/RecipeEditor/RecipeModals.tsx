@@ -24,7 +24,7 @@ export default function RecipeModals({ src }: { src: RecipeType }) {
     !triggerId || typeof triggerId === "string" ? triggerId : triggerId.type;
   const id =
     !triggerId || typeof triggerId === "string" ? undefined : triggerId.id;
-  console.log({ type, id });
+  // console.log({ type, id });
   return (
     <div>
       <Dialog open={open} onOpenChange={handleOpenChange}>
