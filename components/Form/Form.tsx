@@ -47,7 +47,7 @@ export default function Form<T extends FieldValues>({
     inline: false,
     dir: false,
   });
-  // console.log({ src, mask, adjusted });
+  console.log({ src, mask, adjusted });
 
   const [_state, formAction] = useActionState<State<T>, FormData>(action, {
     success: true,

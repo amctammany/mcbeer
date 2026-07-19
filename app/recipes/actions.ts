@@ -58,7 +58,7 @@ export async function updateRecipe(prev: any, formData: FormData) {
 
 export async function addHopIngredientToRecipe(prev: any, formData: FormData) {
   const v = validateSchema(formData, hopIngredientSchema);
-  // console.log(v);
+  console.log("addHopIng", v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
@@ -71,5 +71,5 @@ export async function addHopIngredientToRecipe(prev: any, formData: FormData) {
   const r = reduceUnits(v.data) as BaseHopIngredientType;
   const { id, ...data } = r;
   console.log({ prev, r });
-  return r;
+  return;
 }

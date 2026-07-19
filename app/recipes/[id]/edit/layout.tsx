@@ -5,6 +5,7 @@ import { getEquipmentProfiles } from "@/app/(profiles)/equipment/queries";
 import { getMashProfiles } from "@/app/(profiles)/mash/queries";
 import { getStyles } from "@/app/styles/queries";
 import IngredientProvider from "@/components/IngredientProvider";
+import ModalProvider from "@/components/ModalProvider";
 import { IngredientContext } from "@/contexts/IngredientContext";
 
 export default function RecipeEditorLayout({
@@ -25,7 +26,7 @@ export default function RecipeEditorLayout({
         select: { name: true, id: true, attenuation: true },
       })}
     >
-      {children}
+      <ModalProvider>{children}</ModalProvider>
     </IngredientProvider>
   );
 }

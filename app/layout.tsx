@@ -7,8 +7,9 @@ import { Suspense } from "react";
 import { RouteChangeListener } from "@/components/RouteChangeListener";
 import UserPreferencesProviderContainer from "@/components/UserPreferencesProviderContainer";
 import { cn } from "@/lib/utils";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
-const roboto = Roboto({subsets:['latin'],variable:'--font-sans'});
+const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,18 +36,20 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SidebarProvider>
-          <Suspense>
-            <RouteChangeListener />
-          </Suspense>
-          <NavSidebar />
+        <TooltipProvider>
+          <SidebarProvider>
+            <Suspense>
+              <RouteChangeListener />
+            </Suspense>
+            <NavSidebar />
 
-          <SidebarInset className="overflow-hiddn relative">
-            <UserPreferencesProviderContainer>
-              {children}
-            </UserPreferencesProviderContainer>
-          </SidebarInset>
-        </SidebarProvider>
+            <SidebarInset className="overflow-hiddn relative">
+              <UserPreferencesProviderContainer>
+                {children}
+              </UserPreferencesProviderContainer>
+            </SidebarInset>
+          </SidebarProvider>
+        </TooltipProvider>
       </body>
     </html>
   );

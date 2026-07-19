@@ -34,15 +34,19 @@ import { HopIngredientMask } from "@/lib/Converter/Masks";
 import HopIngredientForm, {
   HopIngredientFormContainer,
 } from "./HopIngredientForm";
+import { RecipeContext } from "@/contexts/RecipeContext";
 
-export default function HopIngredientModal({
-  recipe: src,
-  // handleClose,
-}: {
-  recipe: RecipeType;
-  id?: string;
-  // handleClose: (id?: string) => void;
-}) {
+export default function HopIngredientModal(
+  {
+    // recipe: src,
+    // handleClose,
+  }: {
+    // recipe: RecipeType;
+    id?: string;
+    // handleClose: (id?: string) => void;
+  },
+) {
+  const r = useContext(RecipeContext)!;
   const s = useContext(IngredientContext);
   const f = useContext(FormStateContext);
   const d = useContext(ModalContext);
@@ -53,6 +57,7 @@ export default function HopIngredientModal({
       : d.triggerId.id;
   const hops = use(s.hopPromise);
   const opts = hops.map((h) => ({ label: h.name, value: h.id }));
+  const src = r.recipe;
   const currentIngredient = src.hopIngredients.find(
     ({ id: _id }) => id === _id,
   ) ?? { recipeId: src.id };

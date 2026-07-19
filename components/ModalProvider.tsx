@@ -33,12 +33,13 @@ export default function ModalProvider({
   const store = useMemo(
     () => ({
       triggerId,
+      setOpen,
       open,
       handle,
       handleOpenChange,
       handleDialogOpen,
     }),
-    [open, triggerId, handleDialogOpen],
+    [open, setOpen, triggerId, handleDialogOpen, handleOpenChange],
   );
   return <ModalContext value={store}>{children}</ModalContext>;
 }

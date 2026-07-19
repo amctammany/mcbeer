@@ -7,11 +7,13 @@ export type ModalContextType = {
   open: boolean;
   triggerId: string | ModalTag | null;
   handle: any;
+  setOpen: any;
   handleOpenChange: any;
   handleDialogOpen: (id?: string | ModalTag) => () => void;
 };
 export const ModalContext = createContext<ModalContextType>({
   open: false,
+  setOpen: (o: boolean) => null,
   handle: null,
   triggerId: null,
   handleOpenChange: () => null,

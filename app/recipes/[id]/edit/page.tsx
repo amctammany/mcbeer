@@ -42,13 +42,11 @@ export default async function RecipeEditorPage({
   // });
   // console.log(adjusted, recipe);
   return (
-    <ModalProvider>
-      <RecipeEditor
-        // styles={styles}
-        src={recipe}
-        action={updateRecipe}
-        // equipmentProfiles={getEquipmentProfileNames()}
-      />
-    </ModalProvider>
+    <RecipeEditor
+      // styles={styles}
+      src={recipe}
+      action={updateRecipe}
+      // equipmentProfiles={getEquipmentProfileNames()}
+    />
   );
 }

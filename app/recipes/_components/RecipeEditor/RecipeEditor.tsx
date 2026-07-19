@@ -29,7 +29,7 @@ export default function RecipeEditor({
 }: RecipeEditorProps) {
   return (
     <RecipeProvider recipe={src}>
-      <RecipeModals src={src} />
+      <RecipeModals />
       <RecipeFormContainer src={src} action={action}>
         <RecipeEditorToolbar />
 

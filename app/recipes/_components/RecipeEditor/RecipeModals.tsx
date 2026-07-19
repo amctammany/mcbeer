@@ -12,12 +12,14 @@ import {
   DialogHeader,
   DialogOverlay,
 } from "@/components/ui/dialog";
+import { RecipeContext } from "@/contexts/RecipeContext";
 const HopIngredientModal = dynamic(
   () => import("./IngredientModals/HopIngredientModal"),
   { ssr: false },
 );
 
-export default function RecipeModals({ src }: { src: RecipeType }) {
+export default function RecipeModals({}: {}) {
+  const a = useContext(RecipeContext);
   const { open, handleDialogOpen, handleOpenChange, handle, triggerId } =
     useContext(ModalContext);
   const type =
@@ -30,7 +32,7 @@ export default function RecipeModals({ src }: { src: RecipeType }) {
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogContent>
           <DialogHeader>Dialog {type}</DialogHeader>
-          {type === "hop" && <HopIngredientModal recipe={src} />}
+          {type === "hop" && <HopIngredientModal />}
           {type === "fermentable" && <FermentableIngredientModal />}
         </DialogContent>
       </Dialog>
