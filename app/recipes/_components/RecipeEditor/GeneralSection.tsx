@@ -22,7 +22,7 @@ export default function GeneralSection(
   const { stylePromise } = useContext(IngredientContext);
   const opts = use(stylePromise);
   const options = opts.map(({ id, name, identifier }) => ({
-    value: id,
+    value: identifier,
     label: `${identifier}: ${name}`,
   }));
   return (

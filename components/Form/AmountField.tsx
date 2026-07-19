@@ -140,10 +140,8 @@ export function AmountField<T extends FieldValues>({
   });
   // const unit = _unit ?? unitName ?? get(state.data, `${name}.unit`);
   const u =
-    unit === "percent" || unit === "number"
-      ? PercentUnits[unit as PercentUnit]
-      : unit;
-  const _u = get(state.data, `${name}.unit`);
+    unit === "%" || unit === "#" ? PercentUnits[unit as PercentUnit] : unit;
+  const _u = unit ?? get(state.data, `${name}.unit`);
   const onValueChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const old = get(state.data, `${name}.value`);
     const newValue = parseFloat(e.target.value);
@@ -168,7 +166,7 @@ export function AmountField<T extends FieldValues>({
   return (
     <FieldGroup>
       <Field
-        className="bg-white lg:px-3 lg:py-2 m-0 lg:my-2 rounded-md flex  "
+        className="bg-white lg:px-3 lg:py-2 m-0 lg:my-2 rounded-md grid lg:flex  "
         orientation={orientation}
         data-invalid={!!error}
       >
@@ -178,13 +176,13 @@ export function AmountField<T extends FieldValues>({
         </FieldContent>
 
         <InputGroup
-          className="gap-2 w-full gow"
+          className="gap-1 w-full grow"
           // aria-invalid={!!fieldState.error}
         >
           <input type="hidden" value={_u} name={`${name}.unit`} />
 
           <InputGroupInput
-            className="text-center gro"
+            className="text-center grow"
             id={id}
             type="number"
             {...inputProps}
@@ -200,7 +198,7 @@ export function AmountField<T extends FieldValues>({
 
           <InputGroupAddon
             aria-invalid={!!error}
-            className="w-4 mr-2"
+            className="w-4 md:w-6 mr-2"
             align="inline-end"
           >
             <InputGroupText>{_u === "percent" ? "%" : _u}</InputGroupText>

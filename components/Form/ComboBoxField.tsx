@@ -25,6 +25,7 @@ import {
 import { Input, InputProps } from "./Input";
 import { RevisionContext } from "@/contexts/RevisionContext";
 import { ComboBox } from "./ComboBox";
+import { InputGroup } from "../ui/input-group";
 
 export type ComboBoxFieldProps<T extends FieldValues> = {
   register?: UseFormRegister<T>;

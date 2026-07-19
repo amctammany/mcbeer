@@ -17,7 +17,7 @@ const HopIngredientModal = dynamic(
   { ssr: false },
 );
 
-export default function RecipeModals({ src }: { src?: RecipeType }) {
+export default function RecipeModals({ src }: { src: RecipeType }) {
   const { open, handleDialogOpen, handleOpenChange, handle, triggerId } =
     useContext(ModalContext);
   return (
@@ -25,7 +25,7 @@ export default function RecipeModals({ src }: { src?: RecipeType }) {
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogContent>
           <DialogHeader>Dialog {triggerId}</DialogHeader>
-          {triggerId === "hop" && <HopIngredientModal />}
+          {triggerId === "hop" && <HopIngredientModal recipe={src} />}
           {triggerId === "fermentable" && <FermentableIngredientModal />}
         </DialogContent>
       </Dialog>
