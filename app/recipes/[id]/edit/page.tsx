@@ -1,4 +1,4 @@
-import { notFound, unauthorized } from "next/navigation";
+import { notFound, redirect, unauthorized } from "next/navigation";
 import RecipeEditor from "../../_components/RecipeEditor/RecipeEditor";
 import { getRecipe } from "../../queries";
 import { updateRecipe } from "../../actions";
@@ -11,6 +11,7 @@ import { headers } from "next/headers";
 import { auth } from "@/auth";
 import { getPreferences } from "@/app/admin/queries";
 import ModalProvider from "@/components/ModalProvider";
+import LoginForm from "@/app/(auth)/login/LoginForm";
 
 export type RecipeEditorPageProps = {
   params: Promise<{ id: string }>;
@@ -23,7 +24,9 @@ export default async function RecipeEditorPage({
     headers: await headers(), // you need to pass the headers object.
   });
   if (!session) {
-    return unauthorized();
+    return <Login redirectUrl={`/recipes/${id}/edit`} />;
+    // redirect(`/login?redirect_url=/recipes/${id}/edit`);
+    // return unauthorized();
   }
   // const prefs = await getPreferences();
   const recipe = await getRecipe(id);

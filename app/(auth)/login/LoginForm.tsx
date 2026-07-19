@@ -20,7 +20,7 @@ const allowedCallbackSet: ReadonlySet<string> = new Set([
 ]);
 
 export const getCallbackURL = (
-  queryParams: ReadonlyURLSearchParams
+  queryParams: ReadonlyURLSearchParams,
 ): string => {
   const callbackUrl = queryParams.get("callbackUrl");
   if (callbackUrl) {
@@ -35,7 +35,6 @@ export const getCallbackURL = (
 export function LoginForm({ redirectUrl = "/admin" }: LoginFormProps) {
   const router = useRouter();
   const params = useSearchParams();
-
   // useEffect(() => {
   //   authClient.signIn.social({
   //     provider: "google",
