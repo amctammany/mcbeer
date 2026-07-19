@@ -20,16 +20,13 @@ export default async function RecipeCreatorPage() {
     userId: session.user.id,
     owner,
   } as RecipeType;
-  const styles = getStyleNames();
+  // const styles = getStyleNames();
   return (
-    <>
-      <RecipeModals src={src} />
-      <RecipeEditor
-        src={src}
-        // preferences={prefs}
-        action={createRecipe}
-      />
-    </>
+    <RecipeEditor
+      src={src}
+      // preferences={prefs}
+      action={createRecipe}
+    />
   );
 
   return <div>RecipeCreatorPage</div>;
