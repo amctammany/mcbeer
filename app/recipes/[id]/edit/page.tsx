@@ -12,6 +12,7 @@ import { auth } from "@/auth";
 import { getPreferences } from "@/app/admin/queries";
 import ModalProvider from "@/components/ModalProvider";
 import LoginForm from "@/app/(auth)/login/LoginForm";
+import Login from "@/app/(auth)/login/Login";
 
 export type RecipeEditorPageProps = {
   params: Promise<{ id: string }>;

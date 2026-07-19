@@ -4,8 +4,12 @@ import { reduceUnits } from "@/lib/Converter/adjustUnits";
 import { prisma } from "@/lib/prisma";
 import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
-import { recipeSchema } from "@/schemas/RecipeSchemas";
-import { BaseRecipe, RecipeType } from "@/types/Recipe";
+import { hopIngredientSchema, recipeSchema } from "@/schemas/RecipeSchemas";
+import {
+  BaseHopIngredientType,
+  BaseRecipeType,
+  RecipeType,
+} from "@/types/Recipe";
 import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -21,7 +25,7 @@ export async function createRecipe(prev: any, formData: FormData) {
     v.data,
   ) as BaseRecipe;
    */
-  const r = reduceUnits(v.data) as BaseRecipe;
+  const r = reduceUnits(v.data) as BaseRecipeType;
   const { id, ...data } = r;
   const res = await prisma.recipe.create({
     data,
@@ -42,7 +46,7 @@ export async function updateRecipe(prev: any, formData: FormData) {
     v.data,
   ) as BaseRecipe;
    */
-  const r = reduceUnits(v.data) as BaseRecipe;
+  const r = reduceUnits(v.data) as BaseRecipeType;
   const { id, ...data } = r;
   const res = await prisma.recipe.update({
     where: { id },
@@ -50,4 +54,22 @@ export async function updateRecipe(prev: any, formData: FormData) {
   });
   updateTag("recipes");
   return redirect(`/recipes/${res.id}`);
+}
+
+export async function addHopIngredientToRecipe(prev: any, formData: FormData) {
+  const v = validateSchema(formData, hopIngredientSchema);
+  // console.log(v);
+  if (v.errors) return v;
+  if (!v.success) {
+    return Promise.resolve(v);
+  }
+  /** 
+  const { id, userId, mashProfileId, equipmentProfileId,styleId, ...r } = (
+    v.data,
+  ) as BaseRecipe;
+   */
+  const r = reduceUnits(v.data) as BaseHopIngredientType;
+  const { id, ...data } = r;
+  console.log({ prev, r });
+  return r;
 }

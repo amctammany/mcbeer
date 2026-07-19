@@ -39,6 +39,7 @@ export default function Form<T extends FieldValues>({
 }: FormProps<T>) {
   const { mask } = useContext(MaskContext);
   const preferenceContext = useContext(UserPreferencesContext);
+  // console.log({ src, mask, preferenceContext });
   const adjusted = adjustUnits({
     src,
     mask,

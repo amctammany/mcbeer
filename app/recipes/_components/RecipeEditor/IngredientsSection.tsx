@@ -57,7 +57,10 @@ function IngredientsSectionToolbar({
           render={<IconButton icon={PlusIcon} label="Add" />}
         ></DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem onClick={handleDialogOpen("hop")} id="hop">
+          <DropdownMenuItem
+            onClick={handleDialogOpen({ type: "hop", id: undefined })}
+            id="hop"
+          >
             <HopIcon />
             Add Hop
           </DropdownMenuItem>

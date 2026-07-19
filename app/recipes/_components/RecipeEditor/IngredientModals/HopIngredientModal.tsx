@@ -12,7 +12,11 @@ import { IngredientContext } from "@/contexts/IngredientContext";
 import { HopIngredient } from "@/generated/prisma/client";
 import { $Enums } from "@/generated/prisma/browser";
 
-import { RecipeType } from "@/types/Recipe";
+import {
+  AdjustedHopIngredientType,
+  BaseHopIngredientType,
+  RecipeType,
+} from "@/types/Recipe";
 import { SaveIcon } from "lucide-react";
 import React, { use, useContext } from "react";
 import {
@@ -24,61 +28,61 @@ import {
 } from "react-hook-form";
 import { FormStateContext } from "@/contexts/FormStateContext";
 import { ModalContext } from "@/contexts/ModalContext";
+import { addHopIngredientToRecipe } from "@/app/recipes/actions";
+import { MaskContext } from "@/contexts/MaskContext";
+import { HopIngredientMask } from "@/lib/Converter/Masks";
+import HopIngredientForm, {
+  HopIngredientFormContainer,
+} from "./HopIngredientForm";
 
 export default function HopIngredientModal({
   recipe: src,
   // handleClose,
 }: {
   recipe: RecipeType;
+  id?: string;
   // handleClose: (id?: string) => void;
 }) {
   const s = useContext(IngredientContext);
-  // const { data: recipe } = useContext(FormStateContext);
+  const f = useContext(FormStateContext);
   const d = useContext(ModalContext);
   const handleClose = d.handleOpenChange;
+  const id =
+    !d.triggerId || typeof d.triggerId === "string"
+      ? d.triggerId
+      : d.triggerId.id;
   const hops = use(s.hopPromise);
   const opts = hops.map((h) => ({ label: h.name, value: h.id }));
-  console.log(src);
-  const form = useForm<HopIngredient>({
-    defaultValues: {
-      recipeId: src.id,
-    },
-  });
+  const currentIngredient = src.hopIngredients.find(
+    ({ id: _id }) => id === _id,
+  ) ?? { recipeId: src.id };
+  console.log({ src, currentIngredient, f });
+  // const form = useForm<AdjustedHopIngredientType>({
+  //   defaultValues: currentIngredient as any,
+  // });
+  // const hopIngredient: Partial<BaseHopIngredientType> = {
+  // recipeId: src.id,
+  // };
   const onSubmit = (data: any) => {
     console.log(data);
     handleClose();
   };
+  const onChangeCb = (selectedId: { label: string; value: string }) => {
+    console.log(selectedId);
+    const selected = hops.find(({ id }) => id === selectedId.value);
+    console.log(selected);
+    if (!selected) return;
+    // form.setValue("alpha.value", selected.alpha ?? 5);
+  };
   return (
-    <div className="relative">
-      <FormProvider {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <ComboBoxField
-            onChangeCallback={(f: string) => console.log("onchangecb", f)}
-            orientation="horizontal"
-            name="hopId"
-            // className="col-span-2 lg:col-span-3"
-            label="Hop Variety"
-            options={opts}
-          />
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-1">
-            <AmountField step="0.1" name="alpha" label="Alpha" unit="%" />
-            <AmountField step="0.1" name="amount" label="Amount" />
-            <SelectField
-              name="usage"
-              options={$Enums.HopIngredientUsage}
-              label="Usage"
-            />
-            <AmountField
-              // type="number"
-              step="0.1"
-              unit="min"
-              name="duration"
-              label="Duration"
-            />
-          </div>
-          <IconButton type="submit" icon={SaveIcon} label="Create" />
-        </form>
-      </FormProvider>
-    </div>
+    <MaskContext
+      value={{
+        mask: HopIngredientMask,
+      }}
+    >
+      <HopIngredientFormContainer src={currentIngredient}>
+        <HopIngredientForm />
+      </HopIngredientFormContainer>
+    </MaskContext>
   );
 }

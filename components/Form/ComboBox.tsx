@@ -87,7 +87,10 @@ export function ComboBox({
       itemToStringLabel={itemToStringLabel}
       itemToStringValue={itemToStringValue}
     >
-      <ComboboxInput placeholder={placeholder ?? "Select an option"} />
+      <ComboboxInput
+        className="grow"
+        placeholder={placeholder ?? "Select an option"}
+      />
       <ComboboxContent className="w-full grow">
         <ComboboxEmpty>No items found.</ComboboxEmpty>
         <ComboboxList>

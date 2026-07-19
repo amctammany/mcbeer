@@ -1,9 +1,9 @@
-import { BaseRecipe, RecipeType } from "@/types/Recipe";
+import { BaseRecipeType, RecipeType } from "@/types/Recipe";
 import Link from "next/link";
 import React from "react";
 
 export type RecipeListItemProps = {
-  recipe: BaseRecipe;
+  recipe: BaseRecipeType;
 };
 export default function RecipeListItem({ recipe }: RecipeListItemProps) {
   return (

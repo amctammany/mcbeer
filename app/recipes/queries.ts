@@ -14,6 +14,15 @@ export const getRecipe = async (id: string) => {
   const recipe = await prisma.recipe.findFirst({
     where: { id },
     include: {
+      hopIngredients: {
+        select: {
+          recipeId: true,
+          id: true,
+          alpha: true,
+          amount: true,
+          amountType: true,
+        },
+      },
       EquipmentProfile: true,
       style: true,
       owner: true,

@@ -4,7 +4,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Plus } from "lucide-react";
 import React from "react";
 // import RecipeEditor from "../../_components/RecipeEditor/RecipeEditor";
-import { BaseRecipe, RecipeType } from "@/types/Recipe";
+import { BaseRecipeType, RecipeType } from "@/types/Recipe";
 import { updateRecipe } from "../../actions";
 import RecipeFormContainer, {
   RecipeForm,
@@ -17,12 +17,13 @@ export default function Loading() {
     userId: "",
     owner: {},
     style: {},
+    hopIngredients: [],
   } as RecipeType;
   return (
     <div>
-      <RecipeFormContainer src={src} action={updateRecipe}>
-        <TopBar breadcrumbs={[{ title: "Ingredients" }]}></TopBar>
-      </RecipeFormContainer>
+      <TopBar breadcrumbs={[{ title: "Ingredients" }]}></TopBar>
     </div>
   );
 }
+// <RecipeFormContainer src={src} action={updateRecipe}>
+// </RecipeFormContainer>

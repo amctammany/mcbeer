@@ -88,7 +88,7 @@ export function ComboBoxField<T extends FieldValues>({
       render={({ field, fieldState }) => (
         <FieldGroup>
           <Field
-            className="bg-white p-2 m-0 lg:px-3 lg:py-2 lg:my-2 rounded-md"
+            className="bg-white p-2 m-0 lg:px-3 lg:py-2 lg:my-2 rounded-md flex"
             orientation={orientation}
             data-invalid={fieldState.invalid}
           >
