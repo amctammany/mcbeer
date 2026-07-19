@@ -2,7 +2,6 @@ import { LinkButton } from "@/components/Button/LinkButton";
 import { TopBar } from "@/components/TopBar/TopBar";
 import React, { Suspense } from "react";
 import LoginForm from "./LoginForm";
-import { redirect } from "next/navigation";
 
 export default function Login({
   redirectUrl = "/admin",
