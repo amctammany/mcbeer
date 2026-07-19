@@ -41,5 +41,18 @@ export default function ModalProvider({
     }),
     [open, setOpen, triggerId, handleDialogOpen, handleOpenChange],
   );
-  return <ModalContext value={store}>{children}</ModalContext>;
+  return (
+    <ModalContext
+      value={{
+        triggerId,
+        setOpen,
+        open,
+        handle,
+        handleOpenChange,
+        handleDialogOpen,
+      }}
+    >
+      {children}
+    </ModalContext>
+  );
 }
