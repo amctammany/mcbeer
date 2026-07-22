@@ -17,7 +17,10 @@ export default async function RecipeCreatorPage() {
     name: session.user.name || "",
   };
   const src = {
+    name: "New Recipe",
+    style: {},
     userId: session.user.id,
+    hopIngredients: [],
     owner,
   } as AdjustedRecipeType;
   // const styles = getStyleNames();

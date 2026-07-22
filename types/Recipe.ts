@@ -26,7 +26,7 @@ export type AdjustedHopIngredientType = AmountFields<
 
 export interface RecipeType extends BaseRecipeType {
   owner: Partial<BaseUser>;
-  style: Partial<Style> | null;
+  style?: Partial<Style> | null;
   origin?: BaseRecipeType;
   forks?: BaseRecipeType[];
   hopIngredients: BaseHopIngredientType[];
