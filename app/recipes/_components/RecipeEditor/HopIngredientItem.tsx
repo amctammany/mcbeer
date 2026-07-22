@@ -1,4 +1,9 @@
 import IconButton from "@/components/Button/IconButton";
+import ListItem from "@/components/Form/List/ListItem";
+import ListItemContent from "@/components/Form/List/ListItemContent";
+import ListItemIcon from "@/components/Form/List/ListItemIcon";
+import ListItemMenu from "@/components/Form/List/ListItemMenu";
+import ListItemTitle from "@/components/Form/List/ListItemTitle";
 import { AmountProp } from "@/components/Prop/AmountProp";
 import BadgeProp from "@/components/Prop/BadgeProp";
 import Prop from "@/components/Prop/Prop";
@@ -35,17 +40,7 @@ function UnitValueProp({
     </div>
   );
 }
-function ListItem({
-  children,
-}: {
-  children: React.ReactNode | React.ReactNode[];
-}) {
-  return (
-    <div className="group/item w-full inline-flex items-center ">
-      {children}
-    </div>
-  );
-}
+
 export default function HopIngredientItem({ src }: HopIngredientItemProps) {
   const ctx = React.useContext(IngredientContext);
   const hops = React.use(ctx.hopPromise);
@@ -53,45 +48,47 @@ export default function HopIngredientItem({ src }: HopIngredientItemProps) {
   console.log(src);
   return (
     <ListItem>
-      <div className="inline-flex gap-2 grow">
-        <div className="">
-          <HopIcon />
-        </div>
+      <ListItemIcon>
+        <HopIcon />
+      </ListItemIcon>
 
-        <BadgeProp
-          Icon={<ScaleIcon size={12} />}
-          name="alpha"
-          text={src.alpha?.value}
-          unit="%"
-        />
+      <ListItemContent className="flex-row">
+        <ListItemTitle>
+          <BadgeProp
+            Icon={<ScaleIcon size={12} />}
+            name="alpha"
+            text={src.alpha?.value}
+            unit="%"
+          />
 
-        <div className="grow">
           <b>{hop?.name}</b>
-        </div>
-      </div>
-      <div className="shrink min-w-64 grid grid-cols-3  justify-items-end items-center justify-end  ">
-        <BadgeProp
-          Icon={<ScaleIcon size={12} />}
-          name="amount"
-          text={src.amount.value}
-          unit={src.amount.unit}
-        />
+        </ListItemTitle>
+        <div className="grow min-w-64  grid justify-items-end ">
+          <div className="w-fit grid grid-cols-3">
+            <BadgeProp
+              Icon={<ScaleIcon size={12} />}
+              name="amount"
+              text={src.amount.value}
+              unit={src.amount.unit}
+            />
 
-        <BadgeProp
-          Icon={<TimerIcon size={12} />}
-          name="duration"
-          text={src.duration.value}
-          unit={src.duration.unit}
-        />
-        <BadgeProp
-          Icon={<BeakerIcon size={12} />}
-          name="usage"
-          text={src.usage}
-        />
-      </div>
-      <div className="shrink grid justify-items-end pr-2">
+            <BadgeProp
+              Icon={<TimerIcon size={12} />}
+              name="duration"
+              text={src.duration.value}
+              unit={src.duration.unit}
+            />
+            <BadgeProp
+              Icon={<BeakerIcon size={12} />}
+              name="usage"
+              text={src.usage}
+            />
+          </div>
+        </div>
+      </ListItemContent>
+      <ListItemMenu>
         <IconButton icon={MenuIcon} label="Menu" />
-      </div>
+      </ListItemMenu>
     </ListItem>
   );
 }
