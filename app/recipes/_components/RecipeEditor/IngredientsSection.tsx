@@ -133,22 +133,20 @@ export default function IngredientsSection({
       }
     >
       <List className="min-h-40 flex flex-col gap-2 w-full">
-        {(state.recipe?.hopIngredients || []).map((i: any, index: any) => (
+        {(state.hopIngredients || []).map((i: any, index: any) => (
           <HopIngredientItem
             key={index}
             src={i}
             onClick={handleClick({ type: "hop", id: i.id })}
           />
         ))}
-        {(state.recipe?.fermentableIngredients || []).map(
-          (i: any, index: any) => (
-            <FermentableIngredientItem
-              key={index}
-              src={i}
-              onClick={handleClick({ type: "fermentable", id: i.id })}
-            />
-          ),
-        )}
+        {(state.fermentableIngredients || []).map((i: any, index: any) => (
+          <FermentableIngredientItem
+            key={index}
+            src={i}
+            onClick={handleClick({ type: "fermentable", id: i.id })}
+          />
+        ))}
       </List>
     </Section>
   );

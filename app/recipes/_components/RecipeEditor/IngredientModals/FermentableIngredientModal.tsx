@@ -28,6 +28,7 @@ import { ModalContext } from "@/contexts/ModalContext";
 import { useStateMachine } from "little-state-machine";
 import {
   addFermentableIngredient,
+  updateFermentableIngredient,
   updateRecipe,
   updateRevision,
 } from "@/app/recipes/stateActions";
@@ -48,7 +49,12 @@ export default function FermentableIngredientModal({
   // handleClose: (id?: string) => void;
 }) {
   const { state, actions } = useStateMachine({
-    actions: { addFermentableIngredient, updateRecipe, updateRevision },
+    actions: {
+      addFermentableIngredient,
+      updateFermentableIngredient,
+      updateRecipe,
+      updateRevision,
+    },
   });
 
   const s = useContext(IngredientContext);
@@ -75,6 +81,7 @@ export default function FermentableIngredientModal({
     console.log(data, state, currentIndex, revisionContext);
     if (currentIndex > -1) {
       const old = get(state, `fermentableIngredients.${currentIndex}`);
+      actions.updateFermentableIngredient(data);
       actions.updateRevision({
         type: "SET",
         payload: {
@@ -84,6 +91,7 @@ export default function FermentableIngredientModal({
         },
       });
     } else {
+      actions.addFermentableIngredient(data);
       actions.updateRevision({
         type: "ADD",
         payload: {
