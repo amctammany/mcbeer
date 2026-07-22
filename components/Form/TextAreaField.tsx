@@ -90,11 +90,11 @@ export function TextAreaField<T extends FieldValues>({
   return (
     <FieldGroup>
       <Field
-        className="bg-white p-2 lg:px-3 lg:py-2 lg:my-2 rounded-md"
+        className="bg-white rounded-md"
         orientation={orientation}
         data-invalid={!!fieldState.error}
       >
-        <FieldContent className="grid w-full gap-2 ">
+        <FieldContent className="grid w-full  ">
           <FieldLabel htmlFor={id}>{label}</FieldLabel>
 
           <FieldDescription>{description}</FieldDescription>

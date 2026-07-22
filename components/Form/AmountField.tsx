@@ -166,7 +166,7 @@ export function AmountField<T extends FieldValues>({
   return (
     <FieldGroup>
       <Field
-        className="bg-white lg:px-3 lg:py-2 m-0 lg:my-2 rounded-md grid lg:flex  "
+        className="bg-white rounded-md grid lg:flex  "
         orientation={orientation}
         data-invalid={!!error}
       >

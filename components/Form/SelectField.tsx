@@ -93,7 +93,7 @@ export function SelectField<T extends FieldValues>({
       render={({ field, fieldState }) => (
         <div className="w-full max-w-d">
           <Field
-            className="bg-white lg:px-3 lg:py-2 m-0 lg:my-2 rounded-md gap-4"
+            className="bg-white rounded-md gap-2"
             orientation={orientation}
             data-invalid={fieldState.invalid}
           >
