@@ -40,7 +40,7 @@ export default function GeneralSection(
         disabled
         name="owner.name"
         label="Author"
-        value={src.owner.name}
+        value={src.owner?.name}
       />
       <TextAreaField name="description" label="Description" />
     </Section>

@@ -24,67 +24,61 @@ import {
 } from "react-hook-form";
 import { FormStateContext } from "@/contexts/FormStateContext";
 import { ModalContext } from "@/contexts/ModalContext";
+import { useStateMachine } from "little-state-machine";
+import {
+  addFermentableIngredient,
+  updateRecipe,
+} from "@/app/recipes/stateActions";
+import FermentableIngredientForm, {
+  FermentableIngredientFormContainer,
+} from "./FermentableIngredientForm";
+import { MaskContext } from "@/contexts/MaskContext";
+import { FermentableIngredientMask } from "@/lib/Converter/Masks";
 
-export default function FermentableIngredientModal(
-  {
-    // recipe,
-    // handleClose,
-  }: {
-    // recipe: RecipeType;
-    // handleClose: (id?: string) => void;
-  },
-) {
+export default function FermentableIngredientModal({
+  id,
+  // recipe,
+  // handleClose,
+}: {
+  id?: string;
+  // recipe: RecipeType;
+  // handleClose: (id?: string) => void;
+}) {
+  const { state, actions } = useStateMachine({
+    actions: { addFermentableIngredient, updateRecipe },
+  });
+
   const s = useContext(IngredientContext);
   const { data: recipe } = useContext(FormStateContext);
   const d = useContext(ModalContext);
   const handleClose = d.handleOpenChange;
-  const fermentables = use(s.fermPromise);
+  const fermentables = use(s.fermentablePromise);
   const opts = fermentables.map((h) => ({ label: h.name, value: h.id }));
-  const form = useForm<FermentableIngredient>({
-    defaultValues: {
-      recipeId: recipe.id,
-    },
-  });
+  const tid =
+    !d.triggerId || typeof d.triggerId === "string"
+      ? d.triggerId
+      : d.triggerId.id;
+  const src = state.recipe!;
+  const currentIngredient =
+    state.fermentableIngredients.find(({ id: _id }) => tid === _id) ??
+    ({
+      recipeId: src.id,
+      usage: $Enums.FermentableIngredientUsage.Mash,
+    } as any);
+
   const onSubmit = (data: any) => {
     console.log(data);
     handleClose();
   };
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3 gap-1">
-      <FormProvider {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <ComboBoxField
-            onChangeCallback={(f: string) => console.log("onchangecb", f)}
-            orientation="horizontal"
-            name="fermentableId"
-            className="col-span-2 lg:col-span-3"
-            label="Fermentable Variety"
-            options={opts}
-          />
-          <div className="grid grid-cols-2 lg:grid-cols-3">
-            <TextField type="number" step="0.1" name="alpha" label="Alpha" />
-            <AmountField
-              type="number"
-              step="0.1"
-              name="amount"
-              label="Amount"
-            />
-            <SelectField
-              name="usage"
-              options={$Enums.FermentableIngredientUsage}
-              label="Usage"
-            />
-            <AmountField
-              type="number"
-              step="0.1"
-              unit="min"
-              name="duration"
-              label="Duration"
-            />
-          </div>
-          <IconButton type="submit" icon={SaveIcon} label="Create" />
-        </form>
-      </FormProvider>
-    </div>
+    <MaskContext
+      value={{
+        mask: FermentableIngredientMask,
+      }}
+    >
+      <FermentableIngredientFormContainer src={currentIngredient}>
+        <FermentableIngredientForm src={currentIngredient} />
+      </FermentableIngredientFormContainer>
+    </MaskContext>
   );
 }

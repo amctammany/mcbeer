@@ -464,7 +464,7 @@ model FermentableIngredient {
   recipeId      String
   usage         FermentableIngredientUsage @default(Mash)
   amount        Float
-  amountType    MassUnit
+  amountType    MassUnit                   @default(Lb)
   fermentableId String
   color         Float?
   potential     Float?

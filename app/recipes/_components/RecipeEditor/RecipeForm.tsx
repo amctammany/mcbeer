@@ -11,7 +11,11 @@ import StyleSection from "./StyleSection";
 import IngredientsSection from "./IngredientsSection";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
-import { HopIngredientMask, RecipeMask } from "@/lib/Converter/Masks";
+import {
+  FermentableIngredientMask,
+  HopIngredientMask,
+  RecipeMask,
+} from "@/lib/Converter/Masks";
 import { GlobalState, useStateMachine } from "little-state-machine";
 import { object } from "zod";
 import { setRecipe } from "../../stateActions";
@@ -65,6 +69,14 @@ export default function RecipeFormContainer({
       inline: false,
       dir: true,
     });
+    const fermentableIngredients = adjustUnits({
+      src: src.fermentableIngredients,
+      mask: FermentableIngredientMask,
+      prefs,
+      inline: false,
+      dir: true,
+    });
+
     const hopIngredients = adjustUnits({
       src: src.hopIngredients,
       mask: HopIngredientMask,
@@ -72,11 +84,17 @@ export default function RecipeFormContainer({
       inline: false,
       dir: true,
     });
-    actions.setRecipe({ ...adjusted, hopIngredients });
+    console.log({ adjusted, hopIngredients, fermentableIngredients });
+    actions.setRecipe({ ...adjusted, hopIngredients, fermentableIngredients });
   }, [src]);
   const decorator = (src: FormData) => {
     const his = objectToFormData(state.hopIngredients, src, "hopIngredients");
-    console.log(Object.fromEntries(his.entries()));
+    const fis = objectToFormData(
+      state.fermentableIngredients,
+      src,
+      "fermentableIngredients",
+    );
+    // console.log(Object.fromEntries(his.entries()));
     return his;
   };
 

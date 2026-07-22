@@ -9,7 +9,7 @@ export type IngredientStoreType = {
   stylePromise: Promise<Style[]>;
   equipPromise: Promise<EquipmentProfileType[]>;
   mashPromise: Promise<MashProfileType[]>;
-  fermPromise: Promise<FermentableType[]>;
+  fermentablePromise: Promise<FermentableType[]>;
   yeastPromise: Promise<YeastType[]>;
 };
 export type IngredientContextType = {
@@ -20,6 +20,6 @@ export const IngredientContext = createContext<IngredientStoreType>({
   mashPromise: Promise.resolve([] as MashProfileType[]),
   stylePromise: Promise.resolve([] as Style[]),
   equipPromise: Promise.resolve([] as EquipmentProfileType[]),
-  fermPromise: Promise.resolve([] as FermentableType[]),
+  fermentablePromise: Promise.resolve([] as FermentableType[]),
   yeastPromise: Promise.resolve([] as YeastType[]),
 });

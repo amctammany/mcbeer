@@ -138,6 +138,7 @@ export default function IngredientsSection({
             onClick={handleClick({ type: "hop", id: i.id })}
           />
         ))}
+        {JSON.stringify(state.fermentableIngredients)}
       </div>
     </Section>
   );

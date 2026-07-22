@@ -12,7 +12,7 @@ export default function IngredientProvider({
   stylePromise,
   mashPromise,
   hopPromise,
-  fermPromise,
+  fermentablePromise,
   yeastPromise,
 }: {
   hopPromise: Promise<HopType[]>;
@@ -20,7 +20,7 @@ export default function IngredientProvider({
 
   equipPromise: Promise<EquipmentProfileType[]>;
   mashPromise: Promise<MashProfileType[]>;
-  fermPromise: Promise<FermentableType[]>;
+  fermentablePromise: Promise<FermentableType[]>;
   yeastPromise: Promise<YeastType[]>;
   children: ReactNode | ReactNode[];
 }) {
@@ -33,7 +33,7 @@ export default function IngredientProvider({
       stylePromise,
       mashPromise,
       hopPromise,
-      fermPromise,
+      fermentablePromise,
       yeastPromise,
     }),
     [
@@ -41,7 +41,7 @@ export default function IngredientProvider({
       stylePromise,
       mashPromise,
       hopPromise,
-      fermPromise,
+      fermentablePromise,
       yeastPromise,
     ],
   );

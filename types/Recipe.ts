@@ -1,4 +1,9 @@
-import { HopIngredient, Recipe, Style } from "@/generated/prisma/client";
+import {
+  HopIngredient,
+  Recipe,
+  Style,
+  FermentableIngredient,
+} from "@/generated/prisma/client";
 import { BaseUser } from "./User";
 import { AmountFields, OptionalNullable } from "@/lib/utils";
 
@@ -9,6 +14,20 @@ export interface BaseRecipeType extends Omit<
   id?: string;
   userId: string;
 }
+
+export interface BaseFermentableIngredientType extends Omit<
+  OptionalNullable<FermentableIngredient>,
+  "id" | "recipeId"
+> {
+  id?: string;
+  recipeId?: string;
+}
+
+type FermentableIngredientAmountFieldNames = "amount";
+export type AdjustedFermentableIngredientType = AmountFields<
+  BaseFermentableIngredientType,
+  FermentableIngredientAmountFieldNames
+>;
 
 export interface BaseHopIngredientType extends Omit<
   OptionalNullable<HopIngredient>,
@@ -30,6 +49,7 @@ export interface RecipeType extends BaseRecipeType {
   origin?: BaseRecipeType;
   forks?: BaseRecipeType[];
   hopIngredients: BaseHopIngredientType[];
+  fermentableIngredients: BaseFermentableIngredientType[];
 }
 type RecipeAmountFieldNames =
   | "boilTime"
@@ -44,4 +64,7 @@ type RecipeAmountFieldNames =
 export type AdjustedRecipeType = AmountFields<
   RecipeType,
   RecipeAmountFieldNames
->;
+> & {
+  fermentableIngredients: AdjustedFermentableIngredientType[];
+  hopIngredients: AdjustedHopIngredientType[];
+};

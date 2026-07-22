@@ -34,14 +34,13 @@ export default function RecipeModals({}: {}) {
     !triggerId || typeof triggerId === "string" ? triggerId : triggerId.type;
   const id =
     !triggerId || typeof triggerId === "string" ? undefined : triggerId.id;
-  console.log({ type, id });
   return (
     <div>
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogContent>
           <DialogHeader>Dialog {type}</DialogHeader>
-          {type === "hop" && <HopIngredientModal />}
-          {type === "fermentable" && <FermentableIngredientModal />}
+          {type === "hop" && <HopIngredientModal id={id} />}
+          {type === "fermentable" && <FermentableIngredientModal id={id} />}
         </DialogContent>
       </Dialog>
     </div>

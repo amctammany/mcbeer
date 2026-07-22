@@ -26,10 +26,22 @@ export async function createRecipe(prev: any, formData: FormData) {
   ) as BaseRecipe;
    */
   const r = reduceUnits(v.data) as RecipeType;
-  const { id, hopIngredients, owner, origin, forks, style, ...data } = r;
+  const {
+    id,
+    hopIngredients,
+    fermentableIngredients,
+    owner,
+    origin,
+    forks,
+    style,
+    ...data
+  } = r;
 
   const res = await prisma.recipe.create({
     data: {
+      fermentableIngredients: {
+        create: fermentableIngredients,
+      },
       hopIngredients: {
         create: hopIngredients,
       },
@@ -53,8 +65,35 @@ export async function updateRecipe(prev: any, formData: FormData) {
   ) as BaseRecipe;
    */
   const r = reduceUnits(v.data) as RecipeType;
-  const { id, hopIngredients, owner, origin, forks, style, ...data } = r;
-  const tx = await prisma.$transaction([
+  const {
+    id,
+    hopIngredients,
+    fermentableIngredients,
+    owner,
+    origin,
+    forks,
+    style,
+    ...data
+  } = r;
+  const ftx = await prisma.$transaction([
+    ...fermentableIngredients.map(({ id: _id, ...d }) => {
+      return _id
+        ? prisma.fermentableIngredient.update({
+            where: {
+              recipeId_id: {
+                recipeId: id!,
+                id: _id,
+              },
+            },
+            data: d,
+          })
+        : prisma.fermentableIngredient.create({
+            data: { recipeId: id!, ...d },
+          });
+    }),
+  ]);
+
+  const htx = await prisma.$transaction([
     ...hopIngredients.map(({ id: _id, ...d }) => {
       return _id
         ? prisma.hopIngredient.update({
@@ -77,8 +116,16 @@ export async function updateRecipe(prev: any, formData: FormData) {
   const res = await prisma.recipe.update({
     where: { id },
     data: {
+      fermentableIngredients: {
+        connect: ftx.map(({ recipeId, id: _id }) => ({
+          recipeId_id: {
+            recipeId,
+            id: _id,
+          },
+        })),
+      },
       hopIngredients: {
-        connect: tx.map(({ recipeId, id: _id }) => ({
+        connect: htx.map(({ recipeId, id: _id }) => ({
           recipeId_id: {
             recipeId,
             id: _id,

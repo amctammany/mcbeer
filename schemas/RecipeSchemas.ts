@@ -1,7 +1,20 @@
 import z from "zod";
 import { zfd } from "zod-form-data";
 import { unitValueSchema } from "./ProfileSchemas";
-import { HopIngredientUsage } from "@/generated/prisma/enums";
+import {
+  FermentableIngredientUsage,
+  HopIngredientUsage,
+} from "@/generated/prisma/enums";
+export const fermentableIngredientSchema = zfd.formData({
+  id: zfd.text(z.string().optional()),
+  recipeId: zfd.text(z.string()),
+  fermentableId: zfd.text(z.string()),
+  color: unitValueSchema(z.number()),
+  amount: unitValueSchema(z.number()),
+  potential: zfd.numeric(z.number().optional()),
+  usage: z.enum(FermentableIngredientUsage),
+});
+
 export const hopIngredientSchema = zfd.formData({
   id: zfd.text(z.string().optional()),
   recipeId: zfd.text(z.string()),
@@ -39,4 +52,5 @@ export const recipeSchema = zfd.formData({
   sulfate: zfd.numeric(z.number().optional()),
   bicarbonate: zfd.numeric(z.number().optional()),
   hopIngredients: zfd.repeatableOfType(hopIngredientSchema),
+  fermentableIngredients: zfd.repeatableOfType(fermentableIngredientSchema),
 });

@@ -1,5 +1,6 @@
 import { deepSet } from "@/lib/utils";
 import {
+  AdjustedFermentableIngredientType,
   AdjustedHopIngredientType,
   AdjustedRecipeType,
   //   BaseHopIngredientType,
@@ -9,8 +10,16 @@ import {
 import { GlobalState } from "little-state-machine";
 
 export function setRecipe(state: GlobalState, data: AdjustedRecipeType) {
-  const { owner, style, hopIngredients, origin, forks, ...recipe } = data;
-  return { ...state, recipe, hopIngredients };
+  const {
+    owner,
+    style,
+    hopIngredients,
+    fermentableIngredients,
+    origin,
+    forks,
+    ...recipe
+  } = data;
+  return { ...state, recipe, hopIngredients, fermentableIngredients };
 }
 export function updateRecipe(
   state: any,
@@ -20,6 +29,36 @@ export function updateRecipe(
     ...state,
     recipe: deepSet(state.recipe, payload.name, payload.value),
   };
+}
+
+export function addFermentableIngredient(
+  state: any,
+  data: AdjustedFermentableIngredientType,
+) {
+  const fermentableIngredients = [
+    ...(state.fermentableIngredients ?? []),
+    data,
+  ];
+  return { ...state, fermentableIngredients };
+}
+export function updateFermentableIngredient(
+  state: GlobalState,
+  data: AdjustedFermentableIngredientType,
+) {
+  const fermentableIngredients = state.fermentableIngredients.map(
+    (h: AdjustedFermentableIngredientType) => (h.id === data.id ? data : h),
+  );
+  return { ...state, fermentableIngredients };
+}
+
+export function removeFermentableIngredient(
+  state: any,
+  data: AdjustedFermentableIngredientType,
+) {
+  const fermentableIngredients = (
+    (state.fermentableIngredients ?? []) as AdjustedFermentableIngredientType[]
+  ).filter(({ id }) => id !== data.id);
+  return { ...state, fermentableIngredients };
 }
 
 export function addHopIngredient(state: any, data: AdjustedHopIngredientType) {
