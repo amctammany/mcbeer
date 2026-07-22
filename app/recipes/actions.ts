@@ -25,10 +25,16 @@ export async function createRecipe(prev: any, formData: FormData) {
     v.data,
   ) as BaseRecipe;
    */
-  const r = reduceUnits(v.data) as BaseRecipeType;
-  const { id, ...data } = r;
+  const r = reduceUnits(v.data) as RecipeType;
+  const { id, hopIngredients, owner, origin, forks, style, ...data } = r;
+
   const res = await prisma.recipe.create({
-    data,
+    data: {
+      hopIngredients: {
+        create: hopIngredients,
+      },
+      ...data,
+    },
   });
   updateTag("recipes");
   return redirect(`/recipes/${res.id}`);
@@ -46,11 +52,41 @@ export async function updateRecipe(prev: any, formData: FormData) {
     v.data,
   ) as BaseRecipe;
    */
-  const r = reduceUnits(v.data) as BaseRecipeType;
-  const { id, ...data } = r;
+  const r = reduceUnits(v.data) as RecipeType;
+  const { id, hopIngredients, owner, origin, forks, style, ...data } = r;
+  const tx = await prisma.$transaction([
+    ...hopIngredients.map(({ id: _id, ...d }) => {
+      return _id
+        ? prisma.hopIngredient.update({
+            where: {
+              recipeId_id: {
+                recipeId: id!,
+                id: _id,
+              },
+            },
+            data: d,
+          })
+        : prisma.hopIngredient.create({ data: { recipeId: id!, ...d } });
+    }),
+  ]);
+  // const hopIngs = await prisma.hopIngredient.upsert({
+  // create: hopIngredients
+  // .filter(({ id }) => id === undefined)
+  // .map((h) => ({ recipeId: id!, ...h })),
+  // });
   const res = await prisma.recipe.update({
     where: { id },
-    data,
+    data: {
+      hopIngredients: {
+        connect: tx.map(({ recipeId, id: _id }) => ({
+          recipeId_id: {
+            recipeId,
+            id: _id,
+          },
+        })),
+      },
+      ...data,
+    },
   });
   updateTag("recipes");
   return redirect(`/recipes/${res.id}`);

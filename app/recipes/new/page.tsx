@@ -28,6 +28,4 @@ export default async function RecipeCreatorPage() {
       action={createRecipe}
     />
   );
-
-  return <div>RecipeCreatorPage</div>;
 }

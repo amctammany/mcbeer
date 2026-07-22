@@ -7,7 +7,7 @@ import {
 } from "@/types/Recipe";
 import { GlobalState } from "little-state-machine";
 
-export function setRecipe(state: GlobalState, data: Partial<RecipeType>) {
+export function setRecipe(state: GlobalState, data: RecipeType) {
   console.log("setRecipe", { state, data });
   const { owner, style, hopIngredients, origin, forks, ...recipe } = data;
   return { ...state, recipe, hopIngredients };

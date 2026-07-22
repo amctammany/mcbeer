@@ -25,6 +25,7 @@ export default function GeneralSection(
     value: identifier,
     label: `${identifier}: ${name}`,
   }));
+
   return (
     <Section title="General">
       <TextField name="name" label="Name" />

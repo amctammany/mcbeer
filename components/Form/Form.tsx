@@ -24,6 +24,7 @@ import {
 export type FormProps<T extends FieldValues> = {
   action: any;
   src: T;
+  decorator?: (data: FormData) => FormData;
   // mask?: any;
   // preferences: UserPreferencesType;
   formProps?: UseFormProps;
@@ -34,6 +35,7 @@ export default function Form<T extends FieldValues>({
   action,
   src,
   // mask = {},
+  decorator,
   formProps,
   children,
 }: FormProps<T>) {
@@ -70,6 +72,8 @@ export default function Form<T extends FieldValues>({
 
     // ...formProps,
   });
+  const newFormAction = (payload: FormData) =>
+    decorator ? formAction(decorator(payload)) : formAction(payload);
   const revision = useRevisionHistory<ExtendedUser>(
     form.getValues() as any,
     form.setValue as any,
@@ -93,7 +97,7 @@ export default function Form<T extends FieldValues>({
       {/* <UserPreferencesContext value={preferences}> */}
       <FormStateContext value={_state}>
         <RevisionContext value={revision}>
-          <form action={formAction}>{children}</form>
+          <form action={newFormAction}>{children}</form>
         </RevisionContext>
       </FormStateContext>
       {/* </UserPreferencesContext> */}

@@ -16,11 +16,15 @@ export const getRecipe = async (id: string) => {
     include: {
       hopIngredients: {
         select: {
-          recipeId: true,
-          id: true,
+          hop: { select: { name: true, alpha: true } },
+          type: true,
+          hopId: true,
           alpha: true,
-          amount: true,
+          usage: true,
           amountType: true,
+          amount: true,
+          durationType: true,
+          duration: true,
         },
       },
       EquipmentProfile: true,

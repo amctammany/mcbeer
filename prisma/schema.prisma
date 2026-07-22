@@ -446,11 +446,11 @@ model HopIngredient {
   recipeId     String
   amount       Float
   usage        HopIngredientUsage
-  amountType   MassUnit
+  amountType   MassUnit           @default(g)
   temperature  Float?
   type         HopIngredientType  @default(Pellet)
   duration     Float
-  durationType TimeUnit
+  durationType TimeUnit           @default(min)
   hopId        String
   alpha        Float?
   hop          Hop                @relation(fields: [hopId], references: [id])

@@ -38,6 +38,7 @@ export function HopIngredientFormContainer({
     actions: { addHopIngredient, updateHopIngredient },
   });
 
+  console.log({ src, mask: HopIngredientMask, state, preferenceContext });
   const adjusted = adjustUnits({
     src,
     mask: HopIngredientMask,

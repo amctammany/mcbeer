@@ -226,7 +226,7 @@ export function adjustUnits<T extends FieldValues>({
               precision,
             });
       } else if (typeof v === "object") {
-        // console.log(k, v, src[k]);
+        console.log(k, v, src[k]);
         acc[k] = src[k as keyof typeof src].map((val: any) =>
           adjustUnits({
             src: val,

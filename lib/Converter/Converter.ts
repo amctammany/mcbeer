@@ -13,6 +13,7 @@ const massConverter: Record<MassUnit, ConversionType> = {
   g: 1,
   Kg: 1 / 1000,
   Lb: [(t: number) => (t * 2.2) / 1000, (t: number) => (1000 * t) / 2.2],
+  LbOz: 1,
   Oz: 0.035274,
 };
 const volumeConverter: Record<UserVolumePreference, ConversionType> = {

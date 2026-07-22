@@ -7,7 +7,7 @@ export interface BaseRecipeType extends Omit<
   "id" | "userId" | "fermentableIngredients" | "hopIngredients"
 > {
   id?: string;
-  userId?: string;
+  userId: string;
 }
 
 export interface BaseHopIngredientType extends Omit<
@@ -29,7 +29,7 @@ export interface RecipeType extends BaseRecipeType {
   style: Partial<Style> | null;
   origin?: BaseRecipeType;
   forks?: BaseRecipeType[];
-  hopIngredients: Partial<BaseHopIngredientType>[];
+  hopIngredients: BaseHopIngredientType[];
 }
 type RecipeAmountFieldNames =
   | "boilTime"

@@ -52,6 +52,11 @@ export const FermentationProfileMask: UnitMaskType<
   "steps.rampTime": ["time", "days"],
 };
 
+export const HopIngredientMask: UnitMaskType<Partial<BaseHopIngredientType>> = {
+  amount: "mass",
+  duration: "time",
+  alpha: "percent",
+};
 export const RecipeMask: UnitMaskType<Partial<RecipeType>> = {
   boilTime: "time",
   batchVolume: "volume",
@@ -62,11 +67,7 @@ export const RecipeMask: UnitMaskType<Partial<RecipeType>> = {
   trubLoss: "volume",
   mashLoss: "volume",
   fermenterLoss: "volume",
-};
-export const HopIngredientMask: UnitMaskType<Partial<BaseHopIngredientType>> = {
-  amount: "mass",
-  duration: "time",
-  alpha: "percent",
+  hopIngredients: HopIngredientMask,
 };
 export const FermentableMask: UnitMaskType<Partial<FermentableType>> = {
   maxUsage: "percent",
