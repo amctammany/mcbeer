@@ -1,5 +1,6 @@
 import {
   AdjustedFermentableIngredientType,
+  AdjustedRecipeType,
   BaseHopIngredientType,
   BaseRecipeType,
 } from "@/types/Recipe";

@@ -42,12 +42,12 @@ export function FermentableIngredientFormContainer({
     actions: { addFermentableIngredient, updateFermentableIngredient },
   });
 
-  console.log({
-    src,
-    mask: FermentableIngredientMask,
-    state,
-    preferenceContext,
-  });
+  // console.log({
+  //   src,
+  //   mask: FermentableIngredientMask,
+  //   state,
+  //   preferenceContext,
+  // });
   const adjusted = adjustUnits({
     src,
     mask: FermentableIngredientMask,
@@ -61,7 +61,7 @@ export function FermentableIngredientFormContainer({
 
   const saveFermentableIngredient = (_data: any) => {
     const data = f.getValues();
-    console.log(state, onSubmit, data);
+    // console.log(state, onSubmit, data);
     const action = data.id
       ? actions.updateFermentableIngredient
       : actions.addFermentableIngredient;

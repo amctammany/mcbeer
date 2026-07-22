@@ -75,19 +75,19 @@ export default function FermentableIngredientModal({
     console.log(data, state, currentIndex, revisionContext);
     if (currentIndex > -1) {
       const old = get(state, `fermentableIngredients.${currentIndex}`);
-      state.revisionCtx?.update({
+      actions.updateRevision({
         type: "SET",
         payload: {
-          name: `hopIngredients.${currentIndex}`,
+          name: `fermentableIngredients.${currentIndex}`,
           prev: old,
           value: data,
         },
       });
     } else {
-      state.revisionCtx?.update({
+      actions.updateRevision({
         type: "ADD",
         payload: {
-          name: "hopIngredients",
+          name: "fermentableIngredients",
           value: data,
         },
       });

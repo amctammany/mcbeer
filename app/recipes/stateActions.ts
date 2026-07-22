@@ -20,7 +20,12 @@ export function setRecipe(state: GlobalState, data: AdjustedRecipeType) {
     forks,
     ...recipe
   } = data;
-  return { ...state, recipe, hopIngredients, fermentableIngredients };
+  return {
+    ...state,
+    recipe: { ...recipe, hopIngredients, fermentableIngredients },
+    hopIngredients,
+    fermentableIngredients,
+  };
 }
 export function updateRecipe(
   state: any,
@@ -92,6 +97,8 @@ export function registerRevisionCtx(
   return { ...state, revisionCtx };
 }
 export function updateRevision(state: GlobalState, data: any) {
-  console.log(state, data);
+  if (!state.revisionCtx) return state;
+  const res = state.revisionCtx?.update(data);
+  console.log({ state, res, data });
   return state;
 }
