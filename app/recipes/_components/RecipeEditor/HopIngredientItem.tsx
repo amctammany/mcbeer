@@ -1,3 +1,4 @@
+import IconButton from "@/components/Button/IconButton";
 import { AmountProp } from "@/components/Prop/AmountProp";
 import BadgeProp from "@/components/Prop/BadgeProp";
 import Prop from "@/components/Prop/Prop";
@@ -5,7 +6,14 @@ import { IngredientContext } from "@/contexts/IngredientContext";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
 import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
 import { AdjustedHopIngredientType } from "@/types/Recipe";
-import { BeakerIcon, HopIcon, Icon, ScaleIcon, TimerIcon } from "lucide-react";
+import {
+  BeakerIcon,
+  HopIcon,
+  Icon,
+  MenuIcon,
+  ScaleIcon,
+  TimerIcon,
+} from "lucide-react";
 import React from "react";
 
 export type HopIngredientItemProps = {
@@ -33,7 +41,7 @@ function ListItem({
   children: React.ReactNode | React.ReactNode[];
 }) {
   return (
-    <div className="group/item w-full grid grid-cols-3 items-center ">
+    <div className="group/item w-full inline-flex items-center ">
       {children}
     </div>
   );
@@ -45,13 +53,11 @@ export default function HopIngredientItem({ src }: HopIngredientItemProps) {
   console.log(src);
   return (
     <ListItem>
-      <div className="">
-        <HopIcon />
-      </div>
-      <div className="">
-        <b>{hop?.name}</b>
-      </div>
-      <div className="shrink min-w-64 grid grid-cols-4  justify-items-center items-center justify-between  ">
+      <div className="inline-flex gap-2 grow">
+        <div className="">
+          <HopIcon />
+        </div>
+
         <BadgeProp
           Icon={<ScaleIcon size={12} />}
           name="alpha"
@@ -59,6 +65,11 @@ export default function HopIngredientItem({ src }: HopIngredientItemProps) {
           unit="%"
         />
 
+        <div className="grow">
+          <b>{hop?.name}</b>
+        </div>
+      </div>
+      <div className="shrink min-w-64 grid grid-cols-3  justify-items-end items-center justify-end  ">
         <BadgeProp
           Icon={<ScaleIcon size={12} />}
           name="amount"
@@ -77,6 +88,9 @@ export default function HopIngredientItem({ src }: HopIngredientItemProps) {
           name="usage"
           text={src.usage}
         />
+      </div>
+      <div className="shrink grid justify-items-end pr-2">
+        <IconButton icon={MenuIcon} label="Menu" />
       </div>
     </ListItem>
   );
