@@ -35,6 +35,8 @@ import {
 import React, { useContext } from "react";
 import dynamic from "next/dynamic";
 import { ModalContext } from "@/contexts/ModalContext";
+import { useStateMachine } from "little-state-machine";
+import HopIngredientItem from "./HopIngredientItem";
 const HopIngredientModal = dynamic(
   () => import("./IngredientModals/HopIngredientModal"),
   { ssr: false },
@@ -107,6 +109,7 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
   //   setOpen(id === undefined ? false : true);
   //   setTriggerId(id === undefined ? null : id);
   // };
+  const { state } = useStateMachine();
 
   return (
     <Section
@@ -118,7 +121,11 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
         />
       }
     >
-      <div className="min-h-40"></div>
+      <div className="min-h-40">
+        {(state.hopIngredients || []).map((i: any, index) => (
+          <HopIngredientItem key={index} src={i} />
+        ))}
+      </div>
     </Section>
   );
 }

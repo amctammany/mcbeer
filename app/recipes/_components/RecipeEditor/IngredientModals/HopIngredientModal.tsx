@@ -28,13 +28,14 @@ import {
 } from "react-hook-form";
 import { FormStateContext } from "@/contexts/FormStateContext";
 import { ModalContext } from "@/contexts/ModalContext";
-import { addHopIngredientToRecipe } from "@/app/recipes/actions";
 import { MaskContext } from "@/contexts/MaskContext";
 import { HopIngredientMask } from "@/lib/Converter/Masks";
 import HopIngredientForm, {
   HopIngredientFormContainer,
 } from "./HopIngredientForm";
 import { RecipeContext } from "@/contexts/RecipeContext";
+import { useStateMachine } from "little-state-machine";
+import { addHopIngredient, updateRecipe } from "@/app/recipes/stateActions";
 
 export default function HopIngredientModal(
   {
@@ -46,6 +47,10 @@ export default function HopIngredientModal(
     // handleClose: (id?: string) => void;
   },
 ) {
+  const { state, actions } = useStateMachine({
+    actions: { addHopIngredient, updateRecipe },
+  });
+
   const r = useContext(RecipeContext)!;
   const s = useContext(IngredientContext);
   const f = useContext(FormStateContext);
@@ -57,10 +62,10 @@ export default function HopIngredientModal(
       : d.triggerId.id;
   const hops = use(s.hopPromise);
   const opts = hops.map((h) => ({ label: h.name, value: h.id }));
-  const src = r.recipe;
-  const currentIngredient = src.hopIngredients.find(
+  const src = state.recipe!;
+  const currentIngredient = state.hopIngredients.find(
     ({ id: _id }) => id === _id,
-  ) ?? { recipeId: src.id };
+  ) ?? { recipeId: src.id, usage: $Enums.HopIngredientUsage.Boil };
   console.log({ src, currentIngredient, f });
   // const form = useForm<AdjustedHopIngredientType>({
   //   defaultValues: currentIngredient as any,
@@ -86,7 +91,7 @@ export default function HopIngredientModal(
       }}
     >
       <HopIngredientFormContainer src={currentIngredient}>
-        <HopIngredientForm />
+        <HopIngredientForm src={currentIngredient} />
       </HopIngredientFormContainer>
     </MaskContext>
   );

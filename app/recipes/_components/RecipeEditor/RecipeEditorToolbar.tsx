@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { FormStateContext } from "@/contexts/FormStateContext";
 import { RevisionContext } from "@/contexts/RevisionContext";
 import { AdjustedRecipeType, RecipeType } from "@/types/Recipe";
+import { useStateMachine } from "little-state-machine";
 import { Redo, Save, Undo, X } from "lucide-react";
 import React, { useContext } from "react";
 export type RecipeEditorToolbarProps = {
@@ -17,6 +18,10 @@ export default function RecipeEditorToolbar({}: RecipeEditorToolbarProps) {
   const { data } = useContext(FormStateContext);
   const src = data;
 
+  const { state } = useStateMachine();
+  const handleSave = (d: any) => {
+    console.log({ state, d });
+  };
   return (
     <TopBar
       breadcrumbs={[
@@ -57,6 +62,9 @@ export default function RecipeEditorToolbar({}: RecipeEditorToolbarProps) {
         Redo
       </IconButton>
       <BackButton />
+      <IconButton icon={Save} onClick={handleSave}>
+        New Save
+      </IconButton>
       <IconButton icon={Save} type="submit">
         Save
       </IconButton>

@@ -1,5 +1,4 @@
 import { RecipeType } from "@/types/Recipe";
-import React, { useContext } from "react";
 import styles from "./IngredientSection.module.css";
 import RecipeFormContainer, { RecipeForm } from "./RecipeForm";
 import RecipeEditorToolbar from "./RecipeEditorToolbar";
@@ -14,6 +13,8 @@ import VitalsSection from "./VitalsSection";
 import { ModalContext } from "@/contexts/ModalContext";
 import RecipeModals from "./RecipeModals";
 import RecipeProvider from "@/components/RecipeProvider";
+import { setRecipe } from "../../stateActions";
+import { useStateMachine } from "little-state-machine";
 
 export type RecipeEditorProps = {
   src: RecipeType;

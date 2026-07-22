@@ -1,4 +1,5 @@
 "use client";
+import { setRecipe } from "@/app/recipes/stateActions";
 // import { addHopIngredientToRecipe } from "@/app/recipes/actions";
 import { RecipeContext } from "@/contexts/RecipeContext";
 import {
@@ -14,7 +15,15 @@ import {
   BaseRecipeType,
   RecipeType,
 } from "@/types/Recipe";
-import React, { ReactNode, use, useCallback, useMemo, useState } from "react";
+import { useStateMachine } from "little-state-machine";
+import React, {
+  ReactNode,
+  use,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 export default function RecipeProvider({
   recipe,
@@ -43,8 +52,13 @@ export default function RecipeProvider({
   function addFermentableIngredientToRecipe(data: AdjustedHopIngredientType) {
     return;
   }
+  const { state, actions } = useStateMachine({ actions: { setRecipe } });
+  useEffect(() => {
+    actions.setRecipe(recipe);
+  }, [recipe]);
   const ctx = useMemo(
     () => ({
+      state,
       recipe,
       current,
       hopIngredients,

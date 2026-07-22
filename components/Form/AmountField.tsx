@@ -179,7 +179,7 @@ export function AmountField<T extends FieldValues>({
           className="gap-1 w-full grow"
           // aria-invalid={!!fieldState.error}
         >
-          <input type="hidden" value={_u} name={`${name}.unit`} />
+          <input type="hidden" value={_u} {...register(`${name}.unit`)} />
 
           <InputGroupInput
             className="text-center grow"

@@ -1,8 +1,8 @@
 "use client";
 import Form from "@/components/Form/Form";
 import { TextField } from "@/components/Form/TextField";
-import { RecipeType } from "@/types/Recipe";
-import React, { useContext } from "react";
+import { BaseRecipeType, RecipeType } from "@/types/Recipe";
+import React, { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import GeneralSection from "./GeneralSection";
 import EquipmentSection from "./EquipmentSection";
@@ -12,6 +12,10 @@ import IngredientsSection from "./IngredientsSection";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { RecipeMask } from "@/lib/Converter/Masks";
+import { GlobalState, useStateMachine } from "little-state-machine";
+function setRecipe(state: GlobalState, recipe: BaseRecipeType) {
+  return { ...state, recipe };
+}
 
 export type RecipeFormContainerProps<S = unknown> = {
   src: RecipeType;
@@ -25,6 +29,7 @@ export default function RecipeFormContainer({
   children,
 }: RecipeFormContainerProps) {
   // const prefs = useContext(UserPreferencesContext);
+
   // const adjusted = adjustUnits({
   //   src,
   //   mask: RecipeMask,
@@ -61,7 +66,12 @@ export type RecipeFormProps = {
 };
 
 export function RecipeForm({}: RecipeFormProps) {
-  const { register } = useFormContext<RecipeType>();
+  const { register, getValues } = useFormContext<RecipeType>();
+  const { state, actions } = useStateMachine({ actions: { setRecipe } });
+  useEffect(() => {
+    // console.log(getValues());
+    // actions.setRecipe(getValues());
+  }, []);
   // console.log(formContext);
   return (
     <div>

@@ -7,7 +7,7 @@ export interface BaseRecipeType extends Omit<
   "id" | "userId" | "fermentableIngredients" | "hopIngredients"
 > {
   id?: string;
-  userId: string;
+  userId?: string;
 }
 
 export interface BaseHopIngredientType extends Omit<

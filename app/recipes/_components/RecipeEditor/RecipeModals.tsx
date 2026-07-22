@@ -15,13 +15,21 @@ import {
 import { RecipeContext } from "@/contexts/RecipeContext";
 const HopIngredientModal = dynamic(
   () => import("./IngredientModals/HopIngredientModal"),
-  { ssr: false },
 );
 
 export default function RecipeModals({}: {}) {
   const a = useContext(RecipeContext);
-  const { open, handleDialogOpen, handleOpenChange, handle, triggerId } =
-    useContext(ModalContext);
+  const context = useContext(ModalContext);
+  if (!Object.keys(context).length) {
+    throw new Error("useAlert must be used within a AlertProvider");
+  }
+  const {
+    open = false,
+    handleDialogOpen,
+    handleOpenChange,
+    handle,
+    triggerId,
+  } = context;
   const type =
     !triggerId || typeof triggerId === "string" ? triggerId : triggerId.type;
   const id =

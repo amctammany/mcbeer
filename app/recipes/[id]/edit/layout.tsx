@@ -7,7 +7,21 @@ import { getStyles } from "@/app/styles/queries";
 import IngredientProvider from "@/components/IngredientProvider";
 import ModalProvider from "@/components/ModalProvider";
 import { IngredientContext } from "@/contexts/IngredientContext";
-
+import { createStore } from "little-state-machine";
+function log(store: any) {
+  console.log(store);
+  return store;
+}
+createStore(
+  {
+    recipe: null,
+    hopIngredients: [],
+    idCounter: 0,
+  },
+  {
+    middleWares: [log],
+  },
+);
 export default function RecipeEditorLayout({
   children,
 }: Readonly<{
