@@ -11,10 +11,10 @@ import Prop from "@/components/Prop/Prop";
 import { IngredientContext } from "@/contexts/IngredientContext";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
 import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
-import { AdjustedHopIngredientType } from "@/types/Recipe";
+import { AdjustedFermentableIngredientType } from "@/types/Recipe";
 import {
   BeakerIcon,
-  HopIcon,
+  WheatIcon,
   Icon,
   MenuIcon,
   ScaleIcon,
@@ -22,34 +22,50 @@ import {
 } from "lucide-react";
 import React from "react";
 
-export type HopIngredientItemProps = {
-  src: AdjustedHopIngredientType;
+export type FermentableIngredientItemProps = {
+  src: AdjustedFermentableIngredientType;
   onClick?: React.MouseEventHandler;
 };
+function UnitValueProp({
+  src,
+  unit,
+}: {
+  src?: UnitValue | number;
+  unit?: UnitNames;
+}) {
+  return typeof src === "number" ? (
+    <UnitValueProp src={{ value: src, unit: unit! }} />
+  ) : (
+    <div>
+      <b>{src?.value}</b>
+      <span>{src?.unit}</span>
+    </div>
+  );
+}
 
-export default function HopIngredientItem({
+export default function FermentableIngredientItem({
   src,
   onClick,
-}: HopIngredientItemProps) {
+}: FermentableIngredientItemProps) {
   const ctx = React.useContext(IngredientContext);
-  const hops = React.use(ctx.hopPromise);
-  const hop = hops.find((h) => h.id === src.hopId);
+  const fermentables = React.use(ctx.fermentablePromise);
+  const fermentable = fermentables.find((h) => h.id === src.fermentableId);
   return (
     <ListItem onClick={onClick}>
       <ListItemIcon>
-        <HopIcon />
+        <WheatIcon />
       </ListItemIcon>
 
       <ListItemContent className="">
         <ListItemTitle>
           <BadgeProp
             Icon={<ScaleIcon size={12} />}
-            name="alpha"
-            text={src.alpha?.value}
+            name="amount"
+            text={src.amount?.value}
             unit="%"
           />
 
-          <b>{hop?.name}</b>
+          <b>{fermentable?.name}</b>
         </ListItemTitle>
         <ListItemDescription className="grow">
           <div className="grow min-w-52  grid justify-items-end ">
@@ -63,9 +79,9 @@ export default function HopIngredientItem({
 
               <BadgeProp
                 Icon={<TimerIcon size={12} />}
-                name="duration"
-                text={src.duration.value}
-                unit={src.duration.unit}
+                name="potential"
+                text={src.potential}
+                unit={"D"}
               />
               <BadgeProp
                 Icon={<BeakerIcon size={12} />}

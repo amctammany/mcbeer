@@ -18,6 +18,7 @@ import React, { use, useContext } from "react";
 import {
   FieldValues,
   FormProvider,
+  get,
   SubmitHandler,
   useForm,
   type UseFormProps,
@@ -34,6 +35,7 @@ import FermentableIngredientForm, {
 } from "./FermentableIngredientForm";
 import { MaskContext } from "@/contexts/MaskContext";
 import { FermentableIngredientMask } from "@/lib/Converter/Masks";
+import { RevisionContext } from "@/contexts/RevisionContext";
 
 export default function FermentableIngredientModal({
   id,
@@ -50,6 +52,7 @@ export default function FermentableIngredientModal({
 
   const s = useContext(IngredientContext);
   const { data: recipe } = useContext(FormStateContext);
+  const revisionContext = useContext(RevisionContext);
   const d = useContext(ModalContext);
   const handleClose = d.handleOpenChange;
   const fermentables = use(s.fermentablePromise);
@@ -59,15 +62,35 @@ export default function FermentableIngredientModal({
       ? d.triggerId
       : d.triggerId.id;
   const src = state.recipe!;
-  const currentIngredient =
-    state.fermentableIngredients.find(({ id: _id }) => tid === _id) ??
-    ({
-      recipeId: src.id,
-      usage: $Enums.FermentableIngredientUsage.Mash,
-    } as any);
+  const currentIndex = state.fermentableIngredients.findIndex(
+    ({ id: _id }) => tid === _id,
+  );
+  const currentIngredient = (state.fermentableIngredients[currentIndex] ?? {
+    recipeId: src.id,
+    usage: $Enums.FermentableIngredientUsage.Mash,
+  }) as any;
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    console.log(data, currentIndex, revisionContext);
+    if (currentIndex > -1) {
+      const old = get(state, `fermentableIngredients.${currentIndex}`);
+      revisionContext?.update({
+        type: "SET",
+        payload: {
+          name: `hopIngredients.${currentIndex}`,
+          prev: old,
+          value: data,
+        },
+      });
+    } else {
+      revisionContext?.update({
+        type: "ADD",
+        payload: {
+          name: "hopIngredients",
+          value: data,
+        },
+      });
+    }
     handleClose();
   };
   return (
@@ -76,7 +99,10 @@ export default function FermentableIngredientModal({
         mask: FermentableIngredientMask,
       }}
     >
-      <FermentableIngredientFormContainer src={currentIngredient}>
+      <FermentableIngredientFormContainer
+        onSubmit={onSubmit}
+        src={currentIngredient}
+      >
         <FermentableIngredientForm src={currentIngredient} />
       </FermentableIngredientFormContainer>
     </MaskContext>

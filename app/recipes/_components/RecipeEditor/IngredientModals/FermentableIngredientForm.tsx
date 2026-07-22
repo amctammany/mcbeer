@@ -27,9 +27,11 @@ import { SaveIcon } from "lucide-react";
 import React, { use, useContext } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 export function FermentableIngredientFormContainer({
+  onSubmit,
   src,
   children,
 }: {
+  onSubmit?: (data: Partial<BaseFermentableIngredientType>) => void;
   src: Partial<BaseFermentableIngredientType>;
   children: React.ReactNode;
 }) {
@@ -58,12 +60,14 @@ export function FermentableIngredientFormContainer({
   });
 
   const saveFermentableIngredient = (_data: any) => {
-    // console.log(state);
     const data = f.getValues();
+    console.log(state, onSubmit, data);
     const action = data.id
       ? actions.updateFermentableIngredient
       : actions.addFermentableIngredient;
-    console.log(data);
+
+    // console.log(data);
+    onSubmit?.(data);
     action(data as any);
     d.handleOpenChange();
     f.reset();
