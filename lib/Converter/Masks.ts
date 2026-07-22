@@ -55,7 +55,7 @@ export const FermentationProfileMask: UnitMaskType<
 export const HopIngredientMask: UnitMaskType<Partial<BaseHopIngredientType>> = {
   amount: "mass",
   duration: "time",
-  alpha: "percent",
+  alpha: ["percent", "percent"],
 };
 export const RecipeMask: UnitMaskType<Partial<RecipeType>> = {
   boilTime: "time",

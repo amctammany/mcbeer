@@ -1,4 +1,4 @@
-import { RecipeType } from "@/types/Recipe";
+import { AdjustedRecipeType, RecipeType } from "@/types/Recipe";
 import styles from "./IngredientSection.module.css";
 import RecipeFormContainer, { RecipeForm } from "./RecipeForm";
 import RecipeEditorToolbar from "./RecipeEditorToolbar";
@@ -17,7 +17,7 @@ import { setRecipe } from "../../stateActions";
 import { useStateMachine } from "little-state-machine";
 
 export type RecipeEditorProps = {
-  src: RecipeType;
+  src: AdjustedRecipeType;
   action: any;
   // styles: Promise<Option[]>;
   // equipmentProfiles: Promise<EquipmentProfile[]>;

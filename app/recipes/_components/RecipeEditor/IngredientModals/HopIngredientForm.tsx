@@ -51,14 +51,15 @@ export function HopIngredientFormContainer({
   });
 
   const saveHopIngredient = (_data: any) => {
-    console.log(state);
+    // console.log(state);
     const data = f.getValues();
     const action = data.id
       ? actions.updateHopIngredient
       : actions.addHopIngredient;
-    console.log(data);
+    // console.log(data);
     action(data as any);
     d.handleOpenChange();
+    f.reset();
   };
 
   return (
@@ -84,24 +85,27 @@ export default function HopIngredientForm({
 }) {
   const s = useContext(IngredientContext);
   const { data } = useContext(FormStateContext);
-  // const { getValues } = useFormContext();
+  const { setValue } = useFormContext();
   // const handleClose = d.handleOpenChange;
   const hops = use(s.hopPromise);
   const opts = hops.map((h) => ({ label: h.name, value: h.id }));
   const onChangeCb = (r: any) => {
-    console.log(r);
+    const h = hops.find(({ id }) => id === r);
+    if (h) {
+      console.log(h);
+      setValue("alpha.value", h?.alpha ?? 1 * 100);
+    }
     // handleClose();
   };
 
-  // console.log({ data });
   return (
     <div className="relative">
+      <input type="hidden" name="id" value={data?.id} />
       <input type="hidden" name="recipeId" value={data?.recipeId} />
       <ComboBoxField
         onChangeCallback={onChangeCb}
         orientation="responsive"
         name="hopId"
-        // className="col-span-2 lg:col-span-3"
         label="Hop Variety"
         options={opts}
       />

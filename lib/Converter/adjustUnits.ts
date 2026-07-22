@@ -125,7 +125,6 @@ export function convertUnit({
     const val = dir ? newValue : baseValue;
     const v = precisionRound(val, precision);
     const r = inline ? v : ({ value: v, unit } as UnitValue);
-    // console.log("convertUnit: number", { value, type, unit, inline, dir, r });
     return r;
   }
   return value;
@@ -226,7 +225,7 @@ export function adjustUnits<T extends FieldValues>({
               precision,
             });
       } else if (typeof v === "object") {
-        console.log(k, v, src[k]);
+        // console.log(k, v, src[k]);
         acc[k] = src[k as keyof typeof src].map((val: any) =>
           adjustUnits({
             src: val,

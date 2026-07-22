@@ -23,7 +23,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { RecipeType } from "@/types/Recipe";
+import { AdjustedRecipeType, RecipeType } from "@/types/Recipe";
 import { Dialog as _Dialog } from "@base-ui/react/dialog";
 import {
   HeartPulseIcon,
@@ -48,7 +48,7 @@ function IngredientsSectionToolbar({
   src,
   // handleDialogOpen,
 }: {
-  src: RecipeType;
+  src: AdjustedRecipeType;
   // handleDialogOpen: (id: string) => () => void;
 }) {
   const { open, handleDialogOpen, triggerId } = useContext(ModalContext);
@@ -95,7 +95,11 @@ function IngredientsSectionToolbar({
             <IconButton icon={HeartPulseIcon} label="Add Yeast" />
             <IconButton icon={ShoppingBagIcon} label="Add Other" />
  */
-export default function IngredientsSection({ src }: { src: RecipeType }) {
+export default function IngredientsSection({
+  src,
+}: {
+  src: AdjustedRecipeType;
+}) {
   // const [open, setOpen] = React.useState(true);
   // const [triggerId, setTriggerId] = React.useState<string | null>("hop");
   // const handleOpenChange = (

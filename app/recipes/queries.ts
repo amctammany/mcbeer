@@ -16,6 +16,8 @@ export const getRecipe = async (id: string) => {
     include: {
       hopIngredients: {
         select: {
+          id: true,
+          recipeId: true,
           hop: { select: { name: true, alpha: true } },
           type: true,
           hopId: true,

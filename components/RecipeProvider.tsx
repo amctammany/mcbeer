@@ -29,15 +29,15 @@ export default function RecipeProvider({
   recipe,
   children,
 }: {
-  recipe: RecipeType;
+  recipe: AdjustedRecipeType;
   children: ReactNode | ReactNode[];
 }) {
   const [hopIngredients, setHopIngredients] = useState<BaseHopIngredientType[]>(
     [],
   );
-  const [current, setCurrent] = useState<RecipeType>(recipe);
+  const [current, setCurrent] = useState<AdjustedRecipeType>(recipe);
   const updateRecipe = useCallback(
-    (data: BaseRecipeType) => {
+    (data: AdjustedRecipeType) => {
       console.log({ current, data });
       setCurrent((old) => ({ ...old, ...data }));
     },

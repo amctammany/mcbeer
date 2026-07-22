@@ -78,7 +78,7 @@ export function ComboBoxField<T extends FieldValues>({
         value: newValue,
       },
     });
-    onChangeCallback?.(opt.value);
+    onChangeCallback?.(newValue);
     cb(opt.value);
   };
   return (

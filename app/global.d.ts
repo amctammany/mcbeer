@@ -3,8 +3,8 @@ import "little-state-machine";
 
 declare module "little-state-machine" {
   interface GlobalState {
-    recipe: Partial<BaseRecipeType> | null;
-    hopIngredients: BaseHopIngredientType[];
+    recipe: Partial<AdjustedRecipeType> | null;
+    hopIngredients: AdjustedHopIngredientType[];
     idCounter: number;
   }
 }

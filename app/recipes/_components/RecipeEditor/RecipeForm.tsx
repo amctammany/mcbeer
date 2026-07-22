@@ -1,7 +1,7 @@
 "use client";
 import Form from "@/components/Form/Form";
 import { TextField } from "@/components/Form/TextField";
-import { BaseRecipeType, RecipeType } from "@/types/Recipe";
+import { AdjustedRecipeType, BaseRecipeType, RecipeType } from "@/types/Recipe";
 import React, { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import GeneralSection from "./GeneralSection";
@@ -11,7 +11,7 @@ import StyleSection from "./StyleSection";
 import IngredientsSection from "./IngredientsSection";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
-import { RecipeMask } from "@/lib/Converter/Masks";
+import { HopIngredientMask, RecipeMask } from "@/lib/Converter/Masks";
 import { GlobalState, useStateMachine } from "little-state-machine";
 import { object } from "zod";
 import { setRecipe } from "../../stateActions";
@@ -20,7 +20,7 @@ function _setRecipe(state: GlobalState, recipe: BaseRecipeType) {
 }
 
 export type RecipeFormContainerProps<S = unknown> = {
-  src: RecipeType;
+  src: AdjustedRecipeType;
   // preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
@@ -53,25 +53,33 @@ export default function RecipeFormContainer({
   src,
   children,
 }: RecipeFormContainerProps) {
+  const prefs = useContext(UserPreferencesContext);
   const { state, actions } = useStateMachine({ actions: { setRecipe } });
   useEffect(() => {
     // console.log(getValues());
-    actions.setRecipe(src);
+
+    const adjusted = adjustUnits({
+      src,
+      mask: RecipeMask,
+      prefs,
+      inline: false,
+      dir: true,
+    });
+    const hopIngredients = adjustUnits({
+      src: src.hopIngredients,
+      mask: HopIngredientMask,
+      prefs,
+      inline: false,
+      dir: true,
+    });
+    actions.setRecipe({ ...adjusted, hopIngredients });
   }, []);
   const decorator = (src: FormData) => {
     const his = objectToFormData(state.hopIngredients, src, "hopIngredients");
     console.log(Object.fromEntries(his.entries()));
     return his;
   };
-  // const prefs = useContext(UserPreferencesContext);
 
-  // const adjusted = adjustUnits({
-  //   src,
-  //   mask: RecipeMask,
-  //   prefs,
-  //   inline: false,
-  //   dir: true,
-  // });
   // const [state, formAction] = useActionState<any, FormData>(action, {
   // success: true,
   // data: adjusted,

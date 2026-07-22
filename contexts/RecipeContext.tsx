@@ -1,6 +1,7 @@
 "use client";
 import {
   AdjustedHopIngredientType,
+  AdjustedRecipeType,
   BaseHopIngredientType,
   BaseRecipeType,
   RecipeType,
@@ -8,9 +9,9 @@ import {
 import { createContext } from "react";
 
 export type RecipeContextType = {
-  recipe: RecipeType;
-  current: RecipeType;
-  updateRecipe: (data: BaseRecipeType) => void;
+  recipe: AdjustedRecipeType;
+  current: AdjustedRecipeType;
+  updateRecipe: (data: AdjustedRecipeType) => void;
   addHopIngredientToRecipe: (data: AdjustedHopIngredientType) => void;
   addFermentableIngredientToRecipe: (data: AdjustedHopIngredientType) => void;
 };
