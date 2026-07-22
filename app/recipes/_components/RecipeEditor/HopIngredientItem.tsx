@@ -1,6 +1,7 @@
 import IconButton from "@/components/Button/IconButton";
 import ListItem from "@/components/Form/List/ListItem";
 import ListItemContent from "@/components/Form/List/ListItemContent";
+import ListItemDescription from "@/components/Form/List/ListItemDescription";
 import ListItemIcon from "@/components/Form/List/ListItemIcon";
 import ListItemMenu from "@/components/Form/List/ListItemMenu";
 import ListItemTitle from "@/components/Form/List/ListItemTitle";
@@ -23,6 +24,7 @@ import React from "react";
 
 export type HopIngredientItemProps = {
   src: AdjustedHopIngredientType;
+  onClick?: React.MouseEventHandler;
 };
 function UnitValueProp({
   src,
@@ -41,18 +43,21 @@ function UnitValueProp({
   );
 }
 
-export default function HopIngredientItem({ src }: HopIngredientItemProps) {
+export default function HopIngredientItem({
+  src,
+  onClick,
+}: HopIngredientItemProps) {
   const ctx = React.useContext(IngredientContext);
   const hops = React.use(ctx.hopPromise);
   const hop = hops.find((h) => h.id === src.hopId);
   console.log(src);
   return (
-    <ListItem>
+    <ListItem onClick={onClick}>
       <ListItemIcon>
         <HopIcon />
       </ListItemIcon>
 
-      <ListItemContent className="flex-row">
+      <ListItemContent className="">
         <ListItemTitle>
           <BadgeProp
             Icon={<ScaleIcon size={12} />}
@@ -63,28 +68,30 @@ export default function HopIngredientItem({ src }: HopIngredientItemProps) {
 
           <b>{hop?.name}</b>
         </ListItemTitle>
-        <div className="grow min-w-64  grid justify-items-end ">
-          <div className="w-fit grid grid-cols-3">
-            <BadgeProp
-              Icon={<ScaleIcon size={12} />}
-              name="amount"
-              text={src.amount.value}
-              unit={src.amount.unit}
-            />
+        <ListItemDescription className="grow">
+          <div className="grow min-w-52  grid justify-items-end ">
+            <div className="w-full lg:w-fit flex flex-row gap-1 lg:gap-2">
+              <BadgeProp
+                Icon={<ScaleIcon size={12} />}
+                name="amount"
+                text={src.amount.value}
+                unit={src.amount.unit}
+              />
 
-            <BadgeProp
-              Icon={<TimerIcon size={12} />}
-              name="duration"
-              text={src.duration.value}
-              unit={src.duration.unit}
-            />
-            <BadgeProp
-              Icon={<BeakerIcon size={12} />}
-              name="usage"
-              text={src.usage}
-            />
+              <BadgeProp
+                Icon={<TimerIcon size={12} />}
+                name="duration"
+                text={src.duration.value}
+                unit={src.duration.unit}
+              />
+              <BadgeProp
+                Icon={<BeakerIcon size={12} />}
+                name="usage"
+                text={src.usage}
+              />
+            </div>
           </div>
-        </div>
+        </ListItemDescription>
       </ListItemContent>
       <ListItemMenu>
         <IconButton icon={MenuIcon} label="Menu" />

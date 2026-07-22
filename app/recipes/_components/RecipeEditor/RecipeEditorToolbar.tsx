@@ -62,9 +62,6 @@ export default function RecipeEditorToolbar({}: RecipeEditorToolbarProps) {
         Redo
       </IconButton>
       <BackButton />
-      <IconButton icon={Save} onClick={handleSave}>
-        New Save
-      </IconButton>
       <IconButton icon={Save} type="submit">
         Save
       </IconButton>

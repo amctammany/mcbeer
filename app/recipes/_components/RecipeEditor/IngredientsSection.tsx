@@ -115,7 +115,11 @@ export default function IngredientsSection({
   //   setTriggerId(id === undefined ? null : id);
   // };
   const { state } = useStateMachine();
+  const { handleDialogOpen } = useContext(ModalContext);
 
+  const handleClick: (d: any) => React.MouseEventHandler<HTMLDivElement> = (
+    d,
+  ) => handleDialogOpen(d);
   return (
     <Section
       title="Ingredients"
@@ -128,7 +132,11 @@ export default function IngredientsSection({
     >
       <div role="list" className="min-h-40 flex flex-col gap-2 w-full">
         {(state.hopIngredients || []).map((i: any, index) => (
-          <HopIngredientItem key={index} src={i} />
+          <HopIngredientItem
+            key={index}
+            src={i}
+            onClick={handleClick({ type: "hop", id: i.id })}
+          />
         ))}
       </div>
     </Section>

@@ -2,7 +2,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import React from "react";
 const listItemVariants = cva(
-  "group/list-item flex flex-row flex-wrap items-center border",
+  "group/list-item flex flex-row items-center border",
   {
     variants: {
       variant: {
@@ -24,11 +24,13 @@ const listItemVariants = cva(
 export type ListItemProps = {
   children?: React.ReactNode | React.ReactNode[];
   className?: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 } & VariantProps<typeof listItemVariants>;
 export default function ListItem({
   children,
   className,
   variant,
+  onClick,
   size,
 }: ListItemProps) {
   return (
@@ -37,6 +39,7 @@ export default function ListItem({
       data-slot="list-item"
       data-variant={variant}
       data-size={size}
+      onClick={onClick}
     >
       {children}
     </div>

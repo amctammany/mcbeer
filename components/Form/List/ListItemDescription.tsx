@@ -1,8 +1,8 @@
 import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import React from "react";
-const listItemContentVariants = cva(
-  "flex flex-1 flex-col md:flex-row gap-1 [&+[data-slot=list-item-content]]:flex-none",
+const listItemDescriptionVariants = cva(
+  "line-clamp-2 text-left w-fit items-center gap-1 ",
   {
     variants: {
       size: {
@@ -15,19 +15,19 @@ const listItemContentVariants = cva(
     },
   },
 );
-export type ListItemContentProps = {
+export type ListItemDescriptionProps = {
   children?: React.ReactNode | React.ReactNode[];
   className?: string;
-} & VariantProps<typeof listItemContentVariants>;
-export default function ListItemContent({
+} & VariantProps<typeof listItemDescriptionVariants>;
+export default function ListItemDescription({
   children,
   className,
   size,
-}: ListItemContentProps) {
+}: ListItemDescriptionProps) {
   return (
     <div
-      className={clsx(listItemContentVariants({ size }), className)}
-      data-slot="list-item-content"
+      className={clsx(listItemDescriptionVariants({ size }), className)}
+      data-slot="list-item-description"
     >
       {children}
     </div>

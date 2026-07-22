@@ -25,7 +25,7 @@ export default function BadgeProp({ Icon, name, text, unit }: BadgePropProps) {
       <div className="p-1  rounded-l-md border-r-2 bg-accent text-primary">
         {Icon}
       </div>
-      <div className="grow text-primary text-xs ml-2">{text}</div>
+      <div className="grow text-primary text-xs md:ml-2">{text}</div>
       <div className="px-1 text-xs">{unit}</div>
     </div>
   );
