@@ -9,7 +9,7 @@ import ModalProvider from "@/components/ModalProvider";
 import { IngredientContext } from "@/contexts/IngredientContext";
 import { createStore } from "little-state-machine";
 function log(store: any) {
-  console.log(store);
+  console.log("store", store);
   return store;
 }
 createStore(
@@ -17,6 +17,7 @@ createStore(
     recipe: null,
     hopIngredients: [],
     fermentableIngredients: [],
+    revisionCtx: null,
     idCounter: 0,
   },
   {

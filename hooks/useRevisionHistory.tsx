@@ -143,7 +143,7 @@ function useRevisionHistory<T extends FieldValues>(
       // console.log("Old state", state);
       setState(newState);
       updateFn(action.payload.name, action.payload.value);
-      // console.log("update", newState, { action, history: history.current });
+      console.log("update", newState, { action, history: history.current });
     },
     [history, historyPointer, state, updateFn],
   );

@@ -1,3 +1,4 @@
+import { RevisionContextType } from "@/contexts/RevisionContext";
 import { deepSet } from "@/lib/utils";
 import {
   AdjustedFermentableIngredientType,
@@ -83,4 +84,14 @@ export function removeHopIngredient(
     (state.hopIngredients ?? []) as AdjustedHopIngredientType[]
   ).filter(({ id }) => id !== data.id);
   return { ...state, hopIngredients };
+}
+export function registerRevisionCtx(
+  state: GlobalState,
+  revisionCtx: RevisionContextType<GlobalState>,
+) {
+  return { ...state, revisionCtx };
+}
+export function updateRevision(state: GlobalState, data: any) {
+  console.log(state, data);
+  return state;
 }

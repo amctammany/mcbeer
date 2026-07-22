@@ -18,7 +18,8 @@ import {
 } from "@/lib/Converter/Masks";
 import { GlobalState, useStateMachine } from "little-state-machine";
 import { object } from "zod";
-import { setRecipe } from "../../stateActions";
+import { setRecipe, registerRevisionCtx } from "../../stateActions";
+import { RevisionContext } from "@/contexts/RevisionContext";
 function _setRecipe(state: GlobalState, recipe: BaseRecipeType) {
   return { ...state, recipe };
 }
@@ -58,17 +59,22 @@ export default function RecipeFormContainer({
   children,
 }: RecipeFormContainerProps) {
   const prefs = useContext(UserPreferencesContext);
-  const { state, actions } = useStateMachine({ actions: { setRecipe } });
+  const { state, actions } = useStateMachine({
+    actions: { setRecipe },
+  });
   useEffect(() => {
     // console.log(getValues());
 
-    const adjusted = adjustUnits({
-      src,
-      mask: RecipeMask,
-      prefs,
-      inline: false,
-      dir: true,
-    });
+    const { hopIngredients, fermentableIngredients, ...adjusted } = adjustUnits(
+      {
+        src,
+        mask: RecipeMask,
+        prefs,
+        inline: false,
+        dir: true,
+      },
+    );
+    /**
     const fermentableIngredients = adjustUnits({
       src: src.fermentableIngredients,
       mask: FermentableIngredientMask,
@@ -84,6 +90,7 @@ export default function RecipeFormContainer({
       inline: false,
       dir: true,
     });
+ */
     console.log({ adjusted, hopIngredients, fermentableIngredients });
     actions.setRecipe({ ...adjusted, hopIngredients, fermentableIngredients });
   }, [src]);
@@ -129,8 +136,16 @@ export type RecipeFormProps = {
 
 export function RecipeForm({}: RecipeFormProps) {
   const { register, getValues } = useFormContext<RecipeType>();
-
+  const { state, actions } = useStateMachine({
+    actions: { setRecipe, registerRevisionCtx },
+  });
+  const revisionCtx = useContext(RevisionContext);
+  useEffect(() => {
+    if (revisionCtx) actions.registerRevisionCtx(revisionCtx);
+  }, [revisionCtx]);
   // console.log(formContext);
+  console.log(state);
+
   return (
     <div>
       <input type="hidden" {...register("id")} />

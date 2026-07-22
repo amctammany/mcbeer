@@ -11,5 +11,6 @@ declare module "little-state-machine" {
     hopIngredients: AdjustedHopIngredientType[];
     fermentableIngredients: AdjustedFermentableIngredientType[];
     idCounter: number;
+    revisionCtx: typeof RevisionContext | null;
   }
 }

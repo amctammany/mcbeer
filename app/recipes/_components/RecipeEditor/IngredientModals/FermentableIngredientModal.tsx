@@ -29,6 +29,7 @@ import { useStateMachine } from "little-state-machine";
 import {
   addFermentableIngredient,
   updateRecipe,
+  updateRevision,
 } from "@/app/recipes/stateActions";
 import FermentableIngredientForm, {
   FermentableIngredientFormContainer,
@@ -47,7 +48,7 @@ export default function FermentableIngredientModal({
   // handleClose: (id?: string) => void;
 }) {
   const { state, actions } = useStateMachine({
-    actions: { addFermentableIngredient, updateRecipe },
+    actions: { addFermentableIngredient, updateRecipe, updateRevision },
   });
 
   const s = useContext(IngredientContext);
@@ -71,10 +72,10 @@ export default function FermentableIngredientModal({
   }) as any;
 
   const onSubmit = (data: any) => {
-    console.log(data, currentIndex, revisionContext);
+    console.log(data, state, currentIndex, revisionContext);
     if (currentIndex > -1) {
       const old = get(state, `fermentableIngredients.${currentIndex}`);
-      revisionContext?.update({
+      state.revisionCtx?.update({
         type: "SET",
         payload: {
           name: `hopIngredients.${currentIndex}`,
@@ -83,7 +84,7 @@ export default function FermentableIngredientModal({
         },
       });
     } else {
-      revisionContext?.update({
+      state.revisionCtx?.update({
         type: "ADD",
         payload: {
           name: "hopIngredients",
