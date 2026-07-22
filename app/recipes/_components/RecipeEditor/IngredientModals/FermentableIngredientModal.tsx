@@ -58,8 +58,8 @@ export default function FermentableIngredientModal({
   });
 
   const s = useContext(IngredientContext);
-  const { data: recipe } = useContext(FormStateContext);
-  const revisionContext = useContext(RevisionContext);
+  // const { data: recipe } = useContext(FormStateContext);
+  // const revisionContext = useContext(RevisionContext);
   const d = useContext(ModalContext);
   const handleClose = d.handleOpenChange;
   const fermentables = use(s.fermentablePromise);
@@ -78,7 +78,6 @@ export default function FermentableIngredientModal({
   }) as any;
 
   const onSubmit = (data: any) => {
-    console.log(data, state, currentIndex, revisionContext);
     if (currentIndex > -1) {
       const old = get(state, `fermentableIngredients.${currentIndex}`);
       actions.updateFermentableIngredient(data);

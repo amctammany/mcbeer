@@ -105,7 +105,7 @@ export default function FermentableIngredientForm({
   const onChangeCb = (r: any) => {
     const h = fermentables.find(({ id }) => id === r);
     if (h) {
-      console.log(h);
+      console.log("hi", h);
       setValue("potential.value", (h?.potential ?? 0.01) * 100);
     }
     // handleClose();
