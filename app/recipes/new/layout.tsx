@@ -19,7 +19,7 @@ export default function RecipeCreatorLayout({
       equipPromise={getEquipmentProfiles({ select: { name: true, id: true } })}
       mashPromise={getMashProfiles({ select: { name: true, id: true } })}
       hopPromise={getHops({ select: { name: true, id: true, alpha: true } })}
-      fermPromise={getFermentables({
+      fermentablePromise={getFermentables({
         select: { name: true, id: true, color: true, potential: true },
       })}
       yeastPromise={getYeasts({
