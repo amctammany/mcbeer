@@ -1,5 +1,5 @@
 import { verifySession } from "@/lib/verifySession";
-import { RecipeType } from "@/types/Recipe";
+import { AdjustedRecipeType, RecipeType } from "@/types/Recipe";
 import { unauthorized } from "next/navigation";
 import React from "react";
 import RecipeEditor from "../_components/RecipeEditor/RecipeEditor";
@@ -19,7 +19,7 @@ export default async function RecipeCreatorPage() {
   const src = {
     userId: session.user.id,
     owner,
-  } as RecipeType;
+  } as AdjustedRecipeType;
   // const styles = getStyleNames();
   return (
     <RecipeEditor
