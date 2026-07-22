@@ -93,7 +93,7 @@ export default function HopIngredientForm({
     const h = hops.find(({ id }) => id === r);
     if (h) {
       console.log(h);
-      setValue("alpha.value", h?.alpha ?? 1 * 100);
+      setValue("alpha.value", (h?.alpha ?? 0.01) * 100);
     }
     // handleClose();
   };

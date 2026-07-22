@@ -37,6 +37,7 @@ import dynamic from "next/dynamic";
 import { ModalContext } from "@/contexts/ModalContext";
 import { useStateMachine } from "little-state-machine";
 import HopIngredientItem from "./HopIngredientItem";
+import { Item } from "@/components/ui/item";
 const HopIngredientModal = dynamic(
   () => import("./IngredientModals/HopIngredientModal"),
   { ssr: false },
@@ -125,7 +126,7 @@ export default function IngredientsSection({
         />
       }
     >
-      <div className="min-h-40">
+      <div role="list" className="min-h-40 flex flex-col gap-2 w-full">
         {(state.hopIngredients || []).map((i: any, index) => (
           <HopIngredientItem key={index} src={i} />
         ))}

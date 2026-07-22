@@ -73,7 +73,7 @@ export default function RecipeFormContainer({
       dir: true,
     });
     actions.setRecipe({ ...adjusted, hopIngredients });
-  }, []);
+  }, [src]);
   const decorator = (src: FormData) => {
     const his = objectToFormData(state.hopIngredients, src, "hopIngredients");
     console.log(Object.fromEntries(his.entries()));

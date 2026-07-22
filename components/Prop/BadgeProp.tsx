@@ -21,12 +21,12 @@ export default function BadgeProp({ Icon, name, text, unit }: BadgePropProps) {
   const s = prefs[r as keyof typeof prefs];
   // console.log(name, r, s, unit);
   return (
-    <div className="border border-black rounded-md inline-flex items-stretch bg-white justify-center m-auto pr-2 *:my-auto">
+    <div className="border border-black rounded-md inline-flex items-stretch bg-white justify-center m-auto pr-0 *:my-auto">
       <div className="p-1  rounded-l-md border-r-2 bg-accent text-primary">
         {Icon}
       </div>
-      <div className="grow text-primary ml-2">{text}</div>
-      <div className="px-1">{unit}</div>
+      <div className="grow text-primary text-xs ml-2">{text}</div>
+      <div className="px-1 text-xs">{unit}</div>
     </div>
   );
 }
