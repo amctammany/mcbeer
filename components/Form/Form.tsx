@@ -28,11 +28,15 @@ export type FormProps<T extends FieldValues> = {
   // mask?: any;
   // preferences: UserPreferencesType;
   formProps?: UseFormProps;
+  modals?: React.ReactNode | React.ReactNode[];
+  toolbar?: React.ReactNode | React.ReactNode[];
   children?: React.ReactNode | React.ReactNode[];
 };
 export default function Form<T extends FieldValues>({
   // preferences,
   action,
+  toolbar,
+  modals,
   src,
   // mask = {},
   decorator,
@@ -97,7 +101,11 @@ export default function Form<T extends FieldValues>({
       {/* <UserPreferencesContext value={preferences}> */}
       <FormStateContext value={_state}>
         <RevisionContext value={revision}>
-          <form action={newFormAction}>{children}</form>
+          <form action={newFormAction}>
+            {toolbar}
+            {children}
+          </form>
+          {modals}
         </RevisionContext>
       </FormStateContext>
       {/* </UserPreferencesContext> */}

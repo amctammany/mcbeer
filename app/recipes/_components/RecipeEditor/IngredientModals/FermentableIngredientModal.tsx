@@ -59,7 +59,8 @@ export default function FermentableIngredientModal({
 
   const s = useContext(IngredientContext);
   // const { data: recipe } = useContext(FormStateContext);
-  // const revisionContext = useContext(RevisionContext);
+  const revisionContext = useContext(RevisionContext);
+  console.log(revisionContext);
   const d = useContext(ModalContext);
   const handleClose = d.handleOpenChange;
   const fermentables = use(s.fermentablePromise);
@@ -68,20 +69,25 @@ export default function FermentableIngredientModal({
     !d.triggerId || typeof d.triggerId === "string"
       ? d.triggerId
       : d.triggerId.id;
-  const src = state.recipe!;
-  const currentIndex = state.fermentableIngredients.findIndex(
-    ({ id: _id }) => tid === _id,
+  const src = revisionContext?.state.recipe!;
+  const currentIndex = revisionContext?.state.fermentableIngredients.findIndex(
+    ({ id: _id }: { id: any }) => tid === _id,
   );
-  const currentIngredient = (state.fermentableIngredients[currentIndex] ?? {
+  const currentIngredient = (revisionContext?.state.fermentableIngredients[
+    currentIndex
+  ] ?? {
     recipeId: src.id,
     usage: $Enums.FermentableIngredientUsage.Mash,
   }) as any;
 
   const onSubmit = (data: any) => {
     if (currentIndex > -1) {
-      const old = get(state, `fermentableIngredients.${currentIndex}`);
-      actions.updateFermentableIngredient(data);
-      actions.updateRevision({
+      const old = get(
+        revisionContext?.state,
+        `fermentableIngredients.${currentIndex}`,
+      );
+      // actions.updateFermentableIngredient(data);
+      revisionContext?.update({
         type: "SET",
         payload: {
           name: `fermentableIngredients.${currentIndex}`,
@@ -90,8 +96,8 @@ export default function FermentableIngredientModal({
         },
       });
     } else {
-      actions.addFermentableIngredient(data);
-      actions.updateRevision({
+      // actions.addFermentableIngredient(data);
+      revisionContext?.update({
         type: "ADD",
         payload: {
           name: "fermentableIngredients",

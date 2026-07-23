@@ -30,10 +30,12 @@ export default function RecipeEditor({
 }: RecipeEditorProps) {
   return (
     <RecipeProvider recipe={src}>
-      <RecipeModals />
-      <RecipeFormContainer src={src} action={action}>
-        <RecipeEditorToolbar />
-
+      <RecipeFormContainer
+        toolbar={<RecipeEditorToolbar />}
+        modals={<RecipeModals />}
+        src={src}
+        action={action}
+      >
         <div>
           <RecipeForm />
           <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">

@@ -28,6 +28,8 @@ export type RecipeFormContainerProps<S = unknown> = {
   src: AdjustedRecipeType;
   // preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
+  toolbar?: React.ReactNode | React.ReactNode[];
+  modals?: React.ReactNode | React.ReactNode[];
   children?: React.ReactNode | React.ReactNode[];
 };
 function objectToFormData(obj: any, form = new FormData(), namespace = "") {
@@ -56,6 +58,8 @@ function objectToFormData(obj: any, form = new FormData(), namespace = "") {
 export default function RecipeFormContainer({
   action,
   src,
+  toolbar,
+  modals,
   children,
 }: RecipeFormContainerProps) {
   const prefs = useContext(UserPreferencesContext);
@@ -111,12 +115,16 @@ export default function RecipeFormContainer({
   // errors: [],
   // });
 
+  const formProps = { values: state.recipe || {} };
   // console.log(state);
   return (
     <Form
       action={action}
       decorator={decorator}
+      modals={modals}
+      toolbar={toolbar}
       src={src}
+      formProps={formProps}
       // mask={YeastMask}
       // formProps={{
       //   values: state.data,
