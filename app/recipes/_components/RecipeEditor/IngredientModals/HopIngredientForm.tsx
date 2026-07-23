@@ -100,8 +100,8 @@ export default function HopIngredientForm({
 
   return (
     <div className="relative">
-      <input type="hidden" name="id" value={data?.id} />
-      <input type="hidden" name="recipeId" value={data?.recipeId} />
+      <input type="hidden" name="id" value={data?.id ?? ""} />
+      <input type="hidden" name="recipeId" value={data?.recipeId ?? ""} />
       <ComboBoxField
         onChangeCallback={onChangeCb}
         orientation="responsive"

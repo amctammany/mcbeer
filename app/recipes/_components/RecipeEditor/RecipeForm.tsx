@@ -25,7 +25,7 @@ function _setRecipe(state: GlobalState, recipe: BaseRecipeType) {
 }
 
 export type RecipeFormContainerProps<S = unknown> = {
-  src: AdjustedRecipeType;
+  src: RecipeType;
   // preferences: UserPreferencesType;
   action: (state: S, formData: FormData) => Promise<S> | S;
   toolbar?: React.ReactNode | React.ReactNode[];
@@ -144,15 +144,15 @@ export type RecipeFormProps = {
 
 export function RecipeForm({}: RecipeFormProps) {
   const { register, getValues } = useFormContext<RecipeType>();
-  const { state, actions } = useStateMachine({
-    actions: { setRecipe, registerRevisionCtx },
-  });
-  const revisionCtx = useContext(RevisionContext);
-  useEffect(() => {
-    if (revisionCtx) actions.registerRevisionCtx(revisionCtx);
-  }, [revisionCtx]);
-  // console.log(formContext);
-  console.log(state);
+  // const { state, actions } = useStateMachine({
+  //   actions: { setRecipe, registerRevisionCtx },
+  // });
+  // const revisionCtx = useContext(RevisionContext);
+  // useEffect(() => {
+  //   if (revisionCtx) actions.registerRevisionCtx(revisionCtx);
+  // }, [revisionCtx]);
+  // // console.log(formContext);
+  // console.log(state);
 
   return (
     <div>

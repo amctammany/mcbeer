@@ -442,8 +442,8 @@ model Recipe {
 }
 
 model HopIngredient {
-  id           String             @default(cuid())
-  recipeId     String
+  id           String             @id @default(cuid())
+  recipeId     String?
   amount       Float
   usage        HopIngredientUsage
   amountType   MassUnit           @default(g)
@@ -454,14 +454,12 @@ model HopIngredient {
   hopId        String
   alpha        Float?
   hop          Hop                @relation(fields: [hopId], references: [id])
-  recipe       Recipe             @relation(fields: [recipeId], references: [id])
-
-  @@id([recipeId, id])
+  recipe       Recipe?            @relation(fields: [recipeId], references: [id])
 }
 
 model FermentableIngredient {
-  id            String                     @default(cuid())
-  recipeId      String
+  id            String                     @id @default(cuid())
+  recipeId      String?
   usage         FermentableIngredientUsage @default(Mash)
   amount        Float
   amountType    MassUnit                   @default(Lb)
@@ -469,9 +467,7 @@ model FermentableIngredient {
   color         Float?
   potential     Float?
   fermentable   Fermentable                @relation(fields: [fermentableId], references: [id])
-  recipe        Recipe                     @relation(fields: [recipeId], references: [id])
-
-  @@id([recipeId, id])
+  recipe        Recipe?                    @relation(fields: [recipeId], references: [id])
 }
 
 enum StyleCategory {

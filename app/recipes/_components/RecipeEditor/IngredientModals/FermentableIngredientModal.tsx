@@ -58,7 +58,7 @@ export default function FermentableIngredientModal({
   });
 
   const s = useContext(IngredientContext);
-  // const { data: recipe } = useContext(FormStateContext);
+  const { data: recipe } = useContext(FormStateContext);
   const revisionContext = useContext(RevisionContext);
   console.log(revisionContext);
   const d = useContext(ModalContext);
@@ -73,12 +73,12 @@ export default function FermentableIngredientModal({
   const currentIndex = revisionContext?.state.fermentableIngredients.findIndex(
     ({ id: _id }: { id: any }) => tid === _id,
   );
-  const currentIngredient = (revisionContext?.state.fermentableIngredients[
-    currentIndex
-  ] ?? {
-    recipeId: src.id,
-    usage: $Enums.FermentableIngredientUsage.Mash,
-  }) as any;
+  const currentIngredient =
+    recipe.fermentableIngredients[currentIndex] ??
+    ({
+      // recipeId: src.id,
+      usage: $Enums.FermentableIngredientUsage.Mash,
+    } as any);
 
   const onSubmit = (data: any) => {
     if (currentIndex > -1) {

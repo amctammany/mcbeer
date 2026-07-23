@@ -51,7 +51,7 @@ function IngredientsSectionToolbar({
   src,
   // handleDialogOpen,
 }: {
-  src: AdjustedRecipeType;
+  src: RecipeType;
   // handleDialogOpen: (id: string) => () => void;
 }) {
   const { open, handleDialogOpen, triggerId } = useContext(ModalContext);
@@ -98,11 +98,7 @@ function IngredientsSectionToolbar({
             <IconButton icon={HeartPulseIcon} label="Add Yeast" />
             <IconButton icon={ShoppingBagIcon} label="Add Other" />
  */
-export default function IngredientsSection({
-  src,
-}: {
-  src: AdjustedRecipeType;
-}) {
+export default function IngredientsSection({ src }: { src: RecipeType }) {
   // const [open, setOpen] = React.useState(true);
   // const [triggerId, setTriggerId] = React.useState<string | null>("hop");
   // const handleOpenChange = (

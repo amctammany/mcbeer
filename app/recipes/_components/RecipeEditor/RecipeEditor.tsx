@@ -17,7 +17,7 @@ import { setRecipe } from "../../stateActions";
 import { useStateMachine } from "little-state-machine";
 
 export type RecipeEditorProps = {
-  src: AdjustedRecipeType;
+  src: RecipeType;
   action: any;
   // styles: Promise<Option[]>;
   // equipmentProfiles: Promise<EquipmentProfile[]>;
