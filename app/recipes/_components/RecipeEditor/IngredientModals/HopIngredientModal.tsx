@@ -36,6 +36,10 @@ import HopIngredientForm, {
 import { RecipeContext } from "@/contexts/RecipeContext";
 import { useStateMachine } from "little-state-machine";
 import { addHopIngredient, updateRecipe } from "@/app/recipes/stateActions";
+import {
+  createHopIngredient,
+  updateHopIngredient,
+} from "@/app/recipes/actions";
 
 export default function HopIngredientModal(
   {
@@ -65,7 +69,7 @@ export default function HopIngredientModal(
   const src = state.recipe!;
   const currentIngredient = state.hopIngredients.find(
     ({ id: _id }) => id === _id,
-  ) ?? { recipeId: src.id, usage: $Enums.HopIngredientUsage.Boil };
+  ) ?? { usage: $Enums.HopIngredientUsage.Boil };
   console.log({ src, currentIngredient, f });
   // const form = useForm<AdjustedHopIngredientType>({
   //   defaultValues: currentIngredient as any,
@@ -90,7 +94,12 @@ export default function HopIngredientModal(
         mask: HopIngredientMask,
       }}
     >
-      <HopIngredientFormContainer src={currentIngredient}>
+      <HopIngredientFormContainer
+        action={
+          currentIngredient.id ? updateHopIngredient : createHopIngredient
+        }
+        src={currentIngredient}
+      >
         <HopIngredientForm src={currentIngredient} />
       </HopIngredientFormContainer>
     </MaskContext>

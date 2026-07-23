@@ -7,7 +7,7 @@ import {
 } from "@/generated/prisma/enums";
 export const fermentableIngredientSchema = zfd.formData({
   id: zfd.text(z.string().optional()),
-  recipeId: zfd.text(z.string()),
+  recipeId: zfd.text(z.string().optional()),
   fermentableId: zfd.text(z.string()),
   color: unitValueSchema(z.number()),
   amount: unitValueSchema(z.number()),
@@ -17,7 +17,7 @@ export const fermentableIngredientSchema = zfd.formData({
 
 export const hopIngredientSchema = zfd.formData({
   id: zfd.text(z.string().optional()),
-  recipeId: zfd.text(z.string()),
+  recipeId: zfd.text(z.string().optional()),
   hopId: zfd.text(z.string()),
   alpha: unitValueSchema(z.number().min(0).max(100)),
   amount: unitValueSchema(z.number()),

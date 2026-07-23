@@ -1,4 +1,3 @@
-import { addHopIngredientToRecipe } from "@/app/recipes/actions";
 import {
   addHopIngredient,
   updateHopIngredient,
@@ -7,7 +6,7 @@ import IconButton from "@/components/Button/IconButton";
 import AmountField from "@/components/Form/AmountField";
 import { ComboBoxField } from "@/components/Form/ComboBoxField";
 import { SelectField } from "@/components/Form/SelectField";
-import { Form } from "@/components/ui/form";
+import { Form } from "@/components/Form/Form";
 import { FormStateContext } from "@/contexts/FormStateContext";
 import { IngredientContext } from "@/contexts/IngredientContext";
 import { MaskContext } from "@/contexts/MaskContext";
@@ -24,49 +23,60 @@ import { useStateMachine } from "little-state-machine";
 import { SaveIcon } from "lucide-react";
 import React, { use, useContext } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
-export function HopIngredientFormContainer({
+export function HopIngredientFormContainer<S = unknown>({
   src,
+  action,
+  toolbar,
+  modals,
   children,
 }: {
+  action: (state: S, formData: FormData) => Promise<S> | S;
   src: Partial<BaseHopIngredientType>;
+  toolbar?: React.ReactNode;
+  modals?: React.ReactNode | React.ReactNode[];
   children: React.ReactNode;
 }) {
-  const preferenceContext = useContext(UserPreferencesContext);
   const d = useContext(ModalContext);
   // console.log({ src, mask, preferenceContext });
-  const { state, actions } = useStateMachine({
-    actions: { addHopIngredient, updateHopIngredient },
-  });
+  // const { state, actions } = useStateMachine({
+  //   actions: { addHopIngredient, updateHopIngredient },
+  // });
 
-  console.log({ src, mask: HopIngredientMask, state, preferenceContext });
-  const adjusted = adjustUnits({
-    src,
-    mask: HopIngredientMask,
-    prefs: preferenceContext,
-    inline: false,
-    dir: false,
-  });
-  const f = useForm({
-    defaultValues: adjusted,
-  });
+  // const saveHopIngredient = (_data: any) => {
+  //   // console.log(state);
+  //   const data = f.getValues();
+  //   const action = data.id
+  //     ? actions.updateHopIngredient
+  //     : actions.addHopIngredient;
+  //   // console.log(data);
+  //   action(data as any);
+  //   d.handleOpenChange();
+  // };
 
-  const saveHopIngredient = (_data: any) => {
-    // console.log(state);
-    const data = f.getValues();
-    const action = data.id
-      ? actions.updateHopIngredient
-      : actions.addHopIngredient;
-    // console.log(data);
-    action(data as any);
-    d.handleOpenChange();
-    f.reset();
+  // const formProps = { values: state.recipe || {} };
+  const onSubmit = (data: any) => {
+    console.log(data);
+    d.handleDialogOpen()();
   };
-
+  // console.log(state);
   return (
-    <FormProvider {...f}>
-      <form onSubmit={f.handleSubmit(saveHopIngredient)}>{children}</form>
-    </FormProvider>
+    <Form
+      action={action}
+      // decorator={decorator}
+      submitCb={onSubmit}
+      modals={modals}
+      toolbar={toolbar}
+      src={src}
+      // formProps={formProps}
+    >
+      {children}
+    </Form>
   );
+  // return (
+  //   <FormProvider {...f}>
+  //     <form onSubmit={f.handleSubmit(saveHopIngredient)}>{children}</form>
+  //   </FormProvider>
+  // );
 
   // <Form src={src} action={addHopIngredientToRecipe}>
   // </Form>

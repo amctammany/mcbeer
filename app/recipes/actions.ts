@@ -12,6 +12,7 @@ import {
 } from "@/types/Recipe";
 import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
+import { success } from "zod";
 
 export async function createRecipe(prev: any, formData: FormData) {
   const v = validateSchema(formData, recipeSchema);
@@ -80,10 +81,7 @@ export async function updateRecipe(prev: any, formData: FormData) {
       return _id
         ? prisma.fermentableIngredient.update({
             where: {
-              recipeId_id: {
-                recipeId: id!,
-                id: _id,
-              },
+              id: _id,
             },
             data: d,
           })
@@ -98,10 +96,7 @@ export async function updateRecipe(prev: any, formData: FormData) {
       return _id
         ? prisma.hopIngredient.update({
             where: {
-              recipeId_id: {
-                recipeId: id!,
-                id: _id,
-              },
+              id: _id,
             },
             data: d,
           })
@@ -117,19 +112,13 @@ export async function updateRecipe(prev: any, formData: FormData) {
     where: { id },
     data: {
       fermentableIngredients: {
-        connect: ftx.map(({ recipeId, id: _id }) => ({
-          recipeId_id: {
-            recipeId,
-            id: _id,
-          },
+        connect: ftx.map(({ id: _id }) => ({
+          id: _id,
         })),
       },
       hopIngredients: {
-        connect: htx.map(({ recipeId, id: _id }) => ({
-          recipeId_id: {
-            recipeId,
-            id: _id,
-          },
+        connect: htx.map(({ id: _id }) => ({
+          id: _id,
         })),
       },
       ...data,
@@ -139,7 +128,7 @@ export async function updateRecipe(prev: any, formData: FormData) {
   return redirect(`/recipes/${res.id}`);
 }
 
-export async function addHopIngredientToRecipe(prev: any, formData: FormData) {
+export async function createHopIngredient(prev: any, formData: FormData) {
   const v = validateSchema(formData, hopIngredientSchema);
   console.log("addHopIng", v);
   if (v.errors) return v;
@@ -154,5 +143,32 @@ export async function addHopIngredientToRecipe(prev: any, formData: FormData) {
   const r = reduceUnits(v.data) as BaseHopIngredientType;
   const { id, ...data } = r;
   console.log({ prev, r });
-  return;
+  const res = await prisma.hopIngredient.create({
+    data,
+    include: { recipe: true },
+  });
+  return { data: res.recipe, success: true, errors: [] };
+}
+
+export async function updateHopIngredient(prev: any, formData: FormData) {
+  const v = validateSchema(formData, hopIngredientSchema);
+  console.log("updateHopIng", v);
+  if (v.errors) return v;
+  if (!v.success) {
+    return Promise.resolve(v);
+  }
+  /** 
+  const { id, userId, mashProfileId, equipmentProfileId,styleId, ...r } = (
+    v.data,
+  ) as BaseRecipe;
+   */
+  const r = reduceUnits(v.data) as BaseHopIngredientType;
+  const { id, ...data } = r;
+  console.log({ prev, r });
+  const res = await prisma.hopIngredient.update({
+    where: { id },
+    data,
+    include: { recipe: true },
+  });
+  return { data: res.recipe, success: true, errors: [] };
 }

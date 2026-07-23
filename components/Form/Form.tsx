@@ -27,17 +27,19 @@ export type FormProps<T extends FieldValues> = {
   decorator?: (data: FormData) => FormData;
   // mask?: any;
   // preferences: UserPreferencesType;
+  submitCb?: SubmitHandler<FormData>;
   formProps?: UseFormProps;
   modals?: React.ReactNode | React.ReactNode[];
   toolbar?: React.ReactNode | React.ReactNode[];
   children?: React.ReactNode | React.ReactNode[];
 };
-export default function Form<T extends FieldValues>({
+export function Form<T extends FieldValues>({
   // preferences,
   action,
   toolbar,
   modals,
   src,
+  submitCb,
   // mask = {},
   decorator,
   formProps,
@@ -95,13 +97,20 @@ export default function Form<T extends FieldValues>({
       console.log("Submission complete", r);
     });
   };
+  const handleSubmit: SubmitHandler<FormData> = (d) => {
+    const res = submitCb?.(d);
+    console.log("handleSubmit", { d, res });
+  };
   // const onSubmit = startTransition(() => form.handleSubmit(action));
   return (
     <FormProvider {...form}>
       {/* <UserPreferencesContext value={preferences}> */}
       <FormStateContext value={_state}>
         <RevisionContext value={revision}>
-          <form action={newFormAction}>
+          <form
+            action={newFormAction}
+            onSubmit={form.handleSubmit(handleSubmit)}
+          >
             {toolbar}
             {children}
           </form>
@@ -112,3 +121,5 @@ export default function Form<T extends FieldValues>({
     </FormProvider>
   );
 }
+
+export default Form;
