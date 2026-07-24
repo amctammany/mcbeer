@@ -88,7 +88,7 @@ export function Form<T extends FieldValues>({
     form.setValue as any,
   );
 
-  const onSubmit: SubmitHandler<AdjustedRecipeType> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     // Wrap the async operation in startTransition
     // console.log(Promise.resolve(action(data)));
     startTransition(() => {

@@ -117,7 +117,6 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
   // };
   const { getValues } = useFormContext<RecipeType>();
 
-  console.log(getValues());
   const hopIngredients = getValues("hopIngredients");
   const fermentableIngredients = getValues("fermentableIngredients");
   const { handleDialogOpen } = useContext(ModalContext);

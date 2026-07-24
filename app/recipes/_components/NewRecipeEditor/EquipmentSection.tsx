@@ -25,7 +25,6 @@ export default function EquipmentSection() {
   const { equipPromise } = useContext(IngredientContext);
   const equipmentProfiles = use(equipPromise);
   const ctx = useFormContext();
-  console.log("Recipe:", ctx.getValues());
   return (
     <Section title="Equipment" actions={<EquipmentSectionToolbar />}>
       <ComboBoxField
