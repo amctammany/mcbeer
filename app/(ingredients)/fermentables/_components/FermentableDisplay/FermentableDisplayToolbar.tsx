@@ -7,21 +7,31 @@ import React from "react";
 export default function FermentableDisplayToolbar({
   fermentable,
 }: {
-  fermentable: FermentableType;
+  fermentable?: FermentableType;
 }) {
   return (
     <TopBar
       breadcrumbs={[
         { title: "Ingredients" },
         { title: "Fermentables", url: "/fermentables" },
-        { title: fermentable.name, url: `/fermentables/${fermentable.slug}` },
+        ...(fermentable
+          ? [
+              {
+                title: fermentable?.name,
+                url: `/fermentables/${fermentable?.slug}`,
+              },
+            ]
+          : []),
       ]}
     >
-      <IconButton icon={Split} href={`/fermentables/${fermentable.slug}/fork`}>
+      <IconButton icon={Split} href={`/fermentables/${fermentable?.slug}/fork`}>
         Fork
       </IconButton>
 
-      <IconButton icon={Pencil} href={`/fermentables/${fermentable.slug}/edit`}>
+      <IconButton
+        icon={Pencil}
+        href={`/fermentables/${fermentable?.slug}/edit`}
+      >
         Edit
       </IconButton>
     </TopBar>

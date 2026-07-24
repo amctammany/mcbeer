@@ -18,7 +18,7 @@ export default async function FermentableDisplayPage({
   params,
 }: FermentableDisplayPageProps) {
   const { slug } = await params;
-  const [fermentable] = await Promise.all([getFermentable(slug)]);
+  const fermentable = await getFermentable(slug);
   if (!fermentable) notFound();
   /**
    * 

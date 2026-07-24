@@ -30,7 +30,8 @@ export const getFermentables = async (args: any = {}) => {
 export const getFermentable = async (slug: string) => {
   // "use cache";
   const fermentable = await prisma.fermentable.findFirst({ where: { slug } });
-  if (!fermentable) notFound();
-  // cacheTag(`fermentables-${fermentable.id}`);
   return fermentable as FermentableType;
+  // if (!fermentable) notFound();
+  // cacheTag(`fermentables-${fermentable.id}`);
+  // return fermentable as FermentableType;
 };

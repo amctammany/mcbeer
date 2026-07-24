@@ -30,12 +30,14 @@ export default async function FermentableEditorPage({
 }: FermentableEditorPageProps) {
   const { slug } = await params;
 
-  const src = await authorizeResource(
-    `/fermentables/${slug}/edit`,
-    getFermentable,
-    slug,
-  );
+  // const src = await authorizeResource(
+  // `/fermentables/${slug}/edit`,
+  // getFermentable,
+  // slug,
+  // );
+  const src = await getFermentable(slug);
   const countries = await getCountries();
+  if (!src) notFound();
   /**
    * 
   const prefs = await getPreferences();

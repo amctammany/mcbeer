@@ -4,10 +4,10 @@ import { FermentableType } from "@/types/Ingredient";
 import React from "react";
 
 export type FermentablePropertiesTabProps = {
-  src: FermentableType;
+  src?: Partial<FermentableType>;
 };
 export default function FermentablePropertiesTab({
-  src,
+  src = {},
 }: FermentablePropertiesTabProps) {
   return (
     <div className="grid lg:grid-cols-1 ">

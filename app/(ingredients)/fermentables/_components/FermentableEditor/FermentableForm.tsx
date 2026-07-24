@@ -159,6 +159,14 @@ export function FermentableForm({
               amountType="percent"
             />
             <AmountField
+              name="extract"
+              step="0.01"
+              type="number"
+              label="Extract"
+              amountType="percent"
+            />
+
+            <AmountField
               name="power"
               step="0.01"
               type="number"
