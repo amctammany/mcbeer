@@ -77,8 +77,8 @@ export default function HopIngredientModal({
         payload: {
           name: "hopIngredients",
           prev: old,
-          value: old.map(({ id: _id }: { id: any }, index: any) =>
-            _id === tid ? data : old[index],
+          value: old.map((d: { id: any }, index: any) =>
+            d.id === tid ? data : d,
           ),
         },
       });

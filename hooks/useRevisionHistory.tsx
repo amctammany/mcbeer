@@ -142,7 +142,8 @@ function useRevisionHistory<T extends FieldValues>(
       const newState = revisionReducer(state, action);
       // console.log("Old state", state);
       setState(newState);
-      updateFn(action.payload.name, action.payload.value);
+      if (action.type === "SET")
+        updateFn(action.payload.name, action.payload.value);
       console.log("update", newState, { action, history: history.current });
     },
     [history, historyPointer, state, updateFn],
