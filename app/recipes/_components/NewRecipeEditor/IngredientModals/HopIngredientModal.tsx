@@ -12,84 +12,89 @@ import { IngredientContext } from "@/contexts/IngredientContext";
 import { HopIngredient } from "@/generated/prisma/client";
 import { $Enums } from "@/generated/prisma/browser";
 
-import {
-  AdjustedHopIngredientType,
-  BaseHopIngredientType,
-  RecipeType,
-} from "@/types/Recipe";
+import { RecipeType } from "@/types/Recipe";
 import { SaveIcon } from "lucide-react";
 import React, { use, useContext } from "react";
 import {
   FieldValues,
   FormProvider,
+  get,
   SubmitHandler,
   useForm,
+  useFormContext,
   type UseFormProps,
 } from "react-hook-form";
-import { FormStateContext } from "@/contexts/FormStateContext";
 import { ModalContext } from "@/contexts/ModalContext";
-import { MaskContext } from "@/contexts/MaskContext";
-import { HopIngredientMask } from "@/lib/Converter/Masks";
-import HopIngredientForm, {
-  HopIngredientFormContainer,
-} from "./HopIngredientForm";
-import { RecipeContext } from "@/contexts/RecipeContext";
-import { useStateMachine } from "little-state-machine";
-import { addHopIngredient, updateRecipe } from "@/app/recipes/stateActions";
 import {
   createHopIngredient,
   updateHopIngredient,
 } from "@/app/recipes/actions";
+import HopIngredientForm, {
+  HopIngredientFormContainer,
+} from "./HopIngredientForm";
+import { MaskContext } from "@/contexts/MaskContext";
+import { HopIngredientMask } from "@/lib/Converter/Masks";
+import { RevisionContext } from "@/contexts/RevisionContext";
 
-export default function HopIngredientModal(
-  {
-    // recipe: src,
-    // handleClose,
-  }: {
-    // recipe: RecipeType;
-    id?: string;
-    // handleClose: (id?: string) => void;
-  },
-) {
-  const { state, actions } = useStateMachine({
-    actions: { addHopIngredient, updateRecipe },
-  });
-
-  const r = useContext(RecipeContext)!;
+export default function HopIngredientModal({
+  id,
+  // recipe,
+  // handleClose,
+}: {
+  id?: string;
+  // recipe: RecipeType;
+  // handleClose: (id?: string) => void;
+}) {
   const s = useContext(IngredientContext);
-  const f = useContext(FormStateContext);
+  const revisionContext = useContext(RevisionContext);
+  const f = useFormContext();
+  const hopIngredients = f.getValues("hopIngredients");
+  // console.log(revisionContext);
   const d = useContext(ModalContext);
   const handleClose = d.handleOpenChange;
-  const id =
+  const hops = use(s.hopPromise);
+  const opts = hops.map((h) => ({ label: h.name, value: h.id }));
+  const tid =
     !d.triggerId || typeof d.triggerId === "string"
       ? d.triggerId
       : d.triggerId.id;
-  const hops = use(s.hopPromise);
-  const opts = hops.map((h) => ({ label: h.name, value: h.id }));
-  const src = state.recipe!;
-  const currentIngredient = ((src?.hopIngredients ?? []).find(
-    ({ id: _id }) => id === _id,
-  ) ?? {
-    usage: $Enums.HopIngredientUsage.Boil,
-    recipeId: "id",
-  }) as BaseHopIngredientType;
-  console.log({ src, currentIngredient, f });
-  // const form = useForm<AdjustedHopIngredientType>({
-  //   defaultValues: currentIngredient as any,
-  // });
-  // const hopIngredient: Partial<BaseHopIngredientType> = {
-  // recipeId: src.id,
-  // };
+  const currentIndex = hopIngredients.findIndex(
+    ({ id: _id }: { id?: any }) => _id && tid === _id,
+  );
+  const currentIngredient =
+    hopIngredients[currentIndex] ??
+    ({
+      recipeId: f.getValues("id"),
+      usage: $Enums.HopIngredientUsage.Mash,
+    } as any);
+
   const onSubmit = (data: any) => {
-    console.log(data);
+    console.log("submitFermIng", data);
+    if (currentIndex > -1) {
+      const old = f.getValues("hopIngredients");
+      revisionContext?.update({
+        type: "SET",
+        payload: {
+          name: "hopIngredients",
+          prev: old,
+          value: old.map(({ id: _id }: { id: any }, index: any) =>
+            _id === tid ? data : old[index],
+          ),
+        },
+      });
+      // f.setValue(`hopIngredients[${currentIndex}]`, data);
+    } else {
+      const old = f.getValues(`hopIngredients`);
+      revisionContext?.update({
+        type: "ADD",
+        payload: {
+          name: "hopIngredients",
+          value: data,
+        },
+      });
+      // f.setValue("hopIngredients", [...old, data]);
+    }
     handleClose();
-  };
-  const onChangeCb = (selectedId: { label: string; value: string }) => {
-    console.log(selectedId);
-    const selected = hops.find(({ id }) => id === selectedId.value);
-    console.log(selected);
-    if (!selected) return;
-    // form.setValue("alpha.value", selected.alpha ?? 5);
   };
   return (
     <MaskContext
@@ -101,6 +106,7 @@ export default function HopIngredientModal(
         action={
           currentIngredient.id ? updateHopIngredient : createHopIngredient
         }
+        onSubmit={onSubmit}
         src={currentIngredient}
       >
         <HopIngredientForm src={currentIngredient} />

@@ -27,10 +27,12 @@ export function HopIngredientFormContainer<S = unknown>({
   src,
   action,
   toolbar,
+  onSubmit: _onSubmit,
   modals,
   children,
 }: {
   action: (state: S, formData: FormData) => Promise<S> | S;
+  onSubmit?: any;
   src: Partial<BaseHopIngredientType>;
   toolbar?: React.ReactNode;
   modals?: React.ReactNode | React.ReactNode[];
@@ -55,6 +57,7 @@ export function HopIngredientFormContainer<S = unknown>({
 
   // const formProps = { values: state.recipe || {} };
   const onSubmit = (data: any) => {
+    _onSubmit(data);
     console.log(data);
     d.handleDialogOpen()();
   };
