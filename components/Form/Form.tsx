@@ -11,6 +11,7 @@ import useRevisionHistory from "@/hooks/useRevisionHistory";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { UnitTypeDict } from "@/lib/Converter/UnitDict";
 import { State } from "@/lib/validateSchema";
+import { AdjustedRecipeType } from "@/types/Recipe";
 import { ExtendedUser } from "@/types/User";
 import React, { startTransition, useActionState, useContext } from "react";
 import {
@@ -29,7 +30,7 @@ export type FormProps<T extends FieldValues> = {
   // mask?: any;
   // preferences: UserPreferencesType;
   clientCb?: any;
-  submitCb?: SubmitHandler<FormData>;
+  submitCb?: any; //SubmitHandler<FormData>;
   formProps?: UseFormProps;
   modals?: React.ReactNode | React.ReactNode[];
   toolbar?: React.ReactNode | React.ReactNode[];
@@ -87,18 +88,18 @@ export function Form<T extends FieldValues>({
     form.setValue as any,
   );
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onSubmit: SubmitHandler<AdjustedRecipeType> = (data) => {
     // Wrap the async operation in startTransition
     // console.log(Promise.resolve(action(data)));
     startTransition(() => {
       // Perform your non-urgent updates here, e.g., API call or server action
       console.log("Submitting data:", _state, data);
-      const r = newFormAction(data);
+      // const r = newFormAction(data);
       // setState(r);
       // await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate an async call
       const clientRes = clientCb?.(data);
       const submitRes = submitCb?.(data);
-      console.log("Submission complete", { r, clientRes, submitRes });
+      console.log("Submission complete", { clientRes, submitRes });
     });
   };
   const handleSubmit: any = (e: any) => {
@@ -113,7 +114,7 @@ export function Form<T extends FieldValues>({
       {/* <UserPreferencesContext value={preferences}> */}
       <FormStateContext value={_state}>
         <RevisionContext value={revision}>
-          <form action={newFormAction} onSubmit={handleSubmit}>
+          <form action={newFormAction} onSubmit={form.handleSubmit(onSubmit)}>
             {toolbar}
             {children}
           </form>
