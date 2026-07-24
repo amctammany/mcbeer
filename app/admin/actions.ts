@@ -7,6 +7,7 @@ import {
   UserGravityPreference,
   UserMassPreference,
   UserPressurePreference,
+  UserRoles,
   UserTemperaturePreference,
   UserVolumePreference,
 } from "@/generated/prisma/client";
@@ -21,7 +22,8 @@ const schema = zfd.formData({
   //userId: zfd.text(),
   id: zfd.text(),
   name: zfd.text(),
-  username: zfd.text(),
+  username: zfd.text(z.string().optional()),
+  role: z.enum(UserRoles).default("USER"),
   email: zfd.text(),
   UserPreferences: z.object({
     id: zfd.numeric().optional(),
@@ -44,7 +46,7 @@ export async function updateUserSettings(prev: any, formData: FormData) {
     return Promise.resolve(v);
   }
   const { UserPreferences, ...data } = v.data;
-  const res = Promise.all([
+  const res = await Promise.all([
     prisma.user.update({
       where: {
         id: data.id,
@@ -56,6 +58,7 @@ export async function updateUserSettings(prev: any, formData: FormData) {
       data: UserPreferences,
     }),
   ]);
+  console.log(res);
   return redirect("/admin");
   //  return { success: true, data: res };
 }
