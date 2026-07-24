@@ -21,6 +21,7 @@ import {
   get,
   SubmitHandler,
   useForm,
+  useFormContext,
   type UseFormProps,
 } from "react-hook-form";
 import { FormStateContext } from "@/contexts/FormStateContext";
@@ -53,18 +54,10 @@ export default function FermentableIngredientModal({
   // recipe: RecipeType;
   // handleClose: (id?: string) => void;
 }) {
-  const { state, actions } = useStateMachine({
-    actions: {
-      addFermentableIngredient,
-      updateFermentableIngredient: stateUpdateFermentableIngredient,
-      updateRecipe,
-      updateRevision,
-    },
-  });
-
   const s = useContext(IngredientContext);
-  const { data: recipe } = useContext(FormStateContext);
   const revisionContext = useContext(RevisionContext);
+  const f = useFormContext();
+  const fermentableIngredients = f.getValues("fermentableIngredients");
   // console.log(revisionContext);
   const d = useContext(ModalContext);
   const handleClose = d.handleOpenChange;
@@ -74,39 +67,41 @@ export default function FermentableIngredientModal({
     !d.triggerId || typeof d.triggerId === "string"
       ? d.triggerId
       : d.triggerId.id;
-  const src = state.recipe!;
-  const currentIndex = state.fermentableIngredients.findIndex(
+  const currentIndex = fermentableIngredients.findIndex(
     ({ id: _id }: { id?: any }) => _id && tid === _id,
   );
   const currentIngredient =
-    state.fermentableIngredients[currentIndex] ??
+    fermentableIngredients[currentIndex] ??
     ({
-      // recipeId: src.id,
+      recipeId: f.getValues("id"),
       usage: $Enums.FermentableIngredientUsage.Mash,
     } as any);
 
   const onSubmit = (data: any) => {
     console.log("submitFermIng", data);
     if (currentIndex > -1) {
-      const old = get(state, `fermentableIngredients.${currentIndex}`);
-      actions.updateFermentableIngredient(data);
-      // revisionContext?.update({
-      //   type: "SET",
-      //   payload: {
-      //     name: `fermentableIngredients.${currentIndex}`,
-      //     prev: old,
-      //     value: data,
-      //   },
-      // });
+      const old = f.getValues("fermentableIngredients");
+      revisionContext?.update({
+        type: "SET",
+        payload: {
+          name: "fermentableIngredients",
+          prev: old,
+          value: old.map(({ id: _id }: { id: any }, index: any) =>
+            _id === tid ? data : old[index],
+          ),
+        },
+      });
+      // f.setValue(`fermentableIngredients[${currentIndex}]`, data);
     } else {
-      actions.addFermentableIngredient(data);
-      // revisionContext?.update({
-      //   type: "ADD",
-      //   payload: {
-      //     name: "fermentableIngredients",
-      //     value: data,
-      //   },
-      // });
+      const old = f.getValues(`fermentableIngredients`);
+      revisionContext?.update({
+        type: "ADD",
+        payload: {
+          name: "fermentableIngredients",
+          value: data,
+        },
+      });
+      // f.setValue("fermentableIngredients", [...old, data]);
     }
     handleClose();
   };

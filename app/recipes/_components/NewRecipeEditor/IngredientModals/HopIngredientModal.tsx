@@ -69,7 +69,10 @@ export default function HopIngredientModal(
   const src = state.recipe!;
   const currentIngredient = ((src?.hopIngredients ?? []).find(
     ({ id: _id }) => id === _id,
-  ) ?? { usage: $Enums.HopIngredientUsage.Boil }) as BaseHopIngredientType;
+  ) ?? {
+    usage: $Enums.HopIngredientUsage.Boil,
+    recipeId: "id",
+  }) as BaseHopIngredientType;
   console.log({ src, currentIngredient, f });
   // const form = useForm<AdjustedHopIngredientType>({
   //   defaultValues: currentIngredient as any,

@@ -6,6 +6,7 @@ import Section from "@/components/Section";
 import { IngredientContext } from "@/contexts/IngredientContext";
 import { EquipmentProfile } from "@/generated/prisma/client";
 import React, { use, useContext } from "react";
+import { useFormContext } from "react-hook-form";
 
 function EquipmentSectionToolbar() {
   const tools: any[] = [];
@@ -23,6 +24,8 @@ function EquipmentSectionToolbar() {
 export default function EquipmentSection() {
   const { equipPromise } = useContext(IngredientContext);
   const equipmentProfiles = use(equipPromise);
+  const ctx = useFormContext();
+  console.log("Recipe:", ctx.getValues());
   return (
     <Section title="Equipment" actions={<EquipmentSectionToolbar />}>
       <ComboBoxField

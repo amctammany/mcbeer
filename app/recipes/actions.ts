@@ -158,7 +158,7 @@ export async function createFermentableIngredient(
     data,
     include: { recipe: true },
   });
-  // refresh();
+  refresh();
   return { data: res, success: true, errors: [] };
 }
 
@@ -185,7 +185,7 @@ export async function updateFermentableIngredient(
     data,
     include: { recipe: true },
   });
-  // refresh();
+  refresh();
   return { data: res, success: true, errors: [] };
 }
 
@@ -208,7 +208,7 @@ export async function createHopIngredient(prev: any, formData: FormData) {
     data,
     include: { recipe: true },
   });
-  // refresh();
+  refresh();
   return { data: res, success: true, errors: [] };
 }
 
@@ -232,6 +232,6 @@ export async function updateHopIngredient(prev: any, formData: FormData) {
     data,
     include: { recipe: true },
   });
-  // refresh();
+  refresh();
   return { data: res, success: true, errors: [] };
 }

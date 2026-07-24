@@ -17,7 +17,7 @@ const HopIngredientModal = dynamic(
   () => import("./IngredientModals/HopIngredientModal"),
 );
 
-export default function RecipeModals({}: {}) {
+export default function RecipeModals({ recipeId }: { recipeId?: string }) {
   const a = useContext(RecipeContext);
   const context = useContext(ModalContext);
   if (!Object.keys(context).length) {

@@ -47,9 +47,6 @@ export function FermentableIngredientFormContainer<S = unknown>({
   console.log({ preferenceContext });
   const d = useContext(ModalContext);
   // console.log({ src, mask, preferenceContext });
-  const { state, actions } = useStateMachine({
-    actions: { addFermentableIngredient, updateFermentableIngredient },
-  });
 
   // console.log({
   //   src,
