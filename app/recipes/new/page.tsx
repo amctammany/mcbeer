@@ -23,7 +23,7 @@ export default async function RecipeCreatorPage() {
     hopIngredients: [],
     fermentableIngredients: [],
     owner,
-  } as AdjustedRecipeType;
+  } as RecipeType;
   // const styles = getStyleNames();
   return (
     <RecipeEditor
