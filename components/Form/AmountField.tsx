@@ -55,6 +55,7 @@ import { getInMask } from "@/lib/Converter/Masks";
 import { FormStateContext } from "@/contexts/FormStateContext";
 import { get } from "@/lib/utils";
 import { PercentUnit } from "@/generated/prisma/enums";
+import { getBaseUnit } from "@/lib/Converter/Converter";
 export type AmountFieldProps<T extends FieldValues> = InputProps<T> &
   VariantProps<typeof amountFieldStyles> & {
     amountType?: UnitTypes;
@@ -138,6 +139,7 @@ export function AmountField<T extends FieldValues>({
   const { ...inputProps } = register(`${name}.value`, {
     valueAsNumber: true,
   });
+  // register(`${name}.unit`, {value: amountType ? BASE_UNITS[amountType] : getBaseUnit(unit)} )
   // const unit = _unit ?? unitName ?? get(state.data, `${name}.unit`);
   const u =
     unit === "%" || unit === "#" ? PercentUnits[unit as PercentUnit] : unit;
@@ -179,7 +181,7 @@ export function AmountField<T extends FieldValues>({
           className="gap-1 w-full grow"
           // aria-invalid={!!fieldState.error}
         >
-          <input type="hidden" value={_u} {...register(`${name}.unit`)} />
+          <input type="hidden" value={unit} {...register(`${name}.unit`)} />
 
           <InputGroupInput
             className="text-center grow"

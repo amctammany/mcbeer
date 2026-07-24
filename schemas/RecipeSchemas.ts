@@ -51,6 +51,15 @@ export const recipeSchema = zfd.formData({
   chloride: zfd.numeric(z.number().optional()),
   sulfate: zfd.numeric(z.number().optional()),
   bicarbonate: zfd.numeric(z.number().optional()),
-  hopIngredients: zfd.repeatableOfType(hopIngredientSchema),
-  fermentableIngredients: zfd.repeatableOfType(fermentableIngredientSchema),
+  fermentableIngredients: zfd.repeatableOfType(
+    z.object({
+      id: zfd.text(z.string().optional()),
+    }),
+  ),
+  hopIngredients: zfd.repeatableOfType(
+    z.object({
+      id: zfd.text(z.string().optional()),
+    }),
+  ),
+  // fermentableIngredients: zfd.repeatableOfType(fermentableIngredientSchema),
 });

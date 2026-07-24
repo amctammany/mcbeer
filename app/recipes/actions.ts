@@ -4,13 +4,18 @@ import { reduceUnits } from "@/lib/Converter/adjustUnits";
 import { prisma } from "@/lib/prisma";
 import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
-import { hopIngredientSchema, recipeSchema } from "@/schemas/RecipeSchemas";
 import {
+  fermentableIngredientSchema,
+  hopIngredientSchema,
+  recipeSchema,
+} from "@/schemas/RecipeSchemas";
+import {
+  BaseFermentableIngredientType,
   BaseHopIngredientType,
   BaseRecipeType,
   RecipeType,
 } from "@/types/Recipe";
-import { updateTag } from "next/cache";
+import { refresh, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { success } from "zod";
 
@@ -76,6 +81,8 @@ export async function updateRecipe(prev: any, formData: FormData) {
     style,
     ...data
   } = r;
+  console.log("updateRecipe", { data, hopIngredients, fermentableIngredients });
+  /**
   const ftx = await prisma.$transaction([
     ...fermentableIngredients.map(({ id: _id, ...d }) => {
       return _id
@@ -103,6 +110,7 @@ export async function updateRecipe(prev: any, formData: FormData) {
         : prisma.hopIngredient.create({ data: { recipeId: id!, ...d } });
     }),
   ]);
+ */
   // const hopIngs = await prisma.hopIngredient.upsert({
   // create: hopIngredients
   // .filter(({ id }) => id === undefined)
@@ -112,12 +120,12 @@ export async function updateRecipe(prev: any, formData: FormData) {
     where: { id },
     data: {
       fermentableIngredients: {
-        connect: ftx.map(({ id: _id }) => ({
+        connect: fermentableIngredients.map(({ id: _id }) => ({
           id: _id,
         })),
       },
       hopIngredients: {
-        connect: htx.map(({ id: _id }) => ({
+        connect: hopIngredients.map(({ id: _id }) => ({
           id: _id,
         })),
       },
@@ -126,6 +134,59 @@ export async function updateRecipe(prev: any, formData: FormData) {
   });
   updateTag("recipes");
   return redirect(`/recipes/${res.id}`);
+}
+
+export async function createFermentableIngredient(
+  prev: any,
+  formData: FormData,
+) {
+  const v = validateSchema(formData, fermentableIngredientSchema);
+  console.log("addFermIng", v);
+  if (v.errors) return v;
+  if (!v.success) {
+    return Promise.resolve(v);
+  }
+  /** 
+  const { id, userId, mashProfileId, equipmentProfileId,styleId, ...r } = (
+    v.data,
+  ) as BaseRecipe;
+   */
+  const r = reduceUnits(v.data) as BaseFermentableIngredientType;
+  const { id, ...data } = r;
+  console.log({ prev, r });
+  const res = await prisma.fermentableIngredient.create({
+    data,
+    include: { recipe: true },
+  });
+  // refresh();
+  return { data: res, success: true, errors: [] };
+}
+
+export async function updateFermentableIngredient(
+  prev: any,
+  formData: FormData,
+) {
+  const v = validateSchema(formData, fermentableIngredientSchema);
+  console.log("updateFermIng", v);
+  if (v.errors) return v;
+  if (!v.success) {
+    return Promise.resolve(v);
+  }
+  /** 
+  const { id, userId, mashProfileId, equipmentProfileId,styleId, ...r } = (
+    v.data,
+  ) as BaseRecipe;
+   */
+  const r = reduceUnits(v.data) as BaseFermentableIngredientType;
+  const { id, ...data } = r;
+  console.log({ prev, r });
+  const res = await prisma.fermentableIngredient.update({
+    where: { id },
+    data,
+    include: { recipe: true },
+  });
+  // refresh();
+  return { data: res, success: true, errors: [] };
 }
 
 export async function createHopIngredient(prev: any, formData: FormData) {
@@ -147,7 +208,8 @@ export async function createHopIngredient(prev: any, formData: FormData) {
     data,
     include: { recipe: true },
   });
-  return { data: res.recipe, success: true, errors: [] };
+  // refresh();
+  return { data: res, success: true, errors: [] };
 }
 
 export async function updateHopIngredient(prev: any, formData: FormData) {
@@ -170,5 +232,6 @@ export async function updateHopIngredient(prev: any, formData: FormData) {
     data,
     include: { recipe: true },
   });
-  return { data: res.recipe, success: true, errors: [] };
+  // refresh();
+  return { data: res, success: true, errors: [] };
 }

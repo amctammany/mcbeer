@@ -61,7 +61,6 @@ export const FermentableIngredientMask: UnitMaskType<
   amount: "mass",
   color: "color",
 };
-
 export const HopIngredientMask: UnitMaskType<Partial<BaseHopIngredientType>> = {
   amount: "mass",
   duration: "time",

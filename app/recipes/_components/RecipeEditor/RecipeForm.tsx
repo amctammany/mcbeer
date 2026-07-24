@@ -98,15 +98,19 @@ export default function RecipeFormContainer({
     console.log({ adjusted, hopIngredients, fermentableIngredients });
     actions.setRecipe({ ...adjusted, hopIngredients, fermentableIngredients });
   }, [src]);
-  const decorator = (src: FormData) => {
-    const his = objectToFormData(state.hopIngredients, src, "hopIngredients");
+  const decorator = (s: FormData) => {
+    const his = objectToFormData(
+      state.hopIngredients.map(({ id }) => ({ id })),
+      s,
+      "hopIngredients",
+    );
     const fis = objectToFormData(
-      state.fermentableIngredients,
-      src,
+      state.fermentableIngredients.map(({ id }) => ({ id })),
+      s,
       "fermentableIngredients",
     );
     // console.log(Object.fromEntries(his.entries()));
-    return his;
+    return s;
   };
 
   // const [state, formAction] = useActionState<any, FormData>(action, {

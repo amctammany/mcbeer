@@ -28,10 +28,15 @@ import { ModalContext } from "@/contexts/ModalContext";
 import { useStateMachine } from "little-state-machine";
 import {
   addFermentableIngredient,
-  updateFermentableIngredient,
+  updateFermentableIngredient as stateUpdateFermentableIngredient,
   updateRecipe,
   updateRevision,
 } from "@/app/recipes/stateActions";
+import {
+  createFermentableIngredient,
+  createHopIngredient,
+  updateFermentableIngredient,
+} from "@/app/recipes/actions";
 import FermentableIngredientForm, {
   FermentableIngredientFormContainer,
 } from "./FermentableIngredientForm";
@@ -51,7 +56,7 @@ export default function FermentableIngredientModal({
   const { state, actions } = useStateMachine({
     actions: {
       addFermentableIngredient,
-      updateFermentableIngredient,
+      updateFermentableIngredient: stateUpdateFermentableIngredient,
       updateRecipe,
       updateRevision,
     },
@@ -60,7 +65,7 @@ export default function FermentableIngredientModal({
   const s = useContext(IngredientContext);
   const { data: recipe } = useContext(FormStateContext);
   const revisionContext = useContext(RevisionContext);
-  console.log(revisionContext);
+  // console.log(revisionContext);
   const d = useContext(ModalContext);
   const handleClose = d.handleOpenChange;
   const fermentables = use(s.fermentablePromise);
@@ -69,41 +74,39 @@ export default function FermentableIngredientModal({
     !d.triggerId || typeof d.triggerId === "string"
       ? d.triggerId
       : d.triggerId.id;
-  const src = revisionContext?.state.recipe!;
-  const currentIndex = revisionContext?.state.fermentableIngredients.findIndex(
-    ({ id: _id }: { id: any }) => tid === _id,
+  const src = state.recipe!;
+  const currentIndex = state.fermentableIngredients.findIndex(
+    ({ id: _id }: { id?: any }) => _id && tid === _id,
   );
   const currentIngredient =
-    recipe.fermentableIngredients[currentIndex] ??
+    state.fermentableIngredients[currentIndex] ??
     ({
       // recipeId: src.id,
       usage: $Enums.FermentableIngredientUsage.Mash,
     } as any);
 
   const onSubmit = (data: any) => {
+    console.log("submitFermIng", data);
     if (currentIndex > -1) {
-      const old = get(
-        revisionContext?.state,
-        `fermentableIngredients.${currentIndex}`,
-      );
-      // actions.updateFermentableIngredient(data);
-      revisionContext?.update({
-        type: "SET",
-        payload: {
-          name: `fermentableIngredients.${currentIndex}`,
-          prev: old,
-          value: data,
-        },
-      });
+      const old = get(state, `fermentableIngredients.${currentIndex}`);
+      actions.updateFermentableIngredient(data);
+      // revisionContext?.update({
+      //   type: "SET",
+      //   payload: {
+      //     name: `fermentableIngredients.${currentIndex}`,
+      //     prev: old,
+      //     value: data,
+      //   },
+      // });
     } else {
-      // actions.addFermentableIngredient(data);
-      revisionContext?.update({
-        type: "ADD",
-        payload: {
-          name: "fermentableIngredients",
-          value: data,
-        },
-      });
+      actions.addFermentableIngredient(data);
+      // revisionContext?.update({
+      //   type: "ADD",
+      //   payload: {
+      //     name: "fermentableIngredients",
+      //     value: data,
+      //   },
+      // });
     }
     handleClose();
   };
@@ -114,6 +117,11 @@ export default function FermentableIngredientModal({
       }}
     >
       <FermentableIngredientFormContainer
+        action={
+          currentIngredient.id
+            ? updateFermentableIngredient
+            : createFermentableIngredient
+        }
         onSubmit={onSubmit}
         src={currentIngredient}
       >

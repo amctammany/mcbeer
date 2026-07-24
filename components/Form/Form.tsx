@@ -16,6 +16,7 @@ import React, { startTransition, useActionState, useContext } from "react";
 import {
   FieldValues,
   FormProvider,
+  FormSubmitHandler,
   SubmitHandler,
   useForm,
   type UseFormProps,
@@ -27,6 +28,7 @@ export type FormProps<T extends FieldValues> = {
   decorator?: (data: FormData) => FormData;
   // mask?: any;
   // preferences: UserPreferencesType;
+  clientCb?: any;
   submitCb?: SubmitHandler<FormData>;
   formProps?: UseFormProps;
   modals?: React.ReactNode | React.ReactNode[];
@@ -36,6 +38,7 @@ export type FormProps<T extends FieldValues> = {
 export function Form<T extends FieldValues>({
   // preferences,
   action,
+  clientCb,
   toolbar,
   modals,
   src,
@@ -47,7 +50,6 @@ export function Form<T extends FieldValues>({
 }: FormProps<T>) {
   const { mask } = useContext(MaskContext);
   const preferenceContext = useContext(UserPreferencesContext);
-  // console.log({ src, mask, preferenceContext });
   const adjusted = adjustUnits({
     src,
     mask,
@@ -55,7 +57,7 @@ export function Form<T extends FieldValues>({
     inline: false,
     dir: false,
   });
-  // console.log({ src, mask, adjusted });
+  console.log({ src, mask, adjusted, preferenceContext });
 
   const [_state, formAction] = useActionState<State<T>, FormData>(action, {
     success: true,
@@ -76,7 +78,7 @@ export function Form<T extends FieldValues>({
     defaultValues: _state.data as any,
     errors: _state.errors,
 
-    // ...formProps,
+    ...formProps,
   });
   const newFormAction = (payload: FormData) =>
     decorator ? formAction(decorator(payload)) : formAction(payload);
@@ -88,18 +90,22 @@ export function Form<T extends FieldValues>({
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Wrap the async operation in startTransition
     // console.log(Promise.resolve(action(data)));
-    startTransition(async () => {
+    startTransition(() => {
       // Perform your non-urgent updates here, e.g., API call or server action
       console.log("Submitting data:", _state, data);
-      const r = await formAction(data);
+      const r = newFormAction(data);
       // setState(r);
       // await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate an async call
-      console.log("Submission complete", r);
+      const clientRes = clientCb?.(data);
+      const submitRes = submitCb?.(data);
+      console.log("Submission complete", { r, clientRes, submitRes });
     });
   };
-  const handleSubmit: SubmitHandler<FormData> = (d) => {
-    const res = submitCb?.(d);
-    console.log("handleSubmit", { d, res });
+  const handleSubmit: any = (e: any) => {
+    console.log(e);
+    // const clientRes = clientCb?.(d);
+    // const submitRes = submitCb?.(d);
+    // console.log("handleSubmit", { d, clientRes, submitRes });
   };
   // const onSubmit = startTransition(() => form.handleSubmit(action));
   return (
@@ -107,10 +113,7 @@ export function Form<T extends FieldValues>({
       {/* <UserPreferencesContext value={preferences}> */}
       <FormStateContext value={_state}>
         <RevisionContext value={revision}>
-          <form
-            action={newFormAction}
-            onSubmit={form.handleSubmit(handleSubmit)}
-          >
+          <form action={newFormAction} onSubmit={handleSubmit}>
             {toolbar}
             {children}
           </form>

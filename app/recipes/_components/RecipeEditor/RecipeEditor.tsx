@@ -29,25 +29,23 @@ export default function RecipeEditor({
   // equipmentProfiles,
 }: RecipeEditorProps) {
   return (
-    <RecipeProvider recipe={src}>
-      <RecipeFormContainer
-        toolbar={<RecipeEditorToolbar />}
-        modals={<RecipeModals />}
-        src={src}
-        action={action}
-      >
-        <div>
-          <RecipeForm />
-          <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
-            <GeneralSection />
-            <EquipmentSection />
-            <VitalsSection />
-          </div>
-          <div>
-            <IngredientsSection src={src} />
-          </div>
+    <RecipeFormContainer
+      toolbar={<RecipeEditorToolbar />}
+      modals={<RecipeModals />}
+      src={src}
+      action={action}
+    >
+      <div>
+        <RecipeForm />
+        <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
+          <GeneralSection />
+          <EquipmentSection />
+          <VitalsSection />
         </div>
-      </RecipeFormContainer>
-    </RecipeProvider>
+        <div>
+          <IngredientsSection src={src} />
+        </div>
+      </div>
+    </RecipeFormContainer>
   );
 }
