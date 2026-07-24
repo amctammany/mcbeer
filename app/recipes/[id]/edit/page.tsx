@@ -1,5 +1,5 @@
 import { notFound, redirect, unauthorized } from "next/navigation";
-import RecipeEditor from "../../_components/RecipeEditor/RecipeEditor";
+import RecipeEditor from "../../_components/NewRecipeEditor/RecipeEditor";
 import { getRecipe } from "../../queries";
 import { updateRecipe } from "../../actions";
 import { getStyleNames } from "@/app/styles/queries";

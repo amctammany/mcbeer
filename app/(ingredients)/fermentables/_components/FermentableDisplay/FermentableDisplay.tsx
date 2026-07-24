@@ -7,7 +7,7 @@ const FermentablePropertiesTab = dynamic(
   () => import("./FermentablePropertiesTab"),
 );
 export type FermentableDisplayProps = {
-  src?: fermentabletype;
+  src?: Partial<FermentableType>;
 };
 export function FermentableDisplay({ src }: FermentableDisplayProps) {
   return (
