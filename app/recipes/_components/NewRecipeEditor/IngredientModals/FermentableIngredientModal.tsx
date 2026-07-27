@@ -78,7 +78,7 @@ export default function FermentableIngredientModal({
     } as any);
 
   const onSubmit = (data: any) => {
-    console.log("submitFermIng", data);
+    console.log("submitFermIng", data, f.getValues());
     if (currentIndex > -1) {
       const old = f.getValues("fermentableIngredients");
       revisionContext?.update({

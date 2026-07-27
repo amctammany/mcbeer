@@ -88,18 +88,22 @@ export function Form<T extends FieldValues>({
     form.setValue as any,
   );
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (d) => {
     // Wrap the async operation in startTransition
     // console.log(Promise.resolve(action(data)));
+    const data = form.getValues();
     startTransition(() => {
       // Perform your non-urgent updates here, e.g., API call or server action
       console.log("Submitting data:", _state, data);
-      // const r = newFormAction(data);
+      // const r newFormAction(data);
       // setState(r);
       // await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate an async call
-      const clientRes = clientCb?.(data);
-      const submitRes = submitCb?.(data);
-      console.log("Submission complete", { clientRes, submitRes });
+      const cb = (d: any) => {
+        const clientRes = clientCb?.(data);
+        const submitRes = submitCb?.(data);
+      };
+      form.handleSubmit(cb)();
+      console.log("Submission complete");
     });
   };
   const handleSubmit: any = (e: any) => {
@@ -114,7 +118,7 @@ export function Form<T extends FieldValues>({
       {/* <UserPreferencesContext value={preferences}> */}
       <FormStateContext value={_state}>
         <RevisionContext value={revision}>
-          <form action={newFormAction} onSubmit={form.handleSubmit(onSubmit)}>
+          <form action={newFormAction} onSubmit={onSubmit}>
             {toolbar}
             {children}
           </form>

@@ -56,9 +56,9 @@ export function HopIngredientFormContainer<S = unknown>({
   // };
 
   // const formProps = { values: state.recipe || {} };
-  const onSubmit = (data: any) => {
-    _onSubmit(data);
-    console.log(data);
+  const onSubmit = (e: any) => {
+    _onSubmit(e);
+    console.log(e);
     d.handleDialogOpen()();
   };
   // console.log(state);
@@ -124,7 +124,7 @@ export default function HopIngredientForm({
       />
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-1">
         <AmountField step="0.1" name="alpha" label="Alpha" unit="percent" />
-        <AmountField step="0.1" name="amount" label="Amount" unit="Oz" />
+        <AmountField step="0.1" name="amount" label="Amount" />
         <SelectField
           defaultValue={$Enums.HopIngredientUsage.Boil}
           name="usage"

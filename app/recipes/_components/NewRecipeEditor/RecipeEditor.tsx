@@ -19,7 +19,7 @@ export default function RecipeEditor({ src, action }: RecipeEditorProps) {
         src={src}
         action={action}
         toolbar={<RecipeEditorToolbar />}
-        modals={<RecipeModals />}
+        modals={<RecipeModals recipeId={src.id} />}
       >
         <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
           <GeneralSection />

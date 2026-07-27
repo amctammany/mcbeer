@@ -69,30 +69,33 @@ export default function HopIngredientModal({
     } as any);
 
   const onSubmit = (data: any) => {
-    console.log("submitFermIng", data);
+    console.log("submitHopIng", data, f.getValues());
     if (currentIndex > -1) {
       const old = f.getValues("hopIngredients");
+      const newValue = old.map((d: { id: any }, index: any) =>
+        d.id === tid ? data : d,
+      );
       revisionContext?.update({
         type: "SET",
         payload: {
           name: "hopIngredients",
           prev: old,
-          value: old.map((d: { id: any }, index: any) =>
-            d.id === tid ? data : d,
-          ),
+          value: newValue,
         },
       });
-      // f.setValue(`hopIngredients[${currentIndex}]`, data);
+      f.setValue(`hopIngredients`, newValue);
     } else {
       const old = f.getValues(`hopIngredients`);
+      const newValue = [...old, data];
       revisionContext?.update({
         type: "ADD",
         payload: {
           name: "hopIngredients",
-          value: data,
+          prev: old,
+          value: newValue,
         },
       });
-      // f.setValue("hopIngredients", [...old, data]);
+      f.setValue("hopIngredients", newValue);
     }
     handleClose();
   };

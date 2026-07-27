@@ -230,8 +230,17 @@ export async function updateHopIngredient(prev: any, formData: FormData) {
   const res = await prisma.hopIngredient.update({
     where: { id },
     data,
-    include: { recipe: true },
+    include: {
+      recipe: {
+        include: {
+          hopIngredients: true,
+          fermentableIngredients: true,
+          style: true,
+        },
+      },
+    },
   });
   refresh();
-  return { data: res, success: true, errors: [] };
+  return;
+  // return { data: res.recipe, success: true, errors: [] };
 }

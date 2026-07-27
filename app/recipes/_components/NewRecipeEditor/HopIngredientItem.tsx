@@ -21,21 +21,30 @@ import {
   TimerIcon,
 } from "lucide-react";
 import React from "react";
+import { useFormContext } from "react-hook-form";
 
 export type HopIngredientItemProps = {
   src: AdjustedHopIngredientType;
+  index: number;
   onClick?: React.MouseEventHandler;
 };
 
 export default function HopIngredientItem({
+  index,
   src,
   onClick,
 }: HopIngredientItemProps) {
   const ctx = React.useContext(IngredientContext);
+  const form = useFormContext();
   const hops = React.use(ctx.hopPromise);
   const hop = hops.find((h) => h.id === src.hopId);
   return (
     <ListItem onClick={onClick}>
+      <input
+        type="hidden"
+        {...form.register(`hopIngredients.${index}.id`)}
+        value={src.id}
+      />
       <ListItemIcon>
         <HopIcon />
       </ListItemIcon>

@@ -138,6 +138,7 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
         {(hopIngredients || []).map((i: any, index: any) => (
           <HopIngredientItem
             key={index}
+            index={index}
             src={i}
             onClick={handleClick({ type: "hop", id: i.id })}
           />
