@@ -1,14 +1,7 @@
-// import { addFermentableIngredientToRecipe } from "@/app/recipes/actions";
-import {
-  addFermentableIngredient,
-  updateFermentableIngredient,
-} from "@/app/recipes/stateActions";
 import IconButton from "@/components/Button/IconButton";
 import AmountField from "@/components/Form/AmountField";
 import { ComboBoxField } from "@/components/Form/ComboBoxField";
-import { Input } from "@/components/Form/Input";
 import { SelectField } from "@/components/Form/SelectField";
-import { TextField } from "@/components/Form/TextField";
 import { Form } from "@/components/Form/Form";
 import { FormStateContext } from "@/contexts/FormStateContext";
 import { IngredientContext } from "@/contexts/IngredientContext";
@@ -20,70 +13,80 @@ import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { FermentableIngredientMask } from "@/lib/Converter/Masks";
 import {
   AdjustedFermentableIngredientType,
-  AdjustedHopIngredientType,
   BaseFermentableIngredientType,
 } from "@/types/Recipe";
 import { useStateMachine } from "little-state-machine";
 import { SaveIcon } from "lucide-react";
 import React, { use, useContext } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import UserPreferencesProvider from "@/components/UserPreferencesProvider";
+import { TextField } from "@/components/Form/TextField";
 export function FermentableIngredientFormContainer<S = unknown>({
-  onSubmit: _onSubmit,
-  action,
   src,
+  action,
   toolbar,
+  onSubmit: _onSubmit,
   modals,
   children,
+  index,
 }: {
-  action: (state: S, formData: FormData) => Promise<S> | S;
+  action: any;
+  index?: number;
+  onSubmit?: any;
+  src: Partial<BaseFermentableIngredientType>;
   toolbar?: React.ReactNode;
   modals?: React.ReactNode | React.ReactNode[];
-  onSubmit?: any;
-  // onSubmit?: (data: Partial<BaseFermentableIngredientType>) => void;
-  src: Partial<AdjustedFermentableIngredientType>;
   children: React.ReactNode;
 }) {
-  const preferenceContext = useContext(UserPreferencesContext);
-  console.log({ preferenceContext });
   const d = useContext(ModalContext);
-  // console.log({ src, mask, preferenceContext });
+  const prefs = useContext(UserPreferencesContext);
+  const handleClose = d.handleOpenChange;
 
-  // console.log({
-  //   src,
-  //   mask: FermentableIngredientMask,
-  //   state,
-  //   preferenceContext,
-  // });
-  // const adjusted = adjustUnits({
-  //   src,
-  //   mask: FermentableIngredientMask,
-  //   prefs: preferenceContext,
-  //   inline: false,
-  //   dir: false,
-  // });
-  // const f = useForm({
-  //   defaultValues: adjusted,
+  // console.log(prefs);
+  // console.log({ src, mask, preferenceContext });
+  // const { state, actions } = useStateMachine({
+  //   actions: { addFermentableIngredient, updateFermentableIngredient },
   // });
 
   // const saveFermentableIngredient = (_data: any) => {
+  //   // console.log(state);
   //   const data = f.getValues();
-  //   // console.log(state, onSubmit, data);
   //   const action = data.id
   //     ? actions.updateFermentableIngredient
   //     : actions.addFermentableIngredient;
-
   //   // console.log(data);
-  //   onSubmit?.(data);
   //   action(data as any);
   //   d.handleOpenChange();
-  //   f.reset();
   // };
-  const onSubmit = (data: any) => {
-    console.log(data);
-    _onSubmit(data);
+  const form = useForm({
+    defaultValues: src,
+  });
+  const { setValue, getValues, handleSubmit, register } = form;
+  // const formProps = { values: state.recipe || {} };
+  const onSubmit = (e: any) => {
+    _onSubmit(e);
+    console.log(e);
     d.handleDialogOpen()();
   };
+  const handleSave = (d: any) => {
+    // console.log(d);
+    // console.log(action);
+    _onSubmit(d);
+    index ? action(index, d) : action(d);
+    // handleClose();
+  };
   // console.log(state);
+  return (
+    <MaskContext value={{ mask: FermentableIngredientMask }}>
+      <UserPreferencesContext value={prefs}>
+        <FormProvider {...form}>
+          <form onSubmit={handleSubmit(handleSave)}>{children}</form>
+        </FormProvider>
+      </UserPreferencesContext>
+    </MaskContext>
+  );
+  /**
+   * 
   return (
     <Form
       action={action}
@@ -97,6 +100,12 @@ export function FermentableIngredientFormContainer<S = unknown>({
       {children}
     </Form>
   );
+   */
+  // return (
+  //   <FormProvider {...f}>
+  //     <form onSubmit={f.handleSubmit(saveFermentableIngredient)}>{children}</form>
+  //   </FormProvider>
+  // );
 
   // <Form src={src} action={addFermentableIngredientToRecipe}>
   // </Form>
@@ -110,30 +119,33 @@ export function FermentableIngredientFormContainer<S = unknown>({
       */
 export default function FermentableIngredientForm({
   src,
+  // action,
+  index,
 }: {
   src: Partial<AdjustedFermentableIngredientType>;
+  // action: any;
+  index?: number;
 }) {
   const s = useContext(IngredientContext);
-  const prefs = useContext(UserPreferencesContext);
-  console.log({ prefs });
-  const { data } = useContext(FormStateContext);
-  const { setValue } = useFormContext();
-  // const handleClose = d.handleOpenChange;
+  // const { data } = useContext(FormStateContext);
+
+  // console.log(src);
+  const { register, setValue } = useFormContext();
+
   const fermentables = use(s.fermentablePromise);
   const opts = fermentables.map((h) => ({ label: h.name, value: h.id }));
   const onChangeCb = (r: any) => {
     const h = fermentables.find(({ id }) => id === r);
     if (h) {
-      console.log("hi", h);
-      setValue("potential.value", (h?.potential ?? 0.01) * 100);
+      console.log(h);
+      setValue("color.value", (h?.color ?? 0.01) * 100);
     }
     // handleClose();
   };
-
   return (
     <div className="relative">
-      <input type="hidden" name="id" value={data?.id} />
-      <input type="hidden" name="recipeId" value={data?.recipeId} />
+      <input type="hidden" {...register("id")} />
+      <input type="hidden" {...register("recipeId")} />
       <ComboBoxField
         onChangeCallback={onChangeCb}
         orientation="responsive"
@@ -143,6 +155,7 @@ export default function FermentableIngredientForm({
       />
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-1">
         <AmountField
+          revisable={false}
           step="0.1"
           name="color"
           label="Color"
@@ -151,12 +164,14 @@ export default function FermentableIngredientForm({
         />
         <AmountField
           step="0.1"
+          revisable={false}
           name="amount"
           label="Amount"
           amountType="mass"
           unit="Lb"
         />
         <TextField
+          revisable={false}
           type="number"
           step="0.1"
           name="potential"
@@ -164,6 +179,7 @@ export default function FermentableIngredientForm({
         />
         <SelectField
           defaultValue={$Enums.FermentableIngredientUsage.Mash}
+          revisable={false}
           name="usage"
           options={$Enums.FermentableIngredientUsage}
           label="Usage"

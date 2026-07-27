@@ -23,7 +23,7 @@ export interface BaseFermentableIngredientType extends Omit<
   recipeId?: string;
 }
 
-type FermentableIngredientAmountFieldNames = "amount";
+type FermentableIngredientAmountFieldNames = "amount" | "color";
 export type AdjustedFermentableIngredientType = AmountFields<
   BaseFermentableIngredientType,
   FermentableIngredientAmountFieldNames

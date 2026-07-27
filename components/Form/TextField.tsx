@@ -54,6 +54,7 @@ export function TextField<T extends FieldValues>({
   label,
   description,
   suffix,
+  revisable,
   variant,
   value,
   orientation = "responsive",
@@ -69,6 +70,7 @@ export function TextField<T extends FieldValues>({
   const fieldState = getFieldState(name);
   const onValueChange: (o: any) => React.ChangeEventHandler<HTMLInputElement> =
     (old) => (e) => {
+      if (!revisable) return;
       const newValue = e.target.value;
       if (old !== newValue)
         revisionContext?.update({

@@ -16,26 +16,20 @@ import { RecipeType } from "@/types/Recipe";
 import { SaveIcon } from "lucide-react";
 import React, { use, useContext } from "react";
 import {
+  appendErrors,
   FieldValues,
   FormProvider,
   get,
   SubmitHandler,
+  useFieldArray,
   useForm,
   useFormContext,
+  useWatch,
   type UseFormProps,
 } from "react-hook-form";
-import { FormStateContext } from "@/contexts/FormStateContext";
 import { ModalContext } from "@/contexts/ModalContext";
-import { useStateMachine } from "little-state-machine";
-import {
-  addFermentableIngredient,
-  updateFermentableIngredient as stateUpdateFermentableIngredient,
-  updateRecipe,
-  updateRevision,
-} from "@/app/recipes/stateActions";
 import {
   createFermentableIngredient,
-  createHopIngredient,
   updateFermentableIngredient,
 } from "@/app/recipes/actions";
 import FermentableIngredientForm, {
@@ -57,7 +51,14 @@ export default function FermentableIngredientModal({
   const s = useContext(IngredientContext);
   const revisionContext = useContext(RevisionContext);
   const f = useFormContext();
-  const fermentableIngredients = f.getValues("fermentableIngredients");
+  const fields = useFieldArray({
+    name: "fermentableIngredients",
+    control: f.control,
+  });
+  const fermentableIngredients = useWatch({
+    name: "fermentableIngredients",
+    control: f.control,
+  });
   // console.log(revisionContext);
   const d = useContext(ModalContext);
   const handleClose = d.handleOpenChange;
@@ -67,41 +68,51 @@ export default function FermentableIngredientModal({
     !d.triggerId || typeof d.triggerId === "string"
       ? d.triggerId
       : d.triggerId.id;
+  const tIndex =
+    !d.triggerId || typeof d.triggerId === "string"
+      ? undefined
+      : d.triggerId.index;
   const currentIndex = fermentableIngredients.findIndex(
     ({ id: _id }: { id?: any }) => _id && tid === _id,
   );
   const currentIngredient =
-    fermentableIngredients[currentIndex] ??
-    ({
-      recipeId: f.getValues("id"),
-      usage: $Enums.FermentableIngredientUsage.Mash,
-    } as any);
+    tIndex !== undefined && tIndex >= 0 && fermentableIngredients[tIndex]
+      ? fermentableIngredients[tIndex]
+      : ({
+          recipeId: f.getValues("id"),
+          usage: $Enums.FermentableIngredientUsage.Mash,
+        } as any);
 
   const onSubmit = (data: any) => {
-    console.log("submitFermIng", data, f.getValues());
-    if (currentIndex > -1) {
-      const old = f.getValues("fermentableIngredients");
+    console.log("submitFermentableIng", data, f.getValues());
+    if (tIndex !== undefined && tIndex >= 0) {
+      const old = fermentableIngredients[tIndex];
+      // const newValue = old.map((d: { id: any }, index: any) =>
+      // d.id === tid ? data : d,
+      // );
       revisionContext?.update({
         type: "SET",
         payload: {
-          name: "fermentableIngredients",
+          name: `fermentableIngredients.${tIndex}`,
           prev: old,
-          value: old.map((d: { id: any }, index: any) =>
-            d.id === tid ? data : d,
-          ),
+          value: data,
         },
       });
-      // f.setValue(`fermentableIngredients[${currentIndex}]`, data);
+      // f.setValue(`fermentableIngredients`, newValue);
+      // fields.update(tIndex, data);
     } else {
-      const old = f.getValues(`fermentableIngredients`);
+      // const old = f.getValues(`fermentableIngredients`);
+      // const newValue = [...old, data];
       revisionContext?.update({
         type: "ADD",
         payload: {
           name: "fermentableIngredients",
+          // prev: old,
           value: data,
         },
       });
-      // f.setValue("fermentableIngredients", [...old, data]);
+      // fields.append(data);
+      // f.setValue("fermentableIngredients", newValue);
     }
     handleClose();
   };
@@ -112,15 +123,16 @@ export default function FermentableIngredientModal({
       }}
     >
       <FermentableIngredientFormContainer
-        action={
-          currentIngredient.id
-            ? updateFermentableIngredient
-            : createFermentableIngredient
-        }
+        index={tIndex}
+        action={currentIngredient.id ? fields.update : fields.append}
         onSubmit={onSubmit}
         src={currentIngredient}
       >
-        <FermentableIngredientForm src={currentIngredient} />
+        <FermentableIngredientForm
+          // action={currentIngredient.id ? fields.update : fields.append}
+          src={currentIngredient}
+          index={tIndex}
+        />
       </FermentableIngredientFormContainer>
     </MaskContext>
   );

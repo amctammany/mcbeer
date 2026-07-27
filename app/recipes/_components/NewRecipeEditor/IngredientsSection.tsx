@@ -154,6 +154,7 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
         {(fermentableIngredients || []).map((i: any, index: any) => (
           <FermentableIngredientItem
             key={index}
+            index={index}
             src={i}
             onClick={handleClick({ type: "fermentable", id: i.id, index })}
           />

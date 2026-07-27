@@ -21,9 +21,11 @@ import {
   TimerIcon,
 } from "lucide-react";
 import React from "react";
+import { useFormContext } from "react-hook-form";
 
 export type FermentableIngredientItemProps = {
   src: AdjustedFermentableIngredientType;
+  index?: number;
   onClick?: React.MouseEventHandler;
 };
 function UnitValueProp({
@@ -45,13 +47,62 @@ function UnitValueProp({
 
 export default function FermentableIngredientItem({
   src,
+  index,
   onClick,
 }: FermentableIngredientItemProps) {
   const ctx = React.useContext(IngredientContext);
+  const form = useFormContext();
   const fermentables = React.use(ctx.fermentablePromise);
   const fermentable = fermentables.find((h) => h.id === src.fermentableId);
   return (
     <ListItem onClick={onClick}>
+      <input
+        type="hidden"
+        {...form.register(`fermentableIngredients.${index}.id`)}
+        value={src.id}
+      />
+      <input
+        type="hidden"
+        {...form.register(`fermentableIngredients.${index}.fermentableId`)}
+        value={src.fermentableId}
+      />
+      <input
+        type="hidden"
+        {...form.register(`fermentableIngredients.${index}.usage`)}
+        value={src.usage}
+      />
+
+      <input
+        type="hidden"
+        {...form.register(`fermentableIngredients.${index}.recipeId`)}
+        value={src.recipeId}
+      />
+      <input
+        type="hidden"
+        {...form.register(`fermentableIngredients.${index}.amount.value`)}
+        value={src?.amount.value}
+      />
+      <input
+        type="hidden"
+        {...form.register(`fermentableIngredients.${index}.amount.unit`)}
+        value={src?.amount.unit}
+      />
+      <input
+        type="hidden"
+        {...form.register(`fermentableIngredients.${index}.color.value`)}
+        value={src?.color?.value}
+      />
+      <input
+        type="hidden"
+        {...form.register(`fermentableIngredients.${index}.color.unit`)}
+        value={src?.color?.unit}
+      />
+      <input
+        type="hidden"
+        {...form.register(`fermentableIngredients.${index}.potential`)}
+        value={src?.potential}
+      />
+
       <ListItemIcon>
         <WheatIcon />
       </ListItemIcon>
