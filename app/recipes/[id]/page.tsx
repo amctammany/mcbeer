@@ -23,7 +23,6 @@ export default async function RecipeDisplayPage({
     dir: false,
     inline: false,
   });
-  console.log(recipe.hopIngredients, adjusted.hopIngredients);
   return (
     <div>
       <RecipeDisplayToolbar recipe={recipe} />

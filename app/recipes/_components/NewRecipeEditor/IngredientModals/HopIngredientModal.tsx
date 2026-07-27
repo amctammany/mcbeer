@@ -16,12 +16,15 @@ import { RecipeType } from "@/types/Recipe";
 import { SaveIcon } from "lucide-react";
 import React, { use, useContext } from "react";
 import {
+  appendErrors,
   FieldValues,
   FormProvider,
   get,
   SubmitHandler,
+  useFieldArray,
   useForm,
   useFormContext,
+  useWatch,
   type UseFormProps,
 } from "react-hook-form";
 import { ModalContext } from "@/contexts/ModalContext";
@@ -48,7 +51,11 @@ export default function HopIngredientModal({
   const s = useContext(IngredientContext);
   const revisionContext = useContext(RevisionContext);
   const f = useFormContext();
-  const hopIngredients = f.getValues("hopIngredients");
+  const fields = useFieldArray({ name: "hopIngredients", control: f.control });
+  const hopIngredients = useWatch({
+    name: "hopIngredients",
+    control: f.control,
+  });
   // console.log(revisionContext);
   const d = useContext(ModalContext);
   const handleClose = d.handleOpenChange;
@@ -58,44 +65,51 @@ export default function HopIngredientModal({
     !d.triggerId || typeof d.triggerId === "string"
       ? d.triggerId
       : d.triggerId.id;
+  const tIndex =
+    !d.triggerId || typeof d.triggerId === "string"
+      ? undefined
+      : d.triggerId.index;
   const currentIndex = hopIngredients.findIndex(
     ({ id: _id }: { id?: any }) => _id && tid === _id,
   );
   const currentIngredient =
-    hopIngredients[currentIndex] ??
-    ({
-      recipeId: f.getValues("id"),
-      usage: $Enums.HopIngredientUsage.Mash,
-    } as any);
+    tIndex !== undefined && tIndex >= 0 && hopIngredients[tIndex]
+      ? hopIngredients[tIndex]
+      : ({
+          recipeId: f.getValues("id"),
+          usage: $Enums.HopIngredientUsage.Mash,
+        } as any);
 
   const onSubmit = (data: any) => {
     console.log("submitHopIng", data, f.getValues());
-    if (currentIndex > -1) {
-      const old = f.getValues("hopIngredients");
-      const newValue = old.map((d: { id: any }, index: any) =>
-        d.id === tid ? data : d,
-      );
+    if (tIndex !== undefined && tIndex >= 0) {
+      const old = hopIngredients[tIndex];
+      // const newValue = old.map((d: { id: any }, index: any) =>
+      // d.id === tid ? data : d,
+      // );
       revisionContext?.update({
         type: "SET",
         payload: {
-          name: "hopIngredients",
+          name: `hopIngredients.${tIndex}`,
           prev: old,
-          value: newValue,
+          value: data,
         },
       });
-      f.setValue(`hopIngredients`, newValue);
+      // f.setValue(`hopIngredients`, newValue);
+      // fields.update(tIndex, data);
     } else {
-      const old = f.getValues(`hopIngredients`);
-      const newValue = [...old, data];
+      // const old = f.getValues(`hopIngredients`);
+      // const newValue = [...old, data];
       revisionContext?.update({
         type: "ADD",
         payload: {
           name: "hopIngredients",
-          prev: old,
-          value: newValue,
+          // prev: old,
+          value: data,
         },
       });
-      f.setValue("hopIngredients", newValue);
+      // fields.append(data);
+      // f.setValue("hopIngredients", newValue);
     }
     handleClose();
   };
@@ -106,13 +120,16 @@ export default function HopIngredientModal({
       }}
     >
       <HopIngredientFormContainer
-        action={
-          currentIngredient.id ? updateHopIngredient : createHopIngredient
-        }
+        index={tIndex}
+        action={currentIngredient.id ? fields.update : fields.append}
         onSubmit={onSubmit}
         src={currentIngredient}
       >
-        <HopIngredientForm src={currentIngredient} />
+        <HopIngredientForm
+          // action={currentIngredient.id ? fields.update : fields.append}
+          src={currentIngredient}
+          index={tIndex}
+        />
       </HopIngredientFormContainer>
     </MaskContext>
   );

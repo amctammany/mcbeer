@@ -27,6 +27,7 @@ export type InputProps<T extends FieldValues> = {
   //onBlur?: (e: SyntheticEvent) => void;
   value?: any;
   ref?: any;
+  revisable?: boolean;
 } & ComponentProps<"input"> &
   VariantProps<typeof inputStyles>;
 
@@ -60,7 +61,7 @@ export const inputStyles = cva(
       variant: "default",
       suffixV: "default",
     },
-  }
+  },
 );
 export function Input<T extends FieldValues>({
   //name,

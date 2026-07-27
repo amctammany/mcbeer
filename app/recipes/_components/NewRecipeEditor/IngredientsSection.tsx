@@ -42,7 +42,7 @@ import { Item } from "@/components/ui/item";
 import List from "@/components/Form/List/List";
 import HopIngredientItem from "./HopIngredientItem";
 import FermentableIngredientItem from "./FermentableIngredientItem";
-import { useFormContext } from "react-hook-form";
+import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
 // const HopIngredientModal = dynamic(
 // () => import("./IngredientModals/HopIngredientModal"),
 // { ssr: false },
@@ -115,10 +115,18 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
   //   setOpen(id === undefined ? false : true);
   //   setTriggerId(id === undefined ? null : id);
   // };
-  const { getValues } = useFormContext<RecipeType>();
+  const { getValues, control } = useFormContext<RecipeType>();
+  const hopIngArray = useFieldArray({ name: "hopIngredients", control });
+  const fermentableIngArray = useFieldArray({
+    name: "fermentableIngredients",
+    control,
+  });
 
-  const hopIngredients = getValues("hopIngredients");
-  const fermentableIngredients = getValues("fermentableIngredients");
+  const hopIngredients = useWatch({ name: "hopIngredients", control });
+  const fermentableIngredients = useWatch({
+    name: "fermentableIngredients",
+    control,
+  });
   const { handleDialogOpen } = useContext(ModalContext);
 
   const handleClick: (d: any) => React.MouseEventHandler<HTMLDivElement> = (
@@ -140,14 +148,14 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
             key={index}
             index={index}
             src={i}
-            onClick={handleClick({ type: "hop", id: i.id })}
+            onClick={handleClick({ type: "hop", id: i.index, index })}
           />
         ))}
         {(fermentableIngredients || []).map((i: any, index: any) => (
           <FermentableIngredientItem
             key={index}
             src={i}
-            onClick={handleClick({ type: "fermentable", id: i.id })}
+            onClick={handleClick({ type: "fermentable", id: i.id, index })}
           />
         ))}
       </List>

@@ -90,6 +90,7 @@ export function AmountField<T extends FieldValues>({
   placeholder,
   control,
   value: val,
+  revisable = true,
   ...props
 }: AmountFieldProps<T>) {
   const id = `${name}-field`;
@@ -145,6 +146,7 @@ export function AmountField<T extends FieldValues>({
     unit === "%" || unit === "#" ? PercentUnits[unit as PercentUnit] : unit;
   const _u = unit ?? get(state.data, `${name}.unit`);
   const onValueChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (!revisable) return;
     const old = get(state.data, `${name}.value`);
     const newValue = parseFloat(e.target.value);
     if (old !== newValue)

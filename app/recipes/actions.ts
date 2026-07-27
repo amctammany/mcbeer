@@ -82,7 +82,6 @@ export async function updateRecipe(prev: any, formData: FormData) {
     ...data
   } = r;
   console.log("updateRecipe", { data, hopIngredients, fermentableIngredients });
-  /**
   const ftx = await prisma.$transaction([
     ...fermentableIngredients.map(({ id: _id, ...d }) => {
       return _id
@@ -110,7 +109,6 @@ export async function updateRecipe(prev: any, formData: FormData) {
         : prisma.hopIngredient.create({ data: { recipeId: id!, ...d } });
     }),
   ]);
- */
   // const hopIngs = await prisma.hopIngredient.upsert({
   // create: hopIngredients
   // .filter(({ id }) => id === undefined)
@@ -120,12 +118,12 @@ export async function updateRecipe(prev: any, formData: FormData) {
     where: { id },
     data: {
       fermentableIngredients: {
-        connect: fermentableIngredients.map(({ id: _id }) => ({
+        connect: ftx.map(({ id: _id }) => ({
           id: _id,
         })),
       },
       hopIngredients: {
-        connect: hopIngredients.map(({ id: _id }) => ({
+        connect: htx.map(({ id: _id }) => ({
           id: _id,
         })),
       },

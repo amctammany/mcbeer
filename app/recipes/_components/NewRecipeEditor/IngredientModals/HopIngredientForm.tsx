@@ -23,6 +23,7 @@ import { useStateMachine } from "little-state-machine";
 import { SaveIcon } from "lucide-react";
 import React, { use, useContext } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import UserPreferencesProvider from "@/components/UserPreferencesProvider";
 export function HopIngredientFormContainer<S = unknown>({
   src,
   action,
@@ -30,8 +31,10 @@ export function HopIngredientFormContainer<S = unknown>({
   onSubmit: _onSubmit,
   modals,
   children,
+  index,
 }: {
-  action: (state: S, formData: FormData) => Promise<S> | S;
+  action: any;
+  index?: number;
   onSubmit?: any;
   src: Partial<BaseHopIngredientType>;
   toolbar?: React.ReactNode;
@@ -39,6 +42,10 @@ export function HopIngredientFormContainer<S = unknown>({
   children: React.ReactNode;
 }) {
   const d = useContext(ModalContext);
+  const prefs = useContext(UserPreferencesContext);
+  const handleClose = d.handleOpenChange;
+
+  // console.log(prefs);
   // console.log({ src, mask, preferenceContext });
   // const { state, actions } = useStateMachine({
   //   actions: { addHopIngredient, updateHopIngredient },
@@ -54,14 +61,35 @@ export function HopIngredientFormContainer<S = unknown>({
   //   action(data as any);
   //   d.handleOpenChange();
   // };
-
+  const form = useForm({
+    defaultValues: src,
+  });
+  const { setValue, getValues, handleSubmit, register } = form;
   // const formProps = { values: state.recipe || {} };
   const onSubmit = (e: any) => {
     _onSubmit(e);
     console.log(e);
     d.handleDialogOpen()();
   };
+  const handleSave = (d: any) => {
+    // console.log(d);
+    // console.log(action);
+    _onSubmit(d);
+    index ? action(index, d) : action(d);
+    // handleClose();
+  };
   // console.log(state);
+  return (
+    <MaskContext value={{ mask: HopIngredientMask }}>
+      <UserPreferencesContext value={prefs}>
+        <FormProvider {...form}>
+          <form onSubmit={handleSubmit(handleSave)}>{children}</form>
+        </FormProvider>
+      </UserPreferencesContext>
+    </MaskContext>
+  );
+  /**
+   * 
   return (
     <Form
       action={action}
@@ -75,6 +103,7 @@ export function HopIngredientFormContainer<S = unknown>({
       {children}
     </Form>
   );
+   */
   // return (
   //   <FormProvider {...f}>
   //     <form onSubmit={f.handleSubmit(saveHopIngredient)}>{children}</form>
@@ -93,13 +122,19 @@ export function HopIngredientFormContainer<S = unknown>({
       */
 export default function HopIngredientForm({
   src,
+  // action,
+  index,
 }: {
-  src: Partial<BaseHopIngredientType>;
+  src: Partial<AdjustedHopIngredientType>;
+  // action: any;
+  index?: number;
 }) {
   const s = useContext(IngredientContext);
-  const { data } = useContext(FormStateContext);
-  const { setValue } = useFormContext();
-  // const handleClose = d.handleOpenChange;
+  // const { data } = useContext(FormStateContext);
+
+  // console.log(src);
+  const { register, setValue } = useFormContext();
+
   const hops = use(s.hopPromise);
   const opts = hops.map((h) => ({ label: h.name, value: h.id }));
   const onChangeCb = (r: any) => {
@@ -110,11 +145,11 @@ export default function HopIngredientForm({
     }
     // handleClose();
   };
-
   return (
     <div className="relative">
-      <input type="hidden" name="id" value={data?.id ?? ""} />
-      <input type="hidden" name="recipeId" value={data?.recipeId ?? ""} />
+      <input type="hidden" {...register("id")} />
+
+      <input type="hidden" {...register("recipeId")} />
       <ComboBoxField
         onChangeCallback={onChangeCb}
         orientation="responsive"
@@ -123,23 +158,42 @@ export default function HopIngredientForm({
         options={opts}
       />
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-1">
-        <AmountField step="0.1" name="alpha" label="Alpha" unit="percent" />
-        <AmountField step="0.1" name="amount" label="Amount" />
+        <AmountField
+          revisable={false}
+          step="0.1"
+          name="alpha"
+          label="Alpha"
+          unit={src.alpha?.unit ?? "percent"}
+        />
+        <AmountField
+          revisable={false}
+          step="0.1"
+          name="amount"
+          label="Amount"
+          unit={src.amount?.unit ?? "Oz"}
+        />
         <SelectField
           defaultValue={$Enums.HopIngredientUsage.Boil}
           name="usage"
           options={$Enums.HopIngredientUsage}
+          revisable={false}
           label="Usage"
         />
         <AmountField
+          revisable={false}
           // type="number"
           step="0.1"
-          unit="min"
+          unit={src.duration?.unit ?? "min"}
           name="duration"
           label="Duration"
         />
       </div>
-      <IconButton type="submit" icon={SaveIcon} label="Create" />
+      <IconButton
+        type="submit"
+        // onClick={handleSubmit(handleSave)}
+        icon={SaveIcon}
+        label={index !== undefined ? "Update" : "Create"}
+      />
     </div>
   );
 }

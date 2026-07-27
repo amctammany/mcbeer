@@ -35,6 +35,7 @@ import { InputGroup } from "../ui/input-group";
 
 export type SelectFieldProps<T extends FieldValues> = {
   register?: UseFormRegister<T>;
+  revisable?: boolean;
   className?: string;
   control?: Control<T>;
   name: FieldPath<T>;
@@ -65,19 +66,21 @@ export function SelectField<T extends FieldValues>({
   options,
   orientation = "vertical",
   value,
+  revisable = true,
 }: SelectFieldProps<T>) {
   const { register, getFieldState, control } = useFormContext<T>();
   const id = `${name}-select`;
   const revisionContext = useContext(RevisionContext);
   const onValueChange = (cb: (newValue: any) => void) => (newValue: any) => {
-    revisionContext?.update({
-      type: "SET",
-      payload: {
-        name,
-        prev: value,
-        value: newValue,
-      },
-    });
+    if (revisable)
+      revisionContext?.update({
+        type: "SET",
+        payload: {
+          name,
+          prev: value,
+          value: newValue,
+        },
+      });
     cb(newValue);
   };
   const items = Object.entries(options ?? {}).map(

@@ -44,6 +44,7 @@ export function RecipeEditorFormContainer({
     values: state.data,
     defaultValues: state.data as any,
     errors: state.errors,
+    // shouldUnregister: false,
   });
   const revision = useRevisionHistory<AdjustedRecipeType>(
     form.getValues() as any,

@@ -2,7 +2,7 @@
 import { ModalContext } from "@/contexts/ModalContext";
 import { Dialog } from "@base-ui/react";
 import React, { ReactNode, use, useMemo } from "react";
-export type ModalTag = { type: string; id?: string };
+export type ModalTag = { type: string; id?: string; index?: number };
 export default function ModalProvider({
   children,
 }: {

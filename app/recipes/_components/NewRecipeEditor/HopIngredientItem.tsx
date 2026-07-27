@@ -45,6 +45,52 @@ export default function HopIngredientItem({
         {...form.register(`hopIngredients.${index}.id`)}
         value={src.id}
       />
+      <input
+        type="hidden"
+        {...form.register(`hopIngredients.${index}.hopId`)}
+        value={src.hopId}
+      />
+      <input
+        type="hidden"
+        {...form.register(`hopIngredients.${index}.usage`)}
+        value={src.usage}
+      />
+
+      <input
+        type="hidden"
+        {...form.register(`hopIngredients.${index}.recipeId`)}
+        value={src.recipeId}
+      />
+      <input
+        type="hidden"
+        {...form.register(`hopIngredients.${index}.amount.value`)}
+        value={src?.amount.value}
+      />
+      <input
+        type="hidden"
+        {...form.register(`hopIngredients.${index}.amount.unit`)}
+        value={src?.amount.unit}
+      />
+      <input
+        type="hidden"
+        {...form.register(`hopIngredients.${index}.duration.value`)}
+        value={src?.duration.value}
+      />
+      <input
+        type="hidden"
+        {...form.register(`hopIngredients.${index}.duration.unit`)}
+        value={src?.duration.unit}
+      />
+      <input
+        type="hidden"
+        {...form.register(`hopIngredients.${index}.alpha.value`)}
+        value={src?.alpha?.value}
+      />
+      <input
+        type="hidden"
+        {...form.register(`hopIngredients.${index}.alpha.unit`)}
+        value={src?.alpha?.unit}
+      />
       <ListItemIcon>
         <HopIcon />
       </ListItemIcon>
