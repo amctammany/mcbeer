@@ -84,6 +84,9 @@ export function Form<T extends FieldValues>({
       }),
     }));
   }, [src]);
+  useEffect(() => {
+    setState(_state);
+  }, [_state]);
   const form = useForm({
     // reValidateMode: "onBlur",
     // mode: "onTouched",
