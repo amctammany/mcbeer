@@ -9,7 +9,7 @@ import RecipeEditorToolbar from "./RecipeEditorToolbar";
 import IngredientsSection from "./IngredientsSection";
 import RecipeModals from "./RecipeModals";
 export type RecipeEditorProps = {
-  src: AdjustedRecipeType;
+  src: RecipeType;
   action: any; //(state: any, data: RecipeType) => void;
 };
 export default function RecipeEditor({ src, action }: RecipeEditorProps) {

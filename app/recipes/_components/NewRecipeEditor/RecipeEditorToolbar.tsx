@@ -9,7 +9,7 @@ import { AdjustedRecipeType, RecipeType } from "@/types/Recipe";
 import { Redo, Save, Undo, X } from "lucide-react";
 import React, { useContext } from "react";
 export type RecipeEditorToolbarProps = {
-  src: AdjustedRecipeType;
+  src: RecipeType;
 };
 export default function RecipeEditorToolbar({ src }: RecipeEditorToolbarProps) {
   const { handleRedo, handleUndo, canRedo, canUndo } =

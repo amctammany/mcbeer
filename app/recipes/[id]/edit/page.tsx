@@ -29,22 +29,23 @@ export default async function RecipeEditorPage({
     // redirect(`/login?redirect_url=/recipes/${id}/edit`);
     // return unauthorized();
   }
-  const prefs = await getPreferences();
+  // const prefs = await getPreferences();
   const recipe = await getRecipe(id);
   // console.log(recipe);
   if (!recipe) notFound();
-  const adjusted = adjustUnits({
-    src: recipe,
-    mask: RecipeMask,
-    inline: false,
-    dir: false,
-    prefs,
-  });
+  // const styles = getStyleNames();
+  // const adjusted = adjustUnits({
+  //   src: recipe,
+  //   mask: RecipeMask,
+  //   inline: false,
+  //   dir: false,
+  //   prefs,
+  // });
   // // console.log(adjusted, recipe);
   return (
     <RecipeEditor
       // styles={styles}
-      src={adjusted}
+      src={recipe}
       action={updateRecipe}
       // equipmentProfiles={getEquipmentProfileNames()}
     />

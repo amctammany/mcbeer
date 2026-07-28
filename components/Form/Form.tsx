@@ -63,7 +63,7 @@ export function Form<T extends FieldValues>({
     inline: false,
     dir: false,
   });
-  console.log({ src, mask, adjusted, preferenceContext });
+  // console.log({ src, mask, adjusted, preferenceContext });
 
   const [_state, formAction] = useActionState<State<T>, FormData>(action, {
     success: false,
@@ -73,19 +73,17 @@ export function Form<T extends FieldValues>({
   const [state, setState] = React.useState(_state);
 
   useEffect(() => {
-    if (_state.success) {
-      setState({
-        ..._state,
-        data: adjustUnits({
-          src,
-          mask,
-          prefs: preferenceContext,
-          inline: false,
-          dir: false,
-        }),
-      });
-    }
-  }, [_state]);
+    setState((old) => ({
+      ...old,
+      data: adjustUnits({
+        src,
+        mask,
+        prefs: preferenceContext,
+        inline: false,
+        dir: false,
+      }),
+    }));
+  }, [src]);
   const form = useForm({
     // reValidateMode: "onBlur",
     // mode: "onTouched",

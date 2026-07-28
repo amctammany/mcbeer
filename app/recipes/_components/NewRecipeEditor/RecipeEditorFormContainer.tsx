@@ -12,7 +12,7 @@ import React, { useActionState, useContext, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 export type RecipeEditorFormContainerProps = {
-  src: AdjustedRecipeType;
+  src: RecipeType;
   action: any;
   toolbar?: React.ReactNode | React.ReactNode[];
   modals?: React.ReactNode | React.ReactNode[];
@@ -25,6 +25,7 @@ export function RecipeEditorFormContainer({
   action,
   children,
 }: RecipeEditorFormContainerProps) {
+  /**
   const { mask } = useContext(MaskContext);
   const preferenceContext = useContext(UserPreferencesContext);
   const adjusted = adjustUnits({
@@ -39,12 +40,12 @@ export function RecipeEditorFormContainer({
     FormData
   >(action, {
     success: true,
-    data: src,
+    data: adjusted,
   });
   const [state, setState] = useState(_state);
   useEffect(() => {
-    setState((old) => ({ ...old, data: src }));
-  }, [src]);
+    setState((old) => ({ ...old, data: adjusted }));
+  }, [adjusted]);
 
   const form = useForm<AdjustedRecipeType>({
     values: state.data,
@@ -54,8 +55,13 @@ export function RecipeEditorFormContainer({
   const revision = useRevisionHistory<AdjustedRecipeType>(
     form.getValues() as any,
     form.setValue as any,
-  );
+  );*/
   return (
+    <Form src={src} action={action} toolbar={toolbar} modals={modals}>
+      {children}
+    </Form>
+  );
+  /** 
     <FormProvider {...form}>
       <RevisionContext value={revision}>
         <form action={formAction}>
@@ -65,12 +71,7 @@ export function RecipeEditorFormContainer({
         {modals}
       </RevisionContext>
     </FormProvider>
-  );
-  /** 
    *
-    <Form src={src} action={action} toolbar={toolbar} modals={modals}>
-      {children}
-    </Form>
     
 */
 }
