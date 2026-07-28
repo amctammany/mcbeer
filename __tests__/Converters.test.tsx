@@ -20,8 +20,8 @@ describe("Converter", () => {
     const input = 1;
     const to = converters?.volume?.gal?.to(input);
     const from = converters?.volume?.gal?.from(input);
-    expect(to).toBe(3.7854);
-    expect(from).toBe(0.26417);
+    expect(from).toBe(3.7854);
+    expect(to).toBe(0.26417);
   });
 });
 describe("Converter", () => {
@@ -29,6 +29,11 @@ describe("Converter", () => {
     const input = 0.4;
     const res = Converter(input, "percent", "number");
     expect(res).toBe(40);
+  });
+  test("Volume Conversion", () => {
+    const input = 10;
+    const res = Converter(input, "gal", "L");
+    expect(res).toBeCloseTo(37.854);
   });
   test("Temperature conversion", () => {
     const input = 4;

@@ -61,6 +61,7 @@ export function Form<T extends FieldValues>({
     mask,
     prefs: preferenceContext,
     inline: false,
+    precision: 3,
     dir: false,
   });
   // console.log({ src, mask, adjusted, preferenceContext });

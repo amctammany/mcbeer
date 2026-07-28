@@ -21,7 +21,8 @@ export default async function RecipeDisplayPage({
     src: recipe,
     mask: RecipeMask,
     prefs,
-    dir: false,
+    precision: 4,
+    dir: true,
     inline: false,
   });
   return (
