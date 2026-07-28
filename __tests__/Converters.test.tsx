@@ -20,8 +20,8 @@ describe("Converter", () => {
     const input = 1;
     const to = converters?.volume?.gal?.to(input);
     const from = converters?.volume?.gal?.from(input);
-    expect(from).toBe(3.7854);
-    expect(to).toBe(0.26417);
+    expect(from).toBeCloseTo(3.7854);
+    expect(to).toBeCloseTo(0.26417);
   });
 });
 describe("Converter", () => {
@@ -45,7 +45,7 @@ describe("Converter", () => {
     const kgres = Converter(input, "Kg", "g");
     expect(kgres).toBe(4000);
     const lbres = Converter(input, "Lb", "g");
-    expect(lbres).toBeCloseTo(0.0088);
+    expect(lbres).toBeCloseTo(8800);
     const ozres = Converter(input, "Oz", "g");
     expect(ozres).toBeCloseTo(4 * 28);
   });

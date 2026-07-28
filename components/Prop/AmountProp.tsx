@@ -52,7 +52,9 @@ export function AmountProp({
     _unit ?? unitName ?? BASE_UNITS[maskV as keyof typeof BASE_UNITS];
   // return <Prop value={value} unit={unit} {...props} />;
   // console.log({ maskV, value, unit, s });
-  const oConverted = adjustUnit({ value, unit, inline: true, precision });
+  const oConverted = isUnitValue(val)
+    ? value
+    : adjustUnit({ value, unit, inline: true, precision });
   // const converted = convertUnit({
   //   value,
   //   type: maskV,

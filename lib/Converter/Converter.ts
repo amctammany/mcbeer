@@ -12,13 +12,13 @@ import { BASE_UNITS, UnitDict, UnitNames, UnitTypes } from "./UnitDict";
 const massConverter: Record<MassUnit, ConversionType> = {
   g: 1,
   Kg: 1000,
-  Lb: [(t: number) => (1000 * t) / 2.2, (t: number) => (t * 2.2) / 1000],
+  Lb: 2200, // [(t: number) => (1000 * t) / 2.2, (t: number) => (t * 2.2) / 1000],
   LbOz: 1,
   Oz: 28, //  0.035274,
 };
 const volumeConverter: Record<UserVolumePreference, ConversionType> = {
   L: 1,
-  gal: [(t: number) => t * 0.26417, (t: number) => t * 3.7854],
+  gal: 3.7854, //[(t: number) => t * 0.26417, (t: number) => t * 3.7854],
   bbl: [(t: number) => t * 0.00852166, (t: number) => t * 117.34784],
 };
 
@@ -33,7 +33,7 @@ const colorConverter: Record<UserColorPreference, ConversionType> = {
   SRM: 100,
 };
 const percentConverter: Record<PercentUnit, ConversionType> = {
-  percent: 100,
+  percent: 1 / 100,
   number: 1,
 };
 

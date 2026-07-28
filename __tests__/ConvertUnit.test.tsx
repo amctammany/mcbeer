@@ -4,10 +4,20 @@ import {
   adjustUnits,
   adjustUnit,
   convertUnitRaw,
+  reduceUnits,
 } from "@/lib/Converter/adjustUnits";
 import { BASE_UNITS } from "@/lib/Converter/UnitDict";
 
 describe("converterUnits", () => {
+  test("Reduce Units", () => {
+    const input = {
+      size: { value: 10, unit: "gal" },
+      time: { value: 40, unit: "hr" },
+      amount: { value: 25, unit: "Kg" },
+    };
+    const res = reduceUnits(input, 4);
+    console.log(res);
+  });
   test("Adjust Units", () => {
     const mask = { size: "volume", time: "time", amount: "mass" };
     const input = {

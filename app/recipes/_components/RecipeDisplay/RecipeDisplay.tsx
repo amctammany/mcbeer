@@ -134,7 +134,7 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
             value={src.brewEfficiency}
           />
           <AmountProp
-            label="Batch Size"
+            label="Batch Volume"
             name="batchVolume"
             value={src.batchVolume}
           />

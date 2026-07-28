@@ -172,15 +172,16 @@ export function reduceUnits<T extends FieldValues>(
 ) {
   const res = Object.entries(src).reduce((acc, [k, v]) => {
     acc[k as keyof T] = isUnitValue(v)
-      ? convertUnit({
-          value: v.value,
-          type: UnitDict[v.unit as UnitNames],
-          unit: v.unit,
-          precision,
-          inline: true,
-          dir: false,
-        })
-      : Array.isArray(v)
+      ? Converter(v.value, v.unit, getBaseUnit(v.unit))
+      : // ? convertUnit({
+        //     value: v.value,
+        //     type: UnitDict[v.unit as UnitNames],
+        //     unit: v.unit,
+        //     precision,
+        //     inline: true,
+        //     dir: true,
+        //   })
+        Array.isArray(v)
         ? v.map((a) => reduceUnits(a))
         : v;
     return acc;
