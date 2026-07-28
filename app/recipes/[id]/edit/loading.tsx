@@ -6,9 +6,6 @@ import React from "react";
 // import RecipeEditor from "../../_components/RecipeEditor/RecipeEditor";
 import { BaseRecipeType, RecipeType } from "@/types/Recipe";
 import { updateRecipe } from "../../actions";
-import RecipeFormContainer, {
-  RecipeForm,
-} from "../../_components/RecipeEditor/RecipeForm";
 
 export default function Loading() {
   const src = {
