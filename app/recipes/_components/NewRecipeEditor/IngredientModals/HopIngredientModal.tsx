@@ -77,7 +77,7 @@ export default function HopIngredientModal({
       ? hopIngredients[tIndex]
       : ({
           recipeId: f.getValues("id"),
-          usage: $Enums.HopIngredientUsage.Mash,
+          usage: $Enums.HopIngredientUsage.Boil,
         } as any);
 
   const onSubmit = (data: any) => {

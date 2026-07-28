@@ -133,17 +133,22 @@ export default function IngredientsSection({}: {}) {
   const fermentableIngredients = fermentableIngArray.fields;
 
   // const _hopIngredients = useWatch({ name: "hopIngredients", control });
-  const watchFieldArray = watch("hopIngredients", []);
+  const watchHops = watch("hopIngredients", []);
   const _hopIngredients = hopIngArray.fields.map((field, index) => {
     return {
       ...field,
-      ...watchFieldArray[index],
+      ...watchHops[index],
     };
   });
-  const _fermentableIngredients = useWatch({
-    name: "fermentableIngredients",
-    control,
-  });
+  const watchFerms = watch("fermentableIngredients", []);
+  const _fermentableIngredients = fermentableIngArray.fields.map(
+    (field, index) => {
+      return {
+        ...field,
+        ...watchFerms[index],
+      };
+    },
+  );
   const { handleDialogOpen } = useContext(ModalContext);
 
   const handleClick: (d: any) => React.MouseEventHandler<HTMLDivElement> = (
@@ -158,7 +163,7 @@ export default function IngredientsSection({}: {}) {
         />
       }
     >
-      <List className="min-h-40 flex flex-col gap-2 w-full">
+      <List className="min-h-40 flex flex-col md:gap-2 w-full">
         {(_hopIngredients || []).map((i: any, index: any) => (
           <HopIngredientItem
             key={i._id}
@@ -170,7 +175,7 @@ export default function IngredientsSection({}: {}) {
         ))}
         {(_fermentableIngredients || []).map((i: any, index: any) => (
           <FermentableIngredientItem
-            key={i.id}
+            key={i._id}
             index={index}
             src={i}
             onClick={handleClick({ type: "fermentable", id: i.id, index })}

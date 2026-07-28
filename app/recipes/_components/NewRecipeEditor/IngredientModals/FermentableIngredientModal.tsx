@@ -99,10 +99,10 @@ export default function FermentableIngredientModal({
         },
       });
       // f.setValue(`fermentableIngredients`, newValue);
-      // fields.update(tIndex, data);
+      fields.update(tIndex, data);
     } else {
-      // const old = f.getValues(`fermentableIngredients`);
-      // const newValue = [...old, data];
+      const old = f.getValues(`fermentableIngredients`);
+      const newValue = [...old, data];
       revisionContext?.update({
         type: "ADD",
         payload: {
@@ -112,7 +112,7 @@ export default function FermentableIngredientModal({
         },
       });
       // fields.append(data);
-      // f.setValue("fermentableIngredients", newValue);
+      f.setValue("fermentableIngredients", newValue);
     }
     handleClose();
   };

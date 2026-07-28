@@ -121,8 +121,8 @@ export default function HopIngredientItem({
           <b>{hop?.name}</b>
         </ListItemTitle>
         <ListItemDescription className="grow">
-          <div className="grow min-w-52  grid justify-items-end ">
-            <div className="w-full lg:w-fit flex flex-row gap-1 lg:gap-2">
+          <div className="grow md:min-w-52  grid justify-items-end ">
+            <div className="w-full lg:w-fit flex flex-row gap-0 md:gap-1 lg:gap-2">
               <BadgeProp
                 Icon={<ScaleIcon size={12} />}
                 name="amount"
