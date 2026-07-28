@@ -69,8 +69,8 @@ export const HopIngredientMask: UnitMaskType<Partial<BaseHopIngredientType>> = {
 export const RecipeMask: UnitMaskType<Partial<RecipeType>> = {
   boilTime: "time",
   batchVolume: "volume",
-  brewEfficiency: "percent",
-  mashEfficiency: "percent",
+  brewEfficiency: ["percent", "percent"],
+  mashEfficiency: ["percent", "percent"],
   boilVolume: "volume",
   preboilVolume: "volume",
   trubLoss: "volume",

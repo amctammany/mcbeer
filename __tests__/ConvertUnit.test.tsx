@@ -10,7 +10,7 @@ describe("converterUnits", () => {
   });
   test("Mass conversion", () => {
     const input = 10;
-    const res = adjustUnit(input, "Kg");
-    expect(res).toBe(10000);
+    const res = adjustUnit({ value: input, unit: "Kg" });
+    expect(res.value).toBe(10000);
   });
 });

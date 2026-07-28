@@ -25,6 +25,11 @@ describe("Converter", () => {
   });
 });
 describe("Converter", () => {
+  test("Percent conversion", () => {
+    const input = 0.4;
+    const res = Converter(input, "percent", "number");
+    expect(res).toBe(40);
+  });
   test("Temperature conversion", () => {
     const input = 4;
     const res = Converter(input, "C", "F");

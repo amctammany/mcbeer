@@ -33,7 +33,7 @@ const colorConverter: Record<UserColorPreference, ConversionType> = {
   SRM: 100,
 };
 const percentConverter: Record<PercentUnit, ConversionType> = {
-  percent: 100,
+  percent: 0.01,
   number: 1,
 };
 

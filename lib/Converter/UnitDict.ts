@@ -41,7 +41,7 @@ export const UNITS = {
 };
 export const BASE_UNITS = {
   time: TimeUnit.min,
-  percent: PercentUnit.percent,
+  percent: PercentUnit.number,
   mass: UserMassPreference.g,
   temperature: UserTemperaturePreference.F,
   color: UserColorPreference.L,

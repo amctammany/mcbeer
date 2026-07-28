@@ -13,20 +13,5 @@ export default function RecipeCreatorLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <IngredientProvider
-      stylePromise={getStyles()}
-      equipPromise={getEquipmentProfiles({ select: { name: true, id: true } })}
-      mashPromise={getMashProfiles({ select: { name: true, id: true } })}
-      hopPromise={getHops({ select: { name: true, id: true, alpha: true } })}
-      fermentablePromise={getFermentables({
-        select: { name: true, id: true, color: true, potential: true },
-      })}
-      yeastPromise={getYeasts({
-        select: { name: true, id: true, attenuation: true },
-      })}
-    >
-      <ModalProvider>{children}</ModalProvider>
-    </IngredientProvider>
-  );
+  return <ModalProvider>{children}</ModalProvider>;
 }
