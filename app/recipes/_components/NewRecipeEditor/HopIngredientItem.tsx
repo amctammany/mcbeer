@@ -11,7 +11,10 @@ import Prop from "@/components/Prop/Prop";
 import { IngredientContext } from "@/contexts/IngredientContext";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
 import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
-import { AdjustedHopIngredientType } from "@/types/Recipe";
+import {
+  AdjustedHopIngredientType,
+  BaseHopIngredientType,
+} from "@/types/Recipe";
 import {
   BeakerIcon,
   HopIcon,
@@ -20,23 +23,34 @@ import {
   ScaleIcon,
   TimerIcon,
 } from "lucide-react";
-import React from "react";
+import { handler } from "next/dist/build/templates/app-route";
+import React, { act } from "react";
 import { useFormContext } from "react-hook-form";
 
 export type HopIngredientItemProps = {
   src: AdjustedHopIngredientType;
   index: number;
   onClick?: React.MouseEventHandler;
+  actions: Record<string, any>;
 };
 
 export default function HopIngredientItem({
   index,
-  src,
+  src: _src,
+  actions,
   onClick,
 }: HopIngredientItemProps) {
   const ctx = React.useContext(IngredientContext);
   const form = useFormContext();
   const hops = React.use(ctx.hopPromise);
+  const src = form.getValues(`hopIngredients.${index}`);
+  const handleRemove = (e: any) => {
+    // console.log(actions.remove);
+    // actions.remove?.(index);
+    const old = form.getValues("hopIngredients") as BaseHopIngredientType[];
+    const newValue = old.filter(({ id: _id }) => _id !== src.id);
+    form.setValue("hopIngredients", newValue);
+  };
   const hop = hops.find((h) => h.id === src.hopId);
   return (
     <ListItem onClick={onClick}>
@@ -132,7 +146,7 @@ export default function HopIngredientItem({
         </ListItemDescription>
       </ListItemContent>
       <ListItemMenu>
-        <IconButton icon={MenuIcon} label="Menu" />
+        <IconButton icon={MenuIcon} label="Menu" onClick={handleRemove} />
       </ListItemMenu>
     </ListItem>
   );

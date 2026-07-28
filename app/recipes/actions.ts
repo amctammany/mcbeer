@@ -61,6 +61,7 @@ export async function createRecipe(prev: any, formData: FormData) {
 
 export async function updateRecipe(prev: any, formData: FormData) {
   const v = validateSchema(formData, recipeSchema);
+  // console.log(Object.fromEntries(formData.entries()));
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
@@ -118,11 +119,13 @@ export async function updateRecipe(prev: any, formData: FormData) {
     where: { id },
     data: {
       fermentableIngredients: {
+        set: [],
         connect: ftx.map(({ id: _id }) => ({
           id: _id,
         })),
       },
       hopIngredients: {
+        set: [],
         connect: htx.map(({ id: _id }) => ({
           id: _id,
         })),

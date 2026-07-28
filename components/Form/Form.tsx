@@ -71,8 +71,12 @@ export function Form<T extends FieldValues>({
     // errors: [],
   });
   const [state, setState] = React.useState(_state);
-
   useEffect(() => {
+    // console.log("state changed", _state);
+    if (_state.success) setState(_state);
+  }, [_state]);
+  useEffect(() => {
+    // console.log("src changed", src);
     setState((old) => ({
       ...old,
       data: adjustUnits({
@@ -84,9 +88,7 @@ export function Form<T extends FieldValues>({
       }),
     }));
   }, [src]);
-  useEffect(() => {
-    setState(_state);
-  }, [_state]);
+
   const form = useForm({
     // reValidateMode: "onBlur",
     // mode: "onTouched",

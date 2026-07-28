@@ -96,10 +96,10 @@ export default function HopIngredientModal({
         },
       });
       // f.setValue(`hopIngredients`, newValue);
-      // fields.update(tIndex, data);
+      fields.update(tIndex, data);
     } else {
-      // const old = f.getValues(`hopIngredients`);
-      // const newValue = [...old, data];
+      const old = f.getValues(`hopIngredients`);
+      const newValue = [...old, data];
       revisionContext?.update({
         type: "ADD",
         payload: {
@@ -109,7 +109,7 @@ export default function HopIngredientModal({
         },
       });
       // fields.append(data);
-      // f.setValue("hopIngredients", newValue);
+      f.setValue("hopIngredients", newValue);
     }
     handleClose();
   };

@@ -33,7 +33,7 @@ export function HopIngredientFormContainer<S = unknown>({
   children,
   index,
 }: {
-  action: any;
+  action?: any;
   index?: number;
   onSubmit?: any;
   src: Partial<BaseHopIngredientType>;
@@ -75,7 +75,7 @@ export function HopIngredientFormContainer<S = unknown>({
     // console.log(d);
     // console.log(action);
     _onSubmit(d);
-    index !== undefined ? action(index, d) : action(d);
+    // index !== undefined ? action(index, d) : action(d);
     // handleClose();
   };
   // console.log(state);

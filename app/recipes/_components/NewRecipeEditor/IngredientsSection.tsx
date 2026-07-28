@@ -117,7 +117,7 @@ export default function IngredientsSection({}: {}) {
   //   setOpen(id === undefined ? false : true);
   //   setTriggerId(id === undefined ? null : id);
   // };
-  const { getValues, control } = useFormContext<RecipeType>();
+  const { getValues, watch, control } = useFormContext<RecipeType>();
 
   const hopIngArray = useFieldArray({
     name: "hopIngredients",
@@ -132,7 +132,14 @@ export default function IngredientsSection({}: {}) {
   const hopIngredients = hopIngArray.fields;
   const fermentableIngredients = fermentableIngArray.fields;
 
-  const _hopIngredients = useWatch({ name: "hopIngredients", control });
+  // const _hopIngredients = useWatch({ name: "hopIngredients", control });
+  const watchFieldArray = watch("hopIngredients", []);
+  const _hopIngredients = hopIngArray.fields.map((field, index) => {
+    return {
+      ...field,
+      ...watchFieldArray[index],
+    };
+  });
   const _fermentableIngredients = useWatch({
     name: "fermentableIngredients",
     control,
@@ -154,10 +161,11 @@ export default function IngredientsSection({}: {}) {
       <List className="min-h-40 flex flex-col gap-2 w-full">
         {(_hopIngredients || []).map((i: any, index: any) => (
           <HopIngredientItem
-            key={i.id}
+            key={i._id}
             index={index}
             src={i}
-            onClick={handleClick({ type: "hop", id: i.index, index })}
+            onClick={handleClick({ type: "hop", id: i._id, index })}
+            actions={{ remove: () => hopIngArray.remove(index) }}
           />
         ))}
         {(_fermentableIngredients || []).map((i: any, index: any) => (
