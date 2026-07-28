@@ -43,6 +43,7 @@ import List from "@/components/Form/List/List";
 import HopIngredientItem from "./HopIngredientItem";
 import FermentableIngredientItem from "./FermentableIngredientItem";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
+import { FormStateContext } from "@/contexts/FormStateContext";
 // const HopIngredientModal = dynamic(
 // () => import("./IngredientModals/HopIngredientModal"),
 // { ssr: false },
@@ -50,13 +51,14 @@ import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
 
 // const demoDialog = _Dialog.createHandle<{ text: string }>();
 
-function IngredientsSectionToolbar({
-  src,
-  // handleDialogOpen,
-}: {
-  src: RecipeType;
-  // handleDialogOpen: (id: string) => () => void;
-}) {
+function IngredientsSectionToolbar(
+  {
+    // handleDialogOpen,
+  }: {
+    src?: RecipeType;
+    // handleDialogOpen: (id: string) => () => void;
+  },
+) {
   const { open, handleDialogOpen, triggerId } = useContext(ModalContext);
   return (
     <div className="flex items-center lg:gap-2 px-1 lg:px-4">
@@ -101,7 +103,7 @@ function IngredientsSectionToolbar({
             <IconButton icon={HeartPulseIcon} label="Add Yeast" />
             <IconButton icon={ShoppingBagIcon} label="Add Other" />
  */
-export default function IngredientsSection({ src }: { src: RecipeType }) {
+export default function IngredientsSection({}: {}) {
   // const [open, setOpen] = React.useState(true);
   // const [triggerId, setTriggerId] = React.useState<string | null>("hop");
   // const handleOpenChange = (
@@ -116,14 +118,22 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
   //   setTriggerId(id === undefined ? null : id);
   // };
   const { getValues, control } = useFormContext<RecipeType>();
-  const hopIngArray = useFieldArray({ name: "hopIngredients", control });
+
+  const hopIngArray = useFieldArray({
+    name: "hopIngredients",
+    control,
+    keyName: "_id",
+  });
   const fermentableIngArray = useFieldArray({
     name: "fermentableIngredients",
     control,
+    keyName: "_id",
   });
+  const hopIngredients = hopIngArray.fields;
+  const fermentableIngredients = fermentableIngArray.fields;
 
-  const hopIngredients = useWatch({ name: "hopIngredients", control });
-  const fermentableIngredients = useWatch({
+  const _hopIngredients = useWatch({ name: "hopIngredients", control });
+  const _fermentableIngredients = useWatch({
     name: "fermentableIngredients",
     control,
   });
@@ -137,23 +147,22 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
       title="Ingredients"
       actions={
         <IngredientsSectionToolbar
-          src={src}
-          // handleDialogOpen={handleDialogOpen}
+        // handleDialogOpen={handleDialogOpen}
         />
       }
     >
       <List className="min-h-40 flex flex-col gap-2 w-full">
-        {(hopIngredients || []).map((i: any, index: any) => (
+        {(_hopIngredients || []).map((i: any, index: any) => (
           <HopIngredientItem
-            key={index}
+            key={i.id}
             index={index}
             src={i}
             onClick={handleClick({ type: "hop", id: i.index, index })}
           />
         ))}
-        {(fermentableIngredients || []).map((i: any, index: any) => (
+        {(_fermentableIngredients || []).map((i: any, index: any) => (
           <FermentableIngredientItem
-            key={index}
+            key={i.id}
             index={index}
             src={i}
             onClick={handleClick({ type: "fermentable", id: i.id, index })}

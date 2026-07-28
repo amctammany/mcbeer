@@ -6,26 +6,20 @@ import { Button } from "@/components/ui/button";
 import { FormStateContext } from "@/contexts/FormStateContext";
 import { RevisionContext } from "@/contexts/RevisionContext";
 import { AdjustedRecipeType, RecipeType } from "@/types/Recipe";
-import { useStateMachine } from "little-state-machine";
 import { Redo, Save, Undo, X } from "lucide-react";
 import React, { useContext } from "react";
 export type RecipeEditorToolbarProps = {
-  // src: RecipeType;
+  src: AdjustedRecipeType;
 };
-export default function RecipeEditorToolbar({}: RecipeEditorToolbarProps) {
+export default function RecipeEditorToolbar({ src }: RecipeEditorToolbarProps) {
   const { handleRedo, handleUndo, canRedo, canUndo } =
     useContext(RevisionContext)!;
-  const { data } = useContext(FormStateContext);
-  const src = data;
+  // const { data } = useContext(FormStateContext);
+  // const src = data;
 
-  const { state } = useStateMachine();
-  const handleSave = (d: any) => {
-    console.log({ state, d });
-  };
   return (
     <TopBar
       breadcrumbs={[
-        { title: "Ingredients" },
         { title: "Recipes", url: "/recipes" },
         ...(src.id
           ? [
@@ -33,6 +27,7 @@ export default function RecipeEditorToolbar({}: RecipeEditorToolbarProps) {
                 title: src.name,
                 url: `/recipes/${src.id}`,
               },
+              { title: "Edit" },
             ]
           : src.origin
             ? [

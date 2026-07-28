@@ -1,6 +1,6 @@
 import React from "react";
 import { RecipeEditorForm } from "./RecipeEditorForm";
-import { RecipeType } from "@/types/Recipe";
+import { AdjustedRecipeType, RecipeType } from "@/types/Recipe";
 import RecipeEditorFormContainer from "./RecipeEditorFormContainer";
 import GeneralSection from "./GeneralSection";
 import EquipmentSection from "./EquipmentSection";
@@ -9,7 +9,7 @@ import RecipeEditorToolbar from "./RecipeEditorToolbar";
 import IngredientsSection from "./IngredientsSection";
 import RecipeModals from "./RecipeModals";
 export type RecipeEditorProps = {
-  src: RecipeType;
+  src: AdjustedRecipeType;
   action: any; //(state: any, data: RecipeType) => void;
 };
 export default function RecipeEditor({ src, action }: RecipeEditorProps) {
@@ -18,7 +18,7 @@ export default function RecipeEditor({ src, action }: RecipeEditorProps) {
       <RecipeEditorFormContainer
         src={src}
         action={action}
-        toolbar={<RecipeEditorToolbar />}
+        toolbar={<RecipeEditorToolbar src={src} />}
         modals={<RecipeModals recipeId={src.id} />}
       >
         <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
@@ -30,7 +30,7 @@ export default function RecipeEditor({ src, action }: RecipeEditorProps) {
         <RecipeEditorForm />
 
         <div>
-          <IngredientsSection src={src} />
+          <IngredientsSection />
         </div>
       </RecipeEditorFormContainer>
     </div>

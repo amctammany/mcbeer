@@ -127,6 +127,7 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
           <Prop label="Description" value={src.description} />
         </Section>
         <Section title="Equipment">
+          <AmountProp label="Boil Time" name="boilTime" value={src.boilTime} />
           <AmountProp
             label="Efficiency"
             name="brewEfficiency"

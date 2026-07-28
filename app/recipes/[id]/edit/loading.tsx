@@ -22,7 +22,7 @@ export default function Loading() {
   } as RecipeType;
   return (
     <div>
-      <TopBar breadcrumbs={[{ title: "Ingredients" }]}></TopBar>
+      <TopBar breadcrumbs={[{ title: "Recipes" }]}></TopBar>
     </div>
   );
 }

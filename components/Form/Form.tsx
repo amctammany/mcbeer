@@ -13,7 +13,12 @@ import { UnitTypeDict } from "@/lib/Converter/UnitDict";
 import { State } from "@/lib/validateSchema";
 import { AdjustedRecipeType } from "@/types/Recipe";
 import { ExtendedUser } from "@/types/User";
-import React, { startTransition, useActionState, useContext } from "react";
+import React, {
+  startTransition,
+  useActionState,
+  useContext,
+  useEffect,
+} from "react";
 import {
   FieldValues,
   FormProvider,
@@ -61,12 +66,26 @@ export function Form<T extends FieldValues>({
   console.log({ src, mask, adjusted, preferenceContext });
 
   const [_state, formAction] = useActionState<State<T>, FormData>(action, {
-    success: true,
+    success: false,
     data: adjusted,
     // errors: [],
   });
-  // const [state, setState] = React.useState(_state);
+  const [state, setState] = React.useState(_state);
 
+  useEffect(() => {
+    if (_state.success) {
+      setState({
+        ..._state,
+        data: adjustUnits({
+          src,
+          mask,
+          prefs: preferenceContext,
+          inline: false,
+          dir: false,
+        }),
+      });
+    }
+  }, [_state]);
   const form = useForm({
     // reValidateMode: "onBlur",
     // mode: "onTouched",
@@ -75,9 +94,9 @@ export function Form<T extends FieldValues>({
     //   keepDirtyValues: true,
     //   keepValues: true,
     // },
-    values: _state.data,
-    defaultValues: _state.data as any,
-    errors: _state.errors,
+    values: state.data,
+    defaultValues: state.data as any,
+    errors: state.errors,
 
     ...formProps,
   });

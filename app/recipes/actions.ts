@@ -15,7 +15,7 @@ import {
   BaseRecipeType,
   RecipeType,
 } from "@/types/Recipe";
-import { refresh, updateTag } from "next/cache";
+import { refresh, revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { success } from "zod";
 
@@ -55,12 +55,12 @@ export async function createRecipe(prev: any, formData: FormData) {
     },
   });
   updateTag("recipes");
+  revalidatePath(`/recipes/${res.id}/edit`);
   return redirect(`/recipes/${res.id}`);
 }
 
 export async function updateRecipe(prev: any, formData: FormData) {
   const v = validateSchema(formData, recipeSchema);
-  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
@@ -81,7 +81,7 @@ export async function updateRecipe(prev: any, formData: FormData) {
     style,
     ...data
   } = r;
-  console.log("updateRecipe", { data, hopIngredients, fermentableIngredients });
+  // console.log("updateRecipe", { data, hopIngredients, fermentableIngredients });
   const ftx = await prisma.$transaction([
     ...fermentableIngredients.map(({ id: _id, ...d }) => {
       return _id
@@ -129,9 +129,19 @@ export async function updateRecipe(prev: any, formData: FormData) {
       },
       ...data,
     },
+    include: {
+      EquipmentProfile: true,
+      style: true,
+      hopIngredients: true,
+      fermentableIngredients: true,
+    },
   });
   updateTag("recipes");
-  return redirect(`/recipes/${res.id}`);
+  revalidatePath(`/recipes/${res.id}/edit`);
+
+  refresh();
+  redirect(`/recipes/${res.id}`);
+  // return { status: "success", data: res };
 }
 
 export async function createFermentableIngredient(

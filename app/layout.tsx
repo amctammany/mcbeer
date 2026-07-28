@@ -8,6 +8,13 @@ import { RouteChangeListener } from "@/components/RouteChangeListener";
 import UserPreferencesProviderContainer from "@/components/UserPreferencesProviderContainer";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import IngredientProvider from "@/components/IngredientProvider";
+import { getFermentables } from "./(ingredients)/fermentables/queries";
+import { getHops } from "./(ingredients)/hops/queries";
+import { getYeasts } from "./(ingredients)/yeasts/queries";
+import { getEquipmentProfiles } from "./(profiles)/equipment/queries";
+import { getMashProfiles } from "./(profiles)/mash/queries";
+import { getStyles } from "./styles/queries";
 
 const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -45,7 +52,31 @@ export default async function RootLayout({
 
             <SidebarInset className="overflow-hiddn relative">
               <UserPreferencesProviderContainer>
-                {children}
+                <IngredientProvider
+                  stylePromise={getStyles()}
+                  equipPromise={getEquipmentProfiles({
+                    select: { name: true, id: true },
+                  })}
+                  mashPromise={getMashProfiles({
+                    select: { name: true, id: true },
+                  })}
+                  hopPromise={getHops({
+                    select: { name: true, id: true, alpha: true },
+                  })}
+                  fermentablePromise={getFermentables({
+                    select: {
+                      name: true,
+                      id: true,
+                      color: true,
+                      potential: true,
+                    },
+                  })}
+                  yeastPromise={getYeasts({
+                    select: { name: true, id: true, attenuation: true },
+                  })}
+                >
+                  {children}
+                </IngredientProvider>
               </UserPreferencesProviderContainer>
             </SidebarInset>
           </SidebarProvider>

@@ -15,6 +15,7 @@ export default async function RecipeDisplayPage({
   const { id } = await params;
   const prefs = await getPreferences();
   const recipe = await getRecipe(id);
+  // console.log({ id, recipe });
   if (!recipe) notFound();
   const adjusted = adjustUnits({
     src: recipe,
