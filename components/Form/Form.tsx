@@ -74,12 +74,12 @@ export function Form<T extends FieldValues>({
   const [state, setState] = React.useState(_state);
   useEffect(() => {
     // console.log("state changed", _state);
-setState();
+    setState(_state);
   }, [_state]);
   useEffect(() => {
     // console.log("src changed", src);
     setState((old) => ({
-,
+      ...old,
       data: adjustUnits({
         src,
         mask,
