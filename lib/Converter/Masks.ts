@@ -80,7 +80,7 @@ export const RecipeMask: UnitMaskType<Partial<RecipeType>> = {
   fermentableIngredients: FermentableIngredientMask,
 };
 export const FermentableMask: UnitMaskType<Partial<FermentableType>> = {
-  maxUsage: "percent",
+  maxUsage: ["percent", "percent"],
   protein: "percent",
   friability: "percent",
   yield: "percent",

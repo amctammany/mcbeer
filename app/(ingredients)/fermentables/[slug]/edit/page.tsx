@@ -29,7 +29,6 @@ export default async function FermentableEditorPage({
   params,
 }: FermentableEditorPageProps) {
   const { slug } = await params;
-
   // const src = await authorizeResource(
   // `/fermentables/${slug}/edit`,
   // getFermentable,

@@ -26,7 +26,7 @@ export function convertUnitRaw(
   unit: UnitNames,
   otherUnit?: UnitNames,
 ): number {
-  const res = Converter(value, unit, otherUnit ?? BASE_UNITS[UnitDict[unit]]);
+  const res = Converter(value, unit, otherUnit ?? getBaseUnit(unit));
   return res;
 }
 export type Value = number | UnitValue | number[] | UnitValue[];
