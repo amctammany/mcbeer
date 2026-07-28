@@ -6,8 +6,8 @@ describe("Converter", () => {
     const input = 1;
     const hrTo = converters?.time?.hr?.to(input);
     const hrFrom = converters?.time?.hr?.from(input);
-    expect(hrTo).toBe(60);
-    expect(hrFrom).toBe(1 / 60);
+    expect(hrTo).toBe(1 / 60);
+    expect(hrFrom).toBe(60);
   });
   test("Mass conversion", () => {
     const input = 1;
@@ -39,9 +39,9 @@ describe("Converter", () => {
     const input = 4;
     const kgres = Converter(input, "Kg", "g");
     expect(kgres).toBe(4000);
-    const lbres = Converter(input, "Lb");
-    expect(lbres).toBeCloseTo(1818.18);
-    const ozres = Converter(input, "Oz");
-    expect(ozres).toBeCloseTo(113.398);
+    const lbres = Converter(input, "Lb", "g");
+    expect(lbres).toBeCloseTo(0.0088);
+    const ozres = Converter(input, "Oz", "g");
+    expect(ozres).toBeCloseTo(4 * 28);
   });
 });

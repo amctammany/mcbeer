@@ -11,10 +11,10 @@ import { BASE_UNITS, UnitDict, UnitNames, UnitTypes } from "./UnitDict";
 
 const massConverter: Record<MassUnit, ConversionType> = {
   g: 1,
-  Kg: 1 / 1000,
-  Lb: [(t: number) => (t * 2.2) / 1000, (t: number) => (1000 * t) / 2.2],
+  Kg: 1000,
+  Lb: [(t: number) => (1000 * t) / 2.2, (t: number) => (t * 2.2) / 1000],
   LbOz: 1,
-  Oz: 0.035274,
+  Oz: 28, //  0.035274,
 };
 const volumeConverter: Record<UserVolumePreference, ConversionType> = {
   L: 1,
@@ -33,7 +33,7 @@ const colorConverter: Record<UserColorPreference, ConversionType> = {
   SRM: 100,
 };
 const percentConverter: Record<PercentUnit, ConversionType> = {
-  percent: 0.01,
+  percent: 100,
   number: 1,
 };
 
@@ -116,10 +116,10 @@ function makeConverter(src: ConverterDict) {
     (acc, [unit, converter]) => {
       const to = Array.isArray(converter)
         ? converter[0]
-        : (v: number) => v * converter;
+        : (v: number) => v / converter;
       const from = Array.isArray(converter)
         ? converter[1]
-        : (v: number) => v / converter;
+        : (v: number) => v * converter;
       acc[unit as UnitNames] = { to, from };
       return acc;
     },
@@ -137,12 +137,15 @@ export function getBaseUnit(unit: UnitNames): UnitNames {
 }
 export function Converter(value: number, from: UnitNames, to?: UnitNames) {
   const group = UnitDict[from];
-  const _to = to ?? BASE_UNITS[group];
+  const base = BASE_UNITS[group];
+  const _to = to ?? base;
   if (UnitDict[_to] !== group)
     throw new Error("Cannot convert between two different measurements");
   const convert = converters[group];
+
   if (!convert) throw new Error("Converter not available");
   const baseValue = convert[from].from(value);
   const newValue = convert[_to].to(baseValue);
+  // console.log({ value, baseValue, newValue, from, _to });
   return newValue;
 }

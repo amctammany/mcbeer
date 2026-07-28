@@ -68,7 +68,7 @@ export function adjustUnit({
     // const r = inline ? v : ({ value: v, unit } as UnitValue);
     // console.log("convertUnit: number", { value, type, unit, inline, dir, r });
     // return r;
-    const res = convertUnitRaw(value, unit, baseUnit);
+    const res = convertUnitRaw(value, unit);
     const preciseRes = precisionRound(res, precision);
     return inlinify(preciseRes, unit, inline);
   }
@@ -120,9 +120,11 @@ export function convertUnit({
   if (typeof value === "number") {
     const convert = converters[type as UnitTypes];
     if (!convert) return value; //throw new Error("Converter not available");
-    const baseValue = convert[unit].from(value);
-    const newValue = convert[unit].to(value);
-    const val = dir ? newValue : baseValue;
+    const baseValue = convert[getBaseUnit(unit)].from(value);
+    const newValue = convert[unit].to(baseValue);
+    const val = dir
+      ? Converter(value, getBaseUnit(unit), unit)
+      : Converter(value, unit, getBaseUnit(unit)); // dir ? newValue : baseValue;
     const v = precisionRound(val, precision);
     const r = inline ? v : ({ value: v, unit } as UnitValue);
     return r;

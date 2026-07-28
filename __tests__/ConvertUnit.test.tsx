@@ -1,11 +1,33 @@
 import { describe, expect, test } from "vitest";
 import { Converter, converters } from "../lib/Converter/Converter";
-import { adjustUnit, convertUnitRaw } from "@/lib/Converter/adjustUnits";
+import {
+  adjustUnits,
+  adjustUnit,
+  convertUnitRaw,
+} from "@/lib/Converter/adjustUnits";
+import { BASE_UNITS } from "@/lib/Converter/UnitDict";
 
 describe("converterUnits", () => {
+  test("Adjust Units", () => {
+    const mask = { size: "volume", time: "time", amount: "mass" };
+    const input = {
+      size: { value: 10, unit: "bbl" },
+      time: { value: 40, unit: "hr" },
+      amount: { value: 25, unit: "Kg" },
+    };
+    const res = adjustUnits({
+      src: { size: 1, time: 2, amount: 3 },
+      mask,
+      prefs: { volume: "bbl", time: "hr", mass: "Kg" },
+      inline: false,
+      dir: true,
+      precision: 4,
+    });
+    console.log(res);
+  });
   test("Time conversion", () => {
     const input = 15;
-    const res = convertUnitRaw(input, "hr");
+    const res = convertUnitRaw(input, "min", "hr");
     expect(res).toBe(0.25);
   });
   test("Mass conversion", () => {
