@@ -91,7 +91,7 @@ export function ComboBox({
         className="grow"
         placeholder={placeholder ?? "Select an option"}
       />
-      <ComboboxContent className="w-full grow">
+      <ComboboxContent className="w-full ">
         <ComboboxEmpty>No items found.</ComboboxEmpty>
         <ComboboxList>
           {(item) => (

@@ -88,11 +88,11 @@ export function ComboBoxField<T extends FieldValues>({
       render={({ field, fieldState }) => (
         <FieldGroup>
           <Field
-            className="bg-white rounded-md flex"
+            className="bg-white rounded-md "
             orientation={orientation}
             data-invalid={fieldState.invalid}
           >
-            <FieldContent className="relative">
+            <FieldContent className="relative grid w-full gap-2">
               <FieldLabel htmlFor={id}>{label ?? ""}</FieldLabel>
               <FieldDescription>{description ?? ""}</FieldDescription>
             </FieldContent>

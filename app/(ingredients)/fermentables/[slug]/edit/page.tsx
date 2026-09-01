@@ -36,6 +36,7 @@ export default async function FermentableEditorPage({
   // );
   const src = await getFermentable(slug);
   const countries = await getCountries();
+  console.log({ src, slug });
   if (!src) notFound();
   /**
    * 
