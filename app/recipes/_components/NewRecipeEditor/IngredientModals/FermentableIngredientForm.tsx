@@ -168,7 +168,7 @@ export default function FermentableIngredientForm({
           name="amount"
           label="Amount"
           amountType="mass"
-          unit="Lb"
+          unit="Oz"
         />
         <TextField
           revisable={false}

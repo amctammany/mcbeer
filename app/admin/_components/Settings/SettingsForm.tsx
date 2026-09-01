@@ -113,6 +113,20 @@ export function SettingsForm({ user }: SettingsFormProps) {
         />
         <RadioGroupField
           control={control}
+          label="Fermentable Mass"
+          name="UserPreferences.fermentableMass"
+          options={makeRadioOptions(UserMassPreference)}
+        />
+
+        <RadioGroupField
+          control={control}
+          label="Hop Mass"
+          name="UserPreferences.hopMass"
+          options={makeRadioOptions(UserMassPreference)}
+        />
+
+        <RadioGroupField
+          control={control}
           label="Color"
           name="UserPreferences.color"
           options={makeRadioOptions(UserColorPreference)}

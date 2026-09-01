@@ -58,11 +58,11 @@ export const FermentationProfileMask: UnitMaskType<
 export const FermentableIngredientMask: UnitMaskType<
   Partial<BaseFermentableIngredientType>
 > = {
-  amount: "mass",
+  amount: "fermentableMass",
   color: "color",
 };
 export const HopIngredientMask: UnitMaskType<Partial<BaseHopIngredientType>> = {
-  amount: "mass",
+  amount: "hopMass",
   duration: "time",
   alpha: ["percent", "percent"],
 };

@@ -79,6 +79,8 @@ export const converters: Partial<
 > = {
   time: makeConverter(timeConverter),
   mass: makeConverter(massConverter),
+  hopMass: makeConverter(massConverter),
+  fermentableMass: makeConverter(massConverter),
   color: makeConverter(colorConverter),
   temperature: makeConverter(tempConverter),
   volume: makeConverter(volumeConverter),
