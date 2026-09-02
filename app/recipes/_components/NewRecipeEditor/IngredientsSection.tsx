@@ -163,7 +163,7 @@ export default function IngredientsSection({}: {}) {
         />
       }
     >
-      <List className="min-h-40 flex flex-col md:gap-2 w-full">
+      <List className="min-h-40 flex flex-col  w-full" size="small">
         {(_hopIngredients || []).map((i: any, index: any) => (
           <HopIngredientItem
             key={i._id}

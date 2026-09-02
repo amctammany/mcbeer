@@ -19,6 +19,8 @@ import {
   MenuIcon,
   ScaleIcon,
   TimerIcon,
+  PaletteIcon,
+  CookingPotIcon,
 } from "lucide-react";
 import React from "react";
 import { useFormContext } from "react-hook-form";
@@ -109,33 +111,24 @@ export default function FermentableIngredientItem({
 
       <ListItemContent className="">
         <ListItemTitle>
-          <BadgeProp
-            Icon={<ScaleIcon size={12} />}
-            name="amount"
-            text={src.amount?.value}
-            unit="%"
-          />
-
+          <div className="min-w-8 mx-2 text-md">
+            <span>{src.amount?.value}</span>
+            <span className="px-1">{src.amount?.unit}</span>
+            <span className="text-sm">(? %)</span>
+          </div>
           <b>{fermentable?.name}</b>
         </ListItemTitle>
         <ListItemDescription className="grow">
           <div className="grow min-w-52  grid justify-items-end ">
             <div className="w-full lg:w-fit flex flex-row gap-1 lg:gap-2">
               <BadgeProp
-                Icon={<ScaleIcon size={12} />}
-                name="amount"
-                text={src.amount.value}
-                unit={src.amount.unit}
-              />
-
-              <BadgeProp
-                Icon={<TimerIcon size={12} />}
-                name="potential"
-                text={src.potential}
-                unit={"D"}
+                Icon={<PaletteIcon size={12} />}
+                name="color"
+                text={src.color?.value}
+                unit={src.color?.unit}
               />
               <BadgeProp
-                Icon={<BeakerIcon size={12} />}
+                Icon={<CookingPotIcon size={12} />}
                 name="usage"
                 text={src.usage}
               />

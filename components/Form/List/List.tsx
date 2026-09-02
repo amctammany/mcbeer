@@ -2,7 +2,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import React from "react";
 const listVariants = cva(
-  "group/list flex border flex-col w-full gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2 *:border-b-2",
+  "group/list flex border flex-col  w-full *:border-b-2",
   {
     variants: {
       variant: {
@@ -10,7 +10,7 @@ const listVariants = cva(
         outlined: "border-border",
       },
       size: {
-        default: [""],
+        default: ["gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2"],
         small: [""],
       },
     },
