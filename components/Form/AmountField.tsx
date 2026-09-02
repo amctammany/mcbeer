@@ -116,7 +116,7 @@ export function AmountField<T extends FieldValues>({
 
   const value = typeof val === "number" ? val : val?.value;
   // console.log({ val, value, unitName });
-  // console.log({ maskV, value, unit, s, unitName });
+  console.log({ name, value, unit });
   // const convert = (v: number, dir = true) =>
   //   convertUnit({
   //     value: v,
@@ -183,7 +183,7 @@ export function AmountField<T extends FieldValues>({
           className="gap-1 w-full grow"
           // aria-invalid={!!fieldState.error}
         >
-          <input type="hidden" value={unit} {...register(`${name}.unit`)} />
+          <input type="hidden" value={_u} {...register(`${name}.unit`)} />
 
           <InputGroupInput
             className="text-center grow"

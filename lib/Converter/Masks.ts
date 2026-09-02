@@ -11,6 +11,7 @@ import { FieldPath, FieldValues, Path } from "react-hook-form";
 import {
   BaseFermentableIngredientType,
   BaseHopIngredientType,
+  BaseYeastIngredientType,
   RecipeType,
 } from "@/types/Recipe";
 
@@ -61,6 +62,12 @@ export const FermentableIngredientMask: UnitMaskType<
   amount: "fermentableMass",
   color: "color",
 };
+export const YeastIngredientMask: UnitMaskType<
+  Partial<BaseYeastIngredientType>
+> = {
+  amount: "yeastMass",
+  attenuation: ["percent", "percent"],
+};
 export const HopIngredientMask: UnitMaskType<Partial<BaseHopIngredientType>> = {
   amount: "hopMass",
   duration: "time",
@@ -76,6 +83,7 @@ export const RecipeMask: UnitMaskType<Partial<RecipeType>> = {
   trubLoss: "volume",
   mashLoss: "volume",
   fermenterLoss: "volume",
+  yeastIngredients: YeastIngredientMask,
   hopIngredients: HopIngredientMask,
   fermentableIngredients: FermentableIngredientMask,
 };

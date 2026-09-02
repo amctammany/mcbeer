@@ -27,6 +27,17 @@ export const getRecipe = async (id: string) => {
           potential: true,
         },
       },
+      yeastIngredients: {
+        select: {
+          id: true,
+          recipeId: true,
+          yeast: { select: { name: true, attenuation: true } },
+          yeastId: true,
+          attenuation: true,
+          amount: true,
+          amountType: true,
+        },
+      },
       hopIngredients: {
         select: {
           id: true,

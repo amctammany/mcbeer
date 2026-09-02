@@ -31,7 +31,7 @@ export default async function RecipeEditorPage({
   }
   // const prefs = await getPreferences();
   const recipe = await getRecipe(id);
-  // console.log(recipe);
+  console.log(recipe);
   if (!recipe) notFound();
   // const styles = getStyleNames();
   // const adjusted = adjustUnits({

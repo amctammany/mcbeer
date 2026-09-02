@@ -36,6 +36,7 @@ export async function createRecipe(prev: any, formData: FormData) {
     id,
     hopIngredients,
     fermentableIngredients,
+    yeastIngredients,
     owner,
     origin,
     forks,
@@ -48,6 +49,11 @@ export async function createRecipe(prev: any, formData: FormData) {
       fermentableIngredients: {
         create: fermentableIngredients,
       },
+      yeastIngredients: {
+        create: yeastIngredients,
+      },
+      ...data,
+
       hopIngredients: {
         create: hopIngredients,
       },
@@ -76,6 +82,7 @@ export async function updateRecipe(prev: any, formData: FormData) {
   const {
     id,
     hopIngredients,
+    yeastIngredients,
     fermentableIngredients,
     owner,
     origin,
@@ -98,7 +105,20 @@ export async function updateRecipe(prev: any, formData: FormData) {
           });
     }),
   ]);
-
+  const ytx = await prisma.$transaction([
+    ...yeastIngredients.map(({ id: _id, ...d }) => {
+      return _id
+        ? prisma.yeastIngredient.update({
+            where: {
+              id: _id,
+            },
+            data: d,
+          })
+        : prisma.yeastIngredient.create({
+            data: { recipeId: id!, ...d },
+          });
+    }),
+  ]);
   const htx = await prisma.$transaction([
     ...hopIngredients.map(({ id: _id, ...d }) => {
       return _id
@@ -125,6 +145,12 @@ export async function updateRecipe(prev: any, formData: FormData) {
           id: _id,
         })),
       },
+      yeastIngredients: {
+        set: [],
+        connect: ytx.map(({ id: _id }) => ({
+          id: _id,
+        })),
+      },
       hopIngredients: {
         set: [],
         connect: htx.map(({ id: _id }) => ({
@@ -136,6 +162,7 @@ export async function updateRecipe(prev: any, formData: FormData) {
     include: {
       EquipmentProfile: true,
       style: true,
+      yeastIngredients: true,
       hopIngredients: true,
       fermentableIngredients: true,
     },

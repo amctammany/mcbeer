@@ -13,6 +13,7 @@ import {
   DialogOverlay,
 } from "@/components/ui/dialog";
 import { RecipeContext } from "@/contexts/RecipeContext";
+import YeastIngredientModal from "./IngredientModals/YeastIngredientModal";
 const HopIngredientModal = dynamic(
   () => import("./IngredientModals/HopIngredientModal"),
 );
@@ -41,6 +42,7 @@ export default function RecipeModals({ recipeId }: { recipeId?: string }) {
           <DialogHeader>Dialog {type}</DialogHeader>
           {type === "hop" && <HopIngredientModal id={id} />}
           {type === "fermentable" && <FermentableIngredientModal id={id} />}
+          {type === "yeast" && <YeastIngredientModal id={id} />}
         </DialogContent>
       </Dialog>
     </div>

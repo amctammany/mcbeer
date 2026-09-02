@@ -10,10 +10,10 @@ import { ModalContext } from "@/contexts/ModalContext";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { $Enums } from "@/generated/prisma/browser";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
-import { FermentableIngredientMask } from "@/lib/Converter/Masks";
+import { YeastIngredientMask } from "@/lib/Converter/Masks";
 import {
-  AdjustedFermentableIngredientType,
-  BaseFermentableIngredientType,
+  AdjustedYeastIngredientType,
+  BaseYeastIngredientType,
 } from "@/types/Recipe";
 import { useStateMachine } from "little-state-machine";
 import { ChevronLeft, SaveIcon } from "lucide-react";
@@ -26,7 +26,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-export function FermentableIngredientFormContainer<S = unknown>({
+export function YeastIngredientFormContainer<S = unknown>({
   src,
   action,
   toolbar,
@@ -38,7 +38,7 @@ export function FermentableIngredientFormContainer<S = unknown>({
   action: any;
   index?: number;
   onSubmit?: any;
-  src: Partial<BaseFermentableIngredientType>;
+  src: Partial<BaseYeastIngredientType>;
   toolbar?: React.ReactNode;
   modals?: React.ReactNode | React.ReactNode[];
   children: React.ReactNode;
@@ -50,15 +50,15 @@ export function FermentableIngredientFormContainer<S = unknown>({
   // console.log(prefs);
   // console.log({ src, mask, preferenceContext });
   // const { state, actions } = useStateMachine({
-  //   actions: { addFermentableIngredient, updateFermentableIngredient },
+  //   actions: { addYeastIngredient, updateYeastIngredient },
   // });
 
-  // const saveFermentableIngredient = (_data: any) => {
+  // const saveYeastIngredient = (_data: any) => {
   //   // console.log(state);
   //   const data = f.getValues();
   //   const action = data.id
-  //     ? actions.updateFermentableIngredient
-  //     : actions.addFermentableIngredient;
+  //     ? actions.updateYeastIngredient
+  //     : actions.addYeastIngredient;
   //   // console.log(data);
   //   action(data as any);
   //   d.handleOpenChange();
@@ -82,7 +82,7 @@ export function FermentableIngredientFormContainer<S = unknown>({
   };
   // console.log(state);
   return (
-    <MaskContext value={{ mask: FermentableIngredientMask }}>
+    <MaskContext value={{ mask: YeastIngredientMask }}>
       <UserPreferencesContext value={prefs}>
         <FormProvider {...form}>
           <form onSubmit={handleSubmit(handleSave)}>{children}</form>
@@ -108,11 +108,11 @@ export function FermentableIngredientFormContainer<S = unknown>({
    */
   // return (
   //   <FormProvider {...f}>
-  //     <form onSubmit={f.handleSubmit(saveFermentableIngredient)}>{children}</form>
+  //     <form onSubmit={f.handleSubmit(saveYeastIngredient)}>{children}</form>
   //   </FormProvider>
   // );
 
-  // <Form src={src} action={addFermentableIngredientToRecipe}>
+  // <Form src={src} action={addYeastIngredientToRecipe}>
   // </Form>
 }
 /** <input type="hidden" name="id" value={currentIngredient?.id} />
@@ -122,12 +122,12 @@ export function FermentableIngredientFormContainer<S = unknown>({
         value={currentIngredient?.recipeId}
       />}
       */
-export default function FermentableIngredientForm({
+export default function YeastIngredientForm({
   src,
   // action,
   index,
 }: {
-  src: Partial<AdjustedFermentableIngredientType>;
+  src: Partial<AdjustedYeastIngredientType>;
   // action: any;
   index?: number;
 }) {
@@ -137,14 +137,13 @@ export default function FermentableIngredientForm({
   // console.log(src);
   const { register, setValue } = useFormContext();
 
-  const fermentables = use(s.fermentablePromise);
-  const opts = fermentables.map((h) => ({ label: h.name, value: h.id }));
+  const yeasts = use(s.yeastPromise);
+  const opts = yeasts.map((h) => ({ label: h.name, value: h.id }));
   const onChangeCb = (r: any) => {
-    console.log({ src, index, r });
-    const h = fermentables.find(({ id }) => id === r);
+    const h = yeasts.find(({ id }) => id === r);
     if (h) {
       console.log(h);
-      setValue("color.value", (h?.color ?? 0.01) * 100);
+      setValue("attenuation.value", (h?.attenuation ?? 0.8) * 100);
     }
     // handleClose();
   };
@@ -155,8 +154,8 @@ export default function FermentableIngredientForm({
       <ComboBoxField
         onChangeCallback={onChangeCb}
         orientation="responsive"
-        name="fermentableId"
-        label="Fermentable Variety"
+        name="yeastId"
+        label="Yeast Variety"
         options={opts}
       />
       <div className="grid grid-cols-2 lg:grid-cols3 gap-1 border-b-2 mb-3">
@@ -165,15 +164,20 @@ export default function FermentableIngredientForm({
           revisable={false}
           name="amount"
           label="Amount"
-          amountType="fermentableMass"
+          amountType="yeastMass"
+          unit={src.amount?.unit ?? "Oz"}
           // unit="Oz"
         />
-        <SelectField
-          defaultValue={$Enums.FermentableIngredientUsage.Mash}
+        <AmountField
+          step="0.01"
           revisable={false}
-          name="usage"
-          options={$Enums.FermentableIngredientUsage}
-          label="Usage"
+          name="attenuation"
+          label="Attenuation"
+          amountType="percent"
+          unit={src.attenuation?.unit ?? "percent"}
+          // amountType="percent"
+          // unit="%"
+          // unit="Oz"
         />
       </div>
       <Collapsible key="foo" className="w-full my-2 group border-2 p-2">
@@ -182,16 +186,7 @@ export default function FermentableIngredientForm({
           <ChevronLeft className="ml-auto transition-transform duration-200 data-open:-rotate-90 group-data-open:-rotate-90" />
         </CollapsibleTrigger>
         <CollapsibleContent>
-          <div className="grid grid-cols-2 lg:grid-cols3 gap-1">
-            <AmountField
-              revisable={false}
-              step="0.1"
-              name="color"
-              label="Color"
-              amountType="color"
-              unit={"L"}
-            />
-          </div>
+          <div className="grid grid-cols-2 lg:grid-cols3 gap-1"></div>
         </CollapsibleContent>
       </Collapsible>
       <IconButton type="submit" icon={SaveIcon} label="Create" />

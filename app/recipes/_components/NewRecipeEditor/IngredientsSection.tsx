@@ -44,6 +44,7 @@ import HopIngredientItem from "./HopIngredientItem";
 import FermentableIngredientItem from "./FermentableIngredientItem";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { FormStateContext } from "@/contexts/FormStateContext";
+import YeastIngredientItem from "./YeastIngredientItem";
 // const HopIngredientModal = dynamic(
 // () => import("./IngredientModals/HopIngredientModal"),
 // { ssr: false },
@@ -119,6 +120,11 @@ export default function IngredientsSection({}: {}) {
   // };
   const { getValues, watch, control } = useFormContext<RecipeType>();
 
+  const yeastIngArray = useFieldArray({
+    name: "yeastIngredients",
+    control,
+    keyName: "_id",
+  });
   const hopIngArray = useFieldArray({
     name: "hopIngredients",
     control,
@@ -133,6 +139,13 @@ export default function IngredientsSection({}: {}) {
   const fermentableIngredients = fermentableIngArray.fields;
 
   // const _hopIngredients = useWatch({ name: "hopIngredients", control });
+  const watchYeasts = watch("yeastIngredients", []);
+  const _yeastIngredients = yeastIngArray.fields.map((field, index) => {
+    return {
+      ...field,
+      ...watchYeasts[index],
+    };
+  });
   const watchHops = watch("hopIngredients", []);
   const _hopIngredients = hopIngArray.fields.map((field, index) => {
     return {
@@ -179,6 +192,14 @@ export default function IngredientsSection({}: {}) {
             index={index}
             src={i}
             onClick={handleClick({ type: "fermentable", id: i.id, index })}
+          />
+        ))}
+        {(_yeastIngredients || []).map((i: any, index: any) => (
+          <YeastIngredientItem
+            key={i._id}
+            index={index}
+            src={i}
+            onClick={handleClick({ type: "yeast", id: i.id, index })}
           />
         ))}
       </List>

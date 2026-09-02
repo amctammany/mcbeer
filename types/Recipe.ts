@@ -3,6 +3,7 @@ import {
   Recipe,
   Style,
   FermentableIngredient,
+  YeastIngredient,
 } from "@/generated/prisma/client";
 import { BaseUser } from "./User";
 import { AmountFields, OptionalNullable } from "@/lib/utils";
@@ -14,6 +15,19 @@ export interface BaseRecipeType extends Omit<
   id?: string;
   userId: string;
 }
+export interface BaseYeastIngredientType extends Omit<
+  OptionalNullable<YeastIngredient>,
+  "id" | "recipeId"
+> {
+  id?: string;
+  recipeId?: string;
+}
+
+type YeastIngredientAmountFieldNames = "amount" | "attenuation";
+export type AdjustedYeastIngredientType = AmountFields<
+  BaseYeastIngredientType,
+  YeastIngredientAmountFieldNames
+>;
 
 export interface BaseFermentableIngredientType extends Omit<
   OptionalNullable<FermentableIngredient>,
@@ -48,6 +62,7 @@ export interface RecipeType extends BaseRecipeType {
   style?: Partial<Style> | null;
   origin?: BaseRecipeType;
   forks?: BaseRecipeType[];
+  yeastIngredients: BaseYeastIngredientType[];
   hopIngredients: BaseHopIngredientType[];
   fermentableIngredients: BaseFermentableIngredientType[];
 }
@@ -67,4 +82,5 @@ export type AdjustedRecipeType = AmountFields<
 > & {
   fermentableIngredients: AdjustedFermentableIngredientType[];
   hopIngredients: AdjustedHopIngredientType[];
+  yeastIngredients: AdjustedYeastIngredientType[];
 };

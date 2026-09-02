@@ -61,6 +61,7 @@ model UserPreferences {
   mass            UserMassPreference        @default(LbOz)
   hopMass         UserMassPreference        @default(Oz)
   fermentableMass UserMassPreference        @default(Lb)
+  yeastMass       UserMassPreference        @default(g)
   gravity         UserGravityPreference     @default(SG)
   temperature     UserTemperaturePreference @default(F)
   pressure        UserPressurePreference    @default(PSI)
@@ -364,6 +365,7 @@ model Yeast {
   country             String?
   owner               User?                @relation(fields: [userId], references: [id])
   yeastInventoryItems YeastInventoryItem[]
+  yeastIngredients    YeastIngredient[]
 }
 
 model Inventory {
@@ -439,6 +441,7 @@ model Recipe {
   MashProfile            MashProfile?            @relation(fields: [mashProfileId], references: [id])
   style                  Style?                  @relation(fields: [styleIdentifier], references: [identifier])
   owner                  User                    @relation(fields: [userId], references: [id])
+  yeastIngredients       YeastIngredient[]
 }
 
 model HopIngredient {
@@ -468,6 +471,19 @@ model FermentableIngredient {
   potential     Float?
   fermentable   Fermentable                @relation(fields: [fermentableId], references: [id])
   recipe        Recipe?                    @relation(fields: [recipeId], references: [id])
+}
+
+model YeastIngredient {
+  id          String    @id @default(cuid())
+  recipeId    String?
+  amount      Float
+  amountType  MassUnit  @default(Lb)
+  yeastId     String
+  packageDate DateTime? @db.Date
+  cellCount   Float?
+  attenuation Float?
+  yeast       Yeast     @relation(fields: [yeastId], references: [id])
+  recipe      Recipe?   @relation(fields: [recipeId], references: [id])
 }
 
 enum StyleCategory {

@@ -81,6 +81,7 @@ export const converters: Partial<
   mass: makeConverter(massConverter),
   hopMass: makeConverter(massConverter),
   fermentableMass: makeConverter(massConverter),
+  yeastMass: makeConverter(massConverter),
   color: makeConverter(colorConverter),
   temperature: makeConverter(tempConverter),
   volume: makeConverter(volumeConverter),

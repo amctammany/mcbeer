@@ -14,7 +14,13 @@ export const fermentableIngredientSchema = zfd.formData({
   potential: zfd.numeric(z.number().optional()),
   usage: z.enum(FermentableIngredientUsage),
 });
-
+export const yeastIngredientSchema = zfd.formData({
+  id: zfd.text(z.string().optional()),
+  recipeId: zfd.text(z.string().optional()),
+  yeastId: zfd.text(z.string()),
+  attenuation: unitValueSchema(z.number().min(0).max(100)),
+  amount: unitValueSchema(z.number()),
+});
 export const hopIngredientSchema = zfd.formData({
   id: zfd.text(z.string().optional()),
   recipeId: zfd.text(z.string().optional()),
@@ -63,4 +69,5 @@ export const recipeSchema = zfd.formData({
   // ),
   fermentableIngredients: zfd.repeatableOfType(fermentableIngredientSchema),
   hopIngredients: zfd.repeatableOfType(hopIngredientSchema),
+  yeastIngredients: zfd.repeatableOfType(yeastIngredientSchema),
 });

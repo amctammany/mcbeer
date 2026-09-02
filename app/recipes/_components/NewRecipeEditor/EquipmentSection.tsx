@@ -36,8 +36,17 @@ export default function EquipmentSection() {
         }))}
       />
       <AmountField name="boilTime" label="Boil Time" />
-      <AmountField name="batchVolume" label="Batch Volume" />
-      <AmountField name="brewEfficiency" label="Efficiency" step="0.01" />
+      <AmountField
+        name="batchVolume"
+        label="Batch Volume"
+        // amountType="volume"
+      />
+      <AmountField
+        name="brewEfficiency"
+        label="Efficiency"
+        step="0.01"
+        // amountType="percent"
+      />
     </Section>
   );
 }
