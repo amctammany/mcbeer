@@ -16,11 +16,16 @@ import {
   BaseFermentableIngredientType,
 } from "@/types/Recipe";
 import { useStateMachine } from "little-state-machine";
-import { SaveIcon } from "lucide-react";
+import { ChevronLeft, SaveIcon } from "lucide-react";
 import React, { use, useContext } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import UserPreferencesProvider from "@/components/UserPreferencesProvider";
 import { TextField } from "@/components/Form/TextField";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 export function FermentableIngredientFormContainer<S = unknown>({
   src,
   action,
@@ -153,29 +158,14 @@ export default function FermentableIngredientForm({
         label="Fermentable Variety"
         options={opts}
       />
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-1">
-        <AmountField
-          revisable={false}
-          step="0.1"
-          name="color"
-          label="Color"
-          amountType="color"
-          unit={"L"}
-        />
+      <div className="grid grid-cols-2 lg:grid-cols3 gap-1 border-b-2 mb-3">
         <AmountField
           step="0.1"
           revisable={false}
           name="amount"
           label="Amount"
-          amountType="mass"
-          unit="Oz"
-        />
-        <TextField
-          revisable={false}
-          type="number"
-          step="0.1"
-          name="potential"
-          label="Potential"
+          amountType="fermentableMass"
+          // unit="Oz"
         />
         <SelectField
           defaultValue={$Enums.FermentableIngredientUsage.Mash}
@@ -185,6 +175,31 @@ export default function FermentableIngredientForm({
           label="Usage"
         />
       </div>
+      <Collapsible key="foo" className="w-full my-2 group border-2 p-2">
+        <CollapsibleTrigger className="w-full flex">
+          <div className="grow">Details</div>
+          <ChevronLeft className="ml-auto transition-transform duration-200 data-open:-rotate-90 group-data-open:-rotate-90" />
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <div className="grid grid-cols-2 lg:grid-cols3 gap-1">
+            <AmountField
+              revisable={false}
+              step="0.1"
+              name="color"
+              label="Color"
+              amountType="color"
+              unit={"L"}
+            />
+            <TextField
+              revisable={false}
+              type="number"
+              step="0.1"
+              name="potential"
+              label="Potential"
+            />
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
       <IconButton type="submit" icon={SaveIcon} label="Create" />
     </div>
   );
