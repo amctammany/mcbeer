@@ -93,40 +93,46 @@ export function RadioGroupField<T extends FieldValues>({
       name={name}
       control={control}
       render={({ field, fieldState }) => (
-        <div className="flex *:first:grow">
-          <Label className="lock text-left">{label}</Label>
-          <RadioGroup
-            name={field.name}
-            value={field.value}
-            onValueChange={onValueChange(field.onChange)}
-            className={clsx(
-              "flex gap-0 *:not-last:border-r-4 border-black rounded-lg border-2",
-              className
-            )}
+        <div className="grid *:first:gro">
+          <Field
+            orientation={orientation}
+            data-invalid={fieldState.invalid}
+            className="flex items-center gap-1 *:first:rounded-l-md *:last:rounded-r-md"
           >
-            <Field
-              orientation={orientation}
-              data-invalid={fieldState.invalid}
-              className="flex items-center gap-1 *:first:rounded-l-md *:last:rounded-r-md"
-            >
-              {(options ?? []).map((opt) => (
-                <label
-                  key={opt.id}
-                  htmlFor={`${id}-${opt.id}`}
-                  className="px-4 py-2 cursor-pointer has-checked:bg-blue-500 has-checked:text-white"
-                >
-                  <RadioGroupItem
-                    value={opt.id}
-                    id={`${id}-${opt.id}`}
-                    aria-invalid={fieldState.invalid}
-                    className="hidden peer"
-                  />
-                  {opt.title}
-                </label>
-              ))}
-            </Field>
-          </RadioGroup>
-          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            <FieldLabel className="my-auto flex-1">
+              <Label className="lock text-left">{label}</Label>
+            </FieldLabel>
+
+            <div>
+              <RadioGroup
+                name={field.name}
+                value={field.value}
+                onValueChange={onValueChange(field.onChange)}
+                className={clsx(
+                  "grid-flow-col justify-items-stretch",
+                  "gap-0 *:not-last:border-r-4 border-black rounded-lg border-2",
+                  className,
+                )}
+              >
+                {(options ?? []).map((opt) => (
+                  <label
+                    key={opt.id}
+                    htmlFor={`${id}-${opt.id}`}
+                    className="px-4 py-2 cursor-pointer text-center has-checked:bg-blue-500 has-checked:text-white"
+                  >
+                    <RadioGroupItem
+                      value={opt.id}
+                      id={`${id}-${opt.id}`}
+                      aria-invalid={fieldState.invalid}
+                      className="hidden peer"
+                    />
+                    {opt.title}
+                  </label>
+                ))}
+              </RadioGroup>
+            </div>
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          </Field>
         </div>
       )}
     />
