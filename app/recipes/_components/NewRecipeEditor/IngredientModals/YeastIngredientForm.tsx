@@ -179,6 +179,7 @@ export default function YeastIngredientForm({
           // unit="%"
           // unit="Oz"
         />
+        <b>{JSON.stringify(src.attenuation)}</b>
       </div>
       <Collapsible key="foo" className="w-full my-2 group border-2 p-2">
         <CollapsibleTrigger className="w-full flex">

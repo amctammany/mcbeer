@@ -64,7 +64,7 @@ export function Form<T extends FieldValues>({
     precision: 3,
     dir: true,
   });
-  console.log({ src, mask, adjusted, preferenceContext });
+  // console.log({ src, mask, adjusted, preferenceContext });
 
   const [_state, formAction] = useActionState<State<T>, FormData>(action, {
     success: false,

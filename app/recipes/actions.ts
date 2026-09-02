@@ -78,7 +78,6 @@ export async function updateRecipe(prev: any, formData: FormData) {
   ) as BaseRecipe;
    */
   const r = reduceUnits(v.data) as RecipeType;
-  console.log(v.data, r);
   const {
     id,
     hopIngredients,

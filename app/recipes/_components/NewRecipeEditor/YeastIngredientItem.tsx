@@ -90,7 +90,11 @@ export default function YeastIngredientItem({
         {...form.register(`yeastIngredients.${index}.attenuation.value`)}
         value={src?.attenuation?.value}
       />
-
+      <input
+        type="hidden"
+        {...form.register(`yeastIngredients.${index}.attenuation.unit`)}
+        value={src?.attenuation?.unit}
+      />
       <ListItemIcon>
         <WheatIcon />
       </ListItemIcon>
