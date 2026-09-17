@@ -8,13 +8,68 @@ import ListItemTitle from "@/components/Form/List/ListItemTitle";
 import { AmountProp } from "@/components/Prop/AmountProp";
 import BadgeProp from "@/components/Prop/BadgeProp";
 import Prop from "@/components/Prop/Prop";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { IngredientContext } from "@/contexts/IngredientContext";
+import { RevisionContext } from "@/contexts/RevisionContext";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
 import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
-import { AdjustedYeastIngredientType } from "@/types/Recipe";
-import { GermIcon, MenuIcon, BadgePercentIcon, ScaleIcon } from "lucide-react";
-import React from "react";
+import {
+  AdjustedYeastIngredientType,
+  BaseYeastIngredientType,
+} from "@/types/Recipe";
+import {
+  GermIcon,
+  MenuIcon,
+  BadgePercentIcon,
+  ScaleIcon,
+  DeleteIcon,
+} from "lucide-react";
+import React, { useContext } from "react";
 import { useFormContext } from "react-hook-form";
+type YeastIngredientItemMenuProps = {
+  removeYeast: React.MouseEventHandler;
+  index: number;
+};
+function YeastIngredientItemMenu({
+  removeYeast,
+  index,
+}: YeastIngredientItemMenuProps) {
+  const revisionContext = useContext(RevisionContext);
+
+  const f = useFormContext();
+  const handleRemove = (e: any) => {
+    const old = f.getValues(`yeastIngredients`);
+
+    revisionContext?.update({
+      type: "REMOVE",
+      payload: {
+        name: `yeastIngredients`,
+        prev: old,
+        value: old.filter(({ id: _id }: any) => _id !== old[index].id),
+      },
+    });
+    removeYeast(e);
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        render={<IconButton icon={MenuIcon} label="Menu" />}
+      ></DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem onClick={handleRemove} id="yeast">
+          <DeleteIcon />
+          Delete Yeast
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
 
 export type YeastIngredientItemProps = {
   src: AdjustedYeastIngredientType;
@@ -47,6 +102,13 @@ export default function YeastIngredientItem({
   const form = useFormContext();
   const yeasts = React.use(ctx.yeastPromise);
   const yeast = yeasts.find((h) => h.id === src.yeastId);
+  const handleRemove = () => {
+    // console.log(actions.remove);
+    // actions.remove?.(index);
+    const old = form.getValues("yeastIngredients") as BaseYeastIngredientType[];
+    const newValue = old.filter(({ id: _id }) => _id !== src.id);
+    form.setValue("yeastIngredients", newValue);
+  };
   return (
     <ListItem onClick={onClick}>
       <input
