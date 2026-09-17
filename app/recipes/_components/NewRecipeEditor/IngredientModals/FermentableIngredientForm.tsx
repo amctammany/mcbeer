@@ -189,7 +189,7 @@ export default function FermentableIngredientForm({
               name="color"
               label="Color"
               amountType="color"
-              unit={"L"}
+              // unit={"L"}
             />
           </div>
         </CollapsibleContent>

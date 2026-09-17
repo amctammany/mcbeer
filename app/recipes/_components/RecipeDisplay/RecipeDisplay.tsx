@@ -14,6 +14,7 @@ import BadgeProp from "@/components/Prop/BadgeProp";
 import {
   HopIcon,
   ScaleIcon,
+  GermIcon,
   TimerIcon,
   BeakerIcon,
   MenuIcon,
@@ -61,6 +62,41 @@ function FermentableIngredientItem({ index, src, onClick }: any) {
                 Icon={<BeakerIcon size={12} />}
                 name="usage"
                 text={src.usage}
+              />
+            </div>
+          </div>
+        </ListItemDescription>
+      </ListItemContent>
+    </ListItem>
+  );
+}
+
+function YeastIngredientItem({ index, src, onClick }: any) {
+  return (
+    <ListItem onClick={onClick}>
+      <ListItemIcon>
+        <GermIcon />
+      </ListItemIcon>
+
+      <ListItemContent className="">
+        <ListItemTitle>
+          <BadgeProp
+            Icon={<ScaleIcon size={12} />}
+            name="attenuation"
+            text={src.attenuation?.value}
+            unit="%"
+          />
+
+          <b>{src.yeast?.name}</b>
+        </ListItemTitle>
+        <ListItemDescription className="grow">
+          <div className="grow min-w-52  grid justify-items-end ">
+            <div className="w-full lg:w-fit flex flex-row gap-1 lg:gap-2">
+              <BadgeProp
+                Icon={<ScaleIcon size={12} />}
+                name="amount"
+                text={src.amount.value}
+                unit={src.amount.unit}
               />
             </div>
           </div>
@@ -148,6 +184,9 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
           ))}
           {(src.fermentableIngredients ?? []).map((ferm, index) => (
             <FermentableIngredientItem src={ferm} key={index} />
+          ))}
+          {(src.yeastIngredients ?? []).map((yeast, index) => (
+            <YeastIngredientItem src={yeast} key={index} />
           ))}
         </Section>
       </div>
