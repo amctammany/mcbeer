@@ -181,7 +181,7 @@ export default function FermentableIngredientForm({
           <div className="grow">Details</div>
           <ChevronLeft className="ml-auto transition-transform duration-200 data-open:-rotate-90 group-data-open:-rotate-90" />
         </CollapsibleTrigger>
-        <CollapsibleContent>
+        <CollapsibleContent keepMounted>
           <div className="grid grid-cols-2 lg:grid-cols3 gap-1">
             <AmountField
               revisable={false}
@@ -189,7 +189,7 @@ export default function FermentableIngredientForm({
               name="color"
               label="Color"
               amountType="color"
-              // unit={"L"}
+              unit={"L"}
             />
           </div>
         </CollapsibleContent>

@@ -12,17 +12,7 @@ import { IngredientContext } from "@/contexts/IngredientContext";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
 import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
 import { AdjustedYeastIngredientType } from "@/types/Recipe";
-import {
-  BeakerIcon,
-  WheatIcon,
-  Icon,
-  MenuIcon,
-  ScaleIcon,
-  TimerIcon,
-  PaletteIcon,
-  CookingPotIcon,
-  BadgePercentIcon,
-} from "lucide-react";
+import { GermIcon, MenuIcon, BadgePercentIcon } from "lucide-react";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
@@ -96,7 +86,7 @@ export default function YeastIngredientItem({
         value={src?.attenuation?.unit}
       />
       <ListItemIcon>
-        <WheatIcon />
+        <GermIcon />
       </ListItemIcon>
 
       <ListItemContent className="">
@@ -115,7 +105,11 @@ export default function YeastIngredientItem({
                 Icon={<BadgePercentIcon size={12} />}
                 name="attenuation"
                 text={src.attenuation?.value}
-                unit={src.attenuation?.unit}
+                unit={
+                  src.attenuation?.unit === "percent"
+                    ? "%"
+                    : src.attenuation?.unit
+                }
               />
             </div>
           </div>

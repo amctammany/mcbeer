@@ -168,17 +168,7 @@ export default function YeastIngredientForm({
           unit={src.amount?.unit ?? "Oz"}
           // unit="Oz"
         />
-        <AmountField
-          step="0.01"
-          revisable={false}
-          name="attenuation"
-          label="Attenuation"
-          amountType="percent"
-          unit={src.attenuation?.unit ?? "percent"}
-          // amountType="percent"
-          // unit="%"
-          // unit="Oz"
-        />
+
         <b>{JSON.stringify(src.attenuation)}</b>
       </div>
       <Collapsible key="foo" className="w-full my-2 group border-2 p-2">
@@ -186,8 +176,20 @@ export default function YeastIngredientForm({
           <div className="grow">Details</div>
           <ChevronLeft className="ml-auto transition-transform duration-200 data-open:-rotate-90 group-data-open:-rotate-90" />
         </CollapsibleTrigger>
-        <CollapsibleContent>
-          <div className="grid grid-cols-2 lg:grid-cols3 gap-1"></div>
+        <CollapsibleContent keepMounted>
+          <div className="grid grid-cols-2 lg:grid-cols3 gap-1">
+            <AmountField
+              step="0.01"
+              revisable={false}
+              name="attenuation"
+              label="Attenuation"
+              amountType="percent"
+              unit={src.attenuation?.unit ?? "percent"}
+              // amountType="percent"
+              // unit="%"
+              // unit="Oz"
+            />
+          </div>
         </CollapsibleContent>
       </Collapsible>
       <IconButton type="submit" icon={SaveIcon} label="Create" />
