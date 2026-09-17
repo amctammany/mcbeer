@@ -8,10 +8,20 @@ import ListItemTitle from "@/components/Form/List/ListItemTitle";
 import { AmountProp } from "@/components/Prop/AmountProp";
 import BadgeProp from "@/components/Prop/BadgeProp";
 import Prop from "@/components/Prop/Prop";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { IngredientContext } from "@/contexts/IngredientContext";
+import { RevisionContext } from "@/contexts/RevisionContext";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
 import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
-import { AdjustedFermentableIngredientType } from "@/types/Recipe";
+import {
+  AdjustedFermentableIngredientType,
+  BaseFermentableIngredientType,
+} from "@/types/Recipe";
 import {
   BeakerIcon,
   WheatIcon,
@@ -21,13 +31,53 @@ import {
   TimerIcon,
   PaletteIcon,
   CookingPotIcon,
+  DeleteIcon,
 } from "lucide-react";
-import React from "react";
+import React, { useContext } from "react";
 import { useFormContext } from "react-hook-form";
+type FermentableIngredientItemMenuProps = {
+  removeFermentable: React.MouseEventHandler;
+  index: number;
+};
+function FermentableIngredientItemMenu({
+  removeFermentable,
+  index,
+}: FermentableIngredientItemMenuProps) {
+  const revisionContext = useContext(RevisionContext);
+
+  const f = useFormContext();
+  const handleRemove = (e: any) => {
+    const old = f.getValues(`fermentableIngredients`);
+
+    revisionContext?.update({
+      type: "REMOVE",
+      payload: {
+        name: `fermentableIngredients`,
+        prev: old,
+        value: old.filter(({ id: _id }: any) => _id !== old[index].id),
+      },
+    });
+    removeFermentable(e);
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        render={<IconButton icon={MenuIcon} label="Menu" />}
+      ></DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem onClick={handleRemove} id="fermentable">
+          <DeleteIcon />
+          Delete Fermentable
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
 
 export type FermentableIngredientItemProps = {
   src: AdjustedFermentableIngredientType;
-  index?: number;
+  index: number;
   totalFermentables: number;
   onClick?: React.MouseEventHandler;
 };
@@ -58,6 +108,15 @@ export default function FermentableIngredientItem({
   const form = useFormContext();
   const fermentables = React.use(ctx.fermentablePromise);
   const fermentable = fermentables.find((h) => h.id === src.fermentableId);
+  const handleRemove = () => {
+    // console.log(actions.remove);
+    // actions.remove?.(index);
+    const old = form.getValues(
+      "fermentableIngredients",
+    ) as BaseFermentableIngredientType[];
+    const newValue = old.filter(({ id: _id }) => _id !== src.id);
+    form.setValue("fermentableIngredients", newValue);
+  };
   return (
     <ListItem onClick={onClick}>
       <input
@@ -149,7 +208,10 @@ export default function FermentableIngredientItem({
         </ListItemDescription>
       </ListItemContent>
       <ListItemMenu>
-        <IconButton icon={MenuIcon} label="Menu" />
+        <FermentableIngredientItemMenu
+          removeFermentable={handleRemove}
+          index={index}
+        />
       </ListItemMenu>
     </ListItem>
   );
