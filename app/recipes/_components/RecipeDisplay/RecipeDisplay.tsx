@@ -40,17 +40,21 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
           <Prop label="Style" value={src.styleIdentifier} />
         </Section>
         <Section title="Ingredients" className="lg:col-span-3">
-          {(src.hopIngredients ?? []).map((hop, index) => (
-            <HopIngredientItem src={hop} key={index} />
-          ))}
-          {(src.fermentableIngredients ?? []).map((ferm, index) => (
-            <FermentableIngredientItem
-              src={ferm}
-              key={index}
-              index={index}
-              totalFermentables={totalFermentables}
-            />
-          ))}
+          {(src.hopIngredients ?? [])
+            .sort((a, b) => b.duration.value - a.duration.value)
+            .map((hop, index) => (
+              <HopIngredientItem src={hop} key={index} />
+            ))}
+          {(src.fermentableIngredients ?? [])
+            .sort((a, b) => b.amount.value - a.amount.value)
+            .map((ferm, index) => (
+              <FermentableIngredientItem
+                src={ferm}
+                key={index}
+                index={index}
+                totalFermentables={totalFermentables}
+              />
+            ))}
           {(src.yeastIngredients ?? []).map((yeast, index) => (
             <YeastIngredientItem src={yeast} key={index} />
           ))}

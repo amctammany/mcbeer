@@ -104,7 +104,7 @@ export default function FermentableIngredientItem({
       <input
         type="hidden"
         {...form.register(`fermentableIngredients.${index}.potential`)}
-        value={src?.potential}
+        value={src?.potential ?? ""}
       />
 
       <ListItemIcon>

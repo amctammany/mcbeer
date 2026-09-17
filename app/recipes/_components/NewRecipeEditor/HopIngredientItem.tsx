@@ -8,7 +8,14 @@ import ListItemTitle from "@/components/Form/List/ListItemTitle";
 import { AmountProp } from "@/components/Prop/AmountProp";
 import BadgeProp from "@/components/Prop/BadgeProp";
 import Prop from "@/components/Prop/Prop";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { IngredientContext } from "@/contexts/IngredientContext";
+import { RevisionContext } from "@/contexts/RevisionContext";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
 import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
 import {
@@ -18,14 +25,16 @@ import {
 import {
   BeakerIcon,
   CookingPotIcon,
+  DeleteIcon,
   HopIcon,
   Icon,
   MenuIcon,
+  PlusIcon,
   ScaleIcon,
   TimerIcon,
 } from "lucide-react";
 import { handler } from "next/dist/build/templates/app-route";
-import React, { act } from "react";
+import React, { act, useContext } from "react";
 import { useFormContext } from "react-hook-form";
 
 export type HopIngredientItemProps = {
@@ -34,7 +43,45 @@ export type HopIngredientItemProps = {
   onClick?: React.MouseEventHandler;
   actions: Record<string, any>;
 };
+type HopIngredientItemMenuProps = {
+  removeHop: React.MouseEventHandler;
+  index: number;
+};
+function HopIngredientItemMenu({
+  removeHop,
+  index,
+}: HopIngredientItemMenuProps) {
+  const revisionContext = useContext(RevisionContext);
 
+  const f = useFormContext();
+  const handleRemove = (e: any) => {
+    const old = f.getValues(`hopIngredients`);
+
+    revisionContext?.update({
+      type: "REMOVE",
+      payload: {
+        name: `hopIngredients`,
+        prev: old,
+        value: old.filter(({ id: _id }: any) => _id !== old[index].id),
+      },
+    });
+    removeHop(e);
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        render={<IconButton icon={MenuIcon} label="Menu" />}
+      ></DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem onClick={handleRemove} id="hop">
+          <DeleteIcon />
+          Delete Hop
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
 export default function HopIngredientItem({
   index,
   src: _src,
@@ -45,7 +92,7 @@ export default function HopIngredientItem({
   const form = useFormContext();
   const hops = React.use(ctx.hopPromise);
   const src = form.getValues(`hopIngredients.${index}`);
-  const handleRemove = (e: any) => {
+  const handleRemove = () => {
     // console.log(actions.remove);
     // actions.remove?.(index);
     const old = form.getValues("hopIngredients") as BaseHopIngredientType[];
@@ -154,7 +201,7 @@ export default function HopIngredientItem({
         </ListItemDescription>
       </ListItemContent>
       <ListItemMenu>
-        <IconButton icon={MenuIcon} label="Menu" onClick={handleRemove} />
+        <HopIngredientItemMenu removeHop={handleRemove} index={index} />
       </ListItemMenu>
     </ListItem>
   );
