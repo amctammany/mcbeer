@@ -11,6 +11,10 @@ export type RecipeDisplayProps = {
 };
 
 export default function RecipeDisplay({ src }: RecipeDisplayProps) {
+  const totalFermentables = src.fermentableIngredients?.reduce(
+    (acc, f) => acc + f.amount.value,
+    0,
+  );
   return (
     <div>
       <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
@@ -40,7 +44,12 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
             <HopIngredientItem src={hop} key={index} />
           ))}
           {(src.fermentableIngredients ?? []).map((ferm, index) => (
-            <FermentableIngredientItem src={ferm} key={index} />
+            <FermentableIngredientItem
+              src={ferm}
+              key={index}
+              index={index}
+              totalFermentables={totalFermentables}
+            />
           ))}
           {(src.yeastIngredients ?? []).map((yeast, index) => (
             <YeastIngredientItem src={yeast} key={index} />

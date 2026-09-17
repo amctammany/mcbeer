@@ -17,9 +17,9 @@ export function HopIngredientItem({ index, src, onClick }: any) {
         <ListItemTitle>
           <BadgeProp
             Icon={<ScaleIcon size={12} />}
-            name="alpha"
-            text={src.alpha?.value}
-            unit="%"
+            name="amount"
+            text={src.amount.value}
+            unit={src.amount.unit}
           />
 
           <b>{src.hop?.name}</b>
@@ -29,9 +29,9 @@ export function HopIngredientItem({ index, src, onClick }: any) {
             <div className="w-full lg:w-fit flex flex-row gap-1 lg:gap-2">
               <BadgeProp
                 Icon={<ScaleIcon size={12} />}
-                name="amount"
-                text={src.amount.value}
-                unit={src.amount.unit}
+                name="alpha"
+                text={src.alpha?.value}
+                unit="%"
               />
 
               <BadgeProp

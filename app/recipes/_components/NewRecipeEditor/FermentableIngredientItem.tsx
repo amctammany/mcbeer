@@ -28,6 +28,7 @@ import { useFormContext } from "react-hook-form";
 export type FermentableIngredientItemProps = {
   src: AdjustedFermentableIngredientType;
   index?: number;
+  totalFermentables: number;
   onClick?: React.MouseEventHandler;
 };
 function UnitValueProp({
@@ -49,6 +50,7 @@ function UnitValueProp({
 
 export default function FermentableIngredientItem({
   src,
+  totalFermentables,
   index,
   onClick,
 }: FermentableIngredientItemProps) {
@@ -111,11 +113,12 @@ export default function FermentableIngredientItem({
 
       <ListItemContent className="">
         <ListItemTitle>
-          <div className="min-w-8 mx-2 text-md">
-            <span>{src.amount?.value}</span>
-            <span className="px-1">{src.amount?.unit}</span>
-            <span className="text-sm">(? %)</span>
-          </div>
+          <BadgeProp
+            Icon={<ScaleIcon size={12} />}
+            name="amount"
+            text={src.amount?.value}
+            unit={src.amount?.unit}
+          />
           <b>{fermentable?.name}</b>
         </ListItemTitle>
         <ListItemDescription className="grow">
@@ -131,6 +134,15 @@ export default function FermentableIngredientItem({
                 Icon={<CookingPotIcon size={12} />}
                 name="usage"
                 text={src.usage}
+              />
+              <BadgeProp
+                Icon={<CookingPotIcon size={12} />}
+                name="usage"
+                text={(
+                  (100 * (src.amount?.value ?? 0)) /
+                  totalFermentables
+                ).toFixed(1)}
+                unit="%"
               />
             </div>
           </div>

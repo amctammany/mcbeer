@@ -7,6 +7,7 @@ import {
 } from "@/generated/prisma/client";
 import { BaseUser } from "./User";
 import { AmountFields, OptionalNullable } from "@/lib/utils";
+import { FermentableType, HopType, YeastType } from "./Ingredient";
 
 export interface BaseRecipeType extends Omit<
   OptionalNullable<Recipe>,
@@ -28,6 +29,9 @@ export type AdjustedYeastIngredientType = AmountFields<
   BaseYeastIngredientType,
   YeastIngredientAmountFieldNames
 >;
+export type ExtendedYeastIngredientType = AdjustedYeastIngredientType & {
+  yeast?: Partial<YeastType>;
+};
 
 export interface BaseFermentableIngredientType extends Omit<
   OptionalNullable<FermentableIngredient>,
@@ -42,7 +46,10 @@ export type AdjustedFermentableIngredientType = AmountFields<
   BaseFermentableIngredientType,
   FermentableIngredientAmountFieldNames
 >;
-
+export type ExtendedFermentableIngredientType =
+  AdjustedFermentableIngredientType & {
+    fermentable?: Partial<FermentableType>;
+  };
 export interface BaseHopIngredientType extends Omit<
   OptionalNullable<HopIngredient>,
   "id" | "recipeId"
@@ -57,14 +64,17 @@ export type AdjustedHopIngredientType = AmountFields<
   HopIngredientAmountFieldNames
 >;
 
+export type ExtendedHopIngredientType = AdjustedHopIngredientType & {
+  hop?: Partial<HopType>;
+};
 export interface RecipeType extends BaseRecipeType {
   owner: Partial<BaseUser>;
   style?: Partial<Style> | null;
   origin?: BaseRecipeType;
   forks?: BaseRecipeType[];
-  yeastIngredients: BaseYeastIngredientType[];
-  hopIngredients: BaseHopIngredientType[];
-  fermentableIngredients: BaseFermentableIngredientType[];
+  yeastIngredients: AdjustedYeastIngredientType[];
+  hopIngredients: AdjustedHopIngredientType[];
+  fermentableIngredients: AdjustedFermentableIngredientType[];
 }
 type RecipeAmountFieldNames =
   | "boilTime"

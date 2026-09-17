@@ -17,9 +17,9 @@ export function YeastIngredientItem({ index, src, onClick }: any) {
         <ListItemTitle>
           <BadgeProp
             Icon={<ScaleIcon size={12} />}
-            name="attenuation"
-            text={src.attenuation?.value}
-            unit="%"
+            name="amount"
+            text={src.amount.value}
+            unit={src.amount.unit}
           />
 
           <b>{src.yeast?.name}</b>
@@ -29,9 +29,9 @@ export function YeastIngredientItem({ index, src, onClick }: any) {
             <div className="w-full lg:w-fit flex flex-row gap-1 lg:gap-2">
               <BadgeProp
                 Icon={<ScaleIcon size={12} />}
-                name="amount"
-                text={src.amount.value}
-                unit={src.amount.unit}
+                name="attenuation"
+                text={src.attenuation?.value}
+                unit="%"
               />
             </div>
           </div>

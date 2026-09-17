@@ -12,7 +12,7 @@ import { IngredientContext } from "@/contexts/IngredientContext";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
 import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
 import { AdjustedYeastIngredientType } from "@/types/Recipe";
-import { GermIcon, MenuIcon, BadgePercentIcon } from "lucide-react";
+import { GermIcon, MenuIcon, BadgePercentIcon, ScaleIcon } from "lucide-react";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
@@ -91,11 +91,13 @@ export default function YeastIngredientItem({
 
       <ListItemContent className="">
         <ListItemTitle>
-          <div className="min-w-8 mx-2 text-md">
-            <span>{src.amount?.value}</span>
-            <span className="px-1">{src.amount?.unit}</span>
-            <span className="text-sm">(? %)</span>
-          </div>
+          <BadgeProp
+            Icon={<ScaleIcon size={12} />}
+            name="amount"
+            text={src.amount?.value}
+            unit={src.amount?.unit}
+          />
+
           <b>{yeast?.name}</b>
         </ListItemTitle>
         <ListItemDescription className="grow">

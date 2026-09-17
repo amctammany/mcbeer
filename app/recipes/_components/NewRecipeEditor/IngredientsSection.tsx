@@ -104,7 +104,7 @@ function IngredientsSectionToolbar(
             <IconButton icon={HeartPulseIcon} label="Add Yeast" />
             <IconButton icon={ShoppingBagIcon} label="Add Other" />
  */
-export default function IngredientsSection({}: {}) {
+export default function IngredientsSection({ src }: { src: RecipeType }) {
   // const [open, setOpen] = React.useState(true);
   // const [triggerId, setTriggerId] = React.useState<string | null>("hop");
   // const handleOpenChange = (
@@ -118,6 +118,7 @@ export default function IngredientsSection({}: {}) {
   //   setOpen(id === undefined ? false : true);
   //   setTriggerId(id === undefined ? null : id);
   // };
+
   const { getValues, watch, control } = useFormContext<RecipeType>();
 
   const yeastIngArray = useFieldArray({
@@ -147,21 +148,28 @@ export default function IngredientsSection({}: {}) {
     };
   });
   const watchHops = watch("hopIngredients", []);
-  const _hopIngredients = hopIngArray.fields.map((field, index) => {
-    return {
-      ...field,
-      ...watchHops[index],
-    };
-  });
+  const _hopIngredients = hopIngArray.fields
+    .map((field, index) => {
+      return {
+        ...field,
+        ...watchHops[index],
+      };
+    })
+    .sort((a, b) => b.duration.value - a.duration.value);
   const watchFerms = watch("fermentableIngredients", []);
-  const _fermentableIngredients = fermentableIngArray.fields.map(
-    (field, index) => {
+  const _fermentableIngredients = fermentableIngArray.fields
+    .map((field, index) => {
       return {
         ...field,
         ...watchFerms[index],
       };
-    },
+    })
+    .sort((a, b) => b.amount.value - a.amount.value);
+  const totalFermentables = _fermentableIngredients?.reduce(
+    (acc, f) => acc + f.amount.value,
+    0,
   );
+
   const { handleDialogOpen } = useContext(ModalContext);
 
   const handleClick: (d: any) => React.MouseEventHandler<HTMLDivElement> = (
@@ -188,6 +196,7 @@ export default function IngredientsSection({}: {}) {
         ))}
         {(_fermentableIngredients || []).map((i: any, index: any) => (
           <FermentableIngredientItem
+            totalFermentables={totalFermentables}
             key={i._id}
             index={index}
             src={i}

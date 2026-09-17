@@ -30,7 +30,7 @@ export default function RecipeEditor({ src, action }: RecipeEditorProps) {
         <RecipeEditorForm />
 
         <div>
-          <IngredientsSection />
+          <IngredientsSection src={src} />
         </div>
       </RecipeEditorFormContainer>
     </div>

@@ -112,17 +112,25 @@ export default function HopIngredientItem({
 
       <ListItemContent className="">
         <ListItemTitle>
-          <div className="min-w-8 mx-2 text-md">
-            <span>{src.amount?.value}</span>
-            <span className="px-1">{src.amount?.unit}</span>
-            <span className="text-sm">(? %)</span>
-          </div>
+          <BadgeProp
+            Icon={<ScaleIcon size={12} />}
+            name="amount"
+            text={src.amount?.value}
+            unit={src.amount?.unit}
+          />
+
           <b>{hop?.name}</b>
-          <span>{src?.alpha?.value}%</span>
         </ListItemTitle>
         <ListItemDescription className="grow">
           <div className="grow md:min-w-52  grid justify-items-end ">
             <div className="w-full lg:w-fit flex flex-row gap-0 md:gap-1 lg:gap-2">
+              <BadgeProp
+                Icon={<CookingPotIcon size={12} />}
+                name="alpha"
+                text={src.alpha?.value}
+                unit="%"
+              />
+
               <BadgeProp
                 Icon={<CookingPotIcon size={12} />}
                 name="usage"
