@@ -180,7 +180,7 @@ export default function YeastIngredientItem({
         </ListItemDescription>
       </ListItemContent>
       <ListItemMenu>
-        <IconButton icon={MenuIcon} label="Menu" />
+        <YeastIngredientItemMenu removeYeast={handleRemove} index={index!} />
       </ListItemMenu>
     </ListItem>
   );
