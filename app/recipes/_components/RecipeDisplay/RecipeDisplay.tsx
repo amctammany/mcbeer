@@ -3,9 +3,9 @@ import Prop from "@/components/Prop/Prop";
 import Section from "@/components/Section";
 import { AdjustedRecipeType, RecipeType } from "@/types/Recipe";
 import React from "react";
-import HopIngredientItem from "./HopIngredientItem";
-import FermentableIngredientItem from "./FermentableIngredientItem";
-import YeastIngredientItem from "./YeastIngredientItem";
+import { HopIngredientItem } from "./HopIngredientItem";
+import { FermentableIngredientItem } from "./FermentableIngredientItem";
+import { YeastIngredientItem } from "./YeastIngredientItem";
 export type RecipeDisplayProps = {
   src: AdjustedRecipeType;
 };
