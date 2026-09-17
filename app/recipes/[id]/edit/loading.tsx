@@ -16,6 +16,7 @@ export default function Loading() {
     style: {},
     fermentableIngredients: [],
     hopIngredients: [],
+    yeastIngredients: [],
   } as RecipeType;
   return (
     <div>

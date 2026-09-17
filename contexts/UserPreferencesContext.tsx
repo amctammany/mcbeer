@@ -18,6 +18,7 @@ export type UserPreferencesType = Partial<
     | "mass"
     | "time"
     | "fermentableMass"
+    | "yeastMass"
     | "percent"
     | "pressure"
     | "temperature"
