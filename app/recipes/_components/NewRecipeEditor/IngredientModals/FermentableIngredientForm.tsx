@@ -144,7 +144,7 @@ export default function FermentableIngredientForm({
     const h = fermentables.find(({ id }) => id === r);
     if (h) {
       console.log(h);
-      setValue("color.value", (h?.color ?? 0.01) * 100);
+      setValue("color.value", (h?.color ?? 1.0) * 1);
     }
     // handleClose();
   };
