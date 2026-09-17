@@ -43,11 +43,15 @@ export async function createRecipe(prev: any, formData: FormData) {
     style,
     ...data
   } = r;
+  const fermentableIngredientsData = fermentableIngredients.map(({ ...d }) => ({
+    ...d,
+    fermentable: { id: d.fermentableId },
+  }));
 
   const res = await prisma.recipe.create({
     data: {
       fermentableIngredients: {
-        create: fermentableIngredients,
+        create: fermentableIngredientsData,
       },
       yeastIngredients: {
         create: yeastIngredients,

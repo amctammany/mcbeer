@@ -119,7 +119,7 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
   //   setTriggerId(id === undefined ? null : id);
   // };
 
-  const { getValues, watch, control } = useFormContext<RecipeType>();
+  const { getValues, watch, control } = useFormContext<AdjustedRecipeType>();
 
   const yeastIngArray = useFieldArray({
     name: "yeastIngredients",

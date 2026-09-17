@@ -62,7 +62,7 @@ type HopIngredientAmountFieldNames = "alpha" | "duration" | "amount";
 export type AdjustedHopIngredientType = AmountFields<
   BaseHopIngredientType,
   HopIngredientAmountFieldNames
->;
+> & { hop?: Partial<HopType> };
 
 export type ExtendedHopIngredientType = AdjustedHopIngredientType & {
   hop?: Partial<HopType>;
@@ -72,9 +72,9 @@ export interface RecipeType extends BaseRecipeType {
   style?: Partial<Style> | null;
   origin?: BaseRecipeType;
   forks?: BaseRecipeType[];
-  yeastIngredients: AdjustedYeastIngredientType[];
-  hopIngredients: AdjustedHopIngredientType[];
-  fermentableIngredients: AdjustedFermentableIngredientType[];
+  yeastIngredients: BaseYeastIngredientType[];
+  hopIngredients: BaseHopIngredientType[];
+  fermentableIngredients: BaseFermentableIngredientType[];
 }
 type RecipeAmountFieldNames =
   | "boilTime"
@@ -87,10 +87,16 @@ type RecipeAmountFieldNames =
   | "mashLoss"
   | "fermenterLoss";
 export type AdjustedRecipeType = AmountFields<
-  RecipeType,
+  BaseRecipeType,
   RecipeAmountFieldNames
 > & {
+  owner: Partial<BaseUser>;
+  style?: Partial<Style> | null;
+  origin?: BaseRecipeType;
+  forks?: BaseRecipeType[];
+
   fermentableIngredients: AdjustedFermentableIngredientType[];
+
   hopIngredients: AdjustedHopIngredientType[];
   yeastIngredients: AdjustedYeastIngredientType[];
 };
