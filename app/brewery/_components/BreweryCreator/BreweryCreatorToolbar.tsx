@@ -1,0 +1,39 @@
+"use client";
+import { RevisionContext } from "@/contexts/RevisionContext";
+import React, { useContext } from "react";
+import { useFormContext } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import { ButtonGroup } from "@/components/ui/button-group";
+import { useRouter } from "next/navigation";
+import { ExtendedUser } from "@/types/User";
+import { Brewery } from "@/generated/prisma/client";
+
+export default function BreweryCreatorToolbar() {
+  const formContext = useFormContext<Brewery>();
+  const { state, undo, redo, handleRedo, handleUndo, canRedo, canUndo } =
+    useContext(RevisionContext)!;
+  const router = useRouter();
+
+  return (
+    <ButtonGroup>
+      <ButtonGroup>
+        <Button type="button" onClick={handleUndo} disabled={!canUndo}>
+          Undo
+        </Button>
+        <Button type="button" onClick={handleRedo} disabled={!canRedo}>
+          Redo
+        </Button>
+      </ButtonGroup>
+      <ButtonGroup>
+        <Button
+          type="button"
+          variant="destructive"
+          onClick={() => router.back()}
+        >
+          Cancel
+        </Button>
+        <Button type="submit">Save</Button>
+      </ButtonGroup>
+    </ButtonGroup>
+  );
+}

@@ -87,6 +87,15 @@ export function SettingsForm({ user }: SettingsFormProps) {
   const { state, undo, redo, handleRedo, handleUndo, canRedo, canUndo } =
     useContext(RevisionContext)!;
 
+  const breweries = user.breweries.reduce(
+    (acc, b) => {
+      return {
+        ...acc,
+        [b.breweryId]: b.name,
+      };
+    },
+    {} as Record<string, string>,
+  );
   return (
     <div className="grid grid-cols-2 *:p-4 *:border-2 *:m-4">
       <div className="*:py-1">
@@ -101,6 +110,12 @@ export function SettingsForm({ user }: SettingsFormProps) {
           label="Role"
           name="role"
           options={makeRadioOptions(UserRoles)}
+        />
+        <SelectField
+          name="defaultBreweryId"
+          control={control}
+          options={breweries}
+          label="Default Brewery"
         />
       </div>
 

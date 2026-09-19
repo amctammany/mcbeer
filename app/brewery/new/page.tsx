@@ -1,0 +1,20 @@
+import { headers } from "next/headers";
+import { unauthorized } from "next/navigation";
+import { BreweryCreator } from "../_components/BreweryCreator/BreweryCreator";
+import { prisma } from "@/lib/prisma";
+import { Brewery } from "@/generated/prisma/client";
+import { createBrewery } from "../actions";
+import { auth } from "@/auth";
+import { cachedAuth } from "@/lib/verifySession";
+
+export default async function NewBreweryPage() {
+  const session = await cachedAuth();
+
+  if (!session?.user) unauthorized();
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+  });
+  if (!user) unauthorized();
+  const brewery = { userId: user.id } as Brewery & { userId: string };
+  return <BreweryCreator brewery={brewery} action={createBrewery} />;
+}

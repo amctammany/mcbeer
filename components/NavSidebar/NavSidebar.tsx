@@ -29,6 +29,7 @@ import { NavMain } from "./NavMain";
 import { NavAdmin } from "./NavAdmin";
 import NavLink from "./NavLink";
 import { Suspense } from "react";
+import { NavBrewery } from "./NavBrewery";
 
 const data = {
   ingredients: [
@@ -152,6 +153,10 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.ingredients} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <NavBrewery />
+        </Suspense>
+
         <Suspense fallback={<div>Loading...</div>}>
           <NavAdmin />
         </Suspense>

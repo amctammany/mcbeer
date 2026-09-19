@@ -21,6 +21,7 @@ import { adjustUnits } from "@/lib/Converter/adjustUnits";
 const schema = zfd.formData({
   //userId: zfd.text(),
   id: zfd.text(),
+  defaultBreweryId: zfd.text(z.string().optional()),
   name: zfd.text(),
   username: zfd.text(z.string().optional()),
   role: z.enum(UserRoles).default("USER"),

@@ -42,6 +42,10 @@ const options = {
   },
   user: {
     additionalFields: {
+      defaultBreweryId: {
+        type: "string",
+        defaultValue: null,
+      },
       role: {
         type: ["USER", "ADMIN", "SUPERUSER"],
         defaultValue: "USER",
@@ -69,7 +73,11 @@ export const auth = betterAuth({
     ...(options.plugins || []),
     customSession(async ({ session, user }) => {
       return {
-        session: { ...session, role: user.role },
+        session: {
+          ...session,
+          role: user.role,
+          breweryId: user.defaultBreweryId,
+        },
         user,
       };
     }, options) as any,

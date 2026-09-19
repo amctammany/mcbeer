@@ -73,6 +73,7 @@ model UserPreferences {
 model User {
   id                   String                @id
   name                 String
+  defaultBreweryId     String?
   username             String?
   email                String                @unique
   image                String?
@@ -93,6 +94,8 @@ model User {
   yeasts               Yeast[]
   accounts             Account[]
   sessions             Session[]
+  breweries            BreweryUser[]
+  defaultBrewery       Brewery?              @relation(fields: [defaultBreweryId], references: [id])
 
   @@map("user")
 }
@@ -442,6 +445,7 @@ model Recipe {
   style                  Style?                  @relation(fields: [styleIdentifier], references: [identifier])
   owner                  User                    @relation(fields: [userId], references: [id])
   yeastIngredients       YeastIngredient[]
+  batches                Batch[]
 }
 
 model HopIngredient {
@@ -484,6 +488,74 @@ model YeastIngredient {
   attenuation Float?
   yeast       Yeast     @relation(fields: [yeastId], references: [id])
   recipe      Recipe?   @relation(fields: [recipeId], references: [id])
+}
+
+model Brewery {
+  id           String        @id @default(cuid())
+  name         String
+  description  String?
+  address      String?
+  city         String?
+  state        String?
+  country      String?
+  breweryUsers BreweryUser[]
+  vessels      Vessel[]
+  batches      Batch[]
+  users        User[]
+}
+
+model BreweryUser {
+  breweryId String
+  userId    String
+  role      BreweryUserRoles @default(USER)
+  brewery   Brewery          @relation(fields: [breweryId], references: [id])
+  user      User             @relation(fields: [userId], references: [id])
+  batches   Batch[]
+
+  @@id(name: "id", fields: [breweryId, userId])
+}
+
+model Vessel {
+  id          String     @id @default(cuid())
+  name        String
+  type        VesselType @default(Fermenter)
+  description String?
+  volume      Float
+  breweryId   String
+  brewery     Brewery    @relation(fields: [breweryId], references: [id])
+  batches     Batch[]
+}
+
+model Batch {
+  id          String      @id @default(cuid())
+  batchNumber Int?
+  notes       String?
+  og          Float?
+  fg          Float?
+  breweryId   String
+  recipeId    String
+  vesselId    String
+  startDate   DateTime
+  brewerId    String
+  brewer      BreweryUser @relation(fields: [breweryId, brewerId], references: [breweryId, userId])
+  brewery     Brewery     @relation(fields: [breweryId], references: [id])
+  recipe      Recipe      @relation(fields: [recipeId], references: [id])
+  vessel      Vessel      @relation(fields: [vesselId], references: [id])
+}
+
+enum VesselType {
+  MashTun
+  LauterTun
+  Kettle
+  Fermenter
+  BriteTank
+  HotLiquorTank
+}
+
+enum BreweryUserRoles {
+  OWNER
+  ADMIN
+  USER
 }
 
 enum StyleCategory {

@@ -20,7 +20,15 @@ export default function Dashboard({ user }: DashboardProps) {
       </div>
       <div className="grid lg:grid-cols-2 *:p-4 *:m-4 *:border-2 *:border-black *:rounded-lg ">
         <div>News</div>
-        <div>Friends</div>
+        <div>
+          {user?.defaultBreweryId ? (
+            <Link href={`/brewery/${user.defaultBreweryId}/dashboard`}>
+              Brewery
+            </Link>
+          ) : (
+            <Link href="/brewery/new">Create Brewery</Link>
+          )}
+        </div>
         <div>
           <Link href="/admin/settings">Settings</Link>
         </div>
