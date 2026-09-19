@@ -75,6 +75,7 @@ export async function updateBrewery(prev: any, formData: FormData) {
   }
   const { userId, ...data } = v.data;
   const { id, vessels, users, ...r } = reduceUnits(data) as BreweryType;
+  console.log({ prev: prev.data.vessels, data, vessels, users, r });
   const vesselData = (vessels as BaseVesselType[]).map(
     ({ id, name, volume, type, breweryId }) => ({
       id,
@@ -85,6 +86,15 @@ export async function updateBrewery(prev: any, formData: FormData) {
     }),
   );
 
+  const oldVIds = prev.data.vessels.map(({ id }: { id: string }) => id);
+  const newVIds = vesselData.map(({ id }) => id);
+  const missing = oldVIds.filter((o: any) => !newVIds.includes(o));
+
+  const removed = await prisma.vessel.deleteMany({
+    where: {
+      id: { in: missing },
+    },
+  });
   const vtx = await prisma.$transaction([
     ...vesselData.map(({ id: _id, ...d }) => {
       return _id
@@ -99,26 +109,36 @@ export async function updateBrewery(prev: any, formData: FormData) {
           });
     }),
     prisma.brewery.update({
-      where: { id },
+      where: { id: data.id },
       data: {
         ...r,
         // vessels: {
-        //   set: [],
-        //   connect: vtx.map(({ id: _id }) => ({ id: _id })),
+        // set: [],
+        // connect: vtx.map(({ id: _id }) => ({ id: _id })),
         // },
+      },
+      include: {
+        vessels: true,
       },
     }),
   ]);
-  // const brewery = await prisma.brewery.update({
-  //   where: { id: data.id },
-  //   data: {
-  //     ...data,
-  //     // vessels: {
-  //     //   set: [],
-  //     //   connect: vtx.map(({ id: _id }) => ({ id: _id })),
-  //     // },
-  //   },
-  // });
+  console.log({ oldVIds, newVIds, missing, removed });
+  /**
+  const brewery = await prisma.brewery.update({
+    where: { id: data.id },
+    data: {
+      ...r,
+      // vessels: {
+      // set: [],
+      // connect: vtx.map(({ id: _id }) => ({ id: _id })),
+      // },
+    },
+    include: {
+      vessels: true,
+    },
+  });
+  console.log(brewery);
+ */
 
   redirect(`/brewery/${id}`);
 }

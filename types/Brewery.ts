@@ -16,8 +16,8 @@ export interface BaseBreweryType extends Omit<
   name?: string;
 }
 
-export interface BreweryInputType extends Brewery {
-  vessels: Vessel[];
+export interface BreweryInputType extends BaseBreweryType {
+  vessels: BaseVesselType[];
   userId: string;
 }
 export interface BreweryType extends BaseBreweryType {

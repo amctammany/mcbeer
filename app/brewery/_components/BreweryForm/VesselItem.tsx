@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { IngredientContext } from "@/contexts/IngredientContext";
 import { RevisionContext } from "@/contexts/RevisionContext";
+import { $Enums } from "@/generated/prisma/browser";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
 import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
 import {
@@ -96,7 +97,6 @@ export default function VesselItem({
     const newValue = old.filter(({ id: _id }) => _id !== src.id);
     form.setValue("vessels", newValue);
   };
-  console.log({ src, _src });
   return (
     <ListItem onClick={onClick}>
       <input
@@ -118,7 +118,7 @@ export default function VesselItem({
       <input
         type="hidden"
         {...form.register(`vessels.${index}.type`)}
-        value={src.type}
+        value={src.type ?? $Enums.VesselType.Fermenter}
       />
 
       <input

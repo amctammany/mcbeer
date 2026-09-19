@@ -15,7 +15,7 @@ export default function VesselsSection({ src }: { src?: AdjustedBreweryType }) {
     control,
     keyName: "_id",
   });
-  const watchVessels = watch("vessels", []);
+  const watchVessels = watch("vessels", vesselsArray.fields);
 
   const _vessels = vesselsArray.fields.map((field, index) => {
     return {
@@ -31,12 +31,12 @@ export default function VesselsSection({ src }: { src?: AdjustedBreweryType }) {
   return (
     <Section title="Vessels" actions={<VesselsSectionToolbar />}>
       <List className="min-h-40 flex flex-col  w-full" size="small">
-        {(_vessels || []).map((i: any, index: any) => (
+        {vesselsArray.fields.map((i: any, index: any) => (
           <VesselItem
             key={i._id}
             index={index}
             src={i}
-            onClick={handleClick({ type: "vessel", id: i._id, index })}
+            onClick={handleClick({ type: "vessel", id: i.id, index })}
             actions={{ remove: () => vesselsArray.remove(index) }}
           />
         ))}
