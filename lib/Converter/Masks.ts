@@ -14,6 +14,14 @@ import {
   BaseYeastIngredientType,
   RecipeType,
 } from "@/types/Recipe";
+import { BaseVesselType, BreweryType } from "@/types/Brewery";
+
+export const VesselMask: UnitMaskType<Partial<BaseVesselType>> = {
+  volume: "volume",
+};
+export const BreweryMask: UnitMaskType<Partial<BreweryType>> = {
+  vessels: VesselMask,
+};
 
 export const EquipmentProfileMask: UnitMaskType<Partial<EquipmentProfileType>> =
   {

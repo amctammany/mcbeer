@@ -5,7 +5,8 @@ import { useForm, useFormContext } from "react-hook-form";
 import { TextField } from "@/components/Form/TextField";
 import { Form } from "@/components/Form/Form";
 import { Brewery } from "@/generated/prisma/client";
-import { BreweryType } from "@/types/Brewery";
+import { AdjustedBreweryType, BreweryType } from "@/types/Brewery";
+import VesselsSection from "./VesselsSection";
 
 // export type BreweryFormContainerProps<S = unknown, T = S | Promise<S>> = {
 //   brewery: Brewery;
@@ -28,13 +29,13 @@ import { BreweryType } from "@/types/Brewery";
 // }
 
 export type BreweryFormProps = {
-  brewery?: BreweryType;
+  src?: AdjustedBreweryType;
   //  action: (formData: FormData) => Promise<void>;
 };
-export function BreweryForm({ brewery }: BreweryFormProps) {
+export function BreweryForm({ src }: BreweryFormProps) {
   const { register, control, getValues, formState } =
     useFormContext<BreweryType>();
-
+  const brewery = getValues();
   return (
     <div className="grid grid-cols-2 *:p-4 *:border-2 *:m-4">
       <div className="*:py-1">
@@ -47,7 +48,9 @@ export function BreweryForm({ brewery }: BreweryFormProps) {
         <TextField name="country" label="Country" />
       </div>
 
-      <div className="*:py-1"></div>
+      <div className="*:py-1">
+        <VesselsSection />
+      </div>
     </div>
   );
 }

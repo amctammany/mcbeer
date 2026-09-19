@@ -9,7 +9,7 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import { BreweryType } from "@/types/Brewery";
 
 export default function BreweryEditorToolbar({ src }: { src: BreweryType }) {
-  const formContext = useFormContext<BreweryType>();
+  // const formContext = useFormContext<BreweryType>();
   const { state, undo, redo, handleRedo, handleUndo, canRedo, canUndo } =
     useContext(RevisionContext)!;
   const router = useRouter();

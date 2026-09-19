@@ -4,8 +4,9 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import { Button } from "@/components/ui/button";
 import IconButton from "@/components/Button/IconButton";
 import { PlusIcon } from "lucide-react";
+import { BreweryType } from "@/types/Brewery";
 
-export type BreweryListProps = { breweries: Brewery[] };
+export type BreweryListProps = { breweries: BreweryType[] };
 export function BreweryList({ breweries }: BreweryListProps) {
   return (
     <div>

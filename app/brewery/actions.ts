@@ -48,3 +48,18 @@ export async function updateBrewery(prev: any, formData: FormData) {
 
   redirect(`/brewery/${brewery.id}`);
 }
+
+export async function updateBreweryInventory(prev: any, formData: FormData) {
+  const v = validateSchema(formData, schema);
+  if (v.errors) return v;
+  if (!v.success) {
+    return Promise.resolve(v);
+  }
+  const { userId, ...data } = v.data;
+  const brewery = await prisma.brewery.update({
+    where: { id: data.id },
+    data,
+  });
+
+  redirect(`/brewery/${brewery.id}`);
+}

@@ -3,12 +3,15 @@ import { unauthorized } from "next/navigation";
 import { fetchBreweryUser } from "@/app/brewery/queries";
 import { cachedAuth } from "@/lib/verifySession";
 import BreweryEditor from "@/app/brewery/_components/BreweryEditor/BreweryEditor";
-import { updateBrewery } from "@/app/brewery/actions";
+import { updateBrewery, updateBreweryInventory } from "@/app/brewery/actions";
+import BreweryInventory from "@/app/brewery/_components/BreweryInventory/BreweryInventory";
 export type BreweryPageProps = {
   params: Promise<{ id: string }>;
 };
 
-export default async function BreweryEditorPage({ params }: BreweryPageProps) {
+export default async function BreweryInventoryPage({
+  params,
+}: BreweryPageProps) {
   const { id: breweryId } = await params;
   const session = await cachedAuth();
   // const asession = await auth.api.getSession({
@@ -21,5 +24,5 @@ export default async function BreweryEditorPage({ params }: BreweryPageProps) {
   }
   if (!user.brewery) throw new Error("Brewery not found");
   const brewery = { ...user.brewery, userId: user.userId };
-  return <BreweryEditor src={brewery} action={updateBrewery} />;
+  return <BreweryInventory src={brewery} action={updateBreweryInventory} />;
 }

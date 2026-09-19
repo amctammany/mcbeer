@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { unauthorized } from "next/navigation";
+import { notFound, unauthorized } from "next/navigation";
 import { Dashboard } from "@/app/brewery/_components/Dashboard/Dashboard";
 import { headers } from "next/headers";
 import { fetchBreweryUser } from "../queries";
@@ -19,5 +19,7 @@ export default async function BreweryPage({ params }: BreweryPageProps) {
   if (!user) {
     throw new Error("User not found");
   }
-  return <Dashboard user={user} />;
+  const brewery = user.brewery;
+  if (!brewery) notFound();
+  return <Dashboard user={user} src={brewery} />;
 }

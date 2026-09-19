@@ -37,6 +37,13 @@ export async function fetchBreweryUser(breweryId: string, userId: string) {
           city: true,
           state: true,
           country: true,
+          vessels: {
+            select: {
+              id: true,
+              name: true,
+              volume: true,
+            },
+          },
         },
       },
     },

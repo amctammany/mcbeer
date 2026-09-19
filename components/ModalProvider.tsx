@@ -19,6 +19,7 @@ export default function ModalProvider({
     // setTriggerId(eventDetails.trigger?.id ?? null);
   };
   const handleDialogOpen = (tag?: string | ModalTag) => () => {
+    console.log(tag);
     if (tag === undefined || typeof tag === "string") {
       setOpen(tag === undefined ? false : true);
       setTriggerId(tag === undefined ? null : tag);

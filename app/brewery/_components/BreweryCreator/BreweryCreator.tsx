@@ -1,25 +1,22 @@
 import { Brewery, User } from "@/generated/prisma/browser";
 
-import { Button } from "@/components/ui/button";
-import { TopBar } from "@/components/TopBar/TopBar";
-import React from "react";
-import {
-  BreweryFormContainer,
-  BreweryForm,
-} from "@/app/brewery/_components/BreweryForm/BreweryForm";
-import { ExtendedUser } from "@/types/User";
+import { BreweryForm } from "@/app/brewery/_components/BreweryForm/BreweryForm";
 import BreweryCreatorToolbar from "./BreweryCreatorToolbar";
+import BreweryFormContainer from "../BreweryForm/BreweryFormContainer";
+import { BreweryType } from "@/types/Brewery";
+import BreweryModals from "../BreweryForm/BreweryModals";
 
 export type BreweryProps<S = unknown> = {
   action: (prev: S, formData: FormData) => S | Promise<S>;
-  brewery: Brewery;
+  src: BreweryType;
 };
-export function BreweryCreator({ brewery, action }: BreweryProps) {
+export function BreweryCreator({ src, action }: BreweryProps) {
   return (
     <BreweryFormContainer
-      brewery={brewery}
+      src={src}
       action={action}
       toolbar={<BreweryCreatorToolbar />}
+      modals={<BreweryModals key="modals" breweryId={src.id} />}
     >
       <BreweryForm />
     </BreweryFormContainer>
