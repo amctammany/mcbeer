@@ -1,10 +1,11 @@
 "use server";
+import { Vessel } from "@/generated/prisma/client";
 import { VesselType } from "@/generated/prisma/enums";
 import { reduceUnits } from "@/lib/Converter/adjustUnits";
 import { prisma } from "@/lib/prisma";
 import { validateSchema } from "@/lib/validateSchema";
 import { unitValueSchema } from "@/schemas/ProfileSchemas";
-import { BreweryType } from "@/types/Brewery";
+import { BaseBreweryType, BaseVesselType, BreweryType } from "@/types/Brewery";
 import { redirect } from "next/navigation";
 import z from "zod";
 import { zfd } from "zod-form-data";
@@ -34,9 +35,25 @@ export async function createBrewery(prev: any, formData: FormData) {
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const { userId, vessels, ...data } = v.data;
+  const r = reduceUnits(v.data) as BaseBreweryType & {
+    userId: string;
+    vessels: BaseVesselType[];
+  };
+  const { userId, vessels, ...data } = r;
+  const vesselData = (vessels as Vessel[]).map(({ name, volume, type }) => ({
+    name,
+    volume,
+    type,
+    breweryId: data.id!,
+  }));
   const brewery = await prisma.brewery.create({
-    data,
+    data: {
+      ...data,
+      name: data.name!,
+      vessels: {
+        create: vesselData,
+      },
+    },
   });
   const breweryUser = await prisma.breweryUser.create({
     data: {
@@ -54,24 +71,40 @@ export async function updateBrewery(prev: any, formData: FormData) {
   }
   const { userId, ...data } = v.data;
   const { id, vessels, users, ...r } = reduceUnits(data) as BreweryType;
-  const brewery = await prisma.brewery.update({
-    where: { id: data.id },
-    data: r,
-  });
+  const vesselData = (vessels as Vessel[]).map(
+    ({ id, name, volume, type }) => ({
+      id,
+      name,
+      volume,
+      type,
+      breweryId: id!,
+    }),
+  );
+
   const vtx = await prisma.$transaction([
-    ...vessels.map(({ id: _id, brewery, ...d }) => {
+    ...vesselData.map(({ id: _id, ...d }) => {
       return _id
         ? prisma.vessel.update({
             where: {
               id: _id,
             },
-            data: { ...d, breweryId: id! },
+            data: { ...d },
           })
         : prisma.vessel.create({
-            data: { ...d, breweryId: id! },
+            data: { ...d },
           });
     }),
   ]);
+  const brewery = await prisma.brewery.update({
+    where: { id: data.id },
+    data: {
+      ...data,
+      vessels: {
+        set: [],
+        connect: vtx.map(({ id: _id }) => ({ id: _id })),
+      },
+    },
+  });
 
   redirect(`/brewery/${brewery.id}`);
 }
@@ -83,10 +116,12 @@ export async function updateBreweryInventory(prev: any, formData: FormData) {
     return Promise.resolve(v);
   }
   const { userId, ...data } = v.data;
+  /** 
   const brewery = await prisma.brewery.update({
     where: { id: data.id },
     data,
   });
+*/
 
-  redirect(`/brewery/${brewery.id}`);
+  redirect(`/brewery`);
 }

@@ -42,94 +42,20 @@ export type VesselItemProps = {
   src: AdjustedVesselType;
   index: number;
   onClick?: React.MouseEventHandler;
-  actions: Record<string, any>;
+  // actions: Record<string, any>;
 };
 type VesselItemMenuProps = {
   removeHop: React.MouseEventHandler;
   index: number;
 };
-function VesselItemMenu({ removeHop, index }: VesselItemMenuProps) {
-  const revisionContext = useContext(RevisionContext);
-
-  const f = useFormContext();
-  const handleRemove = (e: any) => {
-    const old = f.getValues(`vessels`);
-
-    revisionContext?.update({
-      type: "REMOVE",
-      payload: {
-        name: `vessels`,
-        prev: old,
-        value: old.filter(({ id: _id }: any) => _id !== old[index].id),
-      },
-    });
-    removeHop(e);
-  };
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger
-        render={<IconButton icon={MenuIcon} label="Menu" />}
-      ></DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem onClick={handleRemove} id="vessel">
-          <DeleteIcon />
-          Delete Vessel
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
 export default function VesselItem({
   index,
-  src: _src,
-  actions,
+  src,
+  // actions,
   onClick,
 }: VesselItemProps) {
-  const ctx = React.useContext(IngredientContext);
-  const form = useFormContext<AdjustedBreweryType>();
-  const src = form.getValues(`vessels.${index}`);
-  const handleRemove = () => {
-    // console.log(actions.remove);
-    // actions.remove?.(index);
-    const old = form.getValues("vessels") as AdjustedVesselType[];
-    const newValue = old.filter(({ id: _id }) => _id !== src.id);
-    form.setValue("vessels", newValue);
-  };
   return (
     <ListItem onClick={onClick}>
-      <input
-        type="hidden"
-        {...form.register(`vessels.${index}.id`)}
-        value={src.id}
-      />
-      <input
-        type="hidden"
-        {...form.register(`vessels.${index}.name`)}
-        value={src.name}
-      />
-
-      <input
-        type="hidden"
-        {...form.register(`vessels.${index}.breweryId`)}
-        value={src.breweryId}
-      />
-      <input
-        type="hidden"
-        {...form.register(`vessels.${index}.type`)}
-        value={src.type}
-      />
-
-      <input
-        type="hidden"
-        {...form.register(`vessels.${index}.volume.value`)}
-        value={src?.volume.value}
-      />
-      <input
-        type="hidden"
-        {...form.register(`vessels.${index}.volume.unit`)}
-        value={src?.volume.unit}
-      />
       <ListItemIcon>
         <HopIcon />
       </ListItemIcon>
@@ -152,15 +78,11 @@ export default function VesselItem({
                 Icon={<CookingPotIcon size={12} />}
                 name="type"
                 text={src.type}
-                unit="%"
               />
             </div>
           </div>
         </ListItemDescription>
       </ListItemContent>
-      <ListItemMenu>
-        <VesselItemMenu removeHop={handleRemove} index={index} />
-      </ListItemMenu>
     </ListItem>
   );
 }

@@ -42,6 +42,8 @@ export async function fetchBreweryUser(breweryId: string, userId: string) {
               id: true,
               name: true,
               volume: true,
+              type: true,
+              breweryId: true,
             },
           },
         },

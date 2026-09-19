@@ -4,7 +4,7 @@ import { BreweryForm } from "@/app/brewery/_components/BreweryForm/BreweryForm";
 import BreweryCreatorToolbar from "./BreweryCreatorToolbar";
 import BreweryFormContainer from "../BreweryForm/BreweryFormContainer";
 import { BreweryType } from "@/types/Brewery";
-import BreweryModals from "../BreweryForm/BreweryModals";
+import BreweryModals from "../BreweryModals";
 
 export type BreweryProps<S = unknown> = {
   action: (prev: S, formData: FormData) => S | Promise<S>;

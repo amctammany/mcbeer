@@ -57,6 +57,7 @@ export interface BaseHopIngredientType extends Omit<
   id?: string;
   recipeId?: string;
 }
+// const t = {} as BaseHopIngredientType
 
 type HopIngredientAmountFieldNames = "alpha" | "duration" | "amount";
 export type AdjustedHopIngredientType = AmountFields<

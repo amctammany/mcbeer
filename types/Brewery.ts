@@ -23,14 +23,12 @@ export interface BreweryType extends BaseBreweryType {
 
 export interface BaseVesselType extends Omit<
   OptionalNullable<Vessel>,
-  "id" | "name" | "brewery"
+  "id" | "name"
 > {
   id?: string;
   name?: string;
-  brewery?: BaseBreweryType;
+  // brewery?: BaseBreweryType;
 }
-const t = {} as AdjustedVesselType;
-t.volume;
 export type VesselAmountFieldNames = "volume";
 export type AdjustedVesselType = AmountFields<
   BaseVesselType,

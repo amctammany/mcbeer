@@ -10,7 +10,6 @@ import { RevisionContext } from "@/contexts/RevisionContext";
 export default function BreweryModals({ breweryId }: any) {
   const context = useContext(ModalContext);
   const revisionContext = useContext(RevisionContext);
-  console.log(context);
   const f = useFormContext();
   const {
     open = false,
@@ -43,12 +42,11 @@ export default function BreweryModals({ breweryId }: any) {
     tIndex !== undefined && tIndex >= 0 && vessels[tIndex]
       ? vessels[tIndex]
       : ({
-          recipeId: f.getValues("id"),
+          breweryId: f.getValues("id"),
           // usage: $Enums.YeastIngredientUsage.Mash,
         } as any);
 
   const onSubmit = (data: any) => {
-    console.log("submitYeastIng", data, f.getValues());
     if (tIndex !== undefined && tIndex >= 0) {
       const old = vessels[tIndex];
       // const newValue = old.map((d: { id: any }, index: any) =>

@@ -4,6 +4,10 @@ import { Dashboard } from "@/app/brewery/_components/Dashboard/Dashboard";
 import { headers } from "next/headers";
 import { fetchBreweryUser } from "../queries";
 import { cachedAuth } from "@/lib/verifySession";
+import { getPreferences } from "@/app/admin/queries";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
+import { BreweryMask } from "@/lib/Converter/Masks";
+import { AdjustedBreweryType } from "@/types/Brewery";
 export type BreweryPageProps = {
   params: Promise<{ id: string }>;
 };
@@ -19,7 +23,19 @@ export default async function BreweryPage({ params }: BreweryPageProps) {
   if (!user) {
     throw new Error("User not found");
   }
+  const prefs = await getPreferences();
+  // console.log({ id, recipe });
   const brewery = user.brewery;
   if (!brewery) notFound();
-  return <Dashboard user={user} src={brewery} />;
+
+  const adjusted = adjustUnits({
+    src: brewery,
+    mask: BreweryMask,
+    prefs,
+    precision: 4,
+    dir: true,
+    inline: false,
+  }) as AdjustedBreweryType;
+  console.log(adjusted);
+  return <Dashboard user={user} src={adjusted} />;
 }
