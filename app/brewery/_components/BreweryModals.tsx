@@ -1,21 +1,14 @@
 "use client";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import { ModalContext } from "@/contexts/ModalContext";
-// import dynamic from "next/dynamic";
 import React, { useContext } from "react";
-import VesselModal from "./VesselModal";
+import VesselModal from "./BreweryForm/VesselModal";
 
-// const VesselModal = dynamic(() => import("./VesselModal"));
-
-export function BreweryModals({ breweryId }: { breweryId?: string }) {
-  //   const a = useContext(BreweryContext);
-  // const context = useContext(ModalContext);
-  // console.log(context);
-  // if (!Object.keys(context).length) {
-  // console.log(context);
-  // throw new Error("useAlert must be used within a AlertProvider");
-  // }
-  const context = {} as any;
+export default function BreweryModals({ breweryId }: any) {
+  const context = useContext(ModalContext);
+  if (!Object.keys(context).length) {
+    throw new Error("useAlert must be used within a AlertProvider");
+  }
   const {
     open = false,
     handleDialogOpen,
@@ -38,5 +31,3 @@ export function BreweryModals({ breweryId }: { breweryId?: string }) {
     </div>
   );
 }
-
-export default BreweryModals;
