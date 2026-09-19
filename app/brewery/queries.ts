@@ -1,5 +1,6 @@
 "use server";
 import { prisma } from "@/lib/prisma";
+import { BreweryType, BreweryUserType } from "@/types/Brewery";
 import { cacheTag } from "next/cache";
 
 export async function fetchUserBreweries(userId: string) {
@@ -21,10 +22,10 @@ export async function fetchUserBreweries(userId: string) {
       },
     },
   });
-  return users.map((user) => user.brewery);
+  return users.map((user) => user.brewery as BreweryType);
 }
 export async function fetchBreweryUser(breweryId: string, userId: string) {
-  return prisma.breweryUser.findUnique({
+  const breweryUser = await prisma.breweryUser.findUnique({
     where: { id: { userId, breweryId } },
     include: {
       brewery: {
@@ -40,4 +41,5 @@ export async function fetchBreweryUser(breweryId: string, userId: string) {
       },
     },
   });
+  return breweryUser as BreweryUserType;
 }

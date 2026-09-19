@@ -8,7 +8,7 @@ import { zfd } from "zod-form-data";
 const schema = zfd.formData({
   //userId: zfd.text(),
   id: zfd.text(z.string().optional()),
-  userId: zfd.text(),
+  userId: zfd.text(z.string().optional()),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
   address: zfd.text(z.string().optional()),
@@ -18,7 +18,6 @@ const schema = zfd.formData({
 });
 export async function createBrewery(prev: any, formData: FormData) {
   const v = validateSchema(formData, schema);
-  console.log(v);
   if (v.errors) return v;
   if (!v.success) {
     return Promise.resolve(v);
@@ -30,8 +29,22 @@ export async function createBrewery(prev: any, formData: FormData) {
   const breweryUser = await prisma.breweryUser.create({
     data: {
       breweryId: brewery.id,
-      userId,
+      userId: userId!,
     },
   });
+  redirect(`/brewery/${brewery.id}`);
+}
+export async function updateBrewery(prev: any, formData: FormData) {
+  const v = validateSchema(formData, schema);
+  if (v.errors) return v;
+  if (!v.success) {
+    return Promise.resolve(v);
+  }
+  const { userId, ...data } = v.data;
+  const brewery = await prisma.brewery.update({
+    where: { id: data.id },
+    data,
+  });
+
   redirect(`/brewery/${brewery.id}`);
 }

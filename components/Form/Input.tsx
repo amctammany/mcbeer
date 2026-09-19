@@ -76,6 +76,7 @@ export function Input<T extends FieldValues>({
   //suffix,
   //defaultValue,
   variant,
+  // revisable = true,
   inputSize,
   //ref,
   ...props

@@ -54,7 +54,7 @@ export function TextField<T extends FieldValues>({
   label,
   description,
   suffix,
-  revisable,
+  revisable = true,
   variant,
   value,
   orientation = "responsive",

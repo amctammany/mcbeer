@@ -5,41 +5,40 @@ import { useForm, useFormContext } from "react-hook-form";
 import { TextField } from "@/components/Form/TextField";
 import { Form } from "@/components/Form/Form";
 import { Brewery } from "@/generated/prisma/client";
+import { BreweryType } from "@/types/Brewery";
 
-export type BreweryFormContainerProps<S = unknown, T = S | Promise<S>> = {
-  brewery: Brewery;
-  action: (state: S, formData: FormData) => T;
-  toolbar?: React.ReactNode | React.ReactNode[];
+// export type BreweryFormContainerProps<S = unknown, T = S | Promise<S>> = {
+//   brewery: Brewery;
+//   action: (state: S, formData: FormData) => T;
+//   toolbar?: React.ReactNode | React.ReactNode[];
 
-  children: React.ReactNode;
-};
-export function BreweryFormContainer<S, T>({
-  brewery,
-  action,
-  toolbar,
-  children,
-}: BreweryFormContainerProps) {
-  return (
-    <Form src={brewery} action={action} toolbar={toolbar}>
-      {children}
-    </Form>
-  );
-}
+//   children: React.ReactNode;
+// };
+// export function BreweryFormContainer<S, T>({
+//   brewery,
+//   action,
+//   toolbar,
+//   children,
+// }: BreweryFormContainerProps) {
+//   return (
+//     <Form src={brewery} action={action} toolbar={toolbar}>
+//       {children}
+//     </Form>
+//   );
+// }
 
 export type BreweryFormProps = {
-  brewery?: Brewery;
+  brewery?: BreweryType;
   //  action: (formData: FormData) => Promise<void>;
 };
 export function BreweryForm({ brewery }: BreweryFormProps) {
-  const { register, control, getValues, formState } = useFormContext<
-    Brewery & { userId: string }
-  >();
+  const { register, control, getValues, formState } =
+    useFormContext<BreweryType>();
 
   return (
     <div className="grid grid-cols-2 *:p-4 *:border-2 *:m-4">
       <div className="*:py-1">
         <input type="hidden" {...register("id")} />
-        <input type="hidden" {...register("userId")} />
         <TextField name="name" label="Name" />
         <TextField name="description" label="Description" />
         <TextField name="address" label="Address" />
