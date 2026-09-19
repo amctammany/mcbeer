@@ -37,7 +37,7 @@ export async function NavBrewery() {
         <SidebarMenuItem hidden={breweryId ? false : true}>
           <SidebarMenuButton
             render={
-              <NavLink href={`/brewery/${breweryId}/dashboard`}>
+              <NavLink href={`/brewery/${breweryId}`}>
                 <LayoutDashboardIcon />
                 Dashboard
               </NavLink>

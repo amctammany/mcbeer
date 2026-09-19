@@ -96,6 +96,7 @@ model User {
   sessions             Session[]
   breweries            BreweryUser[]
   defaultBrewery       Brewery?              @relation(fields: [defaultBreweryId], references: [id])
+  batches              Batch[]
 
   @@map("user")
 }
@@ -512,7 +513,7 @@ model BreweryUser {
   user      User             @relation(fields: [userId], references: [id])
   batches   Batch[]
 
-  @@id(name: "id", fields: [breweryId, userId])
+  @@id(name: "breweryUserId", fields: [breweryId, userId])
 }
 
 model Vessel {
@@ -537,10 +538,11 @@ model Batch {
   vesselId    String
   startDate   DateTime
   brewerId    String
-  brewer      BreweryUser @relation(fields: [breweryId, brewerId], references: [breweryId, userId])
+  brewer      User        @relation(fields: [brewerId], references: [id])
   brewery     Brewery     @relation(fields: [breweryId], references: [id])
   recipe      Recipe      @relation(fields: [recipeId], references: [id])
   vessel      Vessel      @relation(fields: [vesselId], references: [id])
+  breweryUser BreweryUser @relation(fields: [breweryId, brewerId], references: [breweryId, userId])
 }
 
 enum VesselType {

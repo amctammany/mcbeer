@@ -65,6 +65,7 @@ export function Form<T extends FieldValues>({
     dir: true,
   });
   // console.log({ src, mask, adjusted, preferenceContext });
+  console.log({ mask, vessels: adjusted.vessels });
 
   const [_state, formAction] = useActionState<State<T>, FormData>(action, {
     success: false,

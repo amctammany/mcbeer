@@ -96,6 +96,7 @@ export default function VesselItem({
     const newValue = old.filter(({ id: _id }) => _id !== src.id);
     form.setValue("vessels", newValue);
   };
+  console.log({ src, _src });
   return (
     <ListItem onClick={onClick}>
       <input
@@ -106,7 +107,7 @@ export default function VesselItem({
       <input
         type="hidden"
         {...form.register(`vessels.${index}.name`)}
-        value={src.name}
+        value={src.name ?? undefined}
       />
 
       <input
@@ -123,12 +124,12 @@ export default function VesselItem({
       <input
         type="hidden"
         {...form.register(`vessels.${index}.volume.value`)}
-        value={src?.volume.value}
+        value={src?.volume.value ?? undefined}
       />
       <input
         type="hidden"
         {...form.register(`vessels.${index}.volume.unit`)}
-        value={src?.volume.unit}
+        value={src?.volume.unit ?? undefined}
       />
       <ListItemIcon>
         <HopIcon />
@@ -139,8 +140,8 @@ export default function VesselItem({
           <BadgeProp
             Icon={<ScaleIcon size={12} />}
             name="volume"
-            text={src.volume?.value}
-            unit={src.volume?.unit}
+            text={_src.volume?.value}
+            unit={_src.volume?.unit}
           />
 
           <b>{src?.name}</b>
@@ -152,7 +153,6 @@ export default function VesselItem({
                 Icon={<CookingPotIcon size={12} />}
                 name="type"
                 text={src.type}
-                unit="%"
               />
             </div>
           </div>

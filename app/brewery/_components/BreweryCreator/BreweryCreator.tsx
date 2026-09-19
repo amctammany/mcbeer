@@ -3,12 +3,12 @@ import { Brewery, User } from "@/generated/prisma/browser";
 import { BreweryForm } from "@/app/brewery/_components/BreweryForm/BreweryForm";
 import BreweryCreatorToolbar from "./BreweryCreatorToolbar";
 import BreweryFormContainer from "../BreweryForm/BreweryFormContainer";
-import { BreweryType } from "@/types/Brewery";
+import { BreweryInputType, BreweryType } from "@/types/Brewery";
 import BreweryModals from "../BreweryModals";
 
 export type BreweryProps<S = unknown> = {
   action: (prev: S, formData: FormData) => S | Promise<S>;
-  src: BreweryType;
+  src: BreweryInputType;
 };
 export function BreweryCreator({ src, action }: BreweryProps) {
   return (

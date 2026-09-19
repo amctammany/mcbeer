@@ -6,7 +6,7 @@ import { Brewery } from "@/generated/prisma/client";
 import { createBrewery } from "../actions";
 import { auth } from "@/auth";
 import { cachedAuth } from "@/lib/verifySession";
-import { BreweryType } from "@/types/Brewery";
+import { BreweryInputType, BreweryType } from "@/types/Brewery";
 
 export default async function NewBreweryPage() {
   const session = await cachedAuth();
@@ -16,6 +16,6 @@ export default async function NewBreweryPage() {
     where: { id: session.user.id },
   });
   if (!user) unauthorized();
-  const brewery = { userId: user.id } as BreweryType & { userId: string };
+  const brewery = { vessels: [], userId: session.user.id } as BreweryInputType;
   return <BreweryCreator src={brewery} action={createBrewery} />;
 }
