@@ -66,6 +66,7 @@ export function SelectField<T extends FieldValues>({
   options,
   orientation = "vertical",
   value,
+  includeBlank = false,
   revisable = true,
 }: SelectFieldProps<T>) {
   const { register, getFieldState, control } = useFormContext<T>();
@@ -83,7 +84,8 @@ export function SelectField<T extends FieldValues>({
       });
     cb(newValue);
   };
-  const items = Object.entries(options ?? {}).map(
+  const opts = includeBlank ? { "": "", ...options } : options;
+  const items = Object.entries(opts ?? {}).map(
     ([label, value]: [string | number, number | string]) => ({
       label,
       value,
@@ -122,7 +124,7 @@ export function SelectField<T extends FieldValues>({
                 <SelectContent>
                   {items.map(({ label, value }) => (
                     <SelectItem key={label} value={value as any}>
-                      <div className=" grow text-center">{value as any}</div>
+                      <div className=" grow text-center">{label as any}</div>
                     </SelectItem>
                   ))}
                 </SelectContent>

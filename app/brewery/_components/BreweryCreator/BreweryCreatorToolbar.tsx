@@ -7,6 +7,7 @@ import { ButtonGroup } from "@/components/ui/button-group";
 import { useRouter } from "next/navigation";
 import { ExtendedUser } from "@/types/User";
 import { Brewery } from "@/generated/prisma/client";
+import { TopBar } from "@/components/TopBar/TopBar";
 
 export default function BreweryCreatorToolbar() {
   const formContext = useFormContext<Brewery>();
@@ -15,25 +16,29 @@ export default function BreweryCreatorToolbar() {
   const router = useRouter();
 
   return (
-    <ButtonGroup>
+    <TopBar
+      breadcrumbs={[{ title: "Brewery", url: "/brewery" }, { title: "Create" }]}
+    >
       <ButtonGroup>
-        <Button type="button" onClick={handleUndo} disabled={!canUndo}>
-          Undo
-        </Button>
-        <Button type="button" onClick={handleRedo} disabled={!canRedo}>
-          Redo
-        </Button>
+        <ButtonGroup>
+          <Button type="button" onClick={handleUndo} disabled={!canUndo}>
+            Undo
+          </Button>
+          <Button type="button" onClick={handleRedo} disabled={!canRedo}>
+            Redo
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup>
+          <Button
+            type="button"
+            variant="destructive"
+            onClick={() => router.back()}
+          >
+            Cancel
+          </Button>
+          <Button type="submit">Save</Button>
+        </ButtonGroup>
       </ButtonGroup>
-      <ButtonGroup>
-        <Button
-          type="button"
-          variant="destructive"
-          onClick={() => router.back()}
-        >
-          Cancel
-        </Button>
-        <Button type="submit">Save</Button>
-      </ButtonGroup>
-    </ButtonGroup>
+    </TopBar>
   );
 }

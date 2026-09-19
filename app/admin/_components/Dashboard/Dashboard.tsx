@@ -22,9 +22,7 @@ export default function Dashboard({ user }: DashboardProps) {
         <div>News</div>
         <div>
           {user?.defaultBreweryId ? (
-            <Link href={`/brewery/${user.defaultBreweryId}/dashboard`}>
-              Brewery
-            </Link>
+            <Link href={`/brewery/${user.defaultBreweryId}`}>Brewery</Link>
           ) : (
             <Link href="/brewery/new">Create Brewery</Link>
           )}

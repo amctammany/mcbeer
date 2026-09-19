@@ -11,7 +11,9 @@ export type BaseUser = Pick<User, "id" | "name" | "role" | "username">;
 export interface ExtendedUser extends User {
   UserPreferences: UserPreferencesType | null;
   breweries: {
-    breweryId: string;
-    name: string;
+    brewery: {
+      id: string;
+      name: string;
+    };
   }[];
 }

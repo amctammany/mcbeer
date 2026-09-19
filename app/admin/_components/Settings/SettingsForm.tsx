@@ -88,10 +88,10 @@ export function SettingsForm({ user }: SettingsFormProps) {
     useContext(RevisionContext)!;
 
   const breweries = user.breweries.reduce(
-    (acc, b) => {
+    (acc, { brewery: b }) => {
       return {
         ...acc,
-        [b.breweryId]: b.name,
+        [b.name]: b.id,
       };
     },
     {} as Record<string, string>,
@@ -113,7 +113,9 @@ export function SettingsForm({ user }: SettingsFormProps) {
         />
         <SelectField
           name="defaultBreweryId"
+          includeBlank={true}
           control={control}
+          orientation="responsive"
           options={breweries}
           label="Default Brewery"
         />
@@ -122,6 +124,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
       <div className="*:py-1">
         <SelectField
           name="UserPreferences.massSystem"
+          orientation="responsive"
           control={control}
           options={MassSystem}
           label="Mass System"

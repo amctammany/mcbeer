@@ -24,7 +24,9 @@ export async function NavBrewery() {
   // const session = authClient.useSession();
   //  const { isMobile } = useSidebar();
   //  const { data: session } = useSession();
-  const session = await verifySession();
+  // const session = await verifySession();
+  const session = await cachedAuth(); //authClient.useSession();
+
   const breweryId = session?.user?.defaultBreweryId;
 
   return (
