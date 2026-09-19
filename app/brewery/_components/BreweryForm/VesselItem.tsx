@@ -132,7 +132,7 @@ export default function VesselItem({
         <ListItemTitle>
           <BadgeProp
             Icon={<ScaleIcon size={12} />}
-            name="amount"
+            name="volume"
             text={src.volume?.value}
             unit={src.volume?.unit}
           />

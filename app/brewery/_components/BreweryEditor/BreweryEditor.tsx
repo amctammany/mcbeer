@@ -17,6 +17,7 @@ export function BreweryEditor({ src, action }: BreweryProps) {
       toolbar={<BreweryEditorToolbar src={src} />}
       modals={<BreweryModals breweryId={src.id} />}
     >
+      {/* <BreweryModals /> */}
       <BreweryForm />
     </BreweryFormContainer>
   );

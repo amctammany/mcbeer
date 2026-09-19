@@ -84,23 +84,17 @@ export default function VesselModal({
     handleClose();
   };
   return (
-    <MaskContext
-      value={{
-        mask: VesselMask,
-      }}
+    <VesselFormContainer
+      index={tIndex}
+      action={currentVessel.id ? fields.update : fields.append}
+      onSubmit={onSubmit}
+      src={currentVessel}
     >
-      <VesselFormContainer
-        index={tIndex}
-        action={currentVessel.id ? fields.update : fields.append}
-        onSubmit={onSubmit}
+      <VesselForm
+        // action={currentIngredient.id ? fields.update : fields.append}
         src={currentVessel}
-      >
-        <VesselForm
-          // action={currentIngredient.id ? fields.update : fields.append}
-          src={currentVessel}
-          index={tIndex}
-        />
-      </VesselFormContainer>
-    </MaskContext>
+        index={tIndex}
+      />
+    </VesselFormContainer>
   );
 }

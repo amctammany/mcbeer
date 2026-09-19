@@ -1,3 +1,4 @@
+"use client";
 import IconButton from "@/components/Button/IconButton";
 import AmountField from "@/components/Form/AmountField";
 import { ComboBoxField } from "@/components/Form/ComboBoxField";
@@ -77,13 +78,11 @@ export function VesselFormContainer<S = unknown>({
   };
   // console.log(state);
   return (
-    <MaskContext value={{ mask: VesselMask }}>
-      <UserPreferencesContext value={prefs}>
-        <FormProvider {...form}>
-          <form onSubmit={handleSubmit(handleSave)}>{children}</form>
-        </FormProvider>
-      </UserPreferencesContext>
-    </MaskContext>
+    <UserPreferencesContext value={prefs}>
+      <FormProvider {...form}>
+        <form onSubmit={handleSubmit(handleSave)}>{children}</form>
+      </FormProvider>
+    </UserPreferencesContext>
   );
   /**
    * 
@@ -122,33 +121,22 @@ export default function VesselForm({
   // action,
   index,
 }: {
-  src: Partial<AdjustedVesselType>;
+  src?: Partial<AdjustedVesselType>;
   // action: any;
   index?: number;
 }) {
-  const s = useContext(IngredientContext);
   // const { data } = useContext(FormStateContext);
 
   // console.log(src);
   const { register, setValue } = useFormContext();
 
-  const fermentables = use(s.fermentablePromise);
-  const opts = fermentables.map((h) => ({ label: h.name, value: h.id }));
-  const onChangeCb = (r: any) => {
-    console.log({ src, index, r });
-    const h = fermentables.find(({ id }) => id === r);
-    if (h) {
-      console.log(h);
-      setValue("color.value", (h?.color ?? 1.0) * 1);
-    }
-    // handleClose();
-  };
   return (
     <div className="relative">
       <input type="hidden" {...register("id")} />
-      <input type="hidden" {...register("recipeId")} />
+      <input type="hidden" {...register("breweryId")} />
 
       <div className="grid grid-cols-2 lg:grid-cols3 gap-1 border-b-2 mb-3">
+        <TextField label="Name" name="name" />
         <AmountField
           step="0.1"
           revisable={false}

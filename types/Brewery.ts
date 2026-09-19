@@ -18,7 +18,7 @@ export interface BaseBreweryType extends Omit<
 
 export interface BreweryType extends BaseBreweryType {
   users?: Partial<BreweryUserType>[];
-  vessels: Partial<BaseVesselType>[];
+  vessels: BaseVesselType[];
 }
 
 export interface BaseVesselType extends Omit<

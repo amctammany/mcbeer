@@ -9,13 +9,12 @@ import VesselModal from "./VesselModal";
 
 export function BreweryModals({ breweryId }: { breweryId?: string }) {
   //   const a = useContext(BreweryContext);
-  // const context = useContext(ModalContext);
-  // console.log(context);
-  // if (!Object.keys(context).length) {
-  // console.log(context);
-  // throw new Error("useAlert must be used within a AlertProvider");
-  // }
-  const context = {} as any;
+  const context = useContext(ModalContext);
+  console.log(context);
+  if (!Object.keys(context).length) {
+    console.log(context);
+    throw new Error("useAlert must be used within a AlertProvider");
+  }
   const {
     open = false,
     handleDialogOpen,
