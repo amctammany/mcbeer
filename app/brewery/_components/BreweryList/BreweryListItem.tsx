@@ -1,3 +1,5 @@
+import { Brewery } from "@/generated/prisma/client";
+
 export function BreweryListItem({ brewery }: { brewery: Brewery }) {
   return (
     <li>

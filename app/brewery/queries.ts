@@ -1,6 +1,10 @@
+"use server";
 import { prisma } from "@/lib/prisma";
+import { cacheTag } from "next/cache";
 
 export async function fetchUserBreweries(userId: string) {
+  "use cache";
+  cacheTag("user-breweries");
   const users = await prisma.breweryUser.findMany({
     where: { userId },
     include: {

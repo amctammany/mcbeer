@@ -11,5 +11,5 @@ export default function BreweryLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <Suspense fallback={<div>Brewery Loading</div>}>{children}</Suspense>;
+  return <Suspense fallback={<div>Brewery? Loading</div>}>{children}</Suspense>;
 }

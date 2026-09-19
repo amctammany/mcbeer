@@ -17,7 +17,7 @@ export default async function SettingsPage() {
     where: { id: session.user.id },
     include: {
       breweries: {
-        select: { id: true, name: true },
+        select: { breweryId: true, name: true },
       },
       UserPreferences: true,
     },
