@@ -86,8 +86,8 @@ export default function VesselModal({
           value: data,
         },
       });
-      append(data);
-      // f.setValue("vessels", newValue);
+      // append(data);
+      f.setValue("vessels", newValue);
     }
     handleClose();
   };

@@ -79,9 +79,12 @@ export default function FermentableIngredientModal({
   // const currentIndex = fermentableIngredients.findIndex(
   // ({ id: _id }: { id?: any }) => _id && tid === _id,
   // );
+  // const currentIngredient =
+  // tIndex !== undefined && tIndex >= 0 && fields[tIndex]
+  // ? fields[tIndex]
   const currentIngredient =
-    tIndex !== undefined && tIndex >= 0 && fields[tIndex]
-      ? fields[tIndex]
+    tid !== undefined
+      ? fields.find(({ _id }) => _id === tid)
       : ({
           recipeId: f.getValues("id"),
           usage: $Enums.FermentableIngredientUsage.Mash,
@@ -115,8 +118,8 @@ export default function FermentableIngredientModal({
           value: data,
         },
       });
-      append(data);
-      // f.setValue("fermentableIngredients", newValue);
+      // append(data);
+      f.setValue("fermentableIngredients", newValue);
     }
     handleClose();
   };
@@ -128,7 +131,7 @@ export default function FermentableIngredientModal({
     >
       <FermentableIngredientFormContainer
         index={tIndex}
-        action={currentIngredient.id ? update : append}
+        action={currentIngredient?.id ? update : append}
         onSubmit={onSubmit}
         src={currentIngredient}
       >

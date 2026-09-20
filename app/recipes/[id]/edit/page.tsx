@@ -2,16 +2,8 @@ import { notFound, redirect, unauthorized } from "next/navigation";
 import RecipeEditor from "../../_components/NewRecipeEditor/RecipeEditor";
 import { getRecipe } from "../../queries";
 import { updateRecipe } from "../../actions";
-import { getStyleNames } from "@/app/styles/queries";
-import { Style } from "@/generated/prisma/client";
-import { getEquipmentProfileNames } from "@/app/(profiles)/equipment/queries";
-import { RecipeMask } from "@/lib/Converter/Masks";
-import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { headers } from "next/headers";
 import { auth } from "@/auth";
-import { getPreferences } from "@/app/admin/queries";
-import ModalProvider from "@/components/ModalProvider";
-import LoginForm from "@/app/(auth)/login/LoginForm";
 import Login from "@/app/(auth)/login/Login";
 
 export type RecipeEditorPageProps = {
@@ -26,28 +18,9 @@ export default async function RecipeEditorPage({
   });
   if (!session) {
     return <Login redirectUrl={`/recipes/${id}/edit`} />;
-    // redirect(`/login?redirect_url=/recipes/${id}/edit`);
-    // return unauthorized();
   }
-  // const prefs = await getPreferences();
   const recipe = await getRecipe(id);
   console.log(recipe);
   if (!recipe) notFound();
-  // const styles = getStyleNames();
-  // const adjusted = adjustUnits({
-  //   src: recipe,
-  //   mask: RecipeMask,
-  //   inline: false,
-  //   dir: false,
-  //   prefs,
-  // });
-  // // console.log(adjusted, recipe);
-  return (
-    <RecipeEditor
-      // styles={styles}
-      src={recipe}
-      action={updateRecipe}
-      // equipmentProfiles={getEquipmentProfileNames()}
-    />
-  );
+  return <RecipeEditor src={recipe} action={updateRecipe} />;
 }

@@ -106,8 +106,8 @@ export default function YeastIngredientModal({
           value: data,
         },
       });
-      append(data);
-      // f.setValue("yeastIngredients", newValue);
+      // append(data);
+      f.setValue("yeastIngredients", newValue);
     }
     handleClose();
   };
