@@ -94,10 +94,10 @@ export default function HopIngredientItem({
   const src = form.getValues(`hopIngredients.${index}`);
   const handleRemove = () => {
     // console.log(actions.remove);
-    // actions.remove?.(index);
-    const old = form.getValues("hopIngredients") as BaseHopIngredientType[];
-    const newValue = old.filter(({ id: _id }) => _id !== src.id);
-    form.setValue("hopIngredients", newValue);
+    actions.remove?.(index);
+    // const old = form.getValues("hopIngredients") as BaseHopIngredientType[];
+    // const newValue = old.filter(({ id: _id }) => _id !== src.id);
+    // form.setValue("hopIngredients", newValue);
   };
   const hop = hops.find((h) => h.id === src.hopId);
   return (

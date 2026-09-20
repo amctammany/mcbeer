@@ -50,15 +50,19 @@ export default function FermentableIngredientModal({
 }) {
   const s = useContext(IngredientContext);
   const revisionContext = useContext(RevisionContext);
-  const f = useFormContext();
-  const fields = useFieldArray({
+  const f = useFormContext<RecipeType>();
+  const { fields, update, append } = useFieldArray({
     name: "fermentableIngredients",
     control: f.control,
+    keyName: "_id",
   });
-  const fermentableIngredients = useWatch({
-    name: "fermentableIngredients",
-    control: f.control,
-  });
+  // const watchFermentables = f.watch("fermentableIngredients", []);
+  // const _fermentables = fields.map((field, index) => {
+  //   return {
+  //     ...field,
+  //     ...watchFermentables[index],
+  //   };
+  // });
   // console.log(revisionContext);
   const d = useContext(ModalContext);
   const handleClose = d.handleOpenChange;
@@ -72,12 +76,12 @@ export default function FermentableIngredientModal({
     !d.triggerId || typeof d.triggerId === "string"
       ? undefined
       : d.triggerId.index;
-  const currentIndex = fermentableIngredients.findIndex(
-    ({ id: _id }: { id?: any }) => _id && tid === _id,
-  );
+  // const currentIndex = fermentableIngredients.findIndex(
+  // ({ id: _id }: { id?: any }) => _id && tid === _id,
+  // );
   const currentIngredient =
-    tIndex !== undefined && tIndex >= 0 && fermentableIngredients[tIndex]
-      ? fermentableIngredients[tIndex]
+    tIndex !== undefined && tIndex >= 0 && fields[tIndex]
+      ? fields[tIndex]
       : ({
           recipeId: f.getValues("id"),
           usage: $Enums.FermentableIngredientUsage.Mash,
@@ -86,7 +90,7 @@ export default function FermentableIngredientModal({
   const onSubmit = (data: any) => {
     console.log("submitFermentableIng", data, f.getValues());
     if (tIndex !== undefined && tIndex >= 0) {
-      const old = fermentableIngredients[tIndex];
+      const old = fields[tIndex];
       // const newValue = old.map((d: { id: any }, index: any) =>
       // d.id === tid ? data : d,
       // );
@@ -99,7 +103,7 @@ export default function FermentableIngredientModal({
         },
       });
       // f.setValue(`fermentableIngredients`, newValue);
-      fields.update(tIndex, data);
+      update(tIndex, data);
     } else {
       const old = f.getValues(`fermentableIngredients`);
       const newValue = [...old, data];
@@ -111,8 +115,8 @@ export default function FermentableIngredientModal({
           value: data,
         },
       });
-      // fields.append(data);
-      f.setValue("fermentableIngredients", newValue);
+      append(data);
+      // f.setValue("fermentableIngredients", newValue);
     }
     handleClose();
   };
@@ -124,7 +128,7 @@ export default function FermentableIngredientModal({
     >
       <FermentableIngredientFormContainer
         index={tIndex}
-        action={currentIngredient.id ? fields.update : fields.append}
+        action={currentIngredient.id ? update : append}
         onSubmit={onSubmit}
         src={currentIngredient}
       >

@@ -12,7 +12,7 @@ import { IngredientContext } from "@/contexts/IngredientContext";
 import { MaskContext } from "@/contexts/MaskContext";
 import { ModalContext } from "@/contexts/ModalContext";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
-import { $Enums } from "@/generated/prisma/browser";
+import { $Enums, HopIngredientType } from "@/generated/prisma/browser";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
 import { HopIngredientMask } from "@/lib/Converter/Masks";
 import {
@@ -61,7 +61,7 @@ export function HopIngredientFormContainer<S = unknown>({
   //   action(data as any);
   //   d.handleOpenChange();
   // };
-  const form = useForm({
+  const form = useForm<Partial<BaseHopIngredientType> & { index?: number }>({
     defaultValues: src,
   });
   const { setValue, getValues, handleSubmit, register } = form;
@@ -75,18 +75,16 @@ export function HopIngredientFormContainer<S = unknown>({
     // console.log(d);
     // console.log(action);
     _onSubmit(d);
-    // index !== undefined ? action(index, d) : action(d);
+    index ? action(index, d) : action(d);
     // handleClose();
   };
   // console.log(state);
   return (
-    <MaskContext value={{ mask: HopIngredientMask }}>
-      <UserPreferencesContext value={prefs}>
-        <FormProvider {...form}>
-          <form onSubmit={handleSubmit(handleSave)}>{children}</form>
-        </FormProvider>
-      </UserPreferencesContext>
-    </MaskContext>
+    <UserPreferencesContext value={prefs}>
+      <FormProvider {...form}>
+        <form onSubmit={handleSubmit(handleSave)}>{children}</form>
+      </FormProvider>
+    </UserPreferencesContext>
   );
   /**
    * 
@@ -148,7 +146,7 @@ export default function HopIngredientForm({
   return (
     <div className="relative">
       <input type="hidden" {...register("id")} />
-
+      <input type="hidden" {...register("index")} />
       <input type="hidden" {...register("recipeId")} />
       <ComboBoxField
         onChangeCallback={onChangeCb}

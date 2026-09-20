@@ -82,13 +82,11 @@ export function YeastIngredientFormContainer<S = unknown>({
   };
   // console.log(state);
   return (
-    <MaskContext value={{ mask: YeastIngredientMask }}>
-      <UserPreferencesContext value={prefs}>
-        <FormProvider {...form}>
-          <form onSubmit={handleSubmit(handleSave)}>{children}</form>
-        </FormProvider>
-      </UserPreferencesContext>
-    </MaskContext>
+    <UserPreferencesContext value={prefs}>
+      <FormProvider {...form}>
+        <form onSubmit={handleSubmit(handleSave)}>{children}</form>
+      </FormProvider>
+    </UserPreferencesContext>
   );
   /**
    * 
@@ -150,6 +148,7 @@ export default function YeastIngredientForm({
   return (
     <div className="relative">
       <input type="hidden" {...register("id")} />
+      <input type="hidden" {...register("index")} />
       <input type="hidden" {...register("recipeId")} />
       <ComboBoxField
         onChangeCallback={onChangeCb}

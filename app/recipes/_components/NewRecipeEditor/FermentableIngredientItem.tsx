@@ -20,6 +20,7 @@ import { UnitValue } from "@/lib/Converter/adjustUnits";
 import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
 import {
   AdjustedFermentableIngredientType,
+  AdjustedRecipeType,
   BaseFermentableIngredientType,
 } from "@/types/Recipe";
 import {
@@ -77,6 +78,7 @@ function FermentableIngredientItemMenu({
 
 export type FermentableIngredientItemProps = {
   src: AdjustedFermentableIngredientType;
+  actions: Record<string, any>;
   index: number;
   totalFermentables: number;
   onClick?: React.MouseEventHandler;
@@ -100,22 +102,23 @@ function UnitValueProp({
 
 export default function FermentableIngredientItem({
   src,
+  actions,
   totalFermentables,
   index,
   onClick,
 }: FermentableIngredientItemProps) {
   const ctx = React.useContext(IngredientContext);
-  const form = useFormContext();
+  const form = useFormContext<AdjustedRecipeType>();
   const fermentables = React.use(ctx.fermentablePromise);
   const fermentable = fermentables.find((h) => h.id === src.fermentableId);
   const handleRemove = () => {
     // console.log(actions.remove);
-    // actions.remove?.(index);
-    const old = form.getValues(
-      "fermentableIngredients",
-    ) as BaseFermentableIngredientType[];
-    const newValue = old.filter(({ id: _id }) => _id !== src.id);
-    form.setValue("fermentableIngredients", newValue);
+    actions.remove?.(index);
+    // const old = form.getValues(
+    // "fermentableIngredients",
+    // ) as BaseFermentableIngredientType[];
+    // const newValue = old.filter(({ id: _id }) => _id !== src.id);
+    // form.setValue("fermentableIngredients", newValue);
   };
   return (
     <ListItem onClick={onClick}>

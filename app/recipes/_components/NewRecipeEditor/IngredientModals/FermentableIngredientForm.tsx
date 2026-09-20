@@ -26,6 +26,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { FermentableIngredient } from "@/generated/prisma/client";
 export function FermentableIngredientFormContainer<S = unknown>({
   src,
   action,
@@ -63,7 +64,7 @@ export function FermentableIngredientFormContainer<S = unknown>({
   //   action(data as any);
   //   d.handleOpenChange();
   // };
-  const form = useForm({
+  const form = useForm<Partial<FermentableIngredient> & { index?: number }>({
     defaultValues: src,
   });
   const { setValue, getValues, handleSubmit, register } = form;
@@ -82,13 +83,11 @@ export function FermentableIngredientFormContainer<S = unknown>({
   };
   // console.log(state);
   return (
-    <MaskContext value={{ mask: FermentableIngredientMask }}>
-      <UserPreferencesContext value={prefs}>
-        <FormProvider {...form}>
-          <form onSubmit={handleSubmit(handleSave)}>{children}</form>
-        </FormProvider>
-      </UserPreferencesContext>
-    </MaskContext>
+    <UserPreferencesContext value={prefs}>
+      <FormProvider {...form}>
+        <form onSubmit={handleSubmit(handleSave)}>{children}</form>
+      </FormProvider>
+    </UserPreferencesContext>
   );
   /**
    * 
@@ -127,7 +126,7 @@ export default function FermentableIngredientForm({
   // action,
   index,
 }: {
-  src: Partial<AdjustedFermentableIngredientType>;
+  src?: Partial<AdjustedFermentableIngredientType>;
   // action: any;
   index?: number;
 }) {
@@ -151,6 +150,7 @@ export default function FermentableIngredientForm({
   return (
     <div className="relative">
       <input type="hidden" {...register("id")} />
+      <input type="hidden" {...register("index")} />
       <input type="hidden" {...register("recipeId")} />
       <ComboBoxField
         onChangeCallback={onChangeCb}

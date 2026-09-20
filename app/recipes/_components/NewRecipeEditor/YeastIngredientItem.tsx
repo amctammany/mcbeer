@@ -73,6 +73,7 @@ function YeastIngredientItemMenu({
 
 export type YeastIngredientItemProps = {
   src: AdjustedYeastIngredientType;
+  actions: Record<string, any>;
   index?: number;
   onClick?: React.MouseEventHandler;
 };
@@ -95,6 +96,7 @@ function UnitValueProp({
 
 export default function YeastIngredientItem({
   src,
+  actions,
   index,
   onClick,
 }: YeastIngredientItemProps) {
@@ -104,10 +106,10 @@ export default function YeastIngredientItem({
   const yeast = yeasts.find((h) => h.id === src.yeastId);
   const handleRemove = () => {
     // console.log(actions.remove);
-    // actions.remove?.(index);
-    const old = form.getValues("yeastIngredients") as BaseYeastIngredientType[];
-    const newValue = old.filter(({ id: _id }) => _id !== src.id);
-    form.setValue("yeastIngredients", newValue);
+    actions.remove?.(index);
+    // const old = form.getValues("yeastIngredients") as BaseYeastIngredientType[];
+    // const newValue = old.filter(({ id: _id }) => _id !== src.id);
+    // form.setValue("yeastIngredients", newValue);
   };
   return (
     <ListItem onClick={onClick}>

@@ -157,14 +157,15 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
     })
     .sort((a, b) => b.duration.value - a.duration.value);
   const watchFerms = watch("fermentableIngredients", []);
-  const _fermentableIngredients = fermentableIngArray.fields
-    .map((field, index) => {
+  const _fermentableIngredients = fermentableIngArray.fields.map(
+    (field, index) => {
       return {
         ...field,
         ...watchFerms[index],
       };
-    })
-    .sort((a, b) => b.amount.value - a.amount.value);
+    },
+  );
+  // .sort((a, b) => b.amount.value - a.amount.value);
   const totalFermentables = _fermentableIngredients?.reduce(
     (acc, f) => acc + f.amount.value,
     0,
@@ -185,30 +186,34 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
       }
     >
       <List className="min-h-40 flex flex-col  w-full" size="small">
-        {(_hopIngredients || []).map((i: any, index: any) => (
+        {_hopIngredients.map((i: any, index: any) => (
           <HopIngredientItem
             key={i._id}
             index={index}
             src={i}
-            onClick={handleClick({ type: "hop", id: i._id, index })}
+            onClick={handleClick({ type: "hop", id: i.id, index })}
             actions={{ remove: () => hopIngArray.remove(index) }}
           />
         ))}
-        {(_fermentableIngredients || []).map((i: any, index: any) => (
+        {JSON.stringify(_fermentableIngredients)}
+
+        {_fermentableIngredients.map((i: any, index: any) => (
           <FermentableIngredientItem
             totalFermentables={totalFermentables}
             key={i._id}
             index={index}
             src={i}
+            actions={{ remove: () => fermentableIngArray.remove(index) }}
             onClick={handleClick({ type: "fermentable", id: i.id, index })}
           />
         ))}
-        {(_yeastIngredients || []).map((i: any, index: any) => (
+        {_yeastIngredients.map((i: any, index: any) => (
           <YeastIngredientItem
             key={i._id}
             index={index}
             src={i}
-            onClick={handleClick({ type: "yeast", id: i.id, index })}
+            actions={{ remove: () => yeastIngArray.remove(index) }}
+            onClick={handleClick({ type: "yeast", id: i._id, index })}
           />
         ))}
       </List>

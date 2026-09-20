@@ -70,8 +70,8 @@ export function VesselFormContainer<S = unknown>({
     d.handleDialogOpen()();
   };
   const handleSave = (d: any) => {
-    console.log(d);
-    console.log(action);
+    // console.log(d);
+    // console.log(action);
     _onSubmit(d);
     index ? action(index, d) : action(d);
     // handleClose();

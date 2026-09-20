@@ -48,14 +48,12 @@ export default function YeastIngredientModal({
   const s = useContext(IngredientContext);
   const revisionContext = useContext(RevisionContext);
   const f = useFormContext();
-  const fields = useFieldArray({
+  const { fields, update, append } = useFieldArray({
     name: "yeastIngredients",
     control: f.control,
+    keyName: "_id",
   });
-  const yeastIngredients = useWatch({
-    name: "yeastIngredients",
-    control: f.control,
-  });
+  // const yeastIngredients = f.watch("yeastIngredients");
   // console.log(revisionContext);
   const d = useContext(ModalContext);
   const handleClose = d.handleOpenChange;
@@ -69,12 +67,12 @@ export default function YeastIngredientModal({
     !d.triggerId || typeof d.triggerId === "string"
       ? undefined
       : d.triggerId.index;
-  const currentIndex = yeastIngredients.findIndex(
-    ({ id: _id }: { id?: any }) => _id && tid === _id,
-  );
+  // const currentIndex = yeastIngredients.findIndex(
+  // ({ id: _id }: { id?: any }) => _id && tid === _id,
+  // );
   const currentIngredient =
-    tIndex !== undefined && tIndex >= 0 && yeastIngredients[tIndex]
-      ? yeastIngredients[tIndex]
+    tIndex !== undefined && tIndex >= 0 && fields[tIndex]
+      ? fields[tIndex]
       : ({
           recipeId: f.getValues("id"),
           // usage: $Enums.YeastIngredientUsage.Mash,
@@ -83,7 +81,7 @@ export default function YeastIngredientModal({
   const onSubmit = (data: any) => {
     console.log("submitYeastIng", data, f.getValues());
     if (tIndex !== undefined && tIndex >= 0) {
-      const old = yeastIngredients[tIndex];
+      const old = fields[tIndex];
       // const newValue = old.map((d: { id: any }, index: any) =>
       // d.id === tid ? data : d,
       // );
@@ -96,7 +94,7 @@ export default function YeastIngredientModal({
         },
       });
       // f.setValue(`yeastIngredients`, newValue);
-      fields.update(tIndex, data);
+      update(tIndex, data);
     } else {
       const old = f.getValues(`yeastIngredients`);
       const newValue = [...old, data];
@@ -108,8 +106,8 @@ export default function YeastIngredientModal({
           value: data,
         },
       });
-      // fields.append(data);
-      f.setValue("yeastIngredients", newValue);
+      append(data);
+      // f.setValue("yeastIngredients", newValue);
     }
     handleClose();
   };
@@ -121,7 +119,7 @@ export default function YeastIngredientModal({
     >
       <YeastIngredientFormContainer
         index={tIndex}
-        action={currentIngredient.id ? fields.update : fields.append}
+        action={currentIngredient.id ? update : append}
         onSubmit={onSubmit}
         src={currentIngredient}
       >
