@@ -47,6 +47,8 @@ import {
   RadioGroupField,
 } from "@/components/Form/RadioGroupField";
 import { ExtendedUser } from "@/types/User";
+import { UnitValue } from "@/lib/Converter/adjustUnits";
+import VariableAmountField from "@/components/Form/VariableAmountField";
 
 export type SettingsFormContainerProps<S = unknown, T = S | Promise<S>> = {
   user: FieldValues;

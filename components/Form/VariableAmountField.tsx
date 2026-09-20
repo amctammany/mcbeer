@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Controller, FieldValues, Path, useFormContext } from "react-hook-form";
 import { Input, InputProps } from "./Input";
 import { cva, VariantProps } from "class-variance-authority";
@@ -14,6 +14,7 @@ import {
 import {
   BASE_UNITS,
   PercentUnits,
+  UnitDict,
   UNITS,
   UnitTypeDict,
   type UnitNames,
@@ -47,11 +48,16 @@ import { RevisionContext } from "@/contexts/RevisionContext";
 import clsx from "clsx";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { MaskContext } from "@/contexts/MaskContext";
-import { convertUnit, isUnitValue } from "@/lib/Converter/adjustUnits";
+import {
+  convertUnit,
+  getUnits,
+  isUnitValue,
+} from "@/lib/Converter/adjustUnits";
 import { getInMask } from "@/lib/Converter/Masks";
 import { FormStateContext } from "@/contexts/FormStateContext";
 import { get } from "@/lib/utils";
 import { PercentUnit } from "@/generated/prisma/enums";
+import { getUnitGroup } from "@/lib/Converter/Converter";
 export type VariableAmountFieldProps<T extends FieldValues> = InputProps<T> &
   VariantProps<typeof variableAmountFieldStyles> & {
     amountType?: UnitTypes;
@@ -124,11 +130,14 @@ export function VariableAmountField<T extends FieldValues>({
   const { ...inputProps } = register(`${name}.value`, {
     valueAsNumber: true,
   });
-  const unit = _unit ?? unitName ?? get(state.data, `${name}.unit`);
+  const [unit, setUnit] = useState(
+    _unit ?? unitName ?? get(state.data, `${name}.unit`),
+  );
   const u =
     unit === "percent" || unit === "number"
       ? PercentUnits[unit as PercentUnit]
       : unit;
+  const units = amountType ? UnitTypeDict[amountType] : Object.keys(UnitDict);
   const onValueChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const old = get(state.data, `${name}.value`);
     const newValue = parseFloat(e.target.value);
@@ -144,6 +153,11 @@ export function VariableAmountField<T extends FieldValues>({
     // cb(e);
     // const converted = convert(newValue, false);
     // console.log({ name, value, newValue, converted });
+  };
+  const handleChangeUnit: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    const newUnit = e.currentTarget.dataset["unit"];
+    console.log(newUnit);
+    setUnit(newUnit);
   };
   // const _v = state.data?.[`${name}`]; //get(state.errors ?? {}, `${name}.value`);
   const error = state.errors?.[`${name}.value`]; //get(state.errors ?? {}, `${name}.value`);
@@ -184,7 +198,7 @@ export function VariableAmountField<T extends FieldValues>({
 
         <InputGroupAddon
           aria-invalid={!!error}
-          className="w-4"
+          className="w-fit pl-4 ml-4"
           align="inline-end"
         >
           <DropdownMenu>
@@ -193,42 +207,26 @@ export function VariableAmountField<T extends FieldValues>({
                 <InputGroupButton
                   variant="ghost"
                   aria-label="More"
-                  size="icon-xs"
+                  size="icon-sm"
                 >
-                  <MoreHorizontal />
+                  {unit}
                 </InputGroupButton>
               }
             ></DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuGroup>
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Copy path</DropdownMenuItem>
-                <DropdownMenuItem>Open location</DropdownMenuItem>
+                {units.map((u) => (
+                  <DropdownMenuItem
+                    key={u}
+                    onClick={handleChangeUnit}
+                    data-unit={u}
+                  >
+                    {u}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
-        </InputGroupAddon>
-      </InputGroup>
-      <InputGroup className="[--radius:1rem]">
-        <InputGroupInput placeholder="Enter search query" />
-        <InputGroupAddon align="inline-end">
-          <DropdownMenu>
-            <DropdownMenuTrigger
-              render={
-                <InputGroupButton variant="ghost" className="!pr-1.5 text-xs">
-                  Search In... <ChevronDownIcon className="size-3" />
-                </InputGroupButton>
-              }
-            ></DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="[--radius:0.95rem]">
-              <DropdownMenuGroup>
-                <DropdownMenuItem>Documentation</DropdownMenuItem>
-                <DropdownMenuItem>Blog Posts</DropdownMenuItem>
-                <DropdownMenuItem>Changelog</DropdownMenuItem>
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <InputGroupText>{u}</InputGroupText>
         </InputGroupAddon>
       </InputGroup>
       <FieldError>{error?.message}</FieldError>
