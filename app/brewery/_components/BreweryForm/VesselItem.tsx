@@ -83,37 +83,36 @@ function VesselItemMenu({ removeHop, index }: VesselItemMenuProps) {
 }
 export default function VesselItem({
   index,
-  src: _src,
+  src,
   actions,
   onClick,
 }: VesselItemProps) {
-  const ctx = React.useContext(IngredientContext);
   const form = useFormContext<AdjustedBreweryType>();
-  const src = form.getValues(`vessels.${index}`);
+  // const src = form.getValues(`vessels.${index}`);
   const handleRemove = () => {
     // console.log(actions.remove);
-    // actions.remove?.(index);
-    const old = form.getValues("vessels") as AdjustedVesselType[];
-    const newValue = old.filter(({ id: _id }) => _id !== src.id);
-    form.setValue("vessels", newValue);
+    actions.remove?.(index);
+    // const old = form.getValues("vessels") as AdjustedVesselType[];
+    // const newValue = old.filter(({ id: _id }) => _id !== src.id);
+    // form.setValue("vessels", newValue);
   };
   return (
     <ListItem onClick={onClick}>
       <input
         type="hidden"
         {...form.register(`vessels.${index}.id`)}
-        value={src.id}
+        value={src.id ?? ""}
       />
       <input
         type="hidden"
         {...form.register(`vessels.${index}.name`)}
-        value={src.name ?? undefined}
+        value={src.name ?? ""}
       />
 
       <input
         type="hidden"
         {...form.register(`vessels.${index}.breweryId`)}
-        value={src.breweryId}
+        value={src.breweryId ?? ""}
       />
       <input
         type="hidden"
@@ -124,12 +123,12 @@ export default function VesselItem({
       <input
         type="hidden"
         {...form.register(`vessels.${index}.volume.value`)}
-        value={src?.volume.value ?? undefined}
+        value={src?.volume.value ?? 100}
       />
       <input
         type="hidden"
         {...form.register(`vessels.${index}.volume.unit`)}
-        value={src?.volume.unit ?? undefined}
+        value={src?.volume.unit ?? "L"}
       />
       <ListItemIcon>
         <HopIcon />
@@ -140,8 +139,8 @@ export default function VesselItem({
           <BadgeProp
             Icon={<ScaleIcon size={12} />}
             name="volume"
-            text={_src.volume?.value}
-            unit={_src.volume?.unit}
+            text={src.volume?.value}
+            unit={src.volume?.unit}
           />
 
           <b>{src?.name}</b>

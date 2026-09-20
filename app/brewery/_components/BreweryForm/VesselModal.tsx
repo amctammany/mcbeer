@@ -4,30 +4,38 @@ import { ModalContext } from "@/contexts/ModalContext";
 import { RevisionContext } from "@/contexts/RevisionContext";
 import { $Enums } from "@/generated/prisma/browser";
 import { useContext, use } from "react";
-import { useFormContext, useFieldArray, useWatch } from "react-hook-form";
+import {
+  useFormContext,
+  useFieldArray,
+  useWatch,
+  Control,
+} from "react-hook-form";
 import VesselForm, { VesselFormContainer } from "./VesselForm";
 import { VesselMask } from "@/lib/Converter/Masks";
-import { BreweryType } from "@/types/Brewery";
+import { BreweryInputType, BreweryType } from "@/types/Brewery";
 
 export default function VesselModal({
   id,
+  control,
   // recipe,
   // handleClose,
 }: {
   id?: string;
+  control?: Control<BreweryInputType>;
   // recipe: RecipeType;
   // handleClose: (id?: string) => void;
 }) {
   const revisionContext = useContext(RevisionContext);
   const f = useFormContext<BreweryType>();
-  const fields = useFieldArray({
+  const { fields, update, append } = useFieldArray({
     name: "vessels",
     control: f.control,
+    keyName: "_id",
   });
-  const vessels = useWatch({
-    name: "vessels",
-    control: f.control,
-  });
+  // const vessels = useWatch({
+  // name: "vessels",
+  // control: f.control,
+  // });
   // console.log(revisionContext);
   const d = useContext(ModalContext);
   const handleClose = d.handleOpenChange;
@@ -43,17 +51,17 @@ export default function VesselModal({
   // ({ id: _id }: { id?: any }) => _id && tid === _id,
   // );
   const currentVessel =
-    tIndex !== undefined && tIndex >= 0 && vessels[tIndex]
-      ? vessels[tIndex]
+    tIndex !== undefined && tIndex >= 0 && fields[tIndex]
+      ? fields[tIndex]
       : ({
           breweryId: f.getValues("id"),
           type: $Enums.VesselType.Fermenter,
         } as any);
 
   const onSubmit = (data: any) => {
-    console.log("submitFermentableIng", data, f.getValues());
+    console.log("submitVessel", data, f.getValues());
     if (tIndex !== undefined && tIndex >= 0) {
-      const old = vessels[tIndex];
+      const old = fields[tIndex];
       // const newValue = old.map((d: { id: any }, index: any) =>
       // d.id === tid ? data : d,
       // );
@@ -66,7 +74,7 @@ export default function VesselModal({
         },
       });
       // f.setValue(`vessels`, newValue);
-      // fields.update(tIndex, data);
+      update(tIndex, data);
     } else {
       const old = f.getValues(`vessels`);
       const newValue = [...old, data];
@@ -78,7 +86,7 @@ export default function VesselModal({
           value: data,
         },
       });
-      // fields.append(data);
+      append(data);
       // f.setValue("vessels", newValue);
     }
     handleClose();
@@ -87,7 +95,7 @@ export default function VesselModal({
     <MaskContext value={{ mask: VesselMask }}>
       <VesselFormContainer
         index={tIndex}
-        action={currentVessel.id ? fields.update : fields.append}
+        action={currentVessel.id ? update : append}
         onSubmit={onSubmit}
         src={currentVessel}
       >

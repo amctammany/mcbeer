@@ -1,7 +1,11 @@
 import List from "@/components/Form/List/List";
 import Section from "@/components/Section";
 import { ModalContext } from "@/contexts/ModalContext";
-import { AdjustedBreweryType, BreweryType } from "@/types/Brewery";
+import {
+  AdjustedBreweryType,
+  BreweryInputType,
+  BreweryType,
+} from "@/types/Brewery";
 import { useContext } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import VesselItem from "./VesselItem";
@@ -15,7 +19,7 @@ export default function VesselsSection({ src }: { src?: AdjustedBreweryType }) {
     control,
     keyName: "_id",
   });
-  const watchVessels = watch("vessels", vesselsArray.fields);
+  const watchVessels = watch("vessels", []);
 
   const _vessels = vesselsArray.fields.map((field, index) => {
     return {
@@ -29,14 +33,17 @@ export default function VesselsSection({ src }: { src?: AdjustedBreweryType }) {
     d,
   ) => handleDialogOpen(d);
   return (
-    <Section title="Vessels" actions={<VesselsSectionToolbar />}>
+    <Section
+      title="Vessels"
+      actions={<VesselsSectionToolbar append={vesselsArray.append} />}
+    >
       <List className="min-h-40 flex flex-col  w-full" size="small">
-        {vesselsArray.fields.map((i: any, index: any) => (
+        {_vessels.map((i: any, index: any) => (
           <VesselItem
             key={i._id}
             index={index}
             src={i}
-            onClick={handleClick({ type: "vessel", id: i.id, index })}
+            onClick={handleClick({ type: "vessel", id: i._id, index })}
             actions={{ remove: () => vesselsArray.remove(index) }}
           />
         ))}

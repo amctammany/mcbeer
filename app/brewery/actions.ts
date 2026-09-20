@@ -77,12 +77,12 @@ export async function updateBrewery(prev: any, formData: FormData) {
   const { id, vessels, users, ...r } = reduceUnits(data) as BreweryType;
   console.log({ prev: prev.data.vessels, data, vessels, users, r });
   const vesselData = (vessels as BaseVesselType[]).map(
-    ({ id, name, volume, type, breweryId }) => ({
-      id,
+    ({ id: _id, name, volume, type, breweryId }) => ({
+      id: _id,
       name,
       volume,
       type,
-      breweryId,
+      breweryId: id,
     }),
   );
 
@@ -105,7 +105,7 @@ export async function updateBrewery(prev: any, formData: FormData) {
             data: { ...d },
           })
         : prisma.vessel.create({
-            data: { ...d, name: d.name! },
+            data: { ...d, name: d.name!, breweryId: id! },
           });
     }),
     prisma.brewery.update({

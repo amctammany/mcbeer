@@ -27,9 +27,10 @@ export interface BreweryType extends BaseBreweryType {
 
 export interface BaseVesselType extends Omit<
   OptionalNullable<Vessel>,
-  "id" | "name"
+  "id" | "name" | "breweryId"
 > {
   id?: string;
+  breweryId?: string;
   name?: string;
   // brewery?: BaseBreweryType;
 }

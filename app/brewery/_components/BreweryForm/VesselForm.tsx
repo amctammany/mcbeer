@@ -59,7 +59,7 @@ export function VesselFormContainer<S = unknown>({
   //   action(data as any);
   //   d.handleOpenChange();
   // };
-  const form = useForm({
+  const form = useForm<Partial<BaseVesselType> & { index?: number }>({
     defaultValues: src,
   });
   const { setValue, getValues, handleSubmit, register } = form;
@@ -70,8 +70,8 @@ export function VesselFormContainer<S = unknown>({
     d.handleDialogOpen()();
   };
   const handleSave = (d: any) => {
-    // console.log(d);
-    // console.log(action);
+    console.log(d);
+    console.log(action);
     _onSubmit(d);
     index ? action(index, d) : action(d);
     // handleClose();
@@ -133,6 +133,7 @@ export default function VesselForm({
   return (
     <div className="relative">
       <input type="hidden" {...register("id")} />
+      <input type="hidden" {...register("index")} />
       <input type="hidden" {...register("breweryId")} />
 
       <div className="grid grid-cols-2 lg:grid-cols3 gap-1 border-b-2 mb-3">
