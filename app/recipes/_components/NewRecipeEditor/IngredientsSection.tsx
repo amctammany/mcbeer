@@ -136,8 +136,8 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
     control,
     keyName: "_id",
   });
-  const hopIngredients = hopIngArray.fields;
-  const fermentableIngredients = fermentableIngArray.fields;
+  // const hopIngredients = hopIngArray.fields;
+  // const fermentableIngredients = fermentableIngArray.fields;
 
   // const _hopIngredients = useWatch({ name: "hopIngredients", control });
   const watchYeasts = watch("yeastIngredients", []);
@@ -148,14 +148,12 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
     };
   });
   const watchHops = watch("hopIngredients", []);
-  const _hopIngredients = hopIngArray.fields
-    .map((field, index) => {
-      return {
-        ...field,
-        ...watchHops[index],
-      };
-    })
-    .sort((a, b) => b.duration.value - a.duration.value);
+  const _hopIngredients = hopIngArray.fields.map((field, index) => {
+    return {
+      ...field,
+      ...watchHops[index],
+    };
+  });
   const watchFerms = watch("fermentableIngredients", []);
   const _fermentableIngredients = fermentableIngArray.fields.map(
     (field, index) => {
@@ -165,7 +163,6 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
       };
     },
   );
-  // .sort((a, b) => b.amount.value - a.amount.value);
   const totalFermentables = _fermentableIngredients?.reduce(
     (acc, f) => acc + f.amount.value,
     0,
@@ -186,33 +183,79 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
       }
     >
       <List className="min-h-40 flex flex-col  w-full" size="small">
-        {_hopIngredients.map((i: any, index: any) => (
-          <HopIngredientItem
-            key={i._id}
-            index={index}
-            src={i}
-            onClick={handleClick({ type: "hop", id: i.id, index })}
-            actions={{ remove: () => hopIngArray.remove(index) }}
-          />
-        ))}
-        {JSON.stringify(_fermentableIngredients)}
+        {_hopIngredients
+          .map((a: any, index: any) => ({ ...a, index }))
+          .sort((a, b) => b.duration.value - a.duration.value)
+          .map((i: any) => (
+            <HopIngredientItem
+              key={i._id}
+              index={i.index}
+              src={i}
+              onClick={handleClick({ type: "hop", id: i.id, index: i.index })}
+              actions={{
+                remove: () => hopIngArray.remove(i.index),
+                substitute: () =>
+                  handleDialogOpen({
+                    type: "HopSubstitute",
+                    id: i._id,
+                    index: i.index,
+                  }),
+                duplicate: () => {
+                  const { id, _id, ...dupe } = hopIngArray.fields[i.index];
+                  return hopIngArray.append(dupe);
+                },
+              }}
+            />
+          ))}
 
-        {_fermentableIngredients.map((i: any, index: any) => (
-          <FermentableIngredientItem
-            totalFermentables={totalFermentables}
-            key={i._id}
-            index={index}
-            src={i}
-            actions={{ remove: () => fermentableIngArray.remove(index) }}
-            onClick={handleClick({ type: "fermentable", id: i.id, index })}
-          />
-        ))}
+        {_fermentableIngredients
+          .map((a: any, index: any) => ({ ...a, index }))
+          .sort((a, b) => b.amount.value - a.amount.value)
+          .map((i: any) => (
+            <FermentableIngredientItem
+              totalFermentables={totalFermentables}
+              key={i._id}
+              index={i.index}
+              src={i}
+              actions={{
+                remove: () => fermentableIngArray.remove(i.index),
+                substitute: () =>
+                  handleDialogOpen({
+                    type: "FermentableSubstitute",
+                    id: i._id,
+                    index: i.index,
+                  }),
+                duplicate: () => {
+                  const { id, _id, ...dupe } =
+                    fermentableIngArray.fields[i.index];
+                  return fermentableIngArray.append(dupe);
+                },
+              }}
+              onClick={handleClick({
+                type: "fermentable",
+                id: i._id,
+                index: i.index,
+              })}
+            />
+          ))}
         {_yeastIngredients.map((i: any, index: any) => (
           <YeastIngredientItem
             key={i._id}
             index={index}
             src={i}
-            actions={{ remove: () => yeastIngArray.remove(index) }}
+            actions={{
+              remove: () => yeastIngArray.remove(i.index),
+              substitute: () =>
+                handleDialogOpen({
+                  type: "YeastSubstitute",
+                  id: i._id,
+                  index: i.index,
+                }),
+              duplicate: () => {
+                const { id, _id, ...dupe } = yeastIngArray.fields[i.index];
+                return yeastIngArray.append(dupe);
+              },
+            }}
             onClick={handleClick({ type: "yeast", id: i._id, index })}
           />
         ))}

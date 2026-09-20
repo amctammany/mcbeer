@@ -37,29 +37,64 @@ import {
 import React, { useContext } from "react";
 import { useFormContext } from "react-hook-form";
 type FermentableIngredientItemMenuProps = {
-  removeFermentable: React.MouseEventHandler;
+  handleSubstitute: React.MouseEventHandler;
+  handleDuplicate: React.MouseEventHandler;
+  handleRemove: React.MouseEventHandler;
+
   index: number;
 };
 function FermentableIngredientItemMenu({
-  removeFermentable,
+  handleSubstitute,
+  handleDuplicate,
+  handleRemove,
   index,
 }: FermentableIngredientItemMenuProps) {
   const revisionContext = useContext(RevisionContext);
 
   const f = useFormContext();
-  const handleRemove = (e: any) => {
-    const old = f.getValues(`fermentableIngredients`);
+  // const handleSubstitute = (e: any) => {
+  //   const old = f.getValues(`fermentableIngredients`);
 
-    revisionContext?.update({
-      type: "REMOVE",
-      payload: {
-        name: `fermentableIngredients`,
-        prev: old,
-        value: old.filter(({ id: _id }: any) => _id !== old[index].id),
-      },
-    });
-    removeFermentable(e);
-  };
+  //   revisionContext?.update({
+  //     type: "SET",
+  //     payload: {
+  //       name: `fermentableIngredients`,
+  //       prev: old,
+  //       value: old.filter(({ id: _id }: any) => _id !== old[index].id),
+  //     },
+  //   });
+  //   removeFermentable(e);
+  // };
+  // const handleDuplicate = (e: any) => {
+  //   const old = f.getValues(
+  //     `fermentableIngredients.${e.currentTarget.dataset["index"]}`,
+  //   );
+
+  //   revisionContext?.update({
+  //     type: "ADD",
+  //     payload: {
+  //       name: `fermentableIngredients`,
+  //       // prev: old,
+  //       value: old.filter(({ id: _id }: any) => _id !== old[index].id),
+  //     },
+  //   });
+  // };
+  // const handleRemove = (e: any) => {
+  //   // const old = f.getValues(`fermentableIngredients`);
+  //   const old = f.getValues(
+  //     `fermentableIngredients.${e.currentTarget.dataset["index"]}`,
+  //   );
+
+  //   revisionContext?.update({
+  //     type: "REMOVE",
+  //     payload: {
+  //       name: `fermentableIngredients`,
+  //       prev: old,
+  //       value: old.filter(({ id: _id }: any) => _id !== old[index].id),
+  //     },
+  //   });
+  //   removeFermentable(e);
+  // };
 
   return (
     <DropdownMenu>
@@ -67,7 +102,27 @@ function FermentableIngredientItemMenu({
         render={<IconButton icon={MenuIcon} label="Menu" />}
       ></DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onClick={handleRemove} id="fermentable">
+        <DropdownMenuItem
+          onClick={handleDuplicate}
+          id="fermentable"
+          data-index={index}
+        >
+          <DeleteIcon />
+          Duplicate
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={handleSubstitute}
+          id="fermentable"
+          data-index={index}
+        >
+          <DeleteIcon />
+          Substitute
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={handleRemove}
+          id="fermentable"
+          data-index={index}
+        >
           <DeleteIcon />
           Delete Fermentable
         </DropdownMenuItem>
@@ -111,6 +166,9 @@ export default function FermentableIngredientItem({
   const form = useFormContext<AdjustedRecipeType>();
   const fermentables = React.use(ctx.fermentablePromise);
   const fermentable = fermentables.find((h) => h.id === src.fermentableId);
+  const handleDuplicate = () => actions.duplicate?.(index);
+  const handleSubstitute = () => actions.duplicate?.(index);
+
   const handleRemove = () => {
     // console.log(actions.remove);
     actions.remove?.(index);
@@ -212,7 +270,9 @@ export default function FermentableIngredientItem({
       </ListItemContent>
       <ListItemMenu>
         <FermentableIngredientItemMenu
-          removeFermentable={handleRemove}
+          handleDuplicate={handleDuplicate}
+          handleSubstitute={handleSubstitute}
+          handleRemove={handleRemove}
           index={index}
         />
       </ListItemMenu>

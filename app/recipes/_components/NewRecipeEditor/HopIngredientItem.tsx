@@ -44,29 +44,34 @@ export type HopIngredientItemProps = {
   actions: Record<string, any>;
 };
 type HopIngredientItemMenuProps = {
-  removeHop: React.MouseEventHandler;
+  handleSubstitute: React.MouseEventHandler;
+  handleDuplicate: React.MouseEventHandler;
+  handleRemove: React.MouseEventHandler;
+
   index: number;
 };
 function HopIngredientItemMenu({
-  removeHop,
+  handleDuplicate,
+  handleRemove,
+  handleSubstitute,
   index,
 }: HopIngredientItemMenuProps) {
   const revisionContext = useContext(RevisionContext);
 
   const f = useFormContext();
-  const handleRemove = (e: any) => {
-    const old = f.getValues(`hopIngredients`);
+  // const handleRemove = (e: any) => {
+  //   const old = f.getValues(`hopIngredients`);
 
-    revisionContext?.update({
-      type: "REMOVE",
-      payload: {
-        name: `hopIngredients`,
-        prev: old,
-        value: old.filter(({ id: _id }: any) => _id !== old[index].id),
-      },
-    });
-    removeHop(e);
-  };
+  //   revisionContext?.update({
+  //     type: "REMOVE",
+  //     payload: {
+  //       name: `hopIngredients`,
+  //       prev: old,
+  //       value: old.filter(({ id: _id }: any) => _id !== old[index].id),
+  //     },
+  //   });
+  //   removeHop(e);
+  // };
 
   return (
     <DropdownMenu>
@@ -74,9 +79,21 @@ function HopIngredientItemMenu({
         render={<IconButton icon={MenuIcon} label="Menu" />}
       ></DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onClick={handleRemove} id="hop">
+        <DropdownMenuItem onClick={handleDuplicate} id="hop" data-index={index}>
           <DeleteIcon />
-          Delete Hop
+          Duplicate
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={handleSubstitute}
+          id="hop"
+          data-index={index}
+        >
+          <DeleteIcon />
+          Substitute
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={handleRemove} id="hop" data-index={index}>
+          <DeleteIcon />
+          Delete Fermentable
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -92,6 +109,9 @@ export default function HopIngredientItem({
   const form = useFormContext();
   const hops = React.use(ctx.hopPromise);
   const src = form.getValues(`hopIngredients.${index}`);
+  const handleDuplicate = () => actions.duplicate?.(index);
+  const handleSubstitute = () => actions.substitute?.(index);
+
   const handleRemove = () => {
     // console.log(actions.remove);
     actions.remove?.(index);
@@ -201,7 +221,12 @@ export default function HopIngredientItem({
         </ListItemDescription>
       </ListItemContent>
       <ListItemMenu>
-        <HopIngredientItemMenu removeHop={handleRemove} index={index} />
+        <HopIngredientItemMenu
+          handleDuplicate={handleDuplicate}
+          handleSubstitute={handleSubstitute}
+          handleRemove={handleRemove}
+          index={index}
+        />
       </ListItemMenu>
     </ListItem>
   );

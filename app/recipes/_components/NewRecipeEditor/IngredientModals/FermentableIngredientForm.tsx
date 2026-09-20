@@ -78,7 +78,7 @@ export function FermentableIngredientFormContainer<S = unknown>({
     // console.log(d);
     // console.log(action);
     _onSubmit(d);
-    index ? action(index, d) : action(d);
+    // index ? action(index, d) : action(d);
     // handleClose();
   };
   // console.log(state);

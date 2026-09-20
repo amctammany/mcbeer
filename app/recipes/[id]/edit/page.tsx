@@ -20,7 +20,6 @@ export default async function RecipeEditorPage({
     return <Login redirectUrl={`/recipes/${id}/edit`} />;
   }
   const recipe = await getRecipe(id);
-  console.log(recipe);
   if (!recipe) notFound();
   return <RecipeEditor src={recipe} action={updateRecipe} />;
 }
