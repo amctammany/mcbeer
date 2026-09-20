@@ -25,8 +25,10 @@ import {
 import {
   BeakerIcon,
   CookingPotIcon,
+  CopyPlusIcon,
   DeleteIcon,
   HopIcon,
+  ReplaceIcon,
   Icon,
   MenuIcon,
   PlusIcon,
@@ -80,7 +82,7 @@ function HopIngredientItemMenu({
       ></DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onClick={handleDuplicate} id="hop" data-index={index}>
-          <DeleteIcon />
+          <CopyPlusIcon />
           Duplicate
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -88,7 +90,7 @@ function HopIngredientItemMenu({
           id="hop"
           data-index={index}
         >
-          <DeleteIcon />
+          <ReplaceIcon />
           Substitute
         </DropdownMenuItem>
         <DropdownMenuItem onClick={handleRemove} id="hop" data-index={index}>

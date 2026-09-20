@@ -194,16 +194,17 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
               onClick={handleClick({ type: "hop", id: i.id, index: i.index })}
               actions={{
                 remove: () => hopIngArray.remove(i.index),
-                substitute: () =>
-                  handleDialogOpen({
-                    type: "HopSubstitute",
-                    id: i._id,
-                    index: i.index,
-                  }),
-                duplicate: () => {
-                  const { id, _id, ...dupe } = hopIngArray.fields[i.index];
-                  return hopIngArray.append(dupe);
-                },
+                substitute: handleClick({
+                  type: "hop",
+                  id: i.id,
+                }),
+                duplicate: handleClick({
+                  type: "hop",
+                  id: i.id,
+                }),
+
+                // const { id, _id, ...dupe } = hopIngArray.fields[i.index];
+                // return hopIngArray.append(dupe);
               }}
             />
           ))}
@@ -221,14 +222,17 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
                 remove: () => fermentableIngArray.remove(i.index),
                 substitute: () =>
                   handleDialogOpen({
-                    type: "FermentableSubstitute",
+                    type: "fermentable",
                     id: i._id,
-                    index: i.index,
                   }),
                 duplicate: () => {
-                  const { id, _id, ...dupe } =
-                    fermentableIngArray.fields[i.index];
-                  return fermentableIngArray.append(dupe);
+                  handleDialogOpen({
+                    type: "fermentable",
+                    id: i._id,
+                  });
+                  // const { id, _id, ...dupe } =
+                  // fermentableIngArray.fields[i.index];
+                  // return fermentableIngArray.append(dupe);
                 },
               }}
               onClick={handleClick({
@@ -247,9 +251,8 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
               remove: () => yeastIngArray.remove(i.index),
               substitute: () =>
                 handleDialogOpen({
-                  type: "YeastSubstitute",
+                  type: "yeast",
                   id: i._id,
-                  index: i.index,
                 }),
               duplicate: () => {
                 const { id, _id, ...dupe } = yeastIngArray.fields[i.index];

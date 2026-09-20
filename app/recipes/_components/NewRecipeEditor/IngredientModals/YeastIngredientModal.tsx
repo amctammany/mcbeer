@@ -47,7 +47,7 @@ export default function YeastIngredientModal({
 }) {
   const s = useContext(IngredientContext);
   const revisionContext = useContext(RevisionContext);
-  const f = useFormContext();
+  const f = useFormContext<RecipeType>();
   const { fields, update, append } = useFieldArray({
     name: "yeastIngredients",
     control: f.control,
@@ -67,16 +67,18 @@ export default function YeastIngredientModal({
     !d.triggerId || typeof d.triggerId === "string"
       ? undefined
       : d.triggerId.index;
-  // const currentIndex = yeastIngredients.findIndex(
-  // ({ id: _id }: { id?: any }) => _id && tid === _id,
-  // );
-  const currentIngredient =
+  const currentIndex = fields.findIndex(
+    ({ id: _id }: { id?: any }) => _id && tid === _id,
+  );
+  const _currentIngredient =
     tIndex !== undefined && tIndex >= 0 && fields[tIndex]
       ? fields[tIndex]
       : ({
           recipeId: f.getValues("id"),
           // usage: $Enums.YeastIngredientUsage.Mash,
         } as any);
+  const currentIngredient =
+    currentIndex !== undefined ? fields[currentIndex] : _currentIngredient;
 
   const onSubmit = (data: any) => {
     console.log("submitYeastIng", data, f.getValues());

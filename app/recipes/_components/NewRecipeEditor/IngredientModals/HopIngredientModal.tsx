@@ -72,14 +72,17 @@ export default function HopIngredientModal({
   const currentIndex = hopIngredients.findIndex(
     ({ id: _id }: { id?: any }) => _id && tid === _id,
   );
-  const currentIngredient =
+  const _currentIngredient =
     tIndex !== undefined && tIndex >= 0 && hopIngredients[tIndex]
       ? hopIngredients[tIndex]
       : ({
           recipeId: f.getValues("id"),
           usage: $Enums.HopIngredientUsage.Boil,
         } as any);
-
+  const currentIngredient =
+    tIndex === undefined && tid !== undefined
+      ? hopIngredients[currentIndex]
+      : _currentIngredient;
   const onSubmit = (data: any) => {
     console.log("submitHopIng", data, f.getValues());
     if (tIndex !== undefined && tIndex >= 0) {

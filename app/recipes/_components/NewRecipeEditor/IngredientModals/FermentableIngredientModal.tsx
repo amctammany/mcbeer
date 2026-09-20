@@ -76,19 +76,21 @@ export default function FermentableIngredientModal({
     !d.triggerId || typeof d.triggerId === "string"
       ? undefined
       : d.triggerId.index;
-  // const currentIndex = fermentableIngredients.findIndex(
-  // ({ id: _id }: { id?: any }) => _id && tid === _id,
-  // );
+  const currentIndex = fields.findIndex(
+    ({ id: _id }: { id?: any }) => _id && tid === _id,
+  );
   // const currentIngredient =
   // tIndex !== undefined && tIndex >= 0 && fields[tIndex]
   // ? fields[tIndex]
-  const currentIngredient =
+  const _currentIngredient =
     tid !== undefined
       ? fields.find(({ _id }) => _id === tid)
       : ({
           recipeId: f.getValues("id"),
           usage: $Enums.FermentableIngredientUsage.Mash,
         } as any);
+  const currentIngredient =
+    currentIndex !== undefined ? fields[currentIndex] : _currentIngredient;
 
   const onSubmit = (data: any) => {
     console.log("submitFermentableIng", data, f.getValues());
