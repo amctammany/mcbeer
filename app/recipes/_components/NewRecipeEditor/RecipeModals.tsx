@@ -35,7 +35,6 @@ export default function RecipeModals({ recipeId }: { recipeId?: string }) {
     !triggerId || typeof triggerId === "string" ? triggerId : triggerId.type;
   const id =
     !triggerId || typeof triggerId === "string" ? undefined : triggerId.id;
-  console.log("modal", { type, id });
   return (
     <div>
       <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -49,36 +48,3 @@ export default function RecipeModals({ recipeId }: { recipeId?: string }) {
     </div>
   );
 }
-/**
-      <_Dialog.Root
-        // handle={handle}
-        // open={open}
-        triggerId={triggerId}
-        onOpenChange={handleOpenChange}
-      >
-        <_Dialog.Portal>
-          <_Dialog.Backdrop className={styles.Backdrop} />
-          <_Dialog.Viewport className={styles.Viewport}>
-            <_Dialog.Popup className={styles.Popup}>
-              <_Dialog.Title className={styles.Title}>
-                Add {triggerId}
-              </_Dialog.Title>
-
-              {triggerId === "hop" && (
-                <HopIngredientModal
-                  recipe={src!}
-                  handleClose={handleDialogOpen()}
-                />
-              )}
-              {triggerId === "fermentable" && (
-                <FermentableIngredientModal
-                  recipe={src!}
-                  handleClose={handleDialogOpen()}
-                />
-              )}
-            </_Dialog.Popup>
-          </_Dialog.Viewport>
-        </_Dialog.Portal>
-      </_Dialog.Root>
-    </div>
-*/

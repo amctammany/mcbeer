@@ -1,26 +1,16 @@
 import IconButton from "@/components/Button/IconButton";
 import AmountField from "@/components/Form/AmountField";
 import { ComboBoxField } from "@/components/Form/ComboBoxField";
-import { SelectField } from "@/components/Form/SelectField";
-import { Form } from "@/components/Form/Form";
-import { FormStateContext } from "@/contexts/FormStateContext";
 import { IngredientContext } from "@/contexts/IngredientContext";
-import { MaskContext } from "@/contexts/MaskContext";
 import { ModalContext } from "@/contexts/ModalContext";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
-import { $Enums } from "@/generated/prisma/browser";
-import { adjustUnits } from "@/lib/Converter/adjustUnits";
-import { YeastIngredientMask } from "@/lib/Converter/Masks";
 import {
   AdjustedYeastIngredientType,
   BaseYeastIngredientType,
 } from "@/types/Recipe";
-import { useStateMachine } from "little-state-machine";
 import { ChevronLeft, SaveIcon } from "lucide-react";
 import React, { use, useContext } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
-import UserPreferencesProvider from "@/components/UserPreferencesProvider";
-import { TextField } from "@/components/Form/TextField";
 import {
   Collapsible,
   CollapsibleContent,

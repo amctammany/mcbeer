@@ -48,22 +48,6 @@ export function FermentableIngredientFormContainer<S = unknown>({
   const prefs = useContext(UserPreferencesContext);
   const handleClose = d.handleOpenChange;
 
-  // console.log(prefs);
-  // console.log({ src, mask, preferenceContext });
-  // const { state, actions } = useStateMachine({
-  //   actions: { addFermentableIngredient, updateFermentableIngredient },
-  // });
-
-  // const saveFermentableIngredient = (_data: any) => {
-  //   // console.log(state);
-  //   const data = f.getValues();
-  //   const action = data.id
-  //     ? actions.updateFermentableIngredient
-  //     : actions.addFermentableIngredient;
-  //   // console.log(data);
-  //   action(data as any);
-  //   d.handleOpenChange();
-  // };
   const form = useForm<Partial<FermentableIngredient> & { index?: number }>({
     defaultValues: src,
   });
@@ -89,38 +73,7 @@ export function FermentableIngredientFormContainer<S = unknown>({
       </FormProvider>
     </UserPreferencesContext>
   );
-  /**
-   * 
-  return (
-    <Form
-      action={action}
-      // decorator={decorator}
-      submitCb={onSubmit}
-      modals={modals}
-      toolbar={toolbar}
-      src={src}
-      // formProps={formProps}
-    >
-      {children}
-    </Form>
-  );
-   */
-  // return (
-  //   <FormProvider {...f}>
-  //     <form onSubmit={f.handleSubmit(saveFermentableIngredient)}>{children}</form>
-  //   </FormProvider>
-  // );
-
-  // <Form src={src} action={addFermentableIngredientToRecipe}>
-  // </Form>
 }
-/** <input type="hidden" name="id" value={currentIngredient?.id} />
-      <input
-        type="hidden"
-        name="recipeId"
-        value={currentIngredient?.recipeId}
-      />}
-      */
 export default function FermentableIngredientForm({
   src,
   // action,
