@@ -2,7 +2,7 @@
 import { MaskContext } from "@/contexts/MaskContext";
 import { ModalContext } from "@/contexts/ModalContext";
 import { RevisionContext } from "@/contexts/RevisionContext";
-import { $Enums } from "@/generated/prisma/client";
+import { $Enums } from "@/generated/prisma/browser";
 import { useContext, use } from "react";
 import { useFormContext, useFieldArray, useWatch } from "react-hook-form";
 import VesselForm, { VesselFormContainer } from "./VesselForm";
@@ -66,7 +66,7 @@ export default function VesselModal({
         },
       });
       // f.setValue(`vessels`, newValue);
-      fields.update(tIndex, data);
+      // fields.update(tIndex, data);
     } else {
       const old = f.getValues(`vessels`);
       const newValue = [...old, data];
@@ -79,22 +79,24 @@ export default function VesselModal({
         },
       });
       // fields.append(data);
-      f.setValue("vessels", newValue);
+      // f.setValue("vessels", newValue);
     }
     handleClose();
   };
   return (
-    <VesselFormContainer
-      index={tIndex}
-      action={currentVessel.id ? fields.update : fields.append}
-      onSubmit={onSubmit}
-      src={currentVessel}
-    >
-      <VesselForm
-        // action={currentIngredient.id ? fields.update : fields.append}
-        src={currentVessel}
+    <MaskContext value={{ mask: VesselMask }}>
+      <VesselFormContainer
         index={tIndex}
-      />
-    </VesselFormContainer>
+        action={currentVessel.id ? fields.update : fields.append}
+        onSubmit={onSubmit}
+        src={currentVessel}
+      >
+        <VesselForm
+          // action={currentIngredient.id ? fields.update : fields.append}
+          src={currentVessel}
+          index={tIndex}
+        />
+      </VesselFormContainer>
+    </MaskContext>
   );
 }
