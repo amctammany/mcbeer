@@ -236,25 +236,21 @@ async function main() {
       }),
     ),
   });
-}
-
-async function connectHops() {
-  console.log("seed!");
-  const hops = await prisma.hop.findMany({
+  const allHops = await prisma.hop.findMany({
     select: {
       id: true,
       name: true,
       substitutesString: true,
     },
   });
-  const hopDict = hops.reduce(
+  const hopDict = allHops.reduce(
     (acc, hop) => {
       acc[hop.name] = hop.id;
       return acc;
     },
     {} as Record<string, string>,
   );
-  const promises = hops.map((hop) => {
+  const promises = allHops.map((hop) => {
     const subs: string[] = [];
     const notfound: string[] = [];
     const hopsubs = hop.substitutesString.forEach((str) => {
@@ -288,7 +284,8 @@ async function connectHops() {
   const res = await Promise.all(promises);
   console.log(res);
 }
-connectHops()
+
+main()
   .then(async () => {
     await prisma.$disconnect();
   })

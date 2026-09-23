@@ -1,3 +1,4 @@
+import { HopFindManyArgs } from "@/generated/prisma/models";
 import { prisma } from "@/lib/prisma";
 import { HopType } from "@/types/Ingredient";
 import { cacheTag } from "next/cache";
@@ -14,7 +15,7 @@ export const getHopNames = async () => {
   const names = hops.map(({ name, slug }) => ({ label: name, value: slug }));
   return names;
 };
-export const getHops = async (args: any = {}) => {
+export const getHops = async (args: HopFindManyArgs = {}) => {
   "use cache";
   cacheTag("hops");
   const hops = await prisma.hop.findMany(args);

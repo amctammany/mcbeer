@@ -5,7 +5,7 @@ import HopsTable, { HopsTableSkeleton } from "./HopsTable";
 
 export default async function HopsTableContainer() {
   "use cache";
-  const hops = getHops();
+  const hops = getHops({ orderBy: { name: "asc" } });
 
   return (
     <Suspense fallback={<HopsTableSkeleton />}>
