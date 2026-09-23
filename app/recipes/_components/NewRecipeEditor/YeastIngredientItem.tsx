@@ -28,33 +28,42 @@ import {
   BadgePercentIcon,
   ScaleIcon,
   DeleteIcon,
+  ReplaceIcon,
+  CopyPlusIcon,
 } from "lucide-react";
 import React, { useContext } from "react";
 import { useFormContext } from "react-hook-form";
 type YeastIngredientItemMenuProps = {
-  removeYeast: React.MouseEventHandler;
+  // removeYeast: React.MouseEventHandler;
+  handleSubstitute: React.MouseEventHandler;
+  handleDuplicate: React.MouseEventHandler;
+  handleRemove: React.MouseEventHandler;
+
   index: number;
 };
 function YeastIngredientItemMenu({
-  removeYeast,
+  // removeYeast,
+  handleDuplicate,
+  handleRemove,
+  handleSubstitute,
   index,
 }: YeastIngredientItemMenuProps) {
   const revisionContext = useContext(RevisionContext);
 
   const f = useFormContext();
-  const handleRemove = (e: any) => {
-    const old = f.getValues(`yeastIngredients`);
+  // const handlesRemove = (e: any) => {
+  //   const old = f.getValues(`yeastIngredients`);
 
-    revisionContext?.update({
-      type: "REMOVE",
-      payload: {
-        name: `yeastIngredients`,
-        prev: old,
-        value: old.filter(({ id: _id }: any) => _id !== old[index].id),
-      },
-    });
-    removeYeast(e);
-  };
+  //   revisionContext?.update({
+  //     type: "REMOVE",
+  //     payload: {
+  //       name: `yeastIngredients`,
+  //       prev: old,
+  //       value: old.filter(({ id: _id }: any) => _id !== old[index].id),
+  //     },
+  //   });
+  //   removeYeast(e);
+  // };
 
   return (
     <DropdownMenu>
@@ -62,7 +71,19 @@ function YeastIngredientItemMenu({
         render={<IconButton icon={MenuIcon} label="Menu" />}
       ></DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onClick={handleRemove} id="yeast">
+        <DropdownMenuItem onClick={handleDuplicate} id="hop" data-index={index}>
+          <CopyPlusIcon />
+          Duplicate
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={handleSubstitute}
+          id="hop"
+          data-index={index}
+        >
+          <ReplaceIcon />
+          Substitute
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={handleRemove} id="yeast" data-index={index}>
           <DeleteIcon />
           Delete Yeast
         </DropdownMenuItem>
@@ -104,13 +125,9 @@ export default function YeastIngredientItem({
   const form = useFormContext();
   const yeasts = React.use(ctx.yeastPromise);
   const yeast = yeasts.find((h) => h.id === src.yeastId);
-  const handleRemove = () => {
-    // console.log(actions.remove);
-    actions.remove?.(index);
-    // const old = form.getValues("yeastIngredients") as BaseYeastIngredientType[];
-    // const newValue = old.filter(({ id: _id }) => _id !== src.id);
-    // form.setValue("yeastIngredients", newValue);
-  };
+  const handleDuplicate = () => actions.duplicate?.(index);
+  const handleSubstitute = () => actions.substitute?.(index);
+  const handleRemove = () => actions.remove?.(index);
   return (
     <ListItem onClick={onClick}>
       <input
@@ -182,7 +199,12 @@ export default function YeastIngredientItem({
         </ListItemDescription>
       </ListItemContent>
       <ListItemMenu>
-        <YeastIngredientItemMenu removeYeast={handleRemove} index={index!} />
+        <YeastIngredientItemMenu
+          handleDuplicate={handleDuplicate}
+          handleRemove={handleRemove}
+          handleSubstitute={handleSubstitute}
+          index={index!}
+        />
       </ListItemMenu>
     </ListItem>
   );

@@ -29,17 +29,22 @@ export default function RecipeModals({ recipeId }: { recipeId?: string }) {
     handleDialogOpen,
     handleOpenChange,
     handle,
+    getState,
     triggerId,
   } = context;
   const type =
     !triggerId || typeof triggerId === "string" ? triggerId : triggerId.type;
   const id =
     !triggerId || typeof triggerId === "string" ? undefined : triggerId.id;
+  const mode =
+    !triggerId || typeof triggerId === "string" ? undefined : triggerId.mode;
   return (
     <div>
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogContent>
-          <DialogHeader>Dialog {type}</DialogHeader>
+          <DialogHeader>
+            {type} - {mode} - {id}
+          </DialogHeader>
           {type === "hop" && <HopIngredientModal id={id} />}
           {type === "fermentable" && <FermentableIngredientModal id={id} />}
           {type === "yeast" && <YeastIngredientModal id={id} />}

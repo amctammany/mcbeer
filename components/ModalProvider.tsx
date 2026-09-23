@@ -51,6 +51,10 @@ export default function ModalProvider<
         const _current = index !== undefined ? fields[index] : def;
         const currentIndex = fields.findIndex(({ id: _id }) => _id === id);
         const current = currentIndex >= 0 ? fields[currentIndex] : _current;
+        if (mode === "DUPLICATE") {
+          const { id: oID, ...dupe } = current;
+          return dupe;
+        }
 
         return current;
       };

@@ -276,7 +276,7 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
             onClick={handleClick({
               mode: "EDIT",
               type: "yeast",
-              id: i._id,
+              id: i.id,
               index,
             })}
           />

@@ -59,26 +59,11 @@ export default function YeastIngredientModal({
   const handleClose = d.handleOpenChange;
   const yeasts = use(s.yeastPromise);
   const opts = yeasts.map((h) => ({ label: h.name, value: h.id }));
-  const tid =
-    !d.triggerId || typeof d.triggerId === "string"
-      ? d.triggerId
-      : d.triggerId.id;
-  const tIndex =
-    !d.triggerId || typeof d.triggerId === "string"
-      ? undefined
-      : d.triggerId.index;
-  const currentIndex = fields.findIndex(
-    ({ id: _id }: { id?: any }) => _id && tid === _id,
-  );
-  const _currentIngredient =
-    tIndex !== undefined && tIndex >= 0 && fields[tIndex]
-      ? fields[tIndex]
-      : ({
-          recipeId: f.getValues("id"),
-          // usage: $Enums.YeastIngredientUsage.Mash,
-        } as any);
-  const currentIngredient =
-    currentIndex !== undefined ? fields[currentIndex] : _currentIngredient;
+  const { id: tid, index: tIndex, mode, getSource } = d.getState(fields);
+  const currentIngredient = getSource({
+    recipeId: f.getValues("id"),
+    usage: $Enums.FermentableIngredientUsage.Mash,
+  });
 
   const onSubmit = (data: any) => {
     console.log("submitYeastIng", data, f.getValues());
