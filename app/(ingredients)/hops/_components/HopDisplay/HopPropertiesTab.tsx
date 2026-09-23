@@ -4,11 +4,11 @@ import Section from "@/components/Section";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { adjustUnits, UnitValue } from "@/lib/Converter/adjustUnits";
 import { HopMask } from "@/lib/Converter/Masks";
-import { HopType } from "@/types/Ingredient";
+import { AdjustedHopType, HopType } from "@/types/Ingredient";
 import React from "react";
 
 export type HopPropertiesTabProps = {
-  src: HopType;
+  src: AdjustedHopType;
 };
 const rangeProps: { name: keyof HopType; label: string }[] = [
   { name: "alpha", label: "Alpha" },
@@ -39,24 +39,43 @@ export default function HopPropertiesTab({ src }: HopPropertiesTabProps) {
         <div className="grid grid-cols-3 gap-1" key={field.name as any}>
           <AmountProp
             name={field.name as any}
+            precision={3}
             // unit="number"
             label={field.label}
             value={src[field.name] as any}
+            // unit={src[field.name] as any}
           />
           <Prop
             label={`${field.label} Range`}
             unit={"%"}
             className="col-span-2"
           >
-            {src[`${field.name as any}Low` as keyof HopType] as number}-
-            {src[`${field.name as any}High` as keyof HopType] as number}
+            {
+              (
+                src[
+                  `${field.name as any}Low` as keyof AdjustedHopType
+                ] as UnitValue
+              )?.value as number
+            }
+            -
+            {
+              (
+                src[
+                  `${field.name as any}High` as keyof AdjustedHopType
+                ] as UnitValue
+              )?.value as number
+            }
           </Prop>
         </div>
       ))}
       <div className="grid grid-cols-2 gap-2">
-        <Prop label={"Total Oil"} value={src["totalOil"]} unit="mg/100mL" />
+        <Prop
+          label={"Total Oil"}
+          value={src["totalOil"]?.value}
+          unit="mg/100mL"
+        />
         <Prop label={"Total Oil Range"} unit="mg/100mL">
-          {src["totalOilLow"]} - {src["totalOilHigh"]}
+          {src["totalOilLow"]?.value} - {src["totalOilHigh"]?.value}
         </Prop>
       </div>
     </Section>

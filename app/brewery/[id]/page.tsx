@@ -36,6 +36,6 @@ export default async function BreweryPage({ params }: BreweryPageProps) {
     dir: true,
     inline: false,
   }) as AdjustedBreweryType;
-  console.log(adjusted);
+  // console.log(adjusted);
   return <Dashboard user={user} src={adjusted} />;
 }

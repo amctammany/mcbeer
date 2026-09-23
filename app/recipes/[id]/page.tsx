@@ -25,7 +25,6 @@ export default async function RecipeDisplayPage({
     dir: true,
     inline: false,
   });
-  console.log(adjusted);
   return (
     <div>
       <RecipeDisplayToolbar recipe={recipe} />

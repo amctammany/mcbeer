@@ -36,12 +36,26 @@ type HopAmountFieldNames =
   | "alphaLow"
   | "alphaHigh"
   | "beta"
+  | "betaLow"
+  | "betaHigh"
   | "cohumulone"
+  | "cohumuloneLow"
+  | "cohumuloneHigh"
   | "myrcene"
+  | "myrceneLow"
+  | "myrceneHigh"
   | "humulene"
+  | "humuleneLow"
+  | "humuleneHigh"
   | "caryophyllene"
+  | "caryophylleneLow"
+  | "caryophylleneHigh"
   | "totalOil"
-  | "farnesene";
+  | "totalOilLow"
+  | "totalOilHigh"
+  | "farnesene"
+  | "farneseneLow"
+  | "farneseneHigh";
 export type AdjustedHopType = AmountFields<HopType, HopAmountFieldNames>;
 export interface BaseYeastType extends Omit<
   OptionalNullable<Yeast>,
