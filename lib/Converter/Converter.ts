@@ -28,7 +28,7 @@ const timeConverter: Record<TimeUnit, ConversionType> = {
   days: 60 * 24,
 };
 const colorConverter: Record<UserColorPreference, ConversionType> = {
-  "°L": 1,
+  Lovibond: 1,
   EBC: 12,
   SRM: 100,
 };
