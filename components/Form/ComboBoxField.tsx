@@ -70,6 +70,7 @@ export function ComboBoxField<T extends FieldValues>({
   const onValueChange = (cb: (newValue: any) => void) => (newValue: any) => {
     const opt = options[options.findIndex((o: any) => o.value === newValue)];
     // console.log("Value changed:", options, newValue, opt);
+    if (!opt) return;
     revisionContext?.update({
       type: "SET",
       payload: {
@@ -79,7 +80,6 @@ export function ComboBoxField<T extends FieldValues>({
       },
     });
     onChangeCallback?.(newValue);
-    cb(opt.value);
   };
   return (
     <Controller

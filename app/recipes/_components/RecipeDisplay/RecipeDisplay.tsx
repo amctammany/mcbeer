@@ -24,6 +24,7 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
           <Prop label="Description" value={src.description} />
         </Section>
         <Section title="Equipment">
+          <Prop label="Equipment Profile" value={src.EquipmentProfile?.name} />
           <AmountProp label="Boil Time" name="boilTime" value={src.boilTime} />
           <AmountProp
             label="Efficiency"
@@ -37,7 +38,10 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
           />
         </Section>
         <Section title="Style">
-          <Prop label="Style" value={src.styleIdentifier} />
+          <Prop
+            label="Style"
+            value={`${src.styleIdentifier} - ${src.style?.name}`}
+          />
         </Section>
         <Section title="Ingredients" className="lg:col-span-3">
           {(src.hopIngredients ?? [])

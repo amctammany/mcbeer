@@ -4,6 +4,7 @@ import {
   Style,
   FermentableIngredient,
   YeastIngredient,
+  EquipmentProfile,
 } from "@/generated/prisma/client";
 import { BaseUser } from "./User";
 import { AmountFields, OptionalNullable } from "@/lib/utils";
@@ -70,6 +71,7 @@ export type ExtendedHopIngredientType = AdjustedHopIngredientType & {
 };
 export interface RecipeType extends BaseRecipeType {
   owner: Partial<BaseUser>;
+  EquipmentProfile?: Partial<EquipmentProfile> | null;
   style?: Partial<Style> | null;
   origin?: BaseRecipeType;
   forks?: BaseRecipeType[];
@@ -91,6 +93,7 @@ export type AdjustedRecipeType = AmountFields<
   BaseRecipeType,
   RecipeAmountFieldNames
 > & {
+  EquipmentProfile?: Partial<EquipmentProfile> | null;
   owner: Partial<BaseUser>;
   style?: Partial<Style> | null;
   origin?: BaseRecipeType;

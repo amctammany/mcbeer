@@ -49,6 +49,7 @@ export default function SubstitutesSection() {
   const handleRemove: MouseEventHandler<any> = (e) => {
     const index = e.currentTarget.dataset.index;
     console.log(index);
+    remove(index);
   };
 
   const s = useContext(IngredientContext);
