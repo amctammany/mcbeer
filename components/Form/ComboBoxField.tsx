@@ -92,7 +92,9 @@ export function ComboBoxField<T extends FieldValues>({
             orientation={orientation}
             data-invalid={fieldState.invalid}
           >
-            <FieldContent className="relative grid w-full gap-2">
+            <FieldContent
+              className={label ? "relative grid w-full gap-2" : "hidden"}
+            >
               <FieldLabel htmlFor={id}>{label ?? ""}</FieldLabel>
               <FieldDescription>{description ?? ""}</FieldDescription>
             </FieldContent>

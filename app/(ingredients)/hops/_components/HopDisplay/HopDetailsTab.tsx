@@ -20,8 +20,8 @@ export default function HopDetailsTab({ src }: HopDetailsTabProps) {
       <Prop label="Characteristics" value={src.characteristics} />
       <Label label="Substitutes">
         <List>
-          {(src.substitutesString ?? []).map((sub) => (
-            <HopSubstituteListItem key={sub} src={sub} />
+          {(src.substitutes ?? []).map((sub) => (
+            <HopSubstituteListItem key={sub.id} src={sub} />
           ))}
         </List>
       </Label>

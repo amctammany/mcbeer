@@ -29,6 +29,7 @@ export interface HopType extends BaseHopType {
   owner?: Partial<BaseUser>;
   origin?: BaseHopType;
   hopInventoryItems: HopInventoryItem[];
+  substitutes?: BaseHopType[];
   forks?: BaseHopType[];
 }
 type HopAmountFieldNames =
@@ -62,6 +63,7 @@ export interface HopInputType extends Omit<
   "substitutesString"
 > {
   substitutesString: { text: string }[];
+  substitutes?: BaseHopType[];
 }
 export interface BaseYeastType extends Omit<
   OptionalNullable<Yeast>,

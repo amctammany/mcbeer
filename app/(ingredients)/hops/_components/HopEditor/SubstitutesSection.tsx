@@ -1,5 +1,6 @@
 "use client";
 import IconButton from "@/components/Button/IconButton";
+import { ComboBoxField } from "@/components/Form/ComboBoxField";
 import List from "@/components/Form/List/List";
 import ListItem from "@/components/Form/List/ListItem";
 import ListItemContent from "@/components/Form/List/ListItemContent";
@@ -8,9 +9,10 @@ import ListItemIcon from "@/components/Form/List/ListItemIcon";
 import ListItemMenu from "@/components/Form/List/ListItemMenu";
 import { TextField } from "@/components/Form/TextField";
 import Section from "@/components/Section";
+import { IngredientContext } from "@/contexts/IngredientContext";
 import { AdjustedHopType, HopInputType } from "@/types/Ingredient";
 import { HopIcon, PlusIcon, XIcon } from "lucide-react";
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, use, useContext } from "react";
 import {
   useFieldArray,
   UseFieldArrayAppend,
@@ -42,12 +44,16 @@ export default function SubstitutesSection() {
   const { register, control } = useFormContext<HopInputType>();
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "substitutesString",
+    name: "substitutes",
   });
   const handleRemove: MouseEventHandler<any> = (e) => {
     const index = e.currentTarget.dataset.index;
     console.log(index);
   };
+
+  const s = useContext(IngredientContext);
+  const hops = use(s.hopPromise);
+  const opts = hops.map((h) => ({ label: h.name, value: h.id }));
   return (
     <Section
       title="Substitutes"
@@ -61,8 +67,13 @@ export default function SubstitutesSection() {
             </ListItemIcon>
             <ListItemContent>
               <ListItemDescription className="grow">
-                <TextField
-                  {...register(`substitutesString.${index}.text` as const)}
+                <ComboBoxField
+                  //   onChangeCallback={onChangeCb}
+                  orientation="responsive"
+                  name={`substitutes.${index}.id` as const}
+                  options={opts}
+
+                  //   {...register(`substitutes.${index}.text` as const)}
                 />
               </ListItemDescription>
             </ListItemContent>
