@@ -1,4 +1,4 @@
-import type { HopType } from "@/types/Ingredient";
+import type { AdjustedHopType, HopType } from "@/types/Ingredient";
 import React, { Suspense } from "react";
 import dynamic from "next/dynamic";
 
@@ -7,7 +7,7 @@ import Card from "@/components/Card";
 import HopDetailsTab from "./HopDetailsTab";
 import HopPropertiesTab from "./HopPropertiesTab";
 export type HopDisplayProps = {
-  src: HopType;
+  src: AdjustedHopType;
   prefs?: UserPreferencesType;
 };
 export function HopDisplay({ src, prefs }: HopDisplayProps) {

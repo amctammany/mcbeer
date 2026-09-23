@@ -95,7 +95,7 @@ export function TextField<T extends FieldValues>({
         orientation={orientation}
         data-invalid={!!fieldState.error}
       >
-        <FieldContent className="grid w-full gap-2 ">
+        <FieldContent className={label ? "grid w-full gap-2 " : "hidden"}>
           <FieldLabel htmlFor={id}>{label}</FieldLabel>
 
           <FieldDescription>{description}</FieldDescription>

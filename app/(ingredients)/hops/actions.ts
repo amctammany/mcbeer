@@ -20,7 +20,7 @@ export async function createHop(
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const r = reduceUnits(v.data) as BaseHopType;
+  const { substitutesString, ...r } = reduceUnits(v.data);
   /**
    * 
   const { tempRange, ...adj } = adjustUnits({
@@ -32,7 +32,11 @@ export async function createHop(
   });
    */
   const res = await prisma.hop.create({
-    data: { ...r, slug: slugify(v.data.name) },
+    data: {
+      ...(r as BaseHopType),
+      substitutesString: substitutesString.map(({ text }) => text),
+      slug: slugify(v.data.name),
+    },
   });
   updateTag("hops");
   return redirect(`/hops/${res.slug}`);
@@ -53,7 +57,7 @@ export async function updateHop(
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const r = reduceUnits(v.data) as BaseHopType;
+  const { substitutesString, ...r } = reduceUnits(v.data);
   /**
    * 
   const adj = adjustUnits({
@@ -70,7 +74,11 @@ export async function updateHop(
     where: {
       id: v.data.id,
     },
-    data: { ...r, slug: slugify(v.data.name) },
+    data: {
+      ...(r as BaseHopType),
+      substitutesString: substitutesString.map(({ text }) => text),
+      slug: slugify(v.data.name),
+    },
   });
   revalidatePath(`/hops/${res.slug}`);
   return redirect(`/hops/${res.slug}`);

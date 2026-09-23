@@ -57,6 +57,12 @@ type HopAmountFieldNames =
   | "farneseneLow"
   | "farneseneHigh";
 export type AdjustedHopType = AmountFields<HopType, HopAmountFieldNames>;
+export interface HopInputType extends Omit<
+  AdjustedHopType,
+  "substitutesString"
+> {
+  substitutesString: { text: string }[];
+}
 export interface BaseYeastType extends Omit<
   OptionalNullable<Yeast>,
   "id" | "userId"

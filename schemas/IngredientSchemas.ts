@@ -59,6 +59,7 @@ export const hopSchema = zfd.formData({
   flavor: zfd.text(z.string().optional()),
   purpose: zfd.text(z.string().optional()),
   notes: zfd.text(z.string().optional()),
+  substitutesString: zfd.repeatableOfType(z.object({ text: z.string() })),
 });
 
 export const yeastSchema = zfd.formData({

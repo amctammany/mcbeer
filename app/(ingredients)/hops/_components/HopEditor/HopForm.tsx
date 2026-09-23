@@ -2,6 +2,7 @@
 import AmountField from "@/components/Form/AmountField";
 import { ComboBoxField } from "@/components/Form/ComboBoxField";
 import Form from "@/components/Form/Form";
+import { Label } from "@/components/Form/Label";
 import RangeField from "@/components/Form/RangeField";
 import { TextAreaField } from "@/components/Form/TextAreaField";
 import { TextField } from "@/components/Form/TextField";
@@ -16,13 +17,14 @@ import {
 } from "@/components/ui/card";
 import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { HopMask } from "@/lib/Converter/Masks";
-import { AdjustedHopType, HopType } from "@/types/Ingredient";
+import { AdjustedHopType, HopInputType, HopType } from "@/types/Ingredient";
 import { useActionState } from "react";
 import {
   type FieldValues,
   type FieldPath,
   useFormContext,
 } from "react-hook-form";
+import SubstitutesSection from "./SubstitutesSection";
 
 type RangeProp<T extends FieldValues> = {
   name: FieldPath<T>;
@@ -65,12 +67,15 @@ export function HopFormContainer({
   //   form.setValue as any
   // );
   // const [state, formAction] = useActionState<any, FormData>(action, null);
-  console.log(action, src);
-
+  // console.log(action, src);
+  const s: HopInputType = {
+    ...src,
+    substitutesString: src.substitutesString.map((text) => ({ text })),
+  };
   return (
     <Form
       action={action}
-      src={src}
+      src={s}
       // formProps={{ defaultValues: src, errors: state?.errors }}
     >
       {children}
@@ -100,7 +105,9 @@ export function HopForm({ countries, src }: HopFormProps) {
           }))}
         />
         <TextAreaField name="notes" label="Notes" />
+        <TextAreaField name="characteristics" label="Characteristics" />
       </Section>
+      <SubstitutesSection />
       <Section title="Ranges">
         <div className="*:p-0 *:border-b-2">
           {rangeFields.map((field) => (
