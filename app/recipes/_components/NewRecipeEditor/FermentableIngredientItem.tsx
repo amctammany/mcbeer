@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { IngredientContext } from "@/contexts/IngredientContext";
 import { RevisionContext } from "@/contexts/RevisionContext";
+import { FermentableIngredientUsage } from "@/generated/prisma/enums";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
 import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
 import {
@@ -167,7 +168,7 @@ export default function FermentableIngredientItem({
   const fermentables = React.use(ctx.fermentablePromise);
   const fermentable = fermentables.find((h) => h.id === src.fermentableId);
   const handleDuplicate = () => actions.duplicate?.(index);
-  const handleSubstitute = () => actions.duplicate?.(index);
+  const handleSubstitute = () => actions.substitute?.(index);
 
   const handleRemove = () => {
     // console.log(actions.remove);
@@ -183,43 +184,46 @@ export default function FermentableIngredientItem({
       <input
         type="hidden"
         {...form.register(`fermentableIngredients.${index}.id`)}
-        value={src.id}
+        value={src.id ?? ""}
       />
       <input
         type="hidden"
         {...form.register(`fermentableIngredients.${index}.fermentableId`)}
-        value={src.fermentableId}
+        value={src.fermentableId ?? ""}
       />
       <input
         type="hidden"
+        // name={`fermentableIngredients.${index}.usage`}
         {...form.register(`fermentableIngredients.${index}.usage`)}
-        value={src.usage}
+        value={src.usage ?? "Mash"}
       />
 
       <input
         type="hidden"
+        // name={`fermentableIngredients.${index}.recipeId`}
         {...form.register(`fermentableIngredients.${index}.recipeId`)}
-        value={src.recipeId}
+        value={src.recipeId ?? ""}
       />
       <input
         type="hidden"
+        // name={`fermentableIngredients.${index}.amount.value`}
         {...form.register(`fermentableIngredients.${index}.amount.value`)}
-        value={src?.amount.value}
+        value={src?.amount.value ?? 0}
       />
       <input
         type="hidden"
         {...form.register(`fermentableIngredients.${index}.amount.unit`)}
-        value={src?.amount.unit}
+        value={src?.amount.unit ?? ""}
       />
       <input
         type="hidden"
         {...form.register(`fermentableIngredients.${index}.color.value`)}
-        value={src?.color?.value}
+        value={src?.color?.value ?? 0}
       />
       <input
         type="hidden"
         {...form.register(`fermentableIngredients.${index}.color.unit`)}
-        value={src?.color?.unit}
+        value={src?.color?.unit ?? ""}
       />
       <input
         type="hidden"

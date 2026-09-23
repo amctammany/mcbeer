@@ -28,7 +28,7 @@ const timeConverter: Record<TimeUnit, ConversionType> = {
   days: 60 * 24,
 };
 const colorConverter: Record<UserColorPreference, ConversionType> = {
-  L: 1,
+  "°L": 1,
   EBC: 12,
   SRM: 100,
 };
@@ -142,8 +142,10 @@ export function Converter(value: number, from: UnitNames, to?: UnitNames) {
   const group = UnitDict[from];
   const base = BASE_UNITS[group];
   const _to = to ?? base;
-  if (UnitDict[_to] !== group)
+  if (UnitDict[_to] !== group) {
+    console.log({ group, base, to, from, value });
     throw new Error("Cannot convert between two different measurements");
+  }
   const convert = converters[group];
 
   if (!convert) throw new Error("Converter not available");

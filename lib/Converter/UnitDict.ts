@@ -50,7 +50,7 @@ export const BASE_UNITS = {
   yeastMass: UserMassPreference.g,
   fermentableMass: UserMassPreference.Lb,
   temperature: UserTemperaturePreference.F,
-  color: UserColorPreference.L,
+  color: UserColorPreference["°L"],
   pressure: UserPressurePreference.PSI,
   gravity: UserGravityPreference.Brix,
   volume: UserVolumePreference.L,

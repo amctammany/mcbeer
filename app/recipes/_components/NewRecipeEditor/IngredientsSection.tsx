@@ -66,13 +66,15 @@ function makeActions({
   return {
     remove: () => fieldArray.remove(src.index),
     substitute: openModal({
-      type: "hop",
+      type: modalType,
       index: src.index,
+      mode: "SUBSTITUTE",
       // id: src.id,
     }),
     duplicate: openModal({
-      type: "hop",
+      type: modalType,
       id: src.id,
+      mode: "DUPLICATE",
     }),
 
     // const { id, _id, ...dupe } = hopIngArray.fields[i.index];
@@ -96,7 +98,11 @@ function IngredientsSectionToolbar(
         ></DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem
-            onClick={handleDialogOpen({ type: "hop", id: undefined })}
+            onClick={handleDialogOpen({
+              type: "hop",
+              id: undefined,
+              mode: "CREATE",
+            })}
             id="hop"
           >
             <HopIcon />
@@ -218,7 +224,12 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
               key={i._id}
               index={i.index}
               src={i}
-              onClick={handleClick({ type: "hop", id: i.id, index: i.index })}
+              onClick={handleClick({
+                type: "hop",
+                id: i.id,
+                index: i.index,
+                mode: "EDIT",
+              })}
               actions={makeActions({
                 fieldArray: hopIngArray,
                 modalType: "hop",
@@ -245,6 +256,7 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
               })}
               onClick={handleClick({
                 type: "fermentable",
+                mode: "EDIT",
                 id: i._id,
                 index: i.index,
               })}
@@ -261,7 +273,12 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
               src: i,
               openModal: handleClick,
             })}
-            onClick={handleClick({ type: "yeast", id: i._id, index })}
+            onClick={handleClick({
+              mode: "EDIT",
+              type: "yeast",
+              id: i._id,
+              index,
+            })}
           />
         ))}
       </List>
