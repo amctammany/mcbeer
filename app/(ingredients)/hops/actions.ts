@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 import slugify from "@/lib/slugify";
 import { validateSchema } from "@/lib/validateSchema";
 import { hopSchema } from "@/schemas/IngredientSchemas";
-import { BaseHopType } from "@/types/Ingredient";
+import { BaseHopType, HopType } from "@/types/Ingredient";
 import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -20,7 +20,7 @@ export async function createHop(
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const { substitutesString, ...r } = reduceUnits(v.data);
+  const { substitutesString, substitutes: subs, ...r } = reduceUnits(v.data);
   /**
    * 
   const { tempRange, ...adj } = adjustUnits({
@@ -33,15 +33,15 @@ export async function createHop(
    */
   const subNames = substitutesString.map(({ text }) => text);
 
-  const subs = await prisma.hop.findMany({
-    where: {
-      name: { in: subNames },
-    },
-    select: {
-      name: true,
-      id: true,
-    },
-  });
+  // const subs1 = await prisma.hop.findMany({
+  //   where: {
+  //     name: { in: subNames },
+  //   },
+  //   select: {
+  //     name: true,
+  //     id: true,
+  //   },
+  // });
   const res = await prisma.hop.create({
     data: {
       ...(r as BaseHopType),
@@ -73,7 +73,7 @@ export async function updateHop(
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const { substitutesString, ...r } = reduceUnits(v.data);
+  const { substitutesString, substitutes: subs, ...r } = reduceUnits(v.data);
   /**
    * 
   const adj = adjustUnits({
@@ -88,16 +88,16 @@ export async function updateHop(
    */
   const subNames = substitutesString.map(({ text }) => text);
 
-  const subs = await prisma.hop.findMany({
-    where: {
-      name: { in: subNames },
-    },
-    select: {
-      name: true,
-      id: true,
-    },
-  });
-  console.log(subs);
+  // const subs = await prisma.hop.findMany({
+  //   where: {
+  //     name: { in: subNames },
+  //   },
+  //   select: {
+  //     name: true,
+  //     id: true,
+  //   },
+  // });
+  // console.log(subs);
   const res = await prisma.hop.update({
     where: {
       id: v.data.id,

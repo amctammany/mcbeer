@@ -90,25 +90,27 @@ export type HopFormProps = {
 export function HopForm({ countries, src }: HopFormProps) {
   const { register, control } = useFormContext<HopInputType>();
   return (
-    <div className="m-0 lg:m-2 lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid  lg:grid-cols-4">
-      <input type="hidden" {...register("id")} />
-      <input type="hidden" {...register("userId")} />
-      <Section title="General">
-        <TextField name="name" label="Name" />
-        <TextAreaField name="description" label="Description" />
-        <ComboBoxField
-          name="country"
-          label="Country"
-          options={countries.map((country) => ({
-            value: country,
-            label: country,
-          }))}
-        />
-        <TextAreaField name="notes" label="Notes" />
-        <TextAreaField name="characteristics" label="Characteristics" />
-      </Section>
-      <SubstitutesSection />
-      <Section title="Ranges" className="lg:col-span-2">
+    <div className="m-0 lg:m-2 lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid  lg:grid-cols-2">
+      <div className="*:mb-4">
+        <Section title="General">
+          <input type="hidden" {...register("id")} />
+          <input type="hidden" {...register("userId")} />
+          <TextField name="name" label="Name" />
+          <TextAreaField name="description" label="Description" />
+          <ComboBoxField
+            name="country"
+            label="Country"
+            options={countries.map((country) => ({
+              value: country,
+              label: country,
+            }))}
+          />
+          <TextAreaField name="notes" label="Notes" />
+          <TextAreaField name="characteristics" label="Characteristics" />
+        </Section>
+        <SubstitutesSection />
+      </div>
+      <Section title="Ranges">
         <div className="*:p-0 *:border-b-2">
           {rangeFields.map((field) => (
             <div className="lg:grid lg:grid-cols-3" key={field.name}>

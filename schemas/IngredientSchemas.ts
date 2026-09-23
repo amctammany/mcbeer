@@ -40,6 +40,7 @@ export const fermentableSchema = zfd.formData({
 });
 export const hopSchema = zfd.formData({
   id: zfd.text(z.string().optional()),
+  userId: zfd.text(z.string().optional()),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
   country: zfd.text(z.string().optional()),
@@ -48,18 +49,57 @@ export const hopSchema = zfd.formData({
   alphaLow: unitValueSchema(z.number().min(0).max(1000).optional()).nullable(),
   alphaHigh: unitValueSchema(z.number().min(0).max(1000).optional()).nullable(),
   beta: unitValueSchema(z.number().min(0).max(40).optional()).nullable(),
+  betaLow: unitValueSchema(z.number().min(0).max(1000).optional()).nullable(),
+  betaHigh: unitValueSchema(z.number().min(0).max(1000).optional()).nullable(),
   caryophyllene: unitValueSchema(
     z.number().min(0).max(40).optional(),
   ).nullable(),
+  caryophylleneLow: unitValueSchema(
+    z.number().min(0).max(1000).optional(),
+  ).nullable(),
+  caryophylleneHigh: unitValueSchema(
+    z.number().min(0).max(1000).optional(),
+  ).nullable(),
   cohumulone: unitValueSchema(z.number().min(0).max(80).optional()).nullable(),
+  cohumuloneLow: unitValueSchema(
+    z.number().min(0).max(1000).optional(),
+  ).nullable(),
+  cohumuloneHigh: unitValueSchema(
+    z.number().min(0).max(1000).optional(),
+  ).nullable(),
   farnesene: unitValueSchema(z.number().min(0).max(50).optional()).nullable(),
+  farneseneLow: unitValueSchema(
+    z.number().min(0).max(1000).optional(),
+  ).nullable(),
+  farneseneHigh: unitValueSchema(
+    z.number().min(0).max(1000).optional(),
+  ).nullable(),
   humulene: unitValueSchema(z.number().min(0).max(80).optional()).nullable(),
+  humuleneLow: unitValueSchema(
+    z.number().min(0).max(1000).optional(),
+  ).nullable(),
+  humuleneHigh: unitValueSchema(
+    z.number().min(0).max(1000).optional(),
+  ).nullable(),
   myrcene: unitValueSchema(z.number().min(0).max(90).optional()).nullable(),
-  totalOil: unitValueSchema(z.number().min(0).max(140).optional()).nullable(),
+  myrceneLow: unitValueSchema(
+    z.number().min(0).max(1000).optional(),
+  ).nullable(),
+  myrceneHigh: unitValueSchema(
+    z.number().min(0).max(1000).optional(),
+  ).nullable(),
+  totalOil: unitValueSchema(z.number().min(0).max(240).optional()).nullable(),
+  totalOilLow: unitValueSchema(
+    z.number().min(0).max(1000).optional(),
+  ).nullable(),
+  totalOilHigh: unitValueSchema(
+    z.number().min(0).max(1000).optional(),
+  ).nullable(),
   flavor: zfd.text(z.string().optional()),
   purpose: zfd.text(z.string().optional()),
   notes: zfd.text(z.string().optional()),
   substitutesString: zfd.repeatableOfType(z.object({ text: z.string() })),
+  substitutes: zfd.repeatableOfType(z.object({ id: z.string() })),
 });
 
 export const yeastSchema = zfd.formData({
