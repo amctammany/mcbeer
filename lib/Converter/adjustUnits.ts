@@ -171,6 +171,7 @@ export function reduceUnits<T extends FieldValues>(
   precision: number = 4,
 ) {
   const res = Object.entries(src).reduce((acc, [k, v]) => {
+    console.log({ k, v, p: acc[k] });
     acc[k as keyof T] = isUnitValue(v)
       ? Converter(v.value, v.unit, getBaseUnit(v.unit))
       : // ? convertUnit({

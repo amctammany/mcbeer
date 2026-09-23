@@ -60,8 +60,8 @@ export default function RangeField<T extends FieldValues>({
   const preferenceContext = useContext(UserPreferencesContext);
   const { register } = useFormContext();
   const revisionContext = useContext(RevisionContext);
-  const onValueChange = useCallback(
-    (cb: (newValue: any) => void) => (newValue: any) => {
+  const onBlur = useCallback(
+    (newValue: any) => {
       revisionContext?.update({
         type: "SET",
         payload: {
@@ -71,7 +71,7 @@ export default function RangeField<T extends FieldValues>({
         },
       });
       console.log({ name, value, newValue });
-      cb(newValue);
+      // cb(newValue);
     },
     [name, revisionContext, value],
   );
@@ -115,7 +115,8 @@ export default function RangeField<T extends FieldValues>({
                 max={max}
                 value={field.value}
                 ref={field.ref}
-                onValueChange={onValueChange(field.onChange)}
+                onValueChange={field.onChange}
+                onValueCommitted={onBlur}
               />
               <span className="font-bold m-auto">{max}</span>
             </div>

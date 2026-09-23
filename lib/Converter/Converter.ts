@@ -130,15 +130,18 @@ function makeConverter(src: ConverterDict) {
   );
 }
 export function getUnitGroup(unit: UnitNames): UnitTypes {
+  if (unit === undefined) return unit;
   const group = UnitDict[unit];
   if (!group) throw new Error(`Unit ${unit} not found in UnitDict`);
   return group;
 }
 export function getBaseUnit(unit: UnitNames): UnitNames {
+  if (unit === undefined) return unit;
   const group = getUnitGroup(unit);
   return BASE_UNITS[group];
 }
 export function Converter(value: number, from: UnitNames, to?: UnitNames) {
+  if (value === undefined) return value;
   const group = UnitDict[from];
   const base = BASE_UNITS[group];
   const _to = to ?? base;
