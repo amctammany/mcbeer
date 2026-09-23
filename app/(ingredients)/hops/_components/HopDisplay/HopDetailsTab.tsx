@@ -12,20 +12,26 @@ export type HopDetailsTabProps = {
 };
 export default function HopDetailsTab({ src }: HopDetailsTabProps) {
   return (
-    <Section title="Details" className="block lg:grid-cols-1 ">
-      <Prop variant="inline" label="Name" value={src.name} />
-      <Prop variant="inline" label="Description" value={src.description} />
-      <Prop variant="inline" label="Country" value={src.country} />
-      <Prop label="Usage" variant="inline" value={src.usage} />
-      <Prop label="Characteristics" value={src.characteristics} />
-      <Label label="Substitutes">
+    <div className="*:mb-4">
+      <Section title="Details" className="block lg:grid-cols-1 ">
+        <Prop variant="inline" label="Name" value={src.name} />
+        <Prop variant="inline" label="Description" value={src.description} />
+        <Prop variant="inline" label="Country" value={src.country} />
+        <Prop label="Usage" variant="inline" value={src.usage} />
+        <Prop label="Characteristics" value={src.characteristics} />
+        <Prop
+          className={src.substitutesString.length > 0 ? "block" : "hidden"}
+          label="Not Found Subs"
+          value={src.substitutesString}
+        />
+      </Section>
+      <Section title="Substitutes">
         <List>
           {(src.substitutes ?? []).map((sub) => (
             <HopSubstituteListItem key={sub.id} src={sub} />
           ))}
         </List>
-      </Label>
-      <Prop label="Not Found Subs" value={src.substitutesString} />
-    </Section>
+      </Section>
+    </div>
   );
 }

@@ -28,11 +28,14 @@ export default function HopIngredientModal({
   const s = useContext(IngredientContext);
   const revisionContext = useContext(RevisionContext);
   const f = useFormContext();
-  const fields = useFieldArray({ name: "hopIngredients", control: f.control });
-  const hopIngredients = useWatch({
+  const { fields, append, update } = useFieldArray({
     name: "hopIngredients",
     control: f.control,
   });
+  // const hopIngredients = useWatch({
+  //   name: "hopIngredients",
+  //   control: f.control,
+  // });
   // console.log(revisionContext);
   const d = useContext(ModalContext);
   const handleClose = d.handleOpenChange;
@@ -47,7 +50,7 @@ export default function HopIngredientModal({
   const onSubmit = (data: any) => {
     console.log("submitHopIng", data, f.getValues());
     if (tIndex !== undefined && tIndex >= 0) {
-      const old = hopIngredients[tIndex];
+      const old = fields[tIndex];
       // const newValue = old.map((d: { id: any }, index: any) =>
       // d.id === tid ? data : d,
       // );
@@ -60,7 +63,7 @@ export default function HopIngredientModal({
         },
       });
       // f.setValue(`hopIngredients`, newValue);
-      fields.update(tIndex, data);
+      update(tIndex, data);
     } else {
       const old = f.getValues(`hopIngredients`);
       const newValue = [...old, data];
@@ -85,7 +88,7 @@ export default function HopIngredientModal({
     >
       <HopIngredientFormContainer
         index={tIndex}
-        action={currentIngredient.id ? fields.update : fields.append}
+        action={currentIngredient.id ? update : append}
         onSubmit={onSubmit}
         src={currentIngredient}
       >
