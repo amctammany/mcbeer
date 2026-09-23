@@ -33,7 +33,7 @@ const schema = zfd.formData({
     temperature: z.enum(UserTemperaturePreference).default("F"),
     volume: z.enum(UserVolumePreference).default("gal"),
     pressure: z.enum(UserPressurePreference).default("PSI"),
-    color: z.enum(UserColorPreference).default("L"),
+    color: z.enum(UserColorPreference).default("°L"),
     gravity: z.enum(UserGravityPreference).default("SG"),
     mass: z.enum(UserMassPreference).default("Lb"),
     hopMass: z.enum(UserMassPreference).default("Oz"),
