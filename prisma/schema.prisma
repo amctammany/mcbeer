@@ -52,7 +52,7 @@ model UserPreferences {
   timezone        String?
   fontSize        String                    @default("medium")
   massSystem      MassSystem                @default(US)
-  color           UserColorPreference       @default(L)
+  color           UserColorPreference       @default(Lovibond)
   flow            FlowUnit                  @default(gpm)
   concentration   ConcentrationUnit         @default(ppm)
   time            TimeUnit                  @default(min)
@@ -647,7 +647,7 @@ enum UserGravityPreference {
 }
 
 enum UserColorPreference {
-  L
+  Lovibond
   EBC
   SRM
 }
