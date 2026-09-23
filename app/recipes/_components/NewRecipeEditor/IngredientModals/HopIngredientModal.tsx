@@ -38,28 +38,12 @@ export default function HopIngredientModal({
   const handleClose = d.handleOpenChange;
   const hops = use(s.hopPromise);
   const opts = hops.map((h) => ({ label: h.name, value: h.id }));
-  const tid =
-    !d.triggerId || typeof d.triggerId === "string"
-      ? d.triggerId
-      : d.triggerId.id;
-  const tIndex =
-    !d.triggerId || typeof d.triggerId === "string"
-      ? undefined
-      : d.triggerId.index;
-  const currentIndex = hopIngredients.findIndex(
-    ({ id: _id }: { id?: any }) => _id && tid === _id,
-  );
-  const _currentIngredient =
-    tIndex !== undefined && tIndex >= 0 && hopIngredients[tIndex]
-      ? hopIngredients[tIndex]
-      : ({
-          recipeId: f.getValues("id"),
-          usage: $Enums.HopIngredientUsage.Boil,
-        } as any);
-  const currentIngredient =
-    tIndex === undefined && tid !== undefined
-      ? hopIngredients[currentIndex]
-      : _currentIngredient;
+  const { id: tid, index: tIndex, mode, getSource } = d.getState(fields);
+  const currentIngredient = getSource({
+    recipeId: f.getValues("id"),
+    usage: $Enums.HopIngredientUsage.Boil,
+  });
+
   const onSubmit = (data: any) => {
     console.log("submitHopIng", data, f.getValues());
     if (tIndex !== undefined && tIndex >= 0) {
@@ -108,6 +92,7 @@ export default function HopIngredientModal({
         <HopIngredientForm
           // action={currentIngredient.id ? fields.update : fields.append}
           src={currentIngredient}
+          mode={mode}
           index={tIndex}
         />
       </HopIngredientFormContainer>

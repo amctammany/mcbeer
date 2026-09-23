@@ -3,7 +3,7 @@ import AmountField from "@/components/Form/AmountField";
 import { ComboBoxField } from "@/components/Form/ComboBoxField";
 import { SelectField } from "@/components/Form/SelectField";
 import { IngredientContext } from "@/contexts/IngredientContext";
-import { ModalContext } from "@/contexts/ModalContext";
+import { ModalContext, ModalStates } from "@/contexts/ModalContext";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { $Enums, HopIngredientType } from "@/generated/prisma/browser";
 import {
@@ -109,10 +109,12 @@ export function HopIngredientFormContainer<S = unknown>({
       */
 export default function HopIngredientForm({
   src,
+  mode = "EDIT",
   // action,
   index,
 }: {
   src: Partial<AdjustedHopIngredientType>;
+  mode?: ModalStates;
   // action: any;
   index?: number;
 }) {

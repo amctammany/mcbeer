@@ -125,6 +125,7 @@ export default function FermentableIngredientModal({
       >
         <FermentableIngredientForm
           // action={currentIngredient.id ? fields.update : fields.append}
+          mode={mode}
           src={currentIngredient}
           index={tIndex}
         />

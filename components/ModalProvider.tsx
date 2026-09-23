@@ -47,7 +47,7 @@ export default function ModalProvider<
       //       : ModalState.DUPLICATE;
       const getSource = (def: any) => {
         if (!fields) return def;
-        console.log({ fields, index, id, mode });
+        // console.log({ fields, index, id, mode });
         const _current = index !== undefined ? fields[index] : def;
         const currentIndex = fields.findIndex(({ id: _id }) => _id === id);
         const current = currentIndex >= 0 ? fields[currentIndex] : _current;

@@ -6,7 +6,7 @@ import { Form } from "@/components/Form/Form";
 import { FormStateContext } from "@/contexts/FormStateContext";
 import { IngredientContext } from "@/contexts/IngredientContext";
 import { MaskContext } from "@/contexts/MaskContext";
-import { ModalContext } from "@/contexts/ModalContext";
+import { ModalContext, ModalStates } from "@/contexts/ModalContext";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
 import { $Enums } from "@/generated/prisma/browser";
 import { adjustUnits } from "@/lib/Converter/adjustUnits";
@@ -76,10 +76,12 @@ export function FermentableIngredientFormContainer<S = unknown>({
 }
 export default function FermentableIngredientForm({
   src,
+  mode,
   // action,
   index,
 }: {
   src?: Partial<AdjustedFermentableIngredientType>;
+  mode?: ModalStates;
   // action: any;
   index?: number;
 }) {
@@ -92,10 +94,10 @@ export default function FermentableIngredientForm({
   const fermentables = use(s.fermentablePromise);
   const opts = fermentables.map((h) => ({ label: h.name, value: h.id }));
   const onChangeCb = (r: any) => {
-    console.log({ src, index, r });
+    // console.log({ src, index, r });
     const h = fermentables.find(({ id }) => id === r);
     if (h) {
-      console.log(h);
+      // console.log(h);
       setValue("color.value", (h?.color ?? 1.0) * 1);
     }
     // handleClose();
@@ -147,7 +149,11 @@ export default function FermentableIngredientForm({
           </div>
         </CollapsibleContent>
       </Collapsible>
-      <IconButton type="submit" icon={SaveIcon} label="Create" />
+      <IconButton
+        type="submit"
+        icon={SaveIcon}
+        label={index !== undefined ? "Update" : "Create"}
+      />
     </div>
   );
 }
