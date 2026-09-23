@@ -31,10 +31,26 @@ export async function createHop(
     dir: false,
   });
    */
+  const subNames = substitutesString.map(({ text }) => text);
+
+  const subs = await prisma.hop.findMany({
+    where: {
+      name: { in: subNames },
+    },
+    select: {
+      name: true,
+      id: true,
+    },
+  });
   const res = await prisma.hop.create({
     data: {
       ...(r as BaseHopType),
-      substitutesString: substitutesString.map(({ text }) => text),
+      substitutesString: subNames,
+      substitutes: {
+        connect: subs.map(({ id }) => ({
+          id,
+        })),
+      },
       slug: slugify(v.data.name),
     },
   });
@@ -70,13 +86,33 @@ export async function updateHop(
   });
 
    */
+  const subNames = substitutesString.map(({ text }) => text);
+
+  const subs = await prisma.hop.findMany({
+    where: {
+      name: { in: subNames },
+    },
+    select: {
+      name: true,
+      id: true,
+    },
+  });
+  console.log(subs);
   const res = await prisma.hop.update({
     where: {
       id: v.data.id,
     },
     data: {
       ...(r as BaseHopType),
-      substitutesString: substitutesString.map(({ text }) => text),
+      substitutesString: subNames,
+
+      substitutes: {
+        connect: subs.map(({ id }) => ({
+          // where: { baseId_subId: { baseId: v.data.id!, subId: id } },
+          id,
+          // create: { baseId: v.data.id, subId: id },
+        })),
+      },
       slug: slugify(v.data.name),
     },
   });

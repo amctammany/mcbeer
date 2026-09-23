@@ -69,7 +69,7 @@ export function HopFormContainer({
   // const [state, formAction] = useActionState<any, FormData>(action, null);
   // console.log(action, src);
   const s: HopInputType = {
-    ...src,
+    ...(src as AdjustedHopType),
     substitutesString: src.substitutesString.map((text) => ({ text })),
   };
   return (
@@ -88,9 +88,9 @@ export type HopFormProps = {
   countries: string[];
 };
 export function HopForm({ countries, src }: HopFormProps) {
-  const { register, control } = useFormContext<HopType>();
+  const { register, control } = useFormContext<HopInputType>();
   return (
-    <div className="m-0 lg:m-2 lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid  lg:grid-cols-2">
+    <div className="m-0 lg:m-2 lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid  lg:grid-cols-4">
       <input type="hidden" {...register("id")} />
       <input type="hidden" {...register("userId")} />
       <Section title="General">
@@ -108,7 +108,7 @@ export function HopForm({ countries, src }: HopFormProps) {
         <TextAreaField name="characteristics" label="Characteristics" />
       </Section>
       <SubstitutesSection />
-      <Section title="Ranges">
+      <Section title="Ranges" className="lg:col-span-2">
         <div className="*:p-0 *:border-b-2">
           {rangeFields.map((field) => (
             <div className="lg:grid lg:grid-cols-3" key={field.name}>

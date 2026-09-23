@@ -22,7 +22,14 @@ export const getHops = async (args: any = {}) => {
 };
 
 export const getHop = async (slug: string) => {
-  const hop = await prisma.hop.findFirst({ where: { slug } });
+  const hop = await prisma.hop.findFirst({
+    where: { slug },
+    include: {
+      substitutes: {
+        select: { name: true, id: true, slug: true, alpha: true },
+      },
+    },
+  });
   return {
     alphaRange: [hop?.alphaLow, hop?.alphaHigh].map((n) => (n ?? 0) * 100),
     betaRange: [hop?.betaLow, hop?.betaHigh].map((n) => (n ?? 0) * 100),

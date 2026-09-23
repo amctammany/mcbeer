@@ -337,12 +337,27 @@ model Hop {
   flavor            String?
   notes             String?
   substitutesString String[]
+  // substitutes       HopSubstitution[]  @relation("substitutions")
+  substitutes       Hop[]              @relation("HopSubstitution")
+  substituteFor     Hop[]              @relation("HopSubstitution")
   styles            String[]
   userId            String?
   owner             User?              @relation(fields: [userId], references: [id])
   hopIngredients    HopIngredient[]
   hopInventoryItems HopInventoryItem[]
+  // hopSubstitution  HopSubstitution[]  @relation("substituteFor")
+  // hopSubstitutions  HopSubstitution[]
+  // hopSubstitutions  HopSubstitution[]
 }
+
+// model HopSubstitution {
+//   baseId String
+//   subId  String
+//   base   Hop    @relation("substitutions", fields: [baseId], references: [id])
+//   sub    Hop    @relation("substituteFor", fields: [subId], references: [id])
+
+//   @@id([baseId, subId])
+// }
 
 model Yeast {
   id                  String               @id @unique @default(cuid())
