@@ -25,6 +25,7 @@ export default function HopDetailsTab({ src }: HopDetailsTabProps) {
           ))}
         </List>
       </Label>
+      <Prop label="Not Found Subs" value={src.substitutesString} />
     </Section>
   );
 }

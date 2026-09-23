@@ -155,7 +155,7 @@ async function main() {
         tempHigh: (temp[1] - 32) * 0.5556,
         notes: notes[0],
         usage: notes[1],
-      })
+      }),
     ),
   });
   await prisma.hop.createMany({
@@ -233,12 +233,62 @@ async function main() {
 
         slug: slugify(hop.name),
         usage: HopUsage[usage?.toLowerCase() as HopUsage] || HopUsage.dual,
-      })
+      }),
     ),
   });
 }
 
-main()
+async function connectHops() {
+  console.log("seed!");
+  const hops = await prisma.hop.findMany({
+    select: {
+      id: true,
+      name: true,
+      substitutesString: true,
+    },
+  });
+  const hopDict = hops.reduce(
+    (acc, hop) => {
+      acc[hop.name] = hop.id;
+      return acc;
+    },
+    {} as Record<string, string>,
+  );
+  const promises = hops.map((hop) => {
+    const subs: string[] = [];
+    const notfound: string[] = [];
+    const hopsubs = hop.substitutesString.forEach((str) => {
+      if (hopDict[str]) {
+        subs.push(hopDict[str]);
+      } else {
+        notfound.push(str);
+      }
+    });
+    //  const subs =hopsubs.filter(h => !!h)
+    //  const
+    return prisma.hop.update({
+      where: { id: hop.id },
+      data: {
+        ...hop,
+        substitutesString: notfound,
+        substitutes: {
+          connect: subs.map((s) => ({ id: s })),
+        },
+      },
+      include: {
+        substitutes: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+  });
+  const res = await Promise.all(promises);
+  console.log(res);
+}
+connectHops()
   .then(async () => {
     await prisma.$disconnect();
   })
