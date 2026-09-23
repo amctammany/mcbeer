@@ -39,6 +39,13 @@ export default function VesselModal({
   // console.log(revisionContext);
   const d = useContext(ModalContext);
   const handleClose = d.handleOpenChange;
+  const { id: tid, index: tIndex, mode, getSource } = d.getState(fields);
+  const currentVessel = getSource({
+    breweryId: f.getValues("id"),
+    type: $Enums.VesselType.Fermenter,
+  });
+  /**
+   * 
   const tid =
     !d.triggerId || typeof d.triggerId === "string"
       ? d.triggerId
@@ -57,10 +64,12 @@ export default function VesselModal({
           breweryId: f.getValues("id"),
           type: $Enums.VesselType.Fermenter,
         } as any);
+   */
+  console.log({ fields, tid, tIndex, mode, currentVessel });
 
   const onSubmit = (data: any) => {
     console.log("submitVessel", data, f.getValues());
-    if (tIndex !== undefined && tIndex >= 0) {
+    if (tIndex !== null && tIndex !== undefined && tIndex >= 0) {
       const old = fields[tIndex];
       // const newValue = old.map((d: { id: any }, index: any) =>
       // d.id === tid ? data : d,

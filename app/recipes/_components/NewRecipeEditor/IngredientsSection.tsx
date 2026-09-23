@@ -52,6 +52,33 @@ import YeastIngredientItem from "./YeastIngredientItem";
 
 // const demoDialog = _Dialog.createHandle<{ text: string }>();
 
+function makeActions({
+  modalType,
+  fieldArray,
+  src,
+  openModal,
+}: {
+  modalType: string;
+  fieldArray: any;
+  src: any;
+  openModal: any;
+}) {
+  return {
+    remove: () => fieldArray.remove(src.index),
+    substitute: openModal({
+      type: "hop",
+      index: src.index,
+      // id: src.id,
+    }),
+    duplicate: openModal({
+      type: "hop",
+      id: src.id,
+    }),
+
+    // const { id, _id, ...dupe } = hopIngArray.fields[i.index];
+    // return hopIngArray.append(dupe);
+  };
+}
 function IngredientsSectionToolbar(
   {
     // handleDialogOpen,
@@ -192,20 +219,12 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
               index={i.index}
               src={i}
               onClick={handleClick({ type: "hop", id: i.id, index: i.index })}
-              actions={{
-                remove: () => hopIngArray.remove(i.index),
-                substitute: handleClick({
-                  type: "hop",
-                  id: i.id,
-                }),
-                duplicate: handleClick({
-                  type: "hop",
-                  id: i.id,
-                }),
-
-                // const { id, _id, ...dupe } = hopIngArray.fields[i.index];
-                // return hopIngArray.append(dupe);
-              }}
+              actions={makeActions({
+                fieldArray: hopIngArray,
+                modalType: "hop",
+                src: i,
+                openModal: handleClick,
+              })}
             />
           ))}
 
@@ -218,23 +237,12 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
               key={i._id}
               index={i.index}
               src={i}
-              actions={{
-                remove: () => fermentableIngArray.remove(i.index),
-                substitute: () =>
-                  handleDialogOpen({
-                    type: "fermentable",
-                    id: i._id,
-                  }),
-                duplicate: () => {
-                  handleDialogOpen({
-                    type: "fermentable",
-                    id: i._id,
-                  });
-                  // const { id, _id, ...dupe } =
-                  // fermentableIngArray.fields[i.index];
-                  // return fermentableIngArray.append(dupe);
-                },
-              }}
+              actions={makeActions({
+                fieldArray: fermentableIngArray,
+                modalType: "fermentable",
+                src: i,
+                openModal: handleClick,
+              })}
               onClick={handleClick({
                 type: "fermentable",
                 id: i._id,
@@ -247,18 +255,12 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
             key={i._id}
             index={index}
             src={i}
-            actions={{
-              remove: () => yeastIngArray.remove(i.index),
-              substitute: () =>
-                handleDialogOpen({
-                  type: "yeast",
-                  id: i._id,
-                }),
-              duplicate: () => {
-                const { id, _id, ...dupe } = yeastIngArray.fields[i.index];
-                return yeastIngArray.append(dupe);
-              },
-            }}
+            actions={makeActions({
+              fieldArray: yeastIngArray,
+              modalType: "yeast",
+              src: i,
+              openModal: handleClick,
+            })}
             onClick={handleClick({ type: "yeast", id: i._id, index })}
           />
         ))}

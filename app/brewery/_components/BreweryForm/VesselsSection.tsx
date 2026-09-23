@@ -43,7 +43,12 @@ export default function VesselsSection({ src }: { src?: AdjustedBreweryType }) {
             key={i._id}
             index={index}
             src={i}
-            onClick={handleClick({ type: "vessel", id: i._id, index })}
+            onClick={handleClick({
+              type: "vessel",
+              id: i.id,
+              index,
+              mode: "EDIT",
+            })}
             actions={{ remove: () => vesselsArray.remove(index) }}
           />
         ))}
