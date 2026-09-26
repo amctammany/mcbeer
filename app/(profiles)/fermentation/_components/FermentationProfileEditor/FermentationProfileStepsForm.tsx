@@ -14,6 +14,7 @@ import {
 import React from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import FermentationProfileStepField from "./FermentationProfileStepField";
+import Section from "@/components/Section";
 
 export function FermentationProfileStepsForm({
   src,
@@ -34,43 +35,40 @@ export function FermentationProfileStepsForm({
     };
   });
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Steps</CardTitle>
-        <CardAction>
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              append({
-                index: fields.length + 1,
-                type: "primary",
-                fermentationProfileId: src.id,
-                time: 0,
-                temperature: 0,
-                rampTime: 0,
-              });
-              return false;
-            }}
-          >
-            Add
-          </Button>
-        </CardAction>
-      </CardHeader>
-      <CardContent>
-        <ul className="*:not-last:border-b-2 gap-2 *:even:bg-blue-100/20">
-          {controlledFields.map((step, index) => (
-            <FermentationProfileStepField
-              key={step.id}
-              src={step}
-              index={index}
-              length={controlledFields.length - 1}
-              control={control}
-              swap={swap}
-              remove={remove}
-            />
-          ))}
-        </ul>
-      </CardContent>
-    </Card>
+    <Section
+      title="Steps"
+      actions={
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            append({
+              index: fields.length + 1,
+              type: "primary",
+              fermentationProfileId: src.id,
+              time: 0,
+              temperature: 0,
+              rampTime: 0,
+            });
+            return false;
+          }}
+        >
+          Add
+        </Button>
+      }
+    >
+      <ul className="*:not-last:border-b-2 gap-2 *:even:bg-blue-100/20">
+        {controlledFields.map((step, index) => (
+          <FermentationProfileStepField
+            key={step.id}
+            src={step}
+            index={index}
+            length={controlledFields.length - 1}
+            control={control}
+            swap={swap}
+            remove={remove}
+          />
+        ))}
+      </ul>
+    </Section>
   );
 }

@@ -10,6 +10,7 @@ import React, { useActionState } from "react";
 import { useFormContext } from "react-hook-form";
 import { FermentationProfileStepsForm } from "./FermentationProfileStepsForm";
 import { FermentationProfileMask } from "@/lib/Converter/Masks";
+import Section from "@/components/Section";
 export type FermentationProfileFormContainerProps<S = unknown> = {
   profile: Partial<FermentationProfileType>;
   action: (state: S, formData: FormData) => Promise<S> | S;
@@ -51,21 +52,23 @@ export function FermentationProfileForm({
     useFormContext<AdjustedFermentationProfileType>();
   return (
     <div className="m-2 p-2 gap-2 *:mb-2">
-      <input type="hidden" {...register("id")} />
-      <input type="hidden" {...register("userId")} />
-      <input type="hidden" {...register("forkedFrom")} />
-      <TextField
-        control={control}
-        {...register("name")}
-        label="Name "
-        // onBlur={updateHistory}
-      />
-      <TextField
-        control={control}
-        {...register("description")}
-        label="Description"
-        // onBlur={updateHistory}
-      />
+      <Section title="Details">
+        <input type="hidden" {...register("id")} />
+        <input type="hidden" {...register("userId")} />
+        <input type="hidden" {...register("forkedFrom")} />
+        <TextField
+          control={control}
+          {...register("name")}
+          label="Name "
+          // onBlur={updateHistory}
+        />
+        <TextField
+          control={control}
+          {...register("description")}
+          label="Description"
+          // onBlur={updateHistory}
+        />
+      </Section>
       <FermentationProfileStepsForm src={profile} />
     </div>
   );

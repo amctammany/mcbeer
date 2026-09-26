@@ -37,6 +37,7 @@ export const recipeSchema = zfd.formData({
   userId: zfd.text(),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
+  forkedFrom: zfd.text(z.string().optional()),
   mashProfileId: zfd.text(z.string().optional()),
   waterProfileId: zfd.text(z.string().optional()),
   styleId: zfd.numeric(z.number().optional()),

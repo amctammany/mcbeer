@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "Recipe" ADD COLUMN     "bicarbonate" INTEGER DEFAULT 0,
+ADD COLUMN     "calcium" INTEGER DEFAULT 0,
+ADD COLUMN     "chloride" INTEGER DEFAULT 0,
+ADD COLUMN     "magnesium" INTEGER DEFAULT 0,
+ADD COLUMN     "sodium" INTEGER DEFAULT 0,
+ADD COLUMN     "sulfate" INTEGER DEFAULT 0;

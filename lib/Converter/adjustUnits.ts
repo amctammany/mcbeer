@@ -2,7 +2,7 @@ import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { BASE_UNITS, UnitDict, UnitNames, UnitTypes } from "./UnitDict";
 import { FieldValues } from "react-hook-form";
 import { Converter, converters, getBaseUnit } from "./Converter";
-import { precisionRound } from "../utils";
+import { precisionRound, ReducedFields } from "../utils";
 export type UnitMaskType<T> = {
   [K in keyof T]?: UnitTypes | [UnitTypes, UnitNames] | undefined | object;
 };
@@ -187,7 +187,7 @@ export function reduceUnits<T extends FieldValues>(
         : v;
     return acc;
   }, {} as T); //Record<keyof T, T[keyof T]>);
-  return res;
+  return res as ReducedFields<T>;
 }
 export function adjustUnits<T extends FieldValues>({
   src,

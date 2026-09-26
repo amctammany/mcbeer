@@ -9,6 +9,9 @@ export function cn(...inputs: ClassValue[]) {
 export type PickNullable<T> = {
   [P in keyof T as null extends T[P] ? P : never]: T[P];
 };
+export type PickAmountFields<T> = {
+  [P in keyof T as UnitValue extends T[P] ? P : never]: T[P];
+};
 
 export type PickNotNullable<T> = {
   [P in keyof T as null extends T[P] ? never : P]: T[P];
@@ -22,6 +25,13 @@ export type OptionalNullable<T> = {
 
 export type AmountFields<S, N extends keyof S> = {
   [P in keyof S]: P extends N ? UnitValue : S[P];
+};
+export type ReducedFields<T, N = keyof PickAmountFields<T>> = {
+  [K in keyof T]: K extends N
+    ? number
+    : T[K] extends Array<infer A>
+      ? ReducedFields<A>[]
+      : T[K];
 };
 
 export function precisionRound(v: number, precision: undefined | number = 1) {

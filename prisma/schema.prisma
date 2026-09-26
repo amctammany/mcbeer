@@ -196,6 +196,7 @@ model WaterProfile {
   origin      WaterProfile?  @relation("origin", fields: [forkedFrom], references: [id])
   forks       WaterProfile[] @relation("origin")
   owner       User?          @relation(fields: [userId], references: [id])
+  recipes     Recipe[]
 }
 
 model MashProfile {
@@ -446,14 +447,22 @@ model Recipe {
   mashLoss               Float?                  @default(0)
   fermenterLoss          Float?                  @default(0)
   grainAbsorption        Float?                  @default(0.5)
+  calcium                Int?                    @default(0)
+  magnesium              Int?                    @default(0)
+  sodium                 Int?                    @default(0)
+  chloride               Int?                    @default(0)
+  sulfate                Int?                    @default(0)
+  bicarbonate            Int?                    @default(0)
   mashProfileId          String?
   ownerUsername          String?
   ownerEmail             String?
   forkedFrom             String?
   styleIdentifier        String?
   styleId                Int?
+  waterProfileId         String?
   fermentableIngredients FermentableIngredient[]
   hopIngredients         HopIngredient[]
+  WaterProfile           WaterProfile?           @relation(fields: [waterProfileId], references: [id])
   EquipmentProfile       EquipmentProfile?       @relation(fields: [equipmentProfileId], references: [id])
   origin                 Recipe?                 @relation("origin", fields: [forkedFrom], references: [id])
   forks                  Recipe[]                @relation("origin")

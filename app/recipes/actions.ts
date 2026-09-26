@@ -3,6 +3,7 @@
 import { reduceUnits } from "@/lib/Converter/adjustUnits";
 import { prisma } from "@/lib/prisma";
 import slugify from "@/lib/slugify";
+import { PickAmountFields, ReducedFields } from "@/lib/utils";
 import { validateSchema } from "@/lib/validateSchema";
 import {
   fermentableIngredientSchema,
@@ -31,17 +32,17 @@ export async function createRecipe(prev: any, formData: FormData) {
     v.data,
   ) as BaseRecipe;
    */
-  const r = reduceUnits(v.data) as RecipeType;
+  const r = reduceUnits(v.data);
   const {
     id,
     hopIngredients,
     fermentableIngredients,
     yeastIngredients,
-    EquipmentProfile,
-    owner,
-    origin,
-    forks,
-    style,
+    // EquipmentProfile,
+    // owner,
+    // origin,
+    // forks,
+    // style,
     ...data
   } = r;
   const fermentableIngredientsData = fermentableIngredients.map(({ ...d }) => ({
@@ -82,22 +83,32 @@ export async function updateRecipe(prev: any, formData: FormData) {
     v.data,
   ) as BaseRecipe;
    */
-  const r = reduceUnits(v.data) as RecipeType;
+  const r = reduceUnits(v.data);
   const {
     id,
     hopIngredients,
     yeastIngredients,
     fermentableIngredients,
-    owner,
-    EquipmentProfile,
-    origin,
-    forks,
-    style,
+    // owner,
+    mashProfileId,
+    equipmentProfileId,
+    waterProfileId,
+    // EquipmentProfile,
+    styleIdentifier,
+    forkedFrom,
+    // origin,
+    // forks,
+    userId,
+    // style,
     ...data
   } = r;
+  r.boilTime;
+  type T = keyof PickAmountFields<typeof r>;
   // console.log("updateRecipe", { data, hopIngredients, fermentableIngredients });
   const ftx = await prisma.$transaction([
-    ...fermentableIngredients.map(({ id: _id, ...d }) => {
+    ...(
+      fermentableIngredients as ReducedFields<typeof fermentableIngredients>
+    ).map(({ id: _id, ...d }) => {
       return _id
         ? prisma.fermentableIngredient.update({
             where: {
@@ -111,30 +122,34 @@ export async function updateRecipe(prev: any, formData: FormData) {
     }),
   ]);
   const ytx = await prisma.$transaction([
-    ...yeastIngredients.map(({ id: _id, ...d }) => {
-      return _id
-        ? prisma.yeastIngredient.update({
-            where: {
-              id: _id,
-            },
-            data: d,
-          })
-        : prisma.yeastIngredient.create({
-            data: { recipeId: id!, ...d },
-          });
-    }),
+    ...(yeastIngredients as ReducedFields<typeof yeastIngredients>).map(
+      ({ id: _id, ...d }) => {
+        return _id
+          ? prisma.yeastIngredient.update({
+              where: {
+                id: _id,
+              },
+              data: d,
+            })
+          : prisma.yeastIngredient.create({
+              data: { recipeId: id!, ...d },
+            });
+      },
+    ),
   ]);
   const htx = await prisma.$transaction([
-    ...hopIngredients.map(({ id: _id, ...d }) => {
-      return _id
-        ? prisma.hopIngredient.update({
-            where: {
-              id: _id,
-            },
-            data: d,
-          })
-        : prisma.hopIngredient.create({ data: { recipeId: id!, ...d } });
-    }),
+    ...(hopIngredients as ReducedFields<(typeof hopIngredients)[number]>[]).map(
+      ({ id: _id, ...d }) => {
+        return _id
+          ? prisma.hopIngredient.update({
+              where: {
+                id: _id,
+              },
+              data: d,
+            })
+          : prisma.hopIngredient.create({ data: { recipeId: id!, ...d } });
+      },
+    ),
   ]);
   // const hopIngs = await prisma.hopIngredient.upsert({
   // create: hopIngredients
@@ -162,6 +177,18 @@ export async function updateRecipe(prev: any, formData: FormData) {
           id: _id,
         })),
       },
+      // style: {
+      //   ...(styleIdentifier
+      //     ? { connect: { identifier: styleIdentifier } }
+      //     : undefined),
+      // },
+      // origin: { connect: { id: forkedFrom } },
+      // owner: {
+      //   connect: { id: userId },
+      // },
+      // MashProfile: {
+      //   connect: { id: mashProfileId },
+      // },
       ...data,
     },
     include: {
