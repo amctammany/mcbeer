@@ -6,7 +6,13 @@ import {
   FermentationStepType,
 } from "@/types/Profile";
 import clsx from "clsx";
-import { Thermometer, Timer, TriangleRight } from "lucide-react";
+import {
+  BookTypeIcon,
+  Thermometer,
+  Timer,
+  TriangleRight,
+  TriangleRightIcon,
+} from "lucide-react";
 import React from "react";
 
 export type FermentationStepListItemProps = {
@@ -27,29 +33,28 @@ export default function FermentationStepListItem({
           <Prop label="Name" variant="inline">
             {src.name ?? src.type}
           </Prop>
-          <Prop
-            label="Type"
-            variant="inline"
-            className={clsx({ hidden: !src.name })}
-          >
-            {src.type}
-          </Prop>
         </div>
         <div className="grow grid grid-flow-col auto-cols-auto gap-2 justify-items-stretch">
           <BadgeProp
-            Icon={<Thermometer />}
+            Icon={<Thermometer size={10} />}
             name="steps.temperature"
             text={src.temperature.value}
             unit={src.temperature.unit}
           />
           <BadgeProp
-            Icon={<Timer />}
+            name="steps.type"
+            Icon={<BookTypeIcon size={10} />}
+            text={src.type}
+          />
+
+          <BadgeProp
+            Icon={<Timer size={10} />}
             text={src.time.value}
             unit={src.time.unit}
             name="steps.time"
           />
           <BadgeProp
-            Icon={<TriangleRight />}
+            Icon={<TriangleRight size={10} />}
             name="steps.rampTime"
             text={src.rampTime.value}
             unit={src.rampTime.unit}
