@@ -24,14 +24,16 @@ export interface FermentationStepType extends Omit<
 }
 export type BaseFermentationProfile = Omit<
   OptionalNullable<FermentationProfile>,
-  "id" | "userId" | "steps" | "name" | "slug"
+  "id" | "userId" | "forkedFrom" | "steps" | "name" | "slug"
 > & {
   name?: string;
   slug?: string;
   id?: string;
   userId?: string;
+  forkedFrom?: string;
   steps?: FermentationStepType[];
 };
+const t = {} as BaseFermentationProfile;
 export interface FermentationProfileType extends BaseFermentationProfile {
   owner?: Partial<BaseUser>;
   origin?: BaseFermentationProfile;

@@ -8,11 +8,15 @@ import { redirect } from "next/navigation";
 import { fermentationProfileSchema } from "@/schemas/ProfileSchemas";
 import { revalidatePath } from "next/cache";
 import { FermentationProfileMask } from "@/lib/Converter/Masks";
-import { BaseFermentationProfile, FermentationStepType } from "@/types/Profile";
+import {
+  BaseFermentationProfile,
+  FermentationProfileType,
+  FermentationStepType,
+} from "@/types/Profile";
 export async function createFermentationProfile(
   // prefs: UserPreferencesType,
   prev: any,
-  formData: FormData
+  formData: FormData,
 ) {
   const v = validateSchema(formData, fermentationProfileSchema);
   // console.log(v.errors);
@@ -20,7 +24,7 @@ export async function createFermentationProfile(
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const { steps, ...r } = reduceUnits(v.data) as BaseFermentationProfile;
+  const { steps, forkedFrom, userId, ...r } = reduceUnits(v.data);
 
   /** 
   const { steps, ...adj } = adjustUnits({
@@ -34,7 +38,9 @@ export async function createFermentationProfile(
   const res = await prisma.fermentationProfile.create({
     data: {
       ...r,
-      steps: { createMany: { data: steps ?? [] } },
+      origin: { connect: { id: forkedFrom } },
+      owner: { connect: { id: userId } },
+      steps: { createMany: { data: (steps ?? []) as FermentationStepType[] } },
       slug: slugify(v.data.name),
     },
   });
@@ -46,7 +52,7 @@ export async function createFermentationProfile(
 export async function updateFermentationProfile(
   // prefs: UserPreferencesType,
   prev: any,
-  formData: FormData
+  formData: FormData,
 ) {
   const v = validateSchema(formData, fermentationProfileSchema);
   if (v.errors) console.log(v);
@@ -54,7 +60,7 @@ export async function updateFermentationProfile(
   if (!v.success) {
     return Promise.resolve(v);
   }
-  const { steps, ...r } = reduceUnits(v.data) as BaseFermentationProfile;
+  const { steps, ...r } = reduceUnits(v.data);
   /**
   const adj = adjustUnits({
     src: v.data,
@@ -77,7 +83,7 @@ export async function updateFermentationProfile(
           create: { ...d, fermentationProfileId: r.id! },
           update: d,
         });
-      })
+      }),
     );
   });
   const res = await prisma.fermentationProfile.update({
