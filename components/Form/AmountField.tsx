@@ -78,6 +78,12 @@ const amountFieldStyles = cva(
   },
 );
 
+function getUnitText(unit: UnitNames) {
+  if (unit === "percent") return "%";
+  if (unit === "number") return "";
+  if (unit === "Lovibond") return "°L";
+  return unit;
+}
 export function AmountField<T extends FieldValues>({
   name,
   label,
@@ -205,7 +211,7 @@ export function AmountField<T extends FieldValues>({
             className="w-4 md:w-6 mr-2"
             align="inline-end"
           >
-            <InputGroupText>{_u === "percent" ? "%" : _u}</InputGroupText>
+            <InputGroupText>{getUnitText(_u)}</InputGroupText>
           </InputGroupAddon>
         </InputGroup>
         <FieldError>{error?.message}</FieldError>

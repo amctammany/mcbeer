@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -28,31 +29,33 @@ export function HopsTableRowActions<T>({ row }: CellContext<T, unknown>) {
         }
       ></DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuItem
-          render={
-            <Link
-              href={
-                `/hops/${slugify(row.getValue("name"), {
-                  lower: true,
-                })}/fork` as Route
-              }
-            >
-              <span>Fork</span>
-            </Link>
-          }
-        ></DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          render={
-            <RemoveButton
-              name="slug"
-              id={slugify(row.getValue("name"), { lower: true })}
-              // eslint-disable-next-line
-              action={(e: any) => console.log(e)}
-            />
-          }
-        ></DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem
+            render={
+              <Link
+                href={
+                  `/hops/${slugify(row.getValue("name"), {
+                    lower: true,
+                  })}/fork` as Route
+                }
+              >
+                <span>Fork</span>
+              </Link>
+            }
+          ></DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            render={
+              <RemoveButton
+                name="slug"
+                id={slugify(row.getValue("name"), { lower: true })}
+                // eslint-disable-next-line
+                action={(e: any) => console.log(e)}
+              />
+            }
+          ></DropdownMenuItem>
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );

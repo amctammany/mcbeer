@@ -77,8 +77,8 @@ export function FermentableForm({
 }: FermentableFormProps) {
   const { register, control } = useFormContext<FermentableType>();
   return (
-    <div>
-      <div className="lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid  lg:grid-cols-2 lg:col-span-2 max-w-3xl mx-auto">
+    <div className="lg:p-2 lg:gap-2 *:mb-1 *:px-2 grid  lg:grid-cols-2 lg:col-span-2 max-w-3xl mx-auto">
+      <Section title="General">
         <input type="hidden" {...register("id")} />
         <input type="hidden" {...register("userId")} />
         <input type="hidden" {...register("forkedFrom")} />
@@ -112,84 +112,85 @@ export function FermentableForm({
           control={control}
           className="col-span-2"
         />
-        <Section title="Properties">
-          <div className="grid grid-cols-2 gap-1">
-            <AmountField
-              amountType="percent"
-              name="maxUsage"
-              step="0.1"
-              type="percent"
-              label="Max Usage"
-            />
-            <AmountField name="price" step="0.1" type="number" label="Price" />
-            <AmountField
-              name="potential"
-              step="0.001"
-              type="number"
-              label="Potential"
-              amountType="gravity"
-              unit="PPG"
-            />
-            <AmountField
-              name="yield"
-              step="0.01"
-              type="number"
-              label="Yield"
-              amountType="percent"
-            />
-            <AmountField
-              name="color"
-              step="0.01"
-              type="number"
-              label="Color"
-              amountType="color"
-            />
-            <AmountField
-              name="protein"
-              step="0.01"
-              type="number"
-              label="Protein"
-              amountType="percent"
-            />
-            <AmountField
-              name="coarseFineDiff"
-              step="0.01"
-              type="number"
-              label="Coarse Fine Diff"
-              amountType="percent"
-            />
-            <AmountField
-              name="extract"
-              step="0.01"
-              type="number"
-              label="Extract"
-              amountType="percent"
-            />
+      </Section>
+      <Section title="Properties">
+        <div className="grid grid-cols-2 gap-1">
+          <AmountField
+            // amountType="percent"
+            name="maxUsage"
+            step="0.1"
+            // type="percent"
+            label="Max Usage"
+          />
+          <AmountField name="price" step="0.1" label="Price" />
+          <AmountField
+            name="potential"
+            step="0.001"
+            // type="number"
+            label="Potential"
+            // amountType="gravity"
+            unit="PPG"
+          />
+          <AmountField
+            name="yield"
+            step="0.01"
+            // type="number"
+            label="Yield"
+            // amountType="percent"
+          />
+          <AmountField
+            name="color"
+            step="0.01"
+            // type="number"
+            label="Color"
+            // amountType="color"
+          />
+          <AmountField
+            name="protein"
+            step="0.01"
+            // type="number"
+            unit="percent"
+            label="Protein"
+            // amountType="percent"
+          />
+          <AmountField
+            name="coarseFineDiff"
+            step="0.01"
+            // type="number"
+            unit="percent"
+            label="Coarse Fine Diff"
+            // amountType="percent"
+          />
+          <AmountField
+            name="extract"
+            step="0.01"
+            unit="percent"
+            label="Extract"
+          />
 
-            <AmountField
-              name="power"
-              step="0.01"
-              type="number"
-              label="Diastatic Power"
-              amountType="percent"
-            />
-            <AmountField
-              name="moisture"
-              step="0.01"
-              type="number"
-              label="Moisture"
-              amountType="percent"
-            />
-            <AmountField
-              name="friability"
-              step="0.01"
-              type="number"
-              label="Friability"
-              amountType="percent"
-            />
-          </div>
-        </Section>
-      </div>
+          <AmountField
+            name="power"
+            step="0.01"
+            type="number"
+            label="Diastatic Power"
+            amountType="percent"
+          />
+          <AmountField
+            name="moisture"
+            step="0.01"
+            type="number"
+            label="Moisture"
+            amountType="percent"
+          />
+          <AmountField
+            name="friability"
+            step="0.01"
+            type="number"
+            label="Friability"
+            amountType="percent"
+          />
+        </div>
+      </Section>
     </div>
   );
 }

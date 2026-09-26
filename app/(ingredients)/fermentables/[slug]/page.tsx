@@ -19,22 +19,20 @@ export default async function FermentableDisplayPage({
 }: FermentableDisplayPageProps) {
   const { slug } = await params;
   const fermentable = await getFermentable(slug);
+  const prefs = await getPreferences();
   if (!fermentable) notFound();
-  /**
-   * 
   const adjusted = adjustUnits({
     src: fermentable,
-    prefs: {},
+    prefs,
     mask: FermentableMask,
     inline: false,
     precision: 4,
     dir: true,
   });
-   */
   return (
     <div>
-      <FermentableDisplayToolbar fermentable={fermentable} />
-      <FermentableDisplay src={fermentable} />
+      <FermentableDisplayToolbar fermentable={adjusted} />
+      <FermentableDisplay src={adjusted} />
     </div>
   );
 }
