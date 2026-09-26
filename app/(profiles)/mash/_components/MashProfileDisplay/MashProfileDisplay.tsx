@@ -7,7 +7,7 @@ import MashStepListItem from "./MashStepListItem";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export type MashProfileDisplayProps = {
-  profile: MashProfileType; //UnitValues<MashProfileType, UnitMask<MashProfileType>>;
+  profile: AdjustedMashProfileType; //UnitValues<MashProfileType, UnitMask<MashProfileType>>;
 };
 export default function MashProfileDisplay({
   profile,

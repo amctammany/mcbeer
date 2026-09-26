@@ -32,8 +32,6 @@ export default async function MashProfileDisplayPage({
 
   const profile = await getMashProfile(slug);
   if (!profile) notFound();
-  /**
-   * 
   const prefs = await getPreferences();
   const adjusted = adjustUnits({
     src: profile,
@@ -42,7 +40,6 @@ export default async function MashProfileDisplayPage({
     inline: false,
     dir: true,
   }) as AdjustedMashProfileType;
-   */
   return (
     <div>
       <TopBar
@@ -60,7 +57,7 @@ export default async function MashProfileDisplayPage({
           Edit
         </IconButton>
       </TopBar>
-      <MashProfileDisplay profile={profile} />
+      <MashProfileDisplay profile={adjusted} />
     </div>
   );
 }

@@ -7,9 +7,7 @@ import React from "react";
 export default function Loading() {
   return (
     <div>
-      <TopBar
-        breadcrumbs={[{ title: "Profiles" }, { title: "Equipment" }]}
-      ></TopBar>
+      <TopBar breadcrumbs={[{ title: "Profiles" }, { title: "Mash" }]}></TopBar>
       <div className="max-w-2xl h-screen m-auto flex justify-center align-middle items-center text-center">
         <Spinner className="block size-26" />
       </div>
