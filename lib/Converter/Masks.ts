@@ -60,9 +60,9 @@ export const FermentationProfileMask: UnitMaskType<
   }
 > = {
   steps: FermentationStepMask,
-  "steps.temperature": "temperature",
-  "steps.time": ["time", "days"],
-  "steps.rampTime": ["time", "days"],
+  // "steps.temperature": "temperature",
+  // "steps.time": ["time", "days"],
+  // "steps.rampTime": ["time", "days"],
 };
 export const FermentableIngredientMask: UnitMaskType<
   Partial<BaseFermentableIngredientType>

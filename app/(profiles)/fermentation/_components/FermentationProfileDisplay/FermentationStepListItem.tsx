@@ -10,7 +10,7 @@ import { Thermometer, Timer, TriangleRight } from "lucide-react";
 import React from "react";
 
 export type FermentationStepListItemProps = {
-  src: FermentationStepType;
+  src: AdjustedFermentationStepType;
 };
 export default function FermentationStepListItem({
   src,
@@ -39,20 +39,20 @@ export default function FermentationStepListItem({
           <BadgeProp
             Icon={<Thermometer />}
             name="steps.temperature"
-            text={src.temperature}
-            unit={src.temperature}
+            text={src.temperature.value}
+            unit={src.temperature.unit}
           />
           <BadgeProp
             Icon={<Timer />}
-            text={src.time}
-            unit={src.time}
+            text={src.time.value}
+            unit={src.time.unit}
             name="steps.time"
           />
           <BadgeProp
             Icon={<TriangleRight />}
             name="steps.rampTime"
-            text={src.rampTime}
-            unit={src.rampTime}
+            text={src.rampTime.value}
+            unit={src.rampTime.unit}
           />
         </div>
       </div>

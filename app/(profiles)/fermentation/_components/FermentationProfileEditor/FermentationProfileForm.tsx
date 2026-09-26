@@ -11,7 +11,7 @@ import { useFormContext } from "react-hook-form";
 import { FermentationProfileStepsForm } from "./FermentationProfileStepsForm";
 import { FermentationProfileMask } from "@/lib/Converter/Masks";
 export type FermentationProfileFormContainerProps<S = unknown> = {
-  profile: FermentationProfileType;
+  profile: Partial<FermentationProfileType>;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
 };

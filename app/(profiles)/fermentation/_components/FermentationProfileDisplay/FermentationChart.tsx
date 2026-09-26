@@ -26,7 +26,7 @@ export type ChartReducer = {
   currentDay: number;
   data: { day: number; temperature: number }[];
 };
-export function makeChartData(src: FermentationProfileType) {
+export function makeChartData(src: AdjustedFermentationProfileType) {
   return (
     (src.steps ?? [])
       // .map((s) => ({
@@ -38,25 +38,27 @@ export function makeChartData(src: FermentationProfileType) {
       .reduce<ChartReducer>(
         (acc, step) => {
           //   const dt = acc.currentTemp ? step.temperature - acc.currentTemp : 0;
-          const dr = acc.currentTemp ? step.temperature - acc.currentTemp : 0;
-          const ramps = Array(step.rampTime)
+          const dr = acc.currentTemp
+            ? step.temperature.value - acc.currentTemp
+            : 0;
+          const ramps = Array(step.rampTime.value)
             .fill(0)
             .map((r, i) => ({
               day: acc.currentDay + i,
               temp: acc.currentTemp
-                ? acc.currentTemp + (dr / step.rampTime) * (i + 1)
-                : step.temperature,
+                ? acc.currentTemp + (dr / step.rampTime.value) * (i + 1)
+                : step.temperature.value,
             }));
 
-          const days = Array(step.time)
+          const days = Array(step.time.value)
             .fill(0)
             .map((d, i) => ({
               day: acc.currentDay + ramps.length + i + 0,
-              temp: step.temperature,
+              temp: step.temperature.value,
             }));
 
           return {
-            currentTemp: step.temperature,
+            currentTemp: step.temperature.value,
             currentDay: acc.currentDay + ramps.length + days.length,
             data: [...acc.data, ...ramps, ...days],
           } as any;
@@ -67,7 +69,7 @@ export function makeChartData(src: FermentationProfileType) {
 }
 
 export type FermentationChartProps = {
-  src: FermentationProfileType;
+  src: AdjustedFermentationProfileType;
 };
 const chartConfig = {
   temperature: {

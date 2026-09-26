@@ -13,6 +13,7 @@ export default async function FermentationProfileCreatorPage() {
   const session = await verifySession("/fermentation/new");
   if (!session?.user) unauthorized();
   const profile = {
+    steps: [],
     userId: session.user.id,
   } as FermentationProfileType;
   if (!profile) notFound();

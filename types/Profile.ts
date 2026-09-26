@@ -15,18 +15,19 @@ export type AdjustedFermentationStepType = AmountFields<
   FermentationStepAmountFieldNames
 >;
 
-export interface FermentationStepType
-  extends Omit<
-    OptionalNullable<FermentationStep>,
-    "fermentationProfileId" | "id"
-  > {
+export interface FermentationStepType extends Omit<
+  OptionalNullable<FermentationStep>,
+  "fermentationProfileId" | "id"
+> {
   id?: number;
   fermentationProfileId?: string;
 }
 export type BaseFermentationProfile = Omit<
   OptionalNullable<FermentationProfile>,
-  "id" | "userId" | "steps"
+  "id" | "userId" | "steps" | "name" | "slug"
 > & {
+  name?: string;
+  slug?: string;
   id?: string;
   userId?: string;
   steps?: FermentationStepType[];
@@ -57,8 +58,10 @@ export type AdjustedMashStepType = AmountFields<
   MashStepAmountFieldNames
 >;
 
-export interface MashStepType
-  extends Omit<OptionalNullable<MashStep>, "mashProfileId" | "id"> {
+export interface MashStepType extends Omit<
+  OptionalNullable<MashStep>,
+  "mashProfileId" | "id"
+> {
   id?: number;
   mashProfileId?: string;
 }

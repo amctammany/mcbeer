@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import FermentationChart from "./FermentationChart";
 
 export type FermentationProfileDisplayProps = {
-  profile: FermentationProfileType; //UnitValues<FermentationProfileType, UnitMask<FermentationProfileType>>;
+  profile: AdjustedFermentationProfileType; //UnitValues<FermentationProfileType, UnitMask<FermentationProfileType>>;
 };
 export default function FermentationProfileDisplay({
   profile,

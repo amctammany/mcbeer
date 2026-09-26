@@ -26,15 +26,15 @@ export default function FermentationProfileEditorToolbar({
         ...(profile.id
           ? [
               {
-                title: profile.name,
-                url: `/fermentation/${profile.slug}`,
+                title: profile.name ?? "",
+                url: `/fermentation/${profile.slug ?? ""}`,
               },
             ]
           : profile.origin
             ? [
                 {
-                  title: profile.origin.name,
-                  url: `/fermentation/${profile.slug}`,
+                  title: profile.origin.name ?? "",
+                  url: `/fermentation/${profile.slug ?? ""}`,
                 },
                 { title: "Fork" },
               ]

@@ -82,6 +82,8 @@ function getUnitText(unit: UnitNames) {
   if (unit === "percent") return "%";
   if (unit === "number") return "";
   if (unit === "Lovibond") return "°L";
+  if (unit === "C") return "°C";
+  if (unit === "F") return "°F";
   return unit;
 }
 export function AmountField<T extends FieldValues>({
