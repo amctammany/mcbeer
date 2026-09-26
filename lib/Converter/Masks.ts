@@ -143,11 +143,11 @@ export const HopMask: UnitMaskType<Partial<HopType>> = {
   totalOilHigh: ["percent", "percent"],
 };
 export const YeastMask: UnitMaskType<Partial<YeastType>> = {
-  tolerance: "percent",
-  attenuation: "percent",
-  attenuationRange: "percent",
-  attenuationLow: "percent",
-  attenuationHigh: "percent",
+  tolerance: ["percent", "percent"],
+  attenuation: ["percent", "percent"],
+  attenuationRange: ["percent", "percent"],
+  attenuationLow: ["percent", "percent"],
+  attenuationHigh: ["percent", "percent"],
   tempRange: "temperature",
   tempLow: "temperature",
   tempHigh: "temperature",

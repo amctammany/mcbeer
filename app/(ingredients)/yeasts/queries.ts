@@ -1,3 +1,4 @@
+import { YeastFindManyArgs } from "@/generated/prisma/models";
 import { prisma } from "@/lib/prisma";
 import { YeastType } from "@/types/Ingredient";
 import { cacheTag } from "next/cache";
@@ -15,7 +16,7 @@ export const getYeastNames = async () => {
   const names = yeasts.map(({ name, slug }) => ({ label: name, value: slug }));
   return names;
 };
-export const getYeasts = async (args: any = {}) => {
+export const getYeasts = async (args: YeastFindManyArgs = {}) => {
   "use cache";
   cacheTag("yeasts");
   const yeasts = await prisma.yeast.findMany(args);

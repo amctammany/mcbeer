@@ -1,10 +1,14 @@
 import IconButton from "@/components/Button/IconButton";
 import { TopBar } from "@/components/TopBar/TopBar";
-import type { YeastType } from "@/types/Ingredient";
+import type { AdjustedYeastType, YeastType } from "@/types/Ingredient";
 import { Pencil, Split } from "lucide-react";
 import React from "react";
 
-export default function YeastDisplayToolbar({ yeast }: { yeast: YeastType }) {
+export default function YeastDisplayToolbar({
+  yeast,
+}: {
+  yeast: AdjustedYeastType;
+}) {
   return (
     <TopBar
       breadcrumbs={[

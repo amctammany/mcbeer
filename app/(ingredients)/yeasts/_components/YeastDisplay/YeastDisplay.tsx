@@ -1,15 +1,15 @@
-import type { YeastType } from "@/types/Ingredient";
+import type { AdjustedYeastType, YeastType } from "@/types/Ingredient";
 import React, { Suspense } from "react";
 // import dynamic from "next/dynamic";
 
 import YeastDetailsTab from "./YeastDetailsTab";
 import YeastPropertiesTab from "./YeastPropertiesTab";
 export type YeastDisplayProps = {
-  src: YeastType;
+  src: AdjustedYeastType;
 };
 export function YeastDisplay({ src }: YeastDisplayProps) {
   return (
-    <div className="mx-auto grid lg:grid-cols-2 gap-1 bg-gray-200/40">
+    <div className="mx-auto grid lg:grid-cols-2 gap-1 max-w-4xl ">
       <Suspense fallback={<div>Loading...</div>}>
         <YeastDetailsTab src={src} />
       </Suspense>

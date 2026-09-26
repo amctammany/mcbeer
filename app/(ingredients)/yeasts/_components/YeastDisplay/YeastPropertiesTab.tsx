@@ -2,6 +2,7 @@
 import { AmountProp } from "@/components/Prop/AmountProp";
 import { AmtProp } from "@/components/Prop/AmtProp";
 import Prop from "@/components/Prop/Prop";
+import Section from "@/components/Section";
 import { MaskContext } from "@/contexts/MaskContext";
 import {
   UserPreferencesContext,
@@ -14,7 +15,7 @@ import { AdjustedYeastType, YeastType } from "@/types/Ingredient";
 import React, { useContext } from "react";
 
 export type YeastPropertiesTabProps = {
-  src: YeastType;
+  src: AdjustedYeastType;
 };
 const rangeProps: { name: keyof YeastType; label: string }[] = [
   { name: "attenuation", label: "Attenuation" },
@@ -38,34 +39,33 @@ export default function YeastPropertiesTab({ src }: YeastPropertiesTabProps) {
    */
   return (
     <div className="grid lg:grid-cols-1 ">
-      <AmountProp name="tempLow" label="Temp Low" value={src.tempLow} />
-      <AmountProp name="tempHigh" label="Temp High" value={src.tempHigh} />
+      <Section title="Properties">
+        <AmountProp name="tempLow" label="Temp Low" value={src.tempLow} />
+        <AmountProp name="tempHigh" label="Temp High" value={src.tempHigh} />
 
-      <AmountProp name="tolerance" label="Tolerance" value={src.tolerance} />
+        <AmountProp name="tolerance" label="Tolerance" value={src.tolerance} />
 
-      {rangeProps.map((field) => (
-        <div className="grid lg:grid-cols-2 " key={field.name}>
-          <AmountProp
-            label={field.label}
-            name={field.name}
-            value={src[field.name] as number}
-          />
-          <Prop label={`${field.label} Range`} unit={"%"}>
-            {
-              ((src[`${field.name}Low` as keyof YeastType] as UnitValue)
-                ?.value * 1) as any
-            }
-            -
-            {
-              ((src[`${field.name}High` as keyof YeastType] as UnitValue)
-                ?.value * 1) as any
-            }
-          </Prop>
-        </div>
-      ))}
-      <Prop label={"Temperature Range"}>
-        {src.tempLow}- {src.tempHigh}
-      </Prop>
+        {rangeProps.map((field) => (
+          <div className="grid lg:grid-cols-2 " key={field.name}>
+            <AmountProp
+              label={field.label}
+              name={field.name}
+              value={src[field.name] as number}
+            />
+            <Prop label={`${field.label} Range`} unit={"%"}>
+              {
+                ((src[`${field.name}Low` as keyof YeastType] as UnitValue)
+                  ?.value * 1) as any
+              }
+              -
+              {
+                ((src[`${field.name}High` as keyof YeastType] as UnitValue)
+                  ?.value * 1) as any
+              }
+            </Prop>
+          </div>
+        ))}
+      </Section>
     </div>
   );
 }
