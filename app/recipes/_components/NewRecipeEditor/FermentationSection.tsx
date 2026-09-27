@@ -17,16 +17,22 @@ import {
   FermentationStepMask,
 } from "@/lib/Converter/Masks";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
+import { ModalContext } from "@/contexts/ModalContext";
+import IconButton from "@/components/Button/IconButton";
+import { EditIcon } from "lucide-react";
 
 function FermentationSectionToolbar() {
-  const tools: any[] = [];
+  const { handleDialogOpen } = useContext(ModalContext);
+  const tools: any[] = [
+    { name: "Add", onClick: handleDialogOpen("fermentation") },
+  ];
   return (
-    <div className="flex gap-2">
-      {tools.map((tool) => (
-        <button key={tool.name} onClick={tool.onClick}>
-          {tool.icon}
-        </button>
-      ))}
+    <div className="flex items-center lg:gap-2 px-1 lg:px-4">
+      <IconButton
+        icon={EditIcon}
+        onClick={handleDialogOpen("fermentation")}
+        label="Edit"
+      />
     </div>
   );
 }

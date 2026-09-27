@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { RecipeContext } from "@/contexts/RecipeContext";
 import YeastIngredientModal from "./IngredientModals/YeastIngredientModal";
+import FermentationModal from "./IngredientModals/FermentationModal";
 const HopIngredientModal = dynamic(
   () => import("./IngredientModals/HopIngredientModal"),
 );
@@ -45,6 +46,7 @@ export default function RecipeModals({ recipeId }: { recipeId?: string }) {
           <DialogHeader>
             {type} - {mode} - {id}
           </DialogHeader>
+          {type === "fermentation" && <FermentationModal id={id} />}
           {type === "hop" && <HopIngredientModal id={id} />}
           {type === "fermentable" && <FermentableIngredientModal id={id} />}
           {type === "yeast" && <YeastIngredientModal id={id} />}

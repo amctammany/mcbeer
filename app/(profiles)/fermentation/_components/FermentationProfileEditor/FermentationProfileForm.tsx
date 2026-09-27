@@ -13,11 +13,13 @@ import { FermentationProfileMask } from "@/lib/Converter/Masks";
 import Section from "@/components/Section";
 export type FermentationProfileFormContainerProps<S = unknown> = {
   profile: Partial<FermentationProfileType>;
+  onSubmit: any;
   action: (state: S, formData: FormData) => Promise<S> | S;
   children?: React.ReactNode | React.ReactNode[];
 };
 export function FermentationProfileFormContainer({
   action,
+  onSubmit,
   profile,
   children,
 }: FermentationProfileFormContainerProps) {
@@ -43,7 +45,7 @@ export function FermentationProfileFormContainer({
   );
 }
 export type FermentationProfileFormProps = {
-  profile: FermentationProfileType;
+  profile?: FermentationProfileType;
 };
 export function FermentationProfileForm({
   profile,

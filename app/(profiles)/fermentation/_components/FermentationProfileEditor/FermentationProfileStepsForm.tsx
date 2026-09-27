@@ -19,7 +19,7 @@ import Section from "@/components/Section";
 export function FermentationProfileStepsForm({
   src,
 }: {
-  src: FermentationProfileType;
+  src?: FermentationProfileType;
 }) {
   const { register, control, watch } =
     useFormContext<FermentationProfileType>();
@@ -44,7 +44,7 @@ export function FermentationProfileStepsForm({
             append({
               index: fields.length + 1,
               type: "primary",
-              fermentationProfileId: src.id,
+              fermentationProfileId: src?.id,
               time: 0,
               temperature: 0,
               rampTime: 0,
