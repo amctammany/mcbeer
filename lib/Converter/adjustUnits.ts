@@ -205,6 +205,7 @@ export function adjustUnits<T extends FieldValues>({
   precision?: number;
 }) {
   // console.log({ src, mask, prefs, inline, dir });
+  if (src === null) return src;
   const s = Object.entries(mask).reduce(
     (acc, [k, v]) => {
       if (Array.isArray(v)) {
@@ -229,17 +230,29 @@ export function adjustUnits<T extends FieldValues>({
               precision,
             });
       } else if (typeof v === "object") {
-        // console.log(k, v, src[k]);
-        acc[k] = src[k as keyof typeof src].map((val: any) =>
-          adjustUnits({
-            src: val,
-            mask: v as any,
-            prefs,
-            inline,
-            dir,
-            precision,
-          }),
-        );
+        const res = Array.isArray(src[k])
+          ? src[k].map(
+              (s) =>
+                adjustUnits({
+                  src: s,
+                  mask: v,
+                  prefs,
+                  inline,
+                  dir,
+                }),
+              //  res; //src[k as keyof typeof src].map((val: any) =>
+              // console.log(k, v, src[k], res);
+            )
+          : adjustUnits({
+              src: src[k],
+              mask: v as any,
+              prefs,
+              inline,
+              dir,
+              precision,
+            });
+        acc[k] = res;
+        // console.log({ k, v, src: src, r: src[k], res });
       } else {
         acc[k] =
           typeof v === "string"

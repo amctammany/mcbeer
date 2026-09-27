@@ -90,9 +90,10 @@ export async function updateRecipe(prev: any, formData: FormData) {
     yeastIngredients,
     fermentableIngredients,
     // owner,
-    mashProfileId,
-    equipmentProfileId,
-    waterProfileId,
+    // fermentationProfileId,
+    // mashProfileId,
+    // equipmentProfileId,
+    // waterProfileId,
     // EquipmentProfile,
     styleIdentifier,
     forkedFrom,
@@ -102,44 +103,52 @@ export async function updateRecipe(prev: any, formData: FormData) {
     // style,
     ...data
   } = r;
-  r.boilTime;
   type T = keyof PickAmountFields<typeof r>;
   // console.log("updateRecipe", { data, hopIngredients, fermentableIngredients });
-  const ftx = await prisma.$transaction([
-    ...(
-      fermentableIngredients as ReducedFields<typeof fermentableIngredients>
-    ).map(({ id: _id, ...d }) => {
-      return _id
-        ? prisma.fermentableIngredient.update({
-            where: {
-              id: _id,
-            },
-            data: d,
-          })
-        : prisma.fermentableIngredient.create({
-            data: { recipeId: id!, ...d },
-          });
-    }),
-  ]);
-  const ytx = await prisma.$transaction([
-    ...(yeastIngredients as ReducedFields<typeof yeastIngredients>).map(
-      ({ id: _id, ...d }) => {
+  const ftx = await prisma.$transaction(
+    [
+      ...(
+        fermentableIngredients as ReducedFields<typeof fermentableIngredients>
+      ).map(({ id: _id, ...d }) => {
         return _id
-          ? prisma.yeastIngredient.update({
+          ? prisma.fermentableIngredient.update({
               where: {
                 id: _id,
               },
               data: d,
             })
-          : prisma.yeastIngredient.create({
+          : prisma.fermentableIngredient.create({
               data: { recipeId: id!, ...d },
             });
-      },
-    ),
-  ]);
-  const htx = await prisma.$transaction([
-    ...(hopIngredients as ReducedFields<(typeof hopIngredients)[number]>[]).map(
-      ({ id: _id, ...d }) => {
+      }),
+    ],
+    { maxWait: 4000 },
+    // { maxWait: 10000, timeout: 15000 },
+  );
+  const ytx = await prisma.$transaction(
+    [
+      ...(yeastIngredients as ReducedFields<typeof yeastIngredients>).map(
+        ({ id: _id, ...d }) => {
+          return _id
+            ? prisma.yeastIngredient.update({
+                where: {
+                  id: _id,
+                },
+                data: d,
+              })
+            : prisma.yeastIngredient.create({
+                data: { recipeId: id!, ...d },
+              });
+        },
+      ),
+    ],
+    { maxWait: 40000 },
+  );
+  const htx = await prisma.$transaction(
+    [
+      ...(
+        hopIngredients as ReducedFields<(typeof hopIngredients)[number]>[]
+      ).map(({ id: _id, ...d }) => {
         return _id
           ? prisma.hopIngredient.update({
               where: {
@@ -148,9 +157,11 @@ export async function updateRecipe(prev: any, formData: FormData) {
               data: d,
             })
           : prisma.hopIngredient.create({ data: { recipeId: id!, ...d } });
-      },
-    ),
-  ]);
+      }),
+    ],
+    { maxWait: 4000 },
+    // { maxWait: 10000, timeout: 15000 },
+  );
   // const hopIngs = await prisma.hopIngredient.upsert({
   // create: hopIngredients
   // .filter(({ id }) => id === undefined)
@@ -193,6 +204,8 @@ export async function updateRecipe(prev: any, formData: FormData) {
     },
     include: {
       EquipmentProfile: true,
+      FermentationProfile: true,
+      MashProfile: true,
       style: true,
       yeastIngredients: true,
       hopIngredients: true,

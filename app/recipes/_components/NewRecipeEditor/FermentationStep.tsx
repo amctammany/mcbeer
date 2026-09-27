@@ -35,6 +35,7 @@ export default function FermentationStep({
   onClick,
 }: FermentationStepProps) {
   const form = useFormContext<AdjustedRecipeType>();
+  console.log(src);
   return (
     <ListItem onClick={onClick}>
       <input
@@ -82,24 +83,24 @@ export default function FermentationStep({
       />
 
       <ListItemIcon>
-        <Avatar className="bg-blue-200 text-center mx-auto px-auto">
-          {index}
+        <Avatar className="bg-blue-200 ">
+          <b className="m-auto">{index}</b>
         </Avatar>
       </ListItemIcon>
 
       <ListItemContent className="">
         <ListItemTitle>
-          <BadgeProp
-            Icon={<ThermometerIcon size={12} />}
-            name="Temperature"
-            text={src.temperature?.value}
-            unit={src.temperature?.unit}
-          />
           <b>{src?.name}</b>
         </ListItemTitle>
         <ListItemDescription className="grow">
           <div className="grow min-w-52  grid justify-items-end ">
             <div className="w-full lg:w-fit flex flex-row gap-1 lg:gap-2">
+              <BadgeProp
+                Icon={<ThermometerIcon size={12} />}
+                name="Temperature"
+                text={src.temperature?.value}
+                unit={src.temperature?.unit}
+              />
               <BadgeProp
                 Icon={<TimerIcon size={12} />}
                 name="time"
