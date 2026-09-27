@@ -243,6 +243,7 @@ model FermentationProfile {
   forks       FermentationProfile[] @relation("origin")
   owner       User?                 @relation(fields: [userId], references: [id])
   steps       FermentationStep[]
+  recipes     Recipe[]
 }
 
 model FermentationStep {
@@ -431,46 +432,52 @@ model FermentableInventoryItem {
 }
 
 model Recipe {
-  id                     String                  @id @default(cuid())
-  name                   String
-  description            String?
-  userId                 String
-  equipmentProfileId     String?
-  batchVolume            Float?                  @default(22)
-  boilVolume             Float?                  @default(25)
-  preboilVolume          Float?                  @default(25)
-  boilTime               Float?                  @default(60)
-  brewEfficiency         Float?                  @default(0.6)
-  mashEfficiency         Float?                  @default(0.7)
-  boilOffRate            Float?                  @default(2)
-  trubLoss               Float?                  @default(0)
-  mashLoss               Float?                  @default(0)
-  fermenterLoss          Float?                  @default(0)
-  grainAbsorption        Float?                  @default(0.5)
-  calcium                Int?                    @default(0)
-  magnesium              Int?                    @default(0)
-  sodium                 Int?                    @default(0)
-  chloride               Int?                    @default(0)
-  sulfate                Int?                    @default(0)
-  bicarbonate            Int?                    @default(0)
-  mashProfileId          String?
-  ownerUsername          String?
-  ownerEmail             String?
-  forkedFrom             String?
-  styleIdentifier        String?
-  styleId                Int?
-  waterProfileId         String?
-  fermentableIngredients FermentableIngredient[]
-  hopIngredients         HopIngredient[]
-  WaterProfile           WaterProfile?           @relation(fields: [waterProfileId], references: [id])
-  EquipmentProfile       EquipmentProfile?       @relation(fields: [equipmentProfileId], references: [id])
-  origin                 Recipe?                 @relation("origin", fields: [forkedFrom], references: [id])
-  forks                  Recipe[]                @relation("origin")
-  MashProfile            MashProfile?            @relation(fields: [mashProfileId], references: [id])
-  style                  Style?                  @relation(fields: [styleIdentifier], references: [identifier])
-  owner                  User                    @relation(fields: [userId], references: [id])
-  yeastIngredients       YeastIngredient[]
-  batches                Batch[]
+  id                      String                  @id @default(cuid())
+  name                    String
+  description             String?
+  userId                  String
+  equipmentProfileId      String?
+  equipmentProfileDiff    Json?
+  batchVolume             Float?                  @default(22)
+  boilVolume              Float?                  @default(25)
+  preboilVolume           Float?                  @default(25)
+  boilTime                Float?                  @default(60)
+  brewEfficiency          Float?                  @default(0.6)
+  mashEfficiency          Float?                  @default(0.7)
+  boilOffRate             Float?                  @default(2)
+  trubLoss                Float?                  @default(0)
+  mashLoss                Float?                  @default(0)
+  fermenterLoss           Float?                  @default(0)
+  grainAbsorption         Float?                  @default(0.5)
+  calcium                 Int?                    @default(0)
+  magnesium               Int?                    @default(0)
+  sodium                  Int?                    @default(0)
+  chloride                Int?                    @default(0)
+  sulfate                 Int?                    @default(0)
+  bicarbonate             Int?                    @default(0)
+  mashProfileId           String?
+  mashProfileDiff         Json?
+  ownerUsername           String?
+  ownerEmail              String?
+  forkedFrom              String?
+  styleIdentifier         String?
+  styleId                 Int?
+  waterProfileId          String?
+  waterProfileDiff        Json?
+  fermentationProfileId   String?
+  fermentationProfileDiff Json?
+  FermentationProfile     FermentationProfile?    @relation(fields: [fermentationProfileId], references: [id])
+  fermentableIngredients  FermentableIngredient[]
+  hopIngredients          HopIngredient[]
+  WaterProfile            WaterProfile?           @relation(fields: [waterProfileId], references: [id])
+  EquipmentProfile        EquipmentProfile?       @relation(fields: [equipmentProfileId], references: [id])
+  origin                  Recipe?                 @relation("origin", fields: [forkedFrom], references: [id])
+  forks                   Recipe[]                @relation("origin")
+  MashProfile             MashProfile?            @relation(fields: [mashProfileId], references: [id])
+  style                   Style?                  @relation(fields: [styleIdentifier], references: [identifier])
+  owner                   User                    @relation(fields: [userId], references: [id])
+  yeastIngredients        YeastIngredient[]
+  batches                 Batch[]
 }
 
 model HopIngredient {

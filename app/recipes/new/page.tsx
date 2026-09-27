@@ -22,6 +22,8 @@ export default async function RecipeCreatorPage() {
     boilTime: 60,
     brewEfficiency: 0.7,
     batchVolume: 5,
+    mashSteps: [],
+    fermentationSteps: [],
     hopIngredients: [],
     fermentableIngredients: [],
     yeastIngredients: [],

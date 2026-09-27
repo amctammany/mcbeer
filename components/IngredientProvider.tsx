@@ -5,6 +5,7 @@ import { Style } from "@/generated/prisma/client";
 import { FermentableType, HopType, YeastType } from "@/types/Ingredient";
 import {
   EquipmentProfileType,
+  FermentationProfileType,
   MashProfileType,
   WaterProfileType,
 } from "@/types/Profile";
@@ -15,6 +16,7 @@ export default function IngredientProvider({
   equipPromise,
   stylePromise,
   waterPromise,
+  fermentationPromise,
   mashPromise,
   hopPromise,
   fermentablePromise,
@@ -22,7 +24,7 @@ export default function IngredientProvider({
 }: {
   hopPromise: Promise<HopType[]>;
   stylePromise: Promise<Style[]>;
-
+  fermentationPromise: Promise<FermentationProfileType[]>;
   waterPromise: Promise<WaterProfileType[]>;
   equipPromise: Promise<EquipmentProfileType[]>;
   mashPromise: Promise<MashProfileType[]>;
@@ -39,8 +41,9 @@ export default function IngredientProvider({
       stylePromise,
       waterPromise,
       mashPromise,
-      hopPromise,
       fermentablePromise,
+      hopPromise,
+      fermentationPromise,
       yeastPromise,
     }),
     [
@@ -48,6 +51,7 @@ export default function IngredientProvider({
       stylePromise,
       mashPromise,
       waterPromise,
+      fermentationPromise,
       hopPromise,
       fermentablePromise,
       yeastPromise,

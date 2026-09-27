@@ -3,6 +3,7 @@ import { EquipmentProfile, Style } from "@/generated/prisma/client";
 import { FermentableType, HopType, YeastType } from "@/types/Ingredient";
 import {
   EquipmentProfileType,
+  FermentationProfileType,
   MashProfileType,
   WaterProfileType,
 } from "@/types/Profile";
@@ -11,6 +12,7 @@ import { FieldValues } from "react-hook-form";
 export type IngredientStoreType = {
   hopPromise: Promise<HopType[]>;
   stylePromise: Promise<Style[]>;
+  fermentationPromise: Promise<FermentationProfileType[]>;
   equipPromise: Promise<EquipmentProfileType[]>;
   mashPromise: Promise<MashProfileType[]>;
   waterPromise: Promise<WaterProfileType[]>;
@@ -24,6 +26,7 @@ export const IngredientContext = createContext<IngredientStoreType>({
   hopPromise: Promise.resolve([] as HopType[]),
   mashPromise: Promise.resolve([] as MashProfileType[]),
   stylePromise: Promise.resolve([] as Style[]),
+  fermentationPromise: Promise.resolve([] as FermentationProfileType[]),
   equipPromise: Promise.resolve([] as EquipmentProfileType[]),
   waterPromise: Promise.resolve([] as WaterProfileType[]),
   fermentablePromise: Promise.resolve([] as FermentableType[]),

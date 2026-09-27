@@ -10,6 +10,7 @@ import IngredientsSection from "./IngredientsSection";
 import RecipeModals from "./RecipeModals";
 import MashSection from "./MashSection";
 import WaterSection from "./WaterSection";
+import FermentationSection from "./FermentationSection";
 export type RecipeEditorProps = {
   src: RecipeType;
   action: any; //(state: any, data: RecipeType) => void;
@@ -37,6 +38,7 @@ export default function RecipeEditor({ src, action }: RecipeEditorProps) {
         <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
           <MashSection />
           <WaterSection />
+          <FermentationSection />
         </div>
       </RecipeEditorFormContainer>
     </div>

@@ -5,14 +5,28 @@ import {
   FermentableIngredient,
   YeastIngredient,
   EquipmentProfile,
+  FermentationProfile,
 } from "@/generated/prisma/client";
 import { BaseUser } from "./User";
 import { AmountFields, OptionalNullable } from "@/lib/utils";
 import { FermentableType, HopType, YeastType } from "./Ingredient";
+import {
+  AdjustedFermentationStepType,
+  AdjustedMashStepType,
+  FermentationProfileType,
+  FermentationStepType,
+  MashProfileType,
+  MashStepType,
+} from "./Profile";
 
 export interface BaseRecipeType extends Omit<
   OptionalNullable<Recipe>,
-  "id" | "userId" | "fermentableIngredients" | "hopIngredients"
+  | "id"
+  | "userId"
+  | "fermentableIngredients"
+  | "hopIngredients"
+  | "mashSteps"
+  | "fermentationSteps"
 > {
   id?: string;
   userId: string;
@@ -69,12 +83,47 @@ export type AdjustedHopIngredientType = AmountFields<
 export type ExtendedHopIngredientType = AdjustedHopIngredientType & {
   hop?: Partial<HopType>;
 };
+/**
+ * 
+export interface RecipeMashStepType extends Omit<
+  OptionalNullable<RecipeMashStep>,
+  "id" | "recipeId"
+> {
+  id?: string;
+  recipeId?: string;
+}
+type RecipeMashStepTypeAmountFieldNames = "time" | "temperature" | "rampTime";
+export type AdjustedRecipeMashStepType = AmountFields<
+  RecipeMashStepType,
+  RecipeMashStepTypeAmountFieldNames
+>;
+type RecipeFermentationStepTypeAmountFieldNames =
+  | "time"
+  | "temperature"
+  | "rampTime";
+export type AdjustedRecipeFermentationStepType = AmountFields<
+  RecipeFermentationStepType,
+  RecipeFermentationStepTypeAmountFieldNames
+>;
+
+export interface RecipeFermentationStepType extends Omit<
+  OptionalNullable<RecipeFermentationStep>,
+  "id" | "recipeId"
+> {
+  id?: string;
+  recipeId?: string;
+}
+ */
 export interface RecipeType extends BaseRecipeType {
   owner: Partial<BaseUser>;
+  MashProfile?: Partial<MashProfileType> | null;
+  FermentationProfile?: Partial<FermentationProfileType> | null;
   EquipmentProfile?: Partial<EquipmentProfile> | null;
   style?: Partial<Style> | null;
   origin?: BaseRecipeType;
   forks?: BaseRecipeType[];
+  fermentationSteps: FermentationStepType[];
+  mashSteps: MashStepType[];
   yeastIngredients: BaseYeastIngredientType[];
   hopIngredients: BaseHopIngredientType[];
   fermentableIngredients: BaseFermentableIngredientType[];
@@ -99,6 +148,8 @@ export type AdjustedRecipeType = AmountFields<
   origin?: BaseRecipeType;
   forks?: BaseRecipeType[];
 
+  mashSteps: AdjustedMashStepType[];
+  fermentationSteps: AdjustedFermentationStepType[];
   fermentableIngredients: AdjustedFermentableIngredientType[];
 
   hopIngredients: AdjustedHopIngredientType[];

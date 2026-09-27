@@ -14,6 +14,8 @@ export default function Loading() {
     userId: "",
     owner: {},
     style: {},
+    fermentationSteps: [],
+    mashSteps: [],
     fermentableIngredients: [],
     hopIngredients: [],
     yeastIngredients: [],

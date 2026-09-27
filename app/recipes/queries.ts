@@ -14,11 +14,15 @@ export const getRecipe = async (id: string) => {
   const recipe = await prisma.recipe.findFirst({
     where: { id },
     include: {
+      MashProfile: { select: { id: true, name: true, steps: true } },
+      FermentationProfile: { select: { id: true, name: true, steps: true } },
       fermentableIngredients: {
         select: {
           id: true,
           recipeId: true,
-          fermentable: { select: { name: true, color: true, potential: true } },
+          fermentable: {
+            select: { name: true, color: true, potential: true },
+          },
           fermentableId: true,
           color: true,
           amount: true,
@@ -58,5 +62,9 @@ export const getRecipe = async (id: string) => {
       owner: true,
     },
   });
-  return recipe as RecipeType;
+  return {
+    ...recipe,
+    mashSteps: recipe?.MashProfile?.steps ?? [],
+    fermentationSteps: recipe?.FermentationProfile?.steps ?? [],
+  } as RecipeType;
 };

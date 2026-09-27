@@ -16,6 +16,7 @@ import { getEquipmentProfiles } from "./(profiles)/equipment/queries";
 import { getMashProfiles } from "./(profiles)/mash/queries";
 import { getStyles } from "./styles/queries";
 import { getWaterProfiles } from "./(profiles)/water/queries";
+import { getFermentationProfiles } from "./(profiles)/fermentation/queries";
 
 const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -66,6 +67,9 @@ export default async function RootLayout({
                       bicarbonate: true,
                       sulfate: true,
                     },
+                  })}
+                  fermentationPromise={getFermentationProfiles({
+                    select: { name: true, id: true, steps: true },
                   })}
                   equipPromise={getEquipmentProfiles({
                     select: { name: true, id: true },
