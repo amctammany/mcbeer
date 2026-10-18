@@ -83,18 +83,19 @@ export default function MashProfileStepField({
 
             <TextField
               control={control}
-              className="flex-grow"
+              className="grow"
               name={`steps.${index}.name`}
               label="Name"
             />
             <SelectField
+              orientation="horizontal"
               control={control}
               label="Type"
               name={`steps.${index}.type`}
               options={$Enums.MashStepType}
             />
           </div>
-          <div className="flex flex-col lg:flex-row *:p-2 gap-3">
+          <div className="flex flexcol lg:flex-row *:p-2 gap-3">
             <AmountField
               name={`steps.${index}.temperature`}
               type="number"

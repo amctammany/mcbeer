@@ -96,17 +96,17 @@ export function SelectField<T extends FieldValues>({
       name={name}
       control={control}
       render={({ field, fieldState }) => (
-        <div className="w-full max-w-d">
+        <FieldGroup>
           <Field
             className="bg-white rounded-md gap-2"
             orientation={orientation}
             data-invalid={fieldState.invalid}
           >
-            <FieldContent className="relative">
+            <FieldContent className="gap-2 w-full">
               <FieldLabel htmlFor={id}>{label ?? ""}</FieldLabel>
               <FieldDescription>{description ?? ""}</FieldDescription>
             </FieldContent>
-            <InputGroup className="gap-4 w-full grow">
+            <InputGroup className="gap- w-full grow flex-1">
               <Select
                 name={field.name}
                 value={field.value ?? items[0]}
@@ -132,7 +132,7 @@ export function SelectField<T extends FieldValues>({
             </InputGroup>
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
-        </div>
+        </FieldGroup>
       )}
     />
   );

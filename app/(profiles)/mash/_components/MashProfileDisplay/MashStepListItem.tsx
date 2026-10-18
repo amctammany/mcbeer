@@ -14,7 +14,7 @@ export type MashStepListItemProps = {
 };
 export default function MashStepListItem({ src }: MashStepListItemProps) {
   return (
-    <div className="flex w-full p-1 lg:p-3 odd:bg-gray-200/20">
+    <div className="flex wfull p-1 lg:p-3 odd:bg-gray-200/20">
       <div className="shrink m-auto mr-2">
         <Avatar>
           <AvatarFallback className="border border-black">
