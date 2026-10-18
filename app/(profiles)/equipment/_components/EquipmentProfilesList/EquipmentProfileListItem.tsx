@@ -27,7 +27,13 @@ export default function EquipmentProfileListItem({
             </span>
             <span className="text-md">{profile.description}</span>
           </div>
-          <div className="shrink">
+          <div className="grow flex flex-row">
+            <AmountProp
+              name="brewEfficiency"
+              label="Brew Efficiency"
+              value={profile.brewEfficiency}
+            />
+
             <AmountProp
               name="batchVolume"
               label="Batch Volume"
