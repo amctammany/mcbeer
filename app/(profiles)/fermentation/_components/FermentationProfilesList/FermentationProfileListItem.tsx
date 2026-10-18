@@ -21,7 +21,6 @@ export default function FermentationProfileListItem({
               {profile.name}
             </span>
             <span className="text-md">{profile.description}</span>
-            <span className="text-sm">Ions</span>
           </div>
         </div>
       </div>

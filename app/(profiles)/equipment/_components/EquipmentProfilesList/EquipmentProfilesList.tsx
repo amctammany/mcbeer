@@ -1,7 +1,10 @@
 import React from "react";
 import EquipmentProfileListItem from "./EquipmentProfileListItem";
 import { Card } from "@/components/ui/card";
-import { BaseEquipmentProfile } from "@/types/Profile";
+import {
+  AdjustedEquipmentProfileType,
+  BaseEquipmentProfile,
+} from "@/types/Profile";
 
 export type EquipmentProfilesListProps = {
   profiles: BaseEquipmentProfile[];

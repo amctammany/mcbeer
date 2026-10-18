@@ -3,10 +3,16 @@ import { TopBar } from "@/components/TopBar/TopBar";
 import React from "react";
 import { getEquipmentProfiles } from "./queries";
 import EquipmentProfilesList from "./_components/EquipmentProfilesList/EquipmentProfilesList";
-import { BaseEquipmentProfile } from "@/types/Profile";
+import {
+  BaseEquipmentProfile,
+  AdjustedEquipmentProfileType,
+} from "@/types/Profile";
 import IconButton from "@/components/Button/IconButton";
 import { Plus } from "lucide-react";
 import { Metadata } from "next";
+import { EquipmentProfileMask } from "@/lib/Converter/Masks";
+import { getPreferences } from "@/app/admin/queries";
+import { adjustUnits } from "@/lib/Converter/adjustUnits";
 
 export async function generateStaticParams() {
   const profiles = await getEquipmentProfiles();
@@ -18,6 +24,19 @@ export const metadata: Metadata = {
 };
 export default async function EquipmentProfilesListPage() {
   const profiles = await getEquipmentProfiles();
+  // const prefs = await getPreferences();
+  /**
+  const adjustedProfiles = profiles.map((profile) =>
+    adjustUnits({
+      src: profile,
+      mask: EquipmentProfileMask,
+      prefs,
+      inline: false,
+      dir: true,
+    }),
+  );
+   * 
+   */
   return (
     <div>
       <TopBar

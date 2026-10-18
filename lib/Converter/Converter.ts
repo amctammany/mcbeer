@@ -159,7 +159,10 @@ export function Converter(value: number, from: UnitNames, to?: UnitNames) {
   }
   const convert = converters[group];
 
-  if (!convert) throw new Error("Converter not available");
+  if (!convert)
+    throw new Error(
+      `Converter not available ${group} ${base} ${value} ${from}`,
+    );
   const baseValue = convert[from].from(value);
   const newValue = convert[_to].to(baseValue);
   // console.log({ value, baseValue, newValue, from, _to });

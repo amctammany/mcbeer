@@ -35,7 +35,6 @@ export function AmountProp({
   const mn = mask[(name ?? "") as keyof typeof mask] as any;
   const maskV = Array.isArray(mn) ? mn[0] : mn;
   const s = preferenceContext?.[maskV as keyof typeof preferenceContext];
-
   const value = typeof val === "number" ? val : val?.value;
 
   const unitName = isUnitValue(val) ? (val as UnitValue).unit : s;

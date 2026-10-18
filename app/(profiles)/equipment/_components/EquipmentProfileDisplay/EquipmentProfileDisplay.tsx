@@ -16,7 +16,7 @@ export default function EquipmentProfileDisplay({
   profile,
 }: EquipmentProfileDisplayProps) {
   return (
-    <div className="mx-auto grid lg:grid-cols-2 gap-1 max-w-4xl ">
+    <div className="mx-auto grid lg:grid-cols-2 gap-1 max-w-4xl p-1">
       <Section title="Details" className="lg:col-span-2">
         <div className="col-span-2 m-2 ">
           <Prop label="Name" value={profile.name} />

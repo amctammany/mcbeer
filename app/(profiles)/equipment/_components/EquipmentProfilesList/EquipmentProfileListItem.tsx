@@ -1,4 +1,9 @@
-import { BaseEquipmentProfile } from "@/types/Profile";
+import { AmountProp } from "@/components/Prop/AmountProp";
+import Prop from "@/components/Prop/Prop";
+import {
+  AdjustedEquipmentProfileType,
+  BaseEquipmentProfile,
+} from "@/types/Profile";
 import { Droplet } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -12,16 +17,22 @@ export default function EquipmentProfileListItem({
   return (
     <Link href={`/equipment/${profile.slug}`}>
       <div className="list-item py-2 group hover:bg-slate-200">
-        <div className="inline-flex">
+        <div className="flex">
           <div className="shrink p-2 mx-2 my-auto ">
             <Droplet />
           </div>
-          <div className="grid">
+          <div className="grow flex flex-col gap-2">
             <span className="text-xl group-hover:underline">
               {profile.name}
             </span>
             <span className="text-md">{profile.description}</span>
-            <span className="text-sm">Ions</span>
+          </div>
+          <div className="shrink">
+            <AmountProp
+              name="batchVolume"
+              label="Batch Volume"
+              value={profile.batchVolume}
+            />
           </div>
         </div>
       </div>
