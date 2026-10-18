@@ -29,6 +29,7 @@ export const getEquipmentProfile = async (slug: string) => {
       forks: { select: { name: true, id: true } },
     },
   });
+  console.log(slug, profile);
   if (!profile) notFound();
   // cacheTag(`equipment-${profile.id}`);
   return profile as EquipmentProfileType;
