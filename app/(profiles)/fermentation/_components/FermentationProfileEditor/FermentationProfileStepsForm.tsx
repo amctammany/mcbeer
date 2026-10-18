@@ -56,7 +56,7 @@ export function FermentationProfileStepsForm({
         </Button>
       }
     >
-      <ul className="*:not-last:border-b-2 gap-2 *:even:bg-blue-100/20">
+      <ul className="*:not-last:border-b-2 gap-2 *hh:even:bg-blue-100/20">
         {controlledFields.map((step, index) => (
           <FermentationProfileStepField
             key={step.id}

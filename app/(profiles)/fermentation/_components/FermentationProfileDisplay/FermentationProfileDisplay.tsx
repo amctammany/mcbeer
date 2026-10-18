@@ -16,7 +16,7 @@ export default function FermentationProfileDisplay({
   profile,
 }: FermentationProfileDisplayProps) {
   return (
-    <div className="max-w-4xl grid  lg:grid-cols-2 gap-2 mx-auto my-2 ">
+    <div className="max-w-4xl grid  lg:grid-cols-2 gap-2 mx-auto p-2 my-2 ">
       <Section title="Details" className="">
         <Prop label="Name" value={profile.name} />
         <Prop label="Author" value={profile.owner?.name} />
@@ -33,18 +33,16 @@ export default function FermentationProfileDisplay({
         />
         <Prop label="Description" value={profile.description} />
       </Section>
-      <div className="grid gap-2">
-        <Section title="Steps">
-          <div className="*:even:bg-blue-200/15 mb-2">
-            {profile.steps?.map((step) => (
-              <FermentationStepListItem key={step.id} src={step} />
-            ))}
-          </div>
-        </Section>
-        <Section title="Chart">
-          <FermentationChart src={profile} />
-        </Section>
-      </div>
+      <Section title="Steps">
+        <div className="*:even:bg-blue-200/15 mb-2">
+          {profile.steps?.map((step) => (
+            <FermentationStepListItem key={step.id} src={step} />
+          ))}
+        </div>
+      </Section>
+      <Section title="Chart">
+        <FermentationChart src={profile} />
+      </Section>
     </div>
   );
 }

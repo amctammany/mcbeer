@@ -5,6 +5,7 @@ import { AdjustedMashProfileType, MashProfileType } from "@/types/Profile";
 import React from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import MashProfileStepField from "./MashProfileStepField";
+import Section from "@/components/Section";
 
 export function MashProfileStepsForm({ src }: { src: MashProfileType }) {
   const { register, control, watch } = useFormContext<MashProfileType>();
@@ -20,28 +21,27 @@ export function MashProfileStepsForm({ src }: { src: MashProfileType }) {
     };
   });
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Steps</CardTitle>
-        <CardAction>
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              append({
-                index: fields.length + 1,
-                mashProfileId: src.id,
-                type: "infusion",
-                time: 0,
-                temperature: 0,
-                rampTime: 0,
-              });
-              return false;
-            }}
-          >
-            Add
-          </Button>
-        </CardAction>
-      </CardHeader>
+    <Section
+      title="Steps"
+      actions={
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            append({
+              index: fields.length + 1,
+              mashProfileId: src.id,
+              type: "infusion",
+              time: 0,
+              temperature: 0,
+              rampTime: 0,
+            });
+            return false;
+          }}
+        >
+          Add
+        </Button>
+      }
+    >
       <ul className="*:not-last:border-b-2">
         {controlledFields.map((step, index) => (
           <MashProfileStepField
@@ -55,6 +55,6 @@ export function MashProfileStepsForm({ src }: { src: MashProfileType }) {
           />
         ))}
       </ul>
-    </Card>
+    </Section>
   );
 }

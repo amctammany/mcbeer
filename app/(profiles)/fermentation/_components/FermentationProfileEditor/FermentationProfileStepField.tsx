@@ -77,23 +77,24 @@ export default function FermentationProfileStepField({
           </Button>
         </div>
         <div className="flex-grow grid grid-cols-1 lg:grid-rows-2 justify-center items-center">
-          <div className="flex flex-col lg:flex-row *:p-1">
+          <div className="flex flex-col lg:flex-row *:-1">
             <input type="hidden" name={`steps.${index}.index`} value={index} />
             <input type="hidden" name={`steps.${index}.id`} />
-            <SelectField
-              control={control}
-              label="Type"
-              name={`steps.${index}.type`}
-              options={$Enums.FermentationStepType}
-            />
             <TextField
               control={control}
               className="flex-grow"
               name={`steps.${index}.name`}
               label="Name"
             />
+            <SelectField
+              control={control}
+              orientation="horizontal"
+              label="Type"
+              name={`steps.${index}.type`}
+              options={$Enums.FermentationStepType}
+            />
           </div>
-          <div className="flex flex-col lg:flex-row *:p-2 gap-3">
+          <div className="flex flexcol lg:flex-row *:p- gap-2">
             <AmountField
               name={`steps.${index}.temperature`}
               type="number"
