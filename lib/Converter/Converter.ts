@@ -1,4 +1,5 @@
 import {
+  ConcentrationUnit,
   MassUnit,
   PercentUnit,
   TimeUnit,
@@ -58,6 +59,12 @@ const gravityConverter: Record<UserGravityPreference, ConversionType> = {
   ],*/
   PPG: 1,
 };
+
+const concentrationConverter: Record<ConcentrationUnit, ConversionType> = {
+  ppm: 1,
+  ppb: 1000,
+};
+
 const tempConverter: Record<UserTemperaturePreference, ConversionType> = {
   C: 1,
   F: [(c: number) => c * 1.8 + 32, (f: number) => (f - 32) * 0.5556],
@@ -84,6 +91,7 @@ export const converters: Partial<
   yeastMass: makeConverter(massConverter),
   color: makeConverter(colorConverter),
   temperature: makeConverter(tempConverter),
+  concentration: makeConverter(concentrationConverter),
   volume: makeConverter(volumeConverter),
   percent: makeConverter(percentConverter),
   gravity: makeConverter(gravityConverter),

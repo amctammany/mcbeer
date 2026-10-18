@@ -12,7 +12,7 @@ export type UserPreferencesType = Partial<
   Pick<
     UserPreferences,
     | "color"
-    // | "concentration"
+    | "concentration"
     | "gravity"
     | "hopMass"
     | "mass"

@@ -17,6 +17,7 @@ import {
   FermentationStepType,
   MashProfileType,
   MashStepType,
+  WaterProfileType,
 } from "./Profile";
 
 export interface BaseRecipeType extends Omit<
@@ -116,6 +117,7 @@ export interface RecipeFermentationStepType extends Omit<
  */
 export interface RecipeType extends BaseRecipeType {
   owner: Partial<BaseUser>;
+  WaterProfile?: Partial<WaterProfileType> | null;
   MashProfile?: Partial<MashProfileType> | null;
   FermentationProfile?: Partial<FermentationProfileType> | null;
   EquipmentProfile?: Partial<EquipmentProfile> | null;
@@ -142,7 +144,11 @@ export type AdjustedRecipeType = AmountFields<
   BaseRecipeType,
   RecipeAmountFieldNames
 > & {
+  MashProfile?: Partial<MashProfileType> | null;
   EquipmentProfile?: Partial<EquipmentProfile> | null;
+  WaterProfile?: Partial<WaterProfileType> | null;
+  FermentationProfile?: Partial<FermentationProfileType> | null;
+
   owner: Partial<BaseUser>;
   style?: Partial<Style> | null;
   origin?: BaseRecipeType;

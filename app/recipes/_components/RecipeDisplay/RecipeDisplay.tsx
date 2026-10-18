@@ -6,6 +6,9 @@ import React from "react";
 import { HopIngredientItem } from "./HopIngredientItem";
 import { FermentableIngredientItem } from "./FermentableIngredientItem";
 import { YeastIngredientItem } from "./YeastIngredientItem";
+import FermentationSection from "./FermentationSection";
+import MashSection from "./MashSection";
+import WaterSection from "./WaterSection";
 export type RecipeDisplayProps = {
   src: AdjustedRecipeType;
 };
@@ -63,6 +66,9 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
             <YeastIngredientItem src={yeast} key={index} />
           ))}
         </Section>
+        <WaterSection src={src} />
+        <MashSection src={src} />
+        <FermentationSection src={src} />
       </div>
     </div>
   );

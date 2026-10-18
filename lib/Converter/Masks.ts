@@ -4,6 +4,7 @@ import {
   EquipmentProfileType,
   MashProfileType,
   MashStepType,
+  WaterProfileType,
 } from "@/types/Profile";
 import { UnitMaskType } from "./adjustUnits";
 import { FermentableType, HopType, YeastType } from "@/types/Ingredient";
@@ -81,6 +82,15 @@ export const HopIngredientMask: UnitMaskType<Partial<BaseHopIngredientType>> = {
   duration: "time",
   alpha: ["percent", "percent"],
 };
+export const WaterProfileMask: UnitMaskType<Partial<WaterProfileType>> = {
+  calcium: "concentration",
+  magnesium: "concentration",
+  chloride: "concentration",
+  bicarbonate: "concentration",
+  sulfate: "concentration",
+  sodium: "concentration",
+};
+
 export const RecipeMask: UnitMaskType<Partial<RecipeType>> = {
   boilTime: "time",
   batchVolume: "volume",
@@ -94,6 +104,7 @@ export const RecipeMask: UnitMaskType<Partial<RecipeType>> = {
   fermentationSteps: FermentationStepMask,
   mashSteps: MashStepMask,
   FermentationProfile: FermentationProfileMask,
+  WaterProfile: WaterProfileMask,
   MashProfile: MashProfileMask,
   yeastIngredients: YeastIngredientMask,
   hopIngredients: HopIngredientMask,

@@ -8,6 +8,7 @@ import {
   TimeUnit,
   PercentUnit,
   UserColorPreference,
+  ConcentrationUnit,
 } from "@/generated/prisma/browser";
 
 export type PercentUnitType = "%" | "#";
@@ -27,8 +28,7 @@ export type UnitNames =
   | UserGravityPreference
   | UserVolumePreference
   | UserMassPreference
-  | "ppm"
-  | "ppb";
+  | ConcentrationUnit;
 export const UNITS = {
   time: TimeUnit,
   percent: PercentUnit,
@@ -41,6 +41,7 @@ export const UNITS = {
   pressure: UserPressurePreference,
   gravity: UserGravityPreference,
   volume: UserVolumePreference,
+  concentration: ConcentrationUnit,
 };
 export const BASE_UNITS = {
   time: TimeUnit.min,
@@ -54,6 +55,7 @@ export const BASE_UNITS = {
   pressure: UserPressurePreference.PSI,
   gravity: UserGravityPreference.Brix,
   volume: UserVolumePreference.L,
+  concentration: ConcentrationUnit.ppm,
 };
 export type UnitTypes = keyof typeof UNITS;
 export const UnitTypesType = Object.keys(UNITS);

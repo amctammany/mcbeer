@@ -35,7 +35,7 @@ export default function ListItem({
 }: ListItemProps) {
   return (
     <div
-      className={clsx(listItemVariants({ size }), className)}
+      className={clsx(listItemVariants({ variant, size }), className)}
       data-slot="list-item"
       data-variant={variant}
       data-size={size}
