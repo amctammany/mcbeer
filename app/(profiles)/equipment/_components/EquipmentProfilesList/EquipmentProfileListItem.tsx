@@ -1,10 +1,15 @@
+import ListItem from "@/components/Form/List/ListItem";
+import ListItemContent from "@/components/Form/List/ListItemContent";
+import ListItemDescription from "@/components/Form/List/ListItemDescription";
+import ListItemIcon from "@/components/Form/List/ListItemIcon";
+import ListItemTitle from "@/components/Form/List/ListItemTitle";
 import { AmountProp } from "@/components/Prop/AmountProp";
 import Prop from "@/components/Prop/Prop";
 import {
   AdjustedEquipmentProfileType,
   BaseEquipmentProfile,
 } from "@/types/Profile";
-import { Droplet } from "lucide-react";
+import { Droplet, DropletIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -14,6 +19,37 @@ export type EquipmentProfileListItemProps = {
 export default function EquipmentProfileListItem({
   profile,
 }: EquipmentProfileListItemProps) {
+  /**
+  return (
+    <ListItem size="sm">
+      <ListItemIcon>
+        <DropletIcon />
+      </ListItemIcon>
+      <ListItemContent>
+        <ListItemTitle>{profile.name}</ListItemTitle>
+        <ListItemDescription className="grow">
+          <div className="grow flex flex-row">
+            <div className="grow md:min-w-52  grid justify-items-end ">
+              <div className="w-full lg:w-fit flex flex-row gap-0 md:gap-1 lg:gap-2">
+                <AmountProp
+                  name="brewEfficiency"
+                  label="Brew Efficiency"
+                  value={profile.brewEfficiency}
+                />
+
+                <AmountProp
+                  name="batchVolume"
+                  label="Batch Volume"
+                  value={profile.batchVolume}
+                />
+              </div>
+            </div>
+          </div>
+        </ListItemDescription>
+      </ListItemContent>
+    </ListItem>
+  );
+  */
   return (
     <Link href={`/equipment/${profile.slug}`}>
       <div className="list-item py-2 group hover:bg-slate-200">
