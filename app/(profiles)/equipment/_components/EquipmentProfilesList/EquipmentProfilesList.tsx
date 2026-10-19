@@ -16,6 +16,7 @@ import {
   InputGroupText,
 } from "@/components/ui/input-group";
 import { SearchIcon, XCircleIcon } from "lucide-react";
+import SearchBox from "@/components/SearchBox";
 export type EquipmentProfilesListProps = {
   profiles: BaseEquipmentProfile[];
 };
@@ -34,24 +35,12 @@ export default function EquipmentProfilesList({
   return (
     <div className="">
       <div className="mb-4 w-full h-12 m-2">
-        <Field className="flex h-12 text-lg w-full rounded-md  bg-transparent px-3 py-1 textbase transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-hidden invalid:ring-destructive disabled:cursor-not-allowed disabled:opacity-50 md:text-sm ">
-          <InputGroup className="px-4 py-2 h-12">
-            <InputGroupInput
-              type="search"
-              value={filterValue}
-              id="input-group-url"
-              className="text-xl! h-12"
-              placeholder="Search"
-              onChange={onChange}
-            />
-            <InputGroupAddon className="siz-4">
-              <SearchIcon className="sie-4" width="44" height={44} />
-            </InputGroupAddon>
-            <InputGroupAddon align="inline-end">
-              <XCircleIcon size={48} />
-            </InputGroupAddon>
-          </InputGroup>
-        </Field>
+        <SearchBox
+          value={filterValue}
+          onChange={onChange}
+          placeholder="Search equipment..."
+          label="Search"
+        />
       </div>
       <ul className="p-2 gap-2 border-t-4 *:*:border-black *:*:border-b-2">
         {filteredProfiles.map((profile) => (
