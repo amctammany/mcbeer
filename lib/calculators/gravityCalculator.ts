@@ -20,14 +20,14 @@ export function calculateOG(recipe: ExtendedRecipeType): number {
       const amount = convertUnitRaw(ing.amount, "g", "Lb");
       const potential = ((ing.potential ?? 1) - 1) * 1000;
       const gp = ((amount ?? 1)! * potential) / batchVolume;
-      console.log({ ing, potential, gp });
+      // console.log({ ing, potential, gp });
       return acc + gp;
     },
     0,
   );
   const gravity = gravPoints * (recipe.brewEfficiency ?? 0.72);
   const res = 1 + gravity / 1000;
-  console.log({ batchVolume, gravPoints, gravity, res });
+  // console.log({ batchVolume, gravPoints, gravity, res });
   return precisionRound(res, 3);
 }
 export function calculateFG(recipe: ExtendedRecipeType, og: number): number {
@@ -51,13 +51,14 @@ export function calculateIBUs(
   const ibus = (recipe.hopIngredients ?? []).reduce((acc, hop) => {
     // const amount = convertUnitRaw(hop.amount ?? 0, "g", "Oz");
     const utilization =
-      (1.88 *
+      (1.65 *
         Math.pow(0.000125, og - 1) *
         (1 - Math.exp(-0.04 * hop.duration))) /
-      4.0;
+      4.15;
     const ibu =
       ((hop.alpha ?? 0) * hop.amount * utilization * 1000) /
       (recipe.batchVolume ?? 1);
+    /**
     console.log({
       hop,
       hopAmt: hop.amount,
@@ -68,6 +69,8 @@ export function calculateIBUs(
       alpha: hop.alpha,
       og,
     });
+     * 
+     */
     return acc + ibu;
   }, 0);
   return precisionRound(ibus, 2);
