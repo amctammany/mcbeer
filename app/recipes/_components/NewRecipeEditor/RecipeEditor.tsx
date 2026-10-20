@@ -11,6 +11,7 @@ import RecipeModals from "./RecipeModals";
 import MashSection from "./MashSection";
 import WaterSection from "./WaterSection";
 import FermentationSection from "./FermentationSection";
+import RecipeTools from "./RecipeTools";
 export type RecipeEditorProps = {
   src: RecipeType;
   action: any; //(state: any, data: RecipeType) => void;
@@ -32,6 +33,7 @@ export default function RecipeEditor({ src, action }: RecipeEditorProps) {
 
         <RecipeEditorForm />
 
+        <RecipeTools src={src} />
         <div>
           <IngredientsSection src={src} />
         </div>
