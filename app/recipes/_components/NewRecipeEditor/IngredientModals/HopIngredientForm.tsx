@@ -160,6 +160,7 @@ export default function HopIngredientForm({
           name="amount"
           label="Amount"
           unit={src.amount?.unit ?? "Oz"}
+          amountType="hopMass"
         />
         <SelectField
           defaultValue={$Enums.HopIngredientUsage.Boil}

@@ -31,6 +31,7 @@ export default function HopIngredientModal({
   const { fields, append, update } = useFieldArray({
     name: "hopIngredients",
     control: f.control,
+    keyName: "_id",
   });
   // const hopIngredients = useWatch({
   //   name: "hopIngredients",

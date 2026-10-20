@@ -226,7 +226,7 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
               src={i}
               onClick={handleClick({
                 type: "hop",
-                id: i.id,
+                id: i._id,
                 index: i.index,
                 mode: "EDIT",
               })}

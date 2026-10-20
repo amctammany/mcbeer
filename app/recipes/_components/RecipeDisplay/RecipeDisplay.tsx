@@ -48,7 +48,10 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
             label="Style"
             value={`${src.styleIdentifier} - ${src.style?.name}`}
           />
+          <Prop label="IBUs" value={vitals.IBUs} />
           <Prop label="OG" value={vitals.OG} />
+          <Prop label="FG" value={vitals.FG} />
+          <Prop label="ABV" value={vitals.ABV} />
           <Prop label="SRM" value={vitals.SRM} />
         </Section>
         <Section title="Ingredients" className="lg:col-span-3">
