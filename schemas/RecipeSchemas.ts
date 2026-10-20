@@ -11,7 +11,8 @@ export const fermentableIngredientSchema = zfd.formData({
   fermentableId: zfd.text(z.string()),
   color: unitValueSchema(z.number()),
   amount: unitValueSchema(z.number()),
-  potential: zfd.numeric(z.number().optional()),
+  potential: unitValueSchema(z.number()),
+  // potential: zfd.numeric(z.number().optional()),
   usage: z.enum(FermentableIngredientUsage),
 });
 export const yeastIngredientSchema = zfd.formData({

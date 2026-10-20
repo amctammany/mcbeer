@@ -225,10 +225,16 @@ export default function FermentableIngredientItem({
         {...form.register(`fermentableIngredients.${index}.color.unit`)}
         value={src?.color?.unit ?? ""}
       />
+
       <input
         type="hidden"
-        {...form.register(`fermentableIngredients.${index}.potential`)}
-        value={src?.potential ?? ""}
+        {...form.register(`fermentableIngredients.${index}.potential.value`)}
+        value={src?.potential?.value ?? 0}
+      />
+      <input
+        type="hidden"
+        {...form.register(`fermentableIngredients.${index}.potential.unit`)}
+        value={src?.potential?.unit ?? ""}
       />
 
       <ListItemIcon>

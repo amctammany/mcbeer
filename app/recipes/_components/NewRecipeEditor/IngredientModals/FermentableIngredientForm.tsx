@@ -99,6 +99,7 @@ export default function FermentableIngredientForm({
     if (h) {
       // console.log(h);
       setValue("color.value", (h?.color ?? 1.0) * 1);
+      setValue("potential.value", (h?.potential ?? 1.0) * 1);
     }
     // handleClose();
   };
@@ -145,6 +146,14 @@ export default function FermentableIngredientForm({
               label="Color"
               amountType="color"
               unit={"Lovibond"}
+            />
+            <AmountField
+              revisable={false}
+              step="0.001"
+              name="potential"
+              label="Potential"
+              amountType="gravity"
+              unit={"SG"}
             />
           </div>
         </CollapsibleContent>

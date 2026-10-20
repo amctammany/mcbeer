@@ -69,7 +69,8 @@ export function ComboBoxField<T extends FieldValues>({
   const revisionContext = useContext(RevisionContext);
   const onValueChange = (cb: (newValue: any) => void) => (newValue: any) => {
     const opt = options[options.findIndex((o: any) => o.value === newValue)];
-    // console.log("Value changed:", options, newValue, opt);
+    // console.log("Value changed:", newValue, opt);
+    cb(newValue);
     if (!opt) return;
     revisionContext?.update({
       type: "SET",

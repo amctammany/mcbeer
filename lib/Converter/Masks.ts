@@ -70,6 +70,7 @@ export const FermentableIngredientMask: UnitMaskType<
 > = {
   amount: "fermentableMass",
   color: "color",
+  potential: "gravity",
 };
 export const YeastIngredientMask: UnitMaskType<
   Partial<BaseYeastIngredientType>

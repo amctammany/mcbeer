@@ -89,6 +89,8 @@ export function ComboBox({
     >
       <ComboboxInput
         className="grow"
+        // name={`${name}.name`}
+        // value={selectedOption?.value}
         placeholder={placeholder ?? "Select an option"}
       />
       <ComboboxContent className="w-full ">

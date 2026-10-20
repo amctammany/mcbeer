@@ -35,7 +35,6 @@ export default function FermentationStep({
   onClick,
 }: FermentationStepProps) {
   const form = useFormContext<AdjustedRecipeType>();
-  console.log(src);
   return (
     <ListItem onClick={onClick}>
       <input

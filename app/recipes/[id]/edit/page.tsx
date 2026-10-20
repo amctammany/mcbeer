@@ -26,6 +26,5 @@ export default async function RecipeEditorPage({
     mashSteps: _recipe.MashProfile?.steps ?? [],
     fermentationSteps: _recipe.FermentationProfile?.steps ?? [],
   };
-  console.log(recipe);
   return <RecipeEditor src={recipe} action={updateRecipe} />;
 }

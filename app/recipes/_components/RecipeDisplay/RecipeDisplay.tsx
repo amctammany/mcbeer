@@ -10,6 +10,7 @@ import FermentationSection from "./FermentationSection";
 import MashSection from "./MashSection";
 import WaterSection from "./WaterSection";
 import { reduceUnits } from "@/lib/Converter/adjustUnits";
+import { calculateVitals } from "@/lib/calculators/gravityCalculator";
 export type RecipeDisplayProps = {
   src: AdjustedRecipeType;
 };
@@ -19,6 +20,7 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
     (acc, f) => acc + f.amount.value,
     0,
   );
+  const vitals = calculateVitals(reduceUnits(src) as any);
   return (
     <div>
       <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
@@ -46,6 +48,8 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
             label="Style"
             value={`${src.styleIdentifier} - ${src.style?.name}`}
           />
+          <Prop label="OG" value={vitals.OG} />
+          <Prop label="SRM" value={vitals.SRM} />
         </Section>
         <Section title="Ingredients" className="lg:col-span-3">
           {(src.hopIngredients ?? [])
@@ -71,6 +75,7 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
         <MashSection src={src} />
         <FermentationSection src={src} />
       </div>
+      <div className="m-4">{JSON.stringify(reduceUnits(src))}</div>
     </div>
   );
 }
