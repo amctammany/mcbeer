@@ -45,8 +45,8 @@ export type AdjustedYeastIngredientType = AmountFields<
   BaseYeastIngredientType,
   YeastIngredientAmountFieldNames
 >;
-export type ExtendedYeastIngredientType = AdjustedYeastIngredientType & {
-  yeast?: Partial<YeastType>;
+export type ExtendedYeastIngredientType = OptionalNullable<YeastIngredient> & {
+  yeast: YeastType;
 };
 
 export interface BaseFermentableIngredientType extends Omit<
@@ -63,8 +63,8 @@ export type AdjustedFermentableIngredientType = AmountFields<
   FermentableIngredientAmountFieldNames
 >;
 export type ExtendedFermentableIngredientType =
-  AdjustedFermentableIngredientType & {
-    fermentable?: Partial<FermentableType>;
+  OptionalNullable<FermentableIngredient> & {
+    fermentable: FermentableType;
   };
 export interface BaseHopIngredientType extends Omit<
   OptionalNullable<HopIngredient>,
@@ -81,8 +81,8 @@ export type AdjustedHopIngredientType = AmountFields<
   HopIngredientAmountFieldNames
 > & { hop?: Partial<HopType> };
 
-export type ExtendedHopIngredientType = AdjustedHopIngredientType & {
-  hop?: Partial<HopType>;
+export type ExtendedHopIngredientType = OptionalNullable<HopIngredient> & {
+  hop: HopType;
 };
 /**
  * 
@@ -130,6 +130,20 @@ export interface RecipeType extends BaseRecipeType {
   hopIngredients: BaseHopIngredientType[];
   fermentableIngredients: BaseFermentableIngredientType[];
 }
+export type ExtendedRecipeType = Omit<
+  RecipeType,
+  | "fermentableIngredients"
+  | "hopIngredients"
+  | "yeastIngredients"
+  | "mashSteps"
+  | "fermentationSteps"
+> & {
+  fermentableIngredients: ExtendedFermentableIngredientType[];
+  hopIngredients: ExtendedHopIngredientType[];
+  yeastIngredients: ExtendedYeastIngredientType[];
+  // mashSteps: AdjustedMashStepType[];
+  // fermentationSteps: AdjustedFermentationStepType[];
+};
 type RecipeAmountFieldNames =
   | "boilTime"
   | "boilVolume"

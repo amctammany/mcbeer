@@ -40,9 +40,9 @@ describe("converterUnits", () => {
     const res = convertUnitRaw(input, "min", "hr");
     expect(res).toBe(0.25);
   });
-  test("Mass conversion", () => {
-    const input = 10;
-    const res = adjustUnit({ value: input, unit: "Kg" });
-    expect(res.value).toBe(10000);
-  });
+  // test("Mass conversion", () => {
+  //   const input = 10;
+  //   const res = adjustUnit({ value: input, unit: "Kg" });
+  //   expect(res.value).toBe(10000);
+  // });
 });

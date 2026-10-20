@@ -9,6 +9,7 @@ import { YeastIngredientItem } from "./YeastIngredientItem";
 import FermentationSection from "./FermentationSection";
 import MashSection from "./MashSection";
 import WaterSection from "./WaterSection";
+import { reduceUnits } from "@/lib/Converter/adjustUnits";
 export type RecipeDisplayProps = {
   src: AdjustedRecipeType;
 };

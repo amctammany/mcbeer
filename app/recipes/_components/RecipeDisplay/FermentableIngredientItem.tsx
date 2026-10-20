@@ -4,13 +4,17 @@ import ListItemDescription from "@/components/Form/List/ListItemDescription";
 import ListItemIcon from "@/components/Form/List/ListItemIcon";
 import ListItemTitle from "@/components/Form/List/ListItemTitle";
 import BadgeProp from "@/components/Prop/BadgeProp";
-import { ExtendedFermentableIngredientType } from "@/types/Recipe";
+import { FermentableType } from "@/types/Ingredient";
+import {
+  AdjustedFermentableIngredientType,
+  ExtendedFermentableIngredientType,
+} from "@/types/Recipe";
 import { WheatIcon, ScaleIcon, TimerIcon, BeakerIcon } from "lucide-react";
 
 export type FermentableIngredientItemProps = {
   index: number;
   totalFermentables: number;
-  src: ExtendedFermentableIngredientType;
+  src: AdjustedFermentableIngredientType & { fermentable?: FermentableType };
   onClick?: () => void;
 };
 export function FermentableIngredientItem({
