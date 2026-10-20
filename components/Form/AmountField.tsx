@@ -56,9 +56,13 @@ import { FormStateContext } from "@/contexts/FormStateContext";
 import { get } from "@/lib/utils";
 import { PercentUnit } from "@/generated/prisma/enums";
 import { getBaseUnit } from "@/lib/Converter/Converter";
+import { UserPreferencesType } from "@/types/User";
 export type AmountFieldProps<T extends FieldValues> = InputProps<T> &
   VariantProps<typeof amountFieldStyles> & {
-    amountType?: UnitTypes;
+    amountType?: keyof Omit<
+      UserPreferencesType,
+      "id" | "userId" | "fontSize" | "massSystem" | "flow"
+    >;
     unit?: UnitNames;
     min?: number;
     max?: number;
@@ -103,7 +107,7 @@ export function AmountField<T extends FieldValues>({
 }: AmountFieldProps<T>) {
   const id = `${name}-field`;
   const { register, getFieldState, formState, getValues } = useFormContext();
-  // const preferenceContext = useContext(UserPreferencesContext);
+  const preferenceContext = useContext(UserPreferencesContext);
   // const { mask } = useContext(MaskContext);
   // const mn = getInMask(mask, name);
   // const maskV = Array.isArray(mn) ? mn[0] : mn;
@@ -116,11 +120,9 @@ export function AmountField<T extends FieldValues>({
   // // : amountType === "percent"
   // // ? PercentUnits[amountType]
   // // : BASE_UNITS[amountType!];
-  const unit =
-    _unit ??
-    (isUnitValue(val)
-      ? val.unit
-      : BASE_UNITS[amountType as keyof typeof BASE_UNITS]);
+  const unit = amountType
+    ? preferenceContext[amountType]
+    : (_unit ?? (isUnitValue(val) ? val.unit : null));
 
   const value = typeof val === "number" ? val : val?.value;
   // console.log({ val, value, unitName });

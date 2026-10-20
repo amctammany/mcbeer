@@ -68,7 +68,7 @@ export function adjustUnit({
     // const r = inline ? v : ({ value: v, unit } as UnitValue);
     // console.log("convertUnit: number", { value, type, unit, inline, dir, r });
     // return r;
-    const res = convertUnitRaw(value, unit);
+    const res = convertUnitRaw(value, unit, baseUnit);
     const preciseRes = precisionRound(res, precision);
     return inlinify(preciseRes, unit, inline);
   }

@@ -61,7 +61,7 @@ export function HopIngredientFormContainer<S = unknown>({
     d.handleDialogOpen()();
   };
   const handleSave = (d: any) => {
-    // console.log(d);
+    console.log(d);
     // console.log(action);
     _onSubmit(d);
     index ? action(index, d) : action(d);
@@ -159,7 +159,7 @@ export default function HopIngredientForm({
           step="0.1"
           name="amount"
           label="Amount"
-          // unit={src.amount?.unit ?? "Oz"}
+          unit={src.amount?.unit ?? "Oz"}
           amountType="hopMass"
         />
         <SelectField
