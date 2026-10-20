@@ -159,7 +159,7 @@ export default function HopIngredientForm({
           step="0.1"
           name="amount"
           label="Amount"
-          unit={src.amount?.unit ?? "Oz"}
+          // unit={src.amount?.unit ?? "Oz"}
           amountType="hopMass"
         />
         <SelectField

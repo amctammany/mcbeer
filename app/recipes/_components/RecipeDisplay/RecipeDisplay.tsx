@@ -78,7 +78,7 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
         <MashSection src={src} />
         <FermentationSection src={src} />
       </div>
-      <div className="m-4">{JSON.stringify(reduceUnits(src))}</div>
+      <div className="hidden m-4">{JSON.stringify(reduceUnits(src))}</div>
     </div>
   );
 }
