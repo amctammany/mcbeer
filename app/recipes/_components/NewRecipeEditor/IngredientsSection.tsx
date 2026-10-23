@@ -45,6 +45,8 @@ import FermentableIngredientItem from "./FermentableIngredientItem";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { FormStateContext } from "@/contexts/FormStateContext";
 import YeastIngredientItem from "./YeastIngredientItem";
+import { calculateIBUMap } from "@/lib/calculators/gravityCalculator";
+import { reduceUnits } from "@/lib/Converter/adjustUnits";
 // const HopIngredientModal = dynamic(
 // () => import("./IngredientModals/HopIngredientModal"),
 // { ssr: false },
@@ -153,7 +155,8 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
   // };
 
   const { getValues, watch, control } = useFormContext<AdjustedRecipeType>();
-
+  const ibuMap = calculateIBUMap(reduceUnits(src) as any);
+  console.log(ibuMap);
   const yeastIngArray = useFieldArray({
     name: "yeastIngredients",
     control,
@@ -217,7 +220,7 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
     >
       <List className="min-h-40 flex flex-col  w-full" size="small">
         {_hopIngredients
-          .map((a: any, index: any) => ({ ...a, index }))
+          .map((a: any, index: any) => ({ ...a, index, ibu: ibuMap[a.id] }))
           .sort((a, b) => b.duration.value - a.duration.value)
           .map((i: any) => (
             <HopIngredientItem

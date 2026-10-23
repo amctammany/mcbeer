@@ -1,4 +1,8 @@
-import { ExtendedRecipeType, RecipeType } from "@/types/Recipe";
+import {
+  ExtendedHopIngredientType,
+  ExtendedRecipeType,
+  RecipeType,
+} from "@/types/Recipe";
 import { precisionRound } from "../utils";
 import { convertUnit, convertUnitRaw } from "../Converter/adjustUnits";
 
@@ -43,22 +47,18 @@ export function calculateABV(og: number, fg: number): number {
   const abv = (og - fg) * 131.25;
   return precisionRound(abv, 2);
 }
-export function calculateIBUs(
-  recipe: ExtendedRecipeType,
-  _og?: number,
+export function calculateIBU(
+  hop: ExtendedHopIngredientType,
+  og: number,
+  batchVolume: number,
 ): number {
-  const og = _og ?? calculateOG(recipe);
-  const ibus = (recipe.hopIngredients ?? []).reduce((acc, hop) => {
-    // const amount = convertUnitRaw(hop.amount ?? 0, "g", "Oz");
-    const utilization =
-      (1.65 *
-        Math.pow(0.000125, og - 1) *
-        (1 - Math.exp(-0.04 * hop.duration))) /
-      4.15;
-    const ibu =
-      ((hop.alpha ?? 0) * hop.amount * utilization * 1000) /
-      (recipe.batchVolume ?? 1);
-    /**
+  // const amount = convertUnitRaw(hop.amount ?? 0, "g", "Oz");
+  const utilization =
+    (1.65 * Math.pow(0.000125, og - 1) * (1 - Math.exp(-0.04 * hop.duration))) /
+    4.15;
+  const ibu =
+    ((hop.alpha ?? 0) * hop.amount * utilization * 1000) / (batchVolume ?? 1);
+  /**
     console.log({
       hop,
       hopAmt: hop.amount,
@@ -71,8 +71,35 @@ export function calculateIBUs(
     });
      * 
      */
-    return acc + ibu;
-  }, 0);
+  return ibu;
+}
+export function calculateIBUMap(
+  recipe: ExtendedRecipeType,
+  _og?: number,
+): Record<string, number> {
+  const og = _og ?? calculateOG(recipe);
+  const ibuMap = (recipe.hopIngredients ?? []).reduce<Record<string, number>>(
+    (acc, hop) => {
+      acc[hop.id] = calculateIBU(hop, og, recipe.batchVolume ?? 1);
+      return acc;
+    },
+    {},
+  );
+  // const ibus = (recipe.hopIngredients ?? []).reduce((acc, hop) => {
+  // return acc + calculateIBU(hop, og, recipe.batchVolume ?? 1);
+  // }, 0);
+  return ibuMap;
+  // return precisionRound(ibus, 2);
+}
+export function calculateIBUs(
+  recipe: ExtendedRecipeType,
+  _og?: number,
+): number {
+  const og = _og ?? calculateOG(recipe);
+  const ibuMap = calculateIBUMap(recipe, og); // const ibus = (recipe.hopIngredients ?? []).reduce((acc, hop) => {
+  // return acc + calculateIBU(hop, og, recipe.batchVolume ?? 1);
+  // }, 0);
+  const ibus = Object.values(ibuMap).reduce((acc, ibu) => acc + ibu, 0);
   return precisionRound(ibus, 2);
 }
 export function calculateVitals(recipe: ExtendedRecipeType): any {
@@ -80,13 +107,15 @@ export function calculateVitals(recipe: ExtendedRecipeType): any {
   const FG = calculateFG(recipe, OG);
   const SRM = calculateSRM(recipe);
   const ABV = calculateABV(OG, FG);
-  const IBUs = calculateIBUs(recipe, OG);
+  const IBUMap = calculateIBUMap(recipe, OG);
+  const ibus = Object.values(IBUMap).reduce((acc, ibu) => acc + ibu, 0);
   //   return parseFloat(gravity.toFixed(2));
   return {
     OG,
     FG,
     SRM,
     ABV,
-    IBUs,
+    IBUs: precisionRound(ibus, 2),
+    IBUMap,
   };
 }

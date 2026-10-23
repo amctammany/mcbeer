@@ -225,7 +225,7 @@ export default function HopIngredientItem({
               <BadgeProp
                 Icon={<ScaleIcon size={12} />}
                 name="ibu"
-                text={src.alpha?.value}
+                text={(_src as any).ibu}
                 unit="ibu"
               />
             </div>

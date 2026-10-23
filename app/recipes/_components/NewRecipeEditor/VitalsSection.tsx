@@ -1,10 +1,13 @@
 "use client";
 import Prop from "@/components/Prop/Prop";
 import Section from "@/components/Section";
+import { calculateVitals } from "@/lib/calculators/gravityCalculator";
 import { RecipeType } from "@/types/Recipe";
 import React, { Usable, use } from "react";
 
-export default function VitalsSection({}: {}) {
+export default function VitalsSection({ src }: { src: any }) {
+  const vitals = calculateVitals(src);
+  console.log(vitals);
   return (
     <Section title="Vitals">
       <Prop label="OG" value="?" variant="inline" />
