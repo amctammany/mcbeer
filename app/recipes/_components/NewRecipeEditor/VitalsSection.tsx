@@ -10,11 +10,11 @@ export default function VitalsSection({ src }: { src: any }) {
   console.log(vitals);
   return (
     <Section title="Vitals">
-      <Prop label="OG" value="?" variant="inline" />
-      <Prop label="SRM" value="?" variant="inline" />
-      <Prop label="IBU" value="?" variant="inline" />
-      <Prop label="FG" value="?" variant="inline" />
-      <Prop label="ABV" value="?" variant="inline" />
+      <Prop label="OG" value={vitals.OG} variant="inline" />
+      <Prop label="SRM" value={vitals.SRM} variant="inline" />
+      <Prop label="IBU" value={vitals.IBUs} variant="inline" />
+      <Prop label="FG" value={vitals.FG} variant="inline" />
+      <Prop label="ABV" value={vitals.ABV} variant="inline" />
     </Section>
   );
 }

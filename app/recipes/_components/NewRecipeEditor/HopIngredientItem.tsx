@@ -18,6 +18,7 @@ import { IngredientContext } from "@/contexts/IngredientContext";
 import { RevisionContext } from "@/contexts/RevisionContext";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
 import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
+import { precisionRound } from "@/lib/utils";
 import {
   AdjustedHopIngredientType,
   BaseHopIngredientType,
@@ -40,7 +41,7 @@ import React, { act, useContext } from "react";
 import { useFormContext } from "react-hook-form";
 
 export type HopIngredientItemProps = {
-  src: AdjustedHopIngredientType;
+  src: AdjustedHopIngredientType & { ibu?: number };
   index: number;
   onClick?: React.MouseEventHandler;
   actions: Record<string, any>;
@@ -225,7 +226,7 @@ export default function HopIngredientItem({
               <BadgeProp
                 Icon={<ScaleIcon size={12} />}
                 name="ibu"
-                text={(_src as any).ibu}
+                text={precisionRound(_src.ibu ?? 0, 2)}
                 unit="ibu"
               />
             </div>

@@ -10,7 +10,9 @@ export function calculateSRM(recipe: ExtendedRecipeType): number {
   const batchVolume = convertUnitRaw(recipe.batchVolume ?? 1, "L", "gal");
   const mcu =
     (recipe.fermentableIngredients ?? []).reduce((acc, ing) => {
-      const c = (ing.color ?? 1) * ing.amount!;
+      console.log(acc, ing);
+      const amt = convertUnitRaw(ing.amount ?? 0, "g", "Lb");
+      const c = (ing.color ?? 1) * amt;
       return acc + c;
     }, 0) / batchVolume;
   const srm = 1.4922 * Math.pow(mcu, 0.6859);
@@ -102,7 +104,7 @@ export function calculateIBUs(
   const ibus = Object.values(ibuMap).reduce((acc, ibu) => acc + ibu, 0);
   return precisionRound(ibus, 2);
 }
-export function calculateVitals(recipe: ExtendedRecipeType): any {
+export function calculateVitals(recipe: ExtendedRecipeType) {
   const OG = calculateOG(recipe);
   const FG = calculateFG(recipe, OG);
   const SRM = calculateSRM(recipe);
