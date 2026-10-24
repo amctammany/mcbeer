@@ -2,7 +2,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import React from "react";
 const listItemContentVariants = cva(
-  "md:flex md:flex-1 flex-col md:flex-row gap-1 [&+[data-slot=list-item-content]]:lex-none",
+  " grid gap-1 [&+[data-slot=list-item-content]]:lex-none",
   {
     variants: {
       size: {

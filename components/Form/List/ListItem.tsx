@@ -2,7 +2,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import React from "react";
 const listItemVariants = cva(
-  "group/list-item flex flex-row items-center border",
+  "group/list-item flex flex-row items-center border grow",
   {
     variants: {
       variant: {

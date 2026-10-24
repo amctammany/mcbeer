@@ -80,7 +80,7 @@ export default function FermentationSection() {
           label: ep.name,
         }))}
       />
-      <div className="grid grid-cols-2 lg:grid-cols-3">
+      <div className="grid ">
         <List>
           {_fermSteps.map((fs, index) => (
             <FermentationStep key={fs._id} index={index} src={fs} />

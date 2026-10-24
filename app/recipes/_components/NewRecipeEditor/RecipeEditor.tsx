@@ -29,7 +29,7 @@ export default function RecipeEditor({ src, action }: RecipeEditorProps) {
         toolbar={<RecipeEditorToolbar key="toolbar" src={src} />}
         modals={<RecipeModals key="modals" recipeId={src.id} />}
       >
-        <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
+        <div className="p-1 lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
           <GeneralSection />
           <EquipmentSection />
           <VitalsSection src={src as any} />
@@ -41,7 +41,7 @@ export default function RecipeEditor({ src, action }: RecipeEditorProps) {
         <div>
           <IngredientsSection src={src} />
         </div>
-        <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
+        <div className="p-1 lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-2 lg:col-span-2 mx-auto">
           <MashSection />
           <WaterSection />
           <FermentationSection />
