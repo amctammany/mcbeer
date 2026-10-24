@@ -249,7 +249,7 @@ export default function FermentableIngredientItem({
             text={src.amount?.value}
             unit={src.amount?.unit}
           />
-          <b>{fermentable?.name}</b>
+          <b className="grow">{fermentable?.name}</b>
         </ListItemTitle>
         <ListItemDescription className="grow">
           <div className="grow min-w-52  grid justify-items-end ">

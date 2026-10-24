@@ -156,7 +156,6 @@ export default function IngredientsSection({ src }: { src: RecipeType }) {
 
   const { getValues, watch, control } = useFormContext<AdjustedRecipeType>();
   const ibuMap = calculateIBUMap(reduceUnits(src) as any);
-  console.log(ibuMap);
   const yeastIngArray = useFieldArray({
     name: "yeastIngredients",
     control,

@@ -24,7 +24,7 @@ export default function VitalsSection({ src }: { src: ExtendedRecipeType }) {
   // acc[k] = vitals[k as keyof typeof vitals];
   // return acc;
   //   }, {} as any);
-  console.log({ vitals, ranges });
+  //   console.log({ vitals, ranges });
   return (
     <Section title="Vitals">
       <div>

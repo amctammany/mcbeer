@@ -199,7 +199,7 @@ export default function HopIngredientItem({
             unit={src.amount?.unit}
           />
 
-          <b>{hop?.name}</b>
+          <b className="grow">{hop?.name}</b>
         </ListItemTitle>
         <ListItemDescription className="grow">
           <div className="grow md:min-w-52  grid justify-items-end ">

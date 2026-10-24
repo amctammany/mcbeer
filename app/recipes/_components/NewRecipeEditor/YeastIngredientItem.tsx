@@ -179,7 +179,7 @@ export default function YeastIngredientItem({
             unit={src.amount?.unit}
           />
 
-          <b>{yeast?.name}</b>
+          <b className="grow">{yeast?.name}</b>
         </ListItemTitle>
         <ListItemDescription className="grow">
           <div className="grow min-w-52  grid justify-items-end ">

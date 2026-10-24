@@ -152,17 +152,17 @@ export default function WhiskerBarPlot({
         ? RangeType.Above
         : RangeType.Default;
 
-  console.log({
-    buffer,
-    sMin,
-    range,
-    value,
-    sMax,
-    scaleX,
-    width,
-    left,
-    valLeft,
-  });
+  //   console.log({
+  //     buffer,
+  //     sMin,
+  //     range,
+  //     value,
+  //     sMax,
+  //     scaleX,
+  //     width,
+  //     left,
+  //     valLeft,
+  //   });
   const leftAlign =
     value < (range?.[0] ?? 0)
       ? "text-left"

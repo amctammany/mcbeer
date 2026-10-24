@@ -10,7 +10,7 @@ export function calculateSRM(recipe: ExtendedRecipeType): number {
   const batchVolume = convertUnitRaw(recipe.batchVolume ?? 1, "L", "gal");
   const mcu =
     (recipe.fermentableIngredients ?? []).reduce((acc, ing) => {
-      console.log(acc, ing);
+      // console.log(acc, ing);
       const amt = convertUnitRaw(ing.amount ?? 0, "g", "Lb");
       const c = (ing.color ?? 1) * amt;
       return acc + c;

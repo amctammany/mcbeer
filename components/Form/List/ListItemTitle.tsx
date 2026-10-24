@@ -2,7 +2,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import React from "react";
 const listItemTitleVariants = cva(
-  "line-clamp-1 flex w-fit items-center gap-1 ",
+  "line-clamp-1 flex w-full items-center gap-1 grow",
   {
     variants: {
       size: {
