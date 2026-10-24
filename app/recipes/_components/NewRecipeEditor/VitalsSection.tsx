@@ -37,6 +37,7 @@ export default function VitalsSection({ src }: { src: ExtendedRecipeType }) {
         />
       </div>
       <WhiskerBarPlot
+        className="my-3"
         label="OG"
         range={ranges.OG}
         value={vitals.OG}
@@ -44,6 +45,7 @@ export default function VitalsSection({ src }: { src: ExtendedRecipeType }) {
         // max={1.2}
       />
       <WhiskerBarPlot
+        className="my-3"
         label="FG"
         range={ranges.FG}
         value={vitals.FG}

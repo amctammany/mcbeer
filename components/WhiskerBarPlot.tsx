@@ -109,7 +109,7 @@ const whiskerBarPlotStyles = cva("flex px-4 py-1 mb-1 ", {
   },
   defaultVariants: {
     variant: "default",
-    size: "default",
+    size: "small",
   },
 });
 enum RangeType {
@@ -163,14 +163,20 @@ export default function WhiskerBarPlot({
     left,
     valLeft,
   });
+  const leftAlign =
+    value < (range?.[0] ?? 0)
+      ? "text-left"
+      : value > (range?.[1] ?? 1)
+        ? "text-right"
+        : "text-center";
   return (
     <div className={clsx(whiskerBarPlotStyles({ variant, size }), className)}>
       <h4 className={labelStyles({ variant, size })}>{label}</h4>
       <div className="w-full h-6 block m-auto relative border border-black">
-        <span className="block absolute top-full left-3.5 text-center -translate-x-1/2">
+        <span className="block absolute top-full left-3 text-center -translate-x-1/2 hidden">
           {sMin.toPrecision(3)}
         </span>
-        <span className="block absolute left-auto top-full right-3.75 text-center translate-x-1/2">
+        <span className="block absolute left-auto top-full right-3 text-center translate-x-1/2 hidden">
           {sMax.toPrecision(3)}
         </span>
         <div
@@ -182,9 +188,9 @@ export default function WhiskerBarPlot({
           }}
           className="absolute top-0 bottom-0 block h-full bg-purple-300 border-l-2 border-black border-r-2"
         >
-          <div className="absolute flex w-full my-2 h-full">
+          <div className="absolute flex w-full my-0 h-full">
             <div className="absolute block top-full left-0 w-full ">
-              <span className="absolute -left-1 text-sm">
+              <span className={`absolute -left-1 text-[9px] ${leftAlign}`}>
                 {value?.toPrecision(4)}
               </span>
             </div>
@@ -196,8 +202,10 @@ export default function WhiskerBarPlot({
         >
           <div className="absolute flex w-full my-3 h-full">
             <div className="absolute block -top-1/2 left-0 w-full ">
-              <span className="absolute -left-1 text-xs">{range?.[0]}</span>
-              <span className="absolute -right-1 text-xs">{range?.[1]}</span>
+              <span className="absolute left-0.5 text-[9px]">{range?.[0]}</span>
+              <span className="absolute right-0.5 text-[9px]">
+                {range?.[1]}
+              </span>
             </div>
           </div>
         </div>
