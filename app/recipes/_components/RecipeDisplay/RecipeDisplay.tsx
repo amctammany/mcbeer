@@ -23,8 +23,8 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
   const vitals = calculateVitals(reduceUnits(src) as any);
   return (
     <div>
-      <div className="lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-3 lg:col-span-2 mx-auto">
-        <Section title="General">
+      <div className="lg:p-2 lg:gap-2 *:mb-1 grid  md:grid-cols-2 lg:grid-cols-3 lg:col-span-2 mx-auto">
+        <Section title="General" className="col-span-2 lg:col-span-1">
           <Prop label="Name" value={src.name} />
           <Prop label="Owner" value={src.owner.name} />
           <Prop label="Description" value={src.description} />
@@ -54,7 +54,7 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
           <Prop label="ABV" value={vitals.ABV} />
           <Prop label="SRM" value={vitals.SRM} />
         </Section>
-        <Section title="Ingredients" className="lg:col-span-3">
+        <Section title="Ingredients" className="col-span-2 lg:col-span-3">
           {(src.hopIngredients ?? [])
             .sort((a, b) => b.duration.value - a.duration.value)
             .map((hop, index) => (
@@ -74,9 +74,11 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
             <YeastIngredientItem src={yeast} key={index} />
           ))}
         </Section>
-        <WaterSection src={src} />
-        <MashSection src={src} />
-        <FermentationSection src={src} />
+        <div className="col-span-2 lg:col-span-3 grid grid-cols-2 gap-1 lg:gap-2">
+          <WaterSection src={src} />
+          <MashSection src={src} />
+          <FermentationSection src={src} />
+        </div>
       </div>
       <div className="hidden m-4">{JSON.stringify(reduceUnits(src))}</div>
     </div>

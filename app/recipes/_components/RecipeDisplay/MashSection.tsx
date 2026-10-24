@@ -15,20 +15,20 @@ import React from "react";
 
 const MashStep = ({ index, src }: { index: number; src: any }) => {
   return (
-    <ListItem variant="outlined">
+    <ListItem>
       <ListItemIcon>
-        <Avatar className="bg-blue-200 ">
+        <Avatar size="sm" className="bg-blue-200 ">
           <b className="m-auto">{index}</b>
         </Avatar>
       </ListItemIcon>
 
-      <ListItemContent className="">
+      <ListItemContent className="overflow-auto">
         <ListItemTitle>
           <b>{src?.name}</b>
         </ListItemTitle>
-        <ListItemDescription className="grow w-full md:w-fit">
-          <div className="grow min-w-52  grid justify-items-end mx-auto">
-            <div className="w-full place-content-center lg:w-fit flex flex-row gap-1 lg:gap-2">
+        <ListItemDescription className="grow w-full md:w-it overflow-auto">
+          <div className="grow flex min-w-52  justify-items-end mx-auto overflow-auto">
+            <div className="flex row place-content-center lg:w-fit gap-1 lg:gap-2">
               <BadgeProp
                 Icon={<ThermometerIcon size={12} />}
                 name="Temperature"
@@ -63,7 +63,7 @@ export default function MashSection({ src }: MashSectionProps) {
   return (
     <Section title="Mash">
       <Prop label="Mash Profile" value={src.MashProfile?.name} />
-      <div className="grid ">
+      <div className="grid overflow-auto ">
         <List>
           {mashSteps.map((fs, index) => (
             <MashStep key={fs.id} index={index} src={fs} />

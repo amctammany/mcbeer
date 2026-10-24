@@ -15,7 +15,7 @@ import React from "react";
 
 const FermentationStep = ({ index, src }: { index: number; src: any }) => {
   return (
-    <ListItem variant="outlined">
+    <ListItem>
       <ListItemIcon>
         <Avatar className="bg-blue-200 ">
           <b className="m-auto">{index}</b>
@@ -65,7 +65,7 @@ export default function FermentationSection({ src }: FermentationSectionProps) {
         label="Fermentation Profile"
         value={src.FermentationProfile?.name}
       />
-      <div className="grid ">
+      <div className="grid overflow-auto ">
         <List>
           {fermSteps.map((fs, index) => (
             <FermentationStep key={fs.id} index={index} src={fs} />
