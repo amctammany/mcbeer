@@ -25,7 +25,10 @@ export function AmtProp({
 }: AmtPropProps) {
   const prefs = useContext(UserPreferencesContext);
   const maskCtx = useContext(MaskContext);
-  const s = maskCtx?.mask[name] as keyof UserPreferencesType;
+  const s = maskCtx?.mask[name] as keyof Omit<
+    UserPreferencesType,
+    "hopMass" | "fermentableMass" | "yeastMass"
+  >;
   const unit = prefs?.[s] ?? BASE_UNITS[s];
   const u = unit === "percent" || unit === "number" ? PercentUnits[unit] : unit;
   // const v = value !== undefined ? precisionRound(value ?? 0, precision) : "";
