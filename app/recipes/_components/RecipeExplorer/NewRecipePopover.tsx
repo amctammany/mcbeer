@@ -26,7 +26,14 @@ export const NewRecipePopover = ({ folder, userId }: NewRecipePopoverProps) => {
   return (
     <Popover>
       <PopoverTrigger
-        render={<IconButton label="Add Recipe" icon={Plus} variant="outline" />}
+        render={
+          <IconButton
+            label="Add Recipe"
+            icon={Plus}
+            variant="outline"
+            className="bg-teal-200 text-black"
+          />
+        }
       />
       <PopoverContent>
         <PopoverHeader>

@@ -24,7 +24,14 @@ export const RecipeFolderPopover = ({ folder }: RecipeFolderPopoverProps) => {
   return (
     <Popover>
       <PopoverTrigger
-        render={<IconButton label="Add Folder" icon={Plus} variant="outline" />}
+        render={
+          <IconButton
+            label="Add Folder"
+            icon={Plus}
+            variant="outline"
+            className="bg-green-200 text-black"
+          />
+        }
       />
       <PopoverContent>
         <PopoverHeader>
