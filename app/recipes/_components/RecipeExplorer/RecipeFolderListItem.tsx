@@ -11,7 +11,7 @@ import {
   DropdownMenuContent,
 } from "@/components/ui/dropdown-menu";
 import { BaseRecipeType, RecipeFolderType, RecipeType } from "@/types/Recipe";
-import { ForkKnifeCrossedIcon, MenuIcon } from "lucide-react";
+import { FolderIcon, ForkKnifeCrossedIcon, MenuIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -21,13 +21,13 @@ export type RecipeFolderListItemProps = {
 export default function RecipeListItem({ folder }: RecipeFolderListItemProps) {
   return (
     <Link href={`/recipes/dir/${folder.pathname}`}>
-      <ListItem>
+      <ListItem size="sm">
         <ListItemIcon>
-          <ForkKnifeCrossedIcon />
+          <FolderIcon />
         </ListItemIcon>
         <ListItemContent>
           <ListItemTitle>
-            {folder.name} - {folder.id}
+            {folder.name} - <i>({folder?.recipes?.length ?? 0})</i>
           </ListItemTitle>
         </ListItemContent>
         <ListItemMenu>

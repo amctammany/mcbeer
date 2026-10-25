@@ -250,6 +250,7 @@ export async function updateRecipe(prev: any, formData: FormData) {
     include: {
       EquipmentProfile: true,
       FermentationProfile: true,
+      recipeFolder: true,
       MashProfile: true,
       style: true,
       yeastIngredients: true,
@@ -261,7 +262,11 @@ export async function updateRecipe(prev: any, formData: FormData) {
   revalidatePath(`/recipes/${res.id}/edit`);
 
   refresh();
-  redirect(`/recipes/${res.id}`);
+  redirect(
+    res.recipeFolder
+      ? `/recipes/dir/${res.recipeFolder.pathname}`
+      : `/recipes/${res.id}`,
+  );
   // return { status: "success", data: res };
 }
 

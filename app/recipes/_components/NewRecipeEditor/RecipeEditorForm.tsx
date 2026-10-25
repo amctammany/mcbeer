@@ -7,6 +7,7 @@ export function RecipeEditorForm() {
   return (
     <div>
       <input type="hidden" {...register("id")} />
+      <input type="hidden" {...register("recipeFolderId")} />
       <input type="hidden" {...register("userId")} />
       <input type="hidden" {...register("forkedFrom")} />
     </div>

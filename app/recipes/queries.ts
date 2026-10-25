@@ -91,6 +91,7 @@ export const getRecipe = async (id: string) => {
       EquipmentProfile: true,
       style: true,
       owner: true,
+      recipeFolder: true,
     },
   });
   return {

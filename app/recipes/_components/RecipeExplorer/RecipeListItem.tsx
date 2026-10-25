@@ -11,7 +11,7 @@ import {
   DropdownMenuContent,
 } from "@/components/ui/dropdown-menu";
 import { BaseRecipeType, RecipeType } from "@/types/Recipe";
-import { ForkKnifeCrossedIcon, MenuIcon } from "lucide-react";
+import { BookOpenIcon, ForkKnifeCrossedIcon, MenuIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -23,11 +23,11 @@ export default function RecipeListItem({ recipe }: RecipeListItemProps) {
     <Link href={`/recipes/${recipe.id}`}>
       <ListItem>
         <ListItemIcon>
-          <ForkKnifeCrossedIcon />
+          <BookOpenIcon />
         </ListItemIcon>
         <ListItemContent>
           <ListItemTitle>
-            {recipe.name} - {recipe.id}
+            {recipe.name} - {recipe.styleIdentifier}
           </ListItemTitle>
         </ListItemContent>
         <ListItemMenu>

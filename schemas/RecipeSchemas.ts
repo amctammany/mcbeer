@@ -71,12 +71,20 @@ export const recipeSchema = zfd.formData({
   brewEfficiency: unitValueSchema(
     z.number().min(0).max(100).optional().default(60),
   ),
+  calcium: unitValueSchema(z.number()),
+  magnesium: unitValueSchema(z.number()),
+  chloride: unitValueSchema(z.number()),
+  sulfate: unitValueSchema(z.number()),
+  sodium: unitValueSchema(z.number()),
+  bicarbonate: unitValueSchema(z.number()),
+  /** 
   calcium: zfd.numeric(z.number().optional()),
   magnesium: zfd.numeric(z.number().optional()),
   sodium: zfd.numeric(z.number().optional()),
   chloride: zfd.numeric(z.number().optional()),
   sulfate: zfd.numeric(z.number().optional()),
   bicarbonate: zfd.numeric(z.number().optional()),
+  */
   // fermentableIngredients: zfd.repeatableOfType(
   //   z.object({
   //     id: zfd.text(z.string().optional()),
