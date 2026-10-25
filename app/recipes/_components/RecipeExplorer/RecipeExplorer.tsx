@@ -35,7 +35,7 @@ export default function RecipeExplorer({
         <h4>Recipes for {folder?.pathname}</h4>
         <List>
           {folder?.recipeFolders?.map((folder) => (
-            <RecipeFolderListItem key={folder.id} folder={folder} />
+            <RecipeFolderListItem key={folder.name} folder={folder} />
           ))}
         </List>
 

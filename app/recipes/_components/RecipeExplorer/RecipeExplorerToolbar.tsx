@@ -20,7 +20,7 @@ export default function RecipeExplorerToolbar({
   //   src,
 }: RecipeExplorerToolbarProps) {
   const breadcrumbs =
-    folder?.pathname.split("/").reduce(
+    (folder?.pathname ?? "").split("/").reduce(
       (acc, crumb) => {
         const bc = { title: crumb, url: `/recipes/dir/${acc.prefix}/${crumb}` };
 

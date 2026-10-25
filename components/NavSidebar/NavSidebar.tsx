@@ -43,6 +43,10 @@ const data = {
           url: "/recipes",
         },
         {
+          title: "Explorer",
+          url: "/recipes/dir",
+        },
+        {
           title: "Public",
           url: "#",
         },

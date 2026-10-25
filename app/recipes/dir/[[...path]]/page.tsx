@@ -24,6 +24,7 @@ export default async function RecipeDirectoryPage({
   if (!session) {
     return <Login redirectUrl={`/recipes/dir/${path}`} />;
   }
+  console.log({ _p, breweryId, path });
   const folder = await getRecipeFolderAtLocation({ breweryId, path });
   if (path.length === 0 && breweryId && !folder) {
     return await createRootRecipeFolder(breweryId);

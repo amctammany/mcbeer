@@ -19,13 +19,30 @@ export const getRecipeFolderAtLocation = async ({
       breweryId,
       pathname,
     },
-    include: {
+    select: {
       // children: true,
-      recipeFolders: true,
+      name: true,
+      breweryId: true,
+      id: true,
+      pathname: true,
+      recipeFolders: {
+        select: {
+          name: true,
+          pathname: true,
+          recipes: {
+            select: {
+              id: true,
+              name: true,
+              recipeFolderId: true,
+            },
+          },
+        },
+      },
       recipes: {
         select: {
           id: true,
           name: true,
+          recipeFolderId: true,
           styleIdentifier: true,
         },
       },
