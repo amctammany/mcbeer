@@ -16,6 +16,7 @@ import { RecipeContext } from "@/contexts/RecipeContext";
 import YeastIngredientModal from "./IngredientModals/YeastIngredientModal";
 import FermentationModal from "./IngredientModals/FermentationModal";
 import SubstituteModal from "./IngredientModals/SubstituteModal";
+import { IngType } from "@/types/Ingredient";
 const HopIngredientModal = dynamic(
   () => import("./IngredientModals/HopIngredientModal"),
 );
@@ -47,7 +48,9 @@ export default function RecipeModals({ recipeId }: { recipeId?: string }) {
           <DialogHeader>
             {type} - {mode} - {id}
           </DialogHeader>
-          {mode === "SUBSTITUTE" && <SubstituteModal type={type} id={id} />}
+          {type !== undefined && mode === "SUBSTITUTE" && (
+            <SubstituteModal type={type as IngType} id={id} />
+          )}
           {mode !== "SUBSTITUTE" && type === "fermentation" && (
             <FermentationModal id={id} />
           )}
