@@ -25,7 +25,8 @@ function WaterSectionToolbar() {
 export default function WaterSection() {
   const { waterPromise } = useContext(IngredientContext);
   const waterProfiles = use(waterPromise);
-  const { register, setValue } = useFormContext<RecipeType>();
+  const { register, setValue, getValues } = useFormContext<RecipeType>();
+  console.log(getValues());
   const onChangeCb = (r: any) => {
     // console.log({ src, index, r });
     const profile = waterProfiles.find(({ id }) => id === r);
@@ -52,20 +53,26 @@ export default function WaterSection() {
         }))}
       />
       <div className="grid grid-cols-2 lg:grid-cols-3">
+        <AmountField label="Calcium" type="number" name="calcium" unit="ppm" />
         <AmountField
-          label="Calcium"
+          label="Magnesium"
           type="number"
-          {...register("calcium")}
+          name="magnesium"
           unit="ppm"
         />
-        <TextField label="Magnesium" type="number" {...register("magnesium")} />
-        <TextField label="Chloride" type="number" {...register("chloride")} />
-        <TextField label="Sodium" type="number" {...register("sodium")} />
-        <TextField label="Sulfate" type="number" {...register("sulfate")} />
-        <TextField
+        <AmountField
+          label="Chloride"
+          type="number"
+          name="chloride"
+          unit="ppm"
+        />
+        <AmountField label="Sodium" type="number" name="sodium" unit="ppm" />
+        <AmountField label="Sulfate" type="number" name="sulfate" unit="ppm" />
+        <AmountField
           label="Bicarbonate"
           type="number"
-          {...register("bicarbonate")}
+          name="bicarbonate"
+          unit="ppm"
         />
       </div>
     </Section>

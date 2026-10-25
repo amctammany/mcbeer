@@ -1,20 +1,17 @@
 import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import React from "react";
-const listItemTitleVariants = cva(
-  "line-clamp-1 flex w-full items-center gap-1 grow",
-  {
-    variants: {
-      size: {
-        default: [""],
-        small: [""],
-      },
-    },
-    defaultVariants: {
-      size: "default",
+const listItemTitleVariants = cva("line-clamp-1 flex items-center gap-1 grow", {
+  variants: {
+    size: {
+      default: ["w-full"],
+      small: ["w-fit"],
     },
   },
-);
+  defaultVariants: {
+    size: "default",
+  },
+});
 export type ListItemTitleProps = {
   children?: React.ReactNode | React.ReactNode[];
   className?: string;

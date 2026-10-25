@@ -88,7 +88,7 @@ export default function FermentationStep({
       </ListItemIcon>
 
       <ListItemContent className="">
-        <ListItemTitle>
+        <ListItemTitle size="small">
           <b>{src?.name}</b>
         </ListItemTitle>
         <ListItemDescription className="grow overflow-auto">

@@ -22,7 +22,7 @@ const MashStep = ({ index, src }: { index: number; src: any }) => {
         </Avatar>
       </ListItemIcon>
 
-      <ListItemContent variant="grid" className="overflow-auto">
+      <ListItemContent className="overflow-auto">
         <ListItemTitle>
           <b>{src?.name}</b>
         </ListItemTitle>

@@ -103,6 +103,13 @@ export const RecipeMask: UnitMaskType<Partial<RecipeType>> = {
   trubLoss: "volume",
   mashLoss: "volume",
   fermenterLoss: "volume",
+  calcium: "concentration",
+  magnesium: "concentration",
+  chloride: "concentration",
+  bicarbonate: "concentration",
+  sulfate: "concentration",
+  sodium: "concentration",
+
   fermentationSteps: FermentationStepMask,
   mashSteps: MashStepMask,
   FermentationProfile: FermentationProfileMask,
