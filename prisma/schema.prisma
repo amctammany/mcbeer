@@ -466,6 +466,8 @@ model Recipe {
   waterProfileDiff        Json?
   fermentationProfileId   String?
   fermentationProfileDiff Json?
+  recipeFolderId          String?
+  recipeFolder            RecipeFolder?           @relation(fields: [recipeFolderId], references: [id])
   FermentationProfile     FermentationProfile?    @relation(fields: [fermentationProfileId], references: [id])
   fermentableIngredients  FermentableIngredient[]
   hopIngredients          HopIngredient[]
@@ -523,17 +525,35 @@ model YeastIngredient {
 }
 
 model Brewery {
-  id           String        @id @default(cuid())
-  name         String
-  description  String?
-  address      String?
-  city         String?
-  state        String?
-  country      String?
-  breweryUsers BreweryUser[]
-  vessels      Vessel[]
-  batches      Batch[]
-  users        User[]
+  id            String         @id @default(cuid())
+  name          String
+  description   String?
+  address       String?
+  city          String?
+  state         String?
+  country       String?
+  breweryUsers  BreweryUser[]
+  vessels       Vessel[]
+  batches       Batch[]
+  users         User[]
+  recipeFolders RecipeFolder[]
+}
+
+model RecipeFolder {
+  id        String  @id @default(cuid())
+  name      String
+  parentId  String?
+  breweryId String
+  pathname  String
+
+  parent        RecipeFolder?  @relation("children", fields: [parentId], references: [id])
+  recipeFolders RecipeFolder[] @relation("children")
+  brewery       Brewery        @relation(fields: [breweryId], references: [id])
+  // recipeFolder   RecipeFolder?  @relation(fields: [recipeFolderId], references: [id])
+  // recipeFolderId String?
+  recipes       Recipe[]
+
+  @@unique([pathname, breweryId])
 }
 
 model BreweryUser {

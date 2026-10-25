@@ -19,6 +19,8 @@ import {
   MashStepType,
   WaterProfileType,
 } from "./Profile";
+import { RecipeFolder } from "@/generated/prisma/browser";
+import { BaseBreweryType, BreweryType } from "./Brewery";
 
 export interface BaseRecipeType extends Omit<
   OptionalNullable<Recipe>,
@@ -30,7 +32,7 @@ export interface BaseRecipeType extends Omit<
   | "fermentationSteps"
 > {
   id?: string;
-  userId: string;
+  userId?: string;
 }
 export interface BaseYeastIngredientType extends Omit<
   OptionalNullable<YeastIngredient>,
@@ -115,6 +117,12 @@ export interface RecipeFermentationStepType extends Omit<
   recipeId?: string;
 }
  */
+export interface RecipeFolderType extends RecipeFolder {
+  recipes: Partial<BaseRecipeType>[];
+  parent?: RecipeFolderType;
+  recipeFolders?: RecipeFolderType[];
+  brewery?: BaseBreweryType;
+}
 export interface RecipeType extends BaseRecipeType {
   owner: Partial<BaseUser>;
   WaterProfile?: Partial<WaterProfileType> | null;

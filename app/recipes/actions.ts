@@ -8,6 +8,8 @@ import { validateSchema } from "@/lib/validateSchema";
 import {
   fermentableIngredientSchema,
   hopIngredientSchema,
+  newRecipeSchema,
+  recipeFolderSchema,
   recipeSchema,
 } from "@/schemas/RecipeSchemas";
 import {
@@ -20,6 +22,49 @@ import { refresh, revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { success } from "zod";
 
+export async function createRootRecipeFolder(breweryId: string) {
+  const data = {
+    name: "root",
+    pathname: "",
+    breweryId,
+  };
+  const res = await prisma.recipeFolder.create({
+    data,
+  });
+  console.log(res);
+  return redirect(`/recipes/dir/${res.pathname}`);
+}
+export async function createRecipeFolder(formData: FormData) {
+  const v = validateSchema(formData, recipeFolderSchema);
+  // if (v.errors) return v;
+  const { pathname, ...data } = v.data;
+
+  const res = await prisma.recipeFolder.create({
+    data: {
+      pathname: pathname.length > 0 ? `${pathname}/${data.name}` : data.name,
+      ...data,
+    },
+  });
+  return redirect(`/recipes/dir/${res.pathname}`);
+}
+export async function createNewRecipe(formData: FormData) {
+  const v = validateSchema(formData, newRecipeSchema);
+  // if (v.errors) return v;
+  // const { pathname, ...data } = v.data;
+
+  const res = await prisma.recipe.create({
+    data: v.data,
+    include: {
+      recipeFolder: {
+        select: {
+          pathname: true,
+          id: true,
+        },
+      },
+    },
+  });
+  return redirect(`/recipes/dir/${res.recipeFolder?.pathname}`);
+}
 export async function createRecipe(prev: any, formData: FormData) {
   const v = validateSchema(formData, recipeSchema);
   console.log(v);

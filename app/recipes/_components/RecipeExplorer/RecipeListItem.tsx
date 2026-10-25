@@ -16,7 +16,7 @@ import Link from "next/link";
 import React from "react";
 
 export type RecipeListItemProps = {
-  recipe: BaseRecipeType;
+  recipe: Partial<BaseRecipeType>;
 };
 export default function RecipeListItem({ recipe }: RecipeListItemProps) {
   return (

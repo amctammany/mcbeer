@@ -32,6 +32,20 @@ export const hopIngredientSchema = zfd.formData({
   usage: z.enum(HopIngredientUsage),
 });
 
+export const recipeFolderSchema = zfd.formData({
+  id: zfd.text(z.string().optional()),
+  pathname: zfd.text(),
+  parentId: zfd.text(),
+  breweryId: zfd.text(),
+  name: zfd.text(),
+});
+export const newRecipeSchema = zfd.formData({
+  //id: zfd.numeric(z.number()),
+  id: zfd.text(z.string().optional()),
+  userId: zfd.text(),
+  name: zfd.text(),
+  recipeFolderId: zfd.text(),
+});
 export const recipeSchema = zfd.formData({
   //id: zfd.numeric(z.number()),
   id: zfd.text(z.string().optional()),
@@ -39,6 +53,7 @@ export const recipeSchema = zfd.formData({
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
   forkedFrom: zfd.text(z.string().optional()),
+  pathname: zfd.text(z.string().optional()),
 
   fermentationProfileId: zfd.text(z.string().optional()),
   ProfileId: zfd.text(z.string().optional()),

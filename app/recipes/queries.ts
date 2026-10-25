@@ -1,8 +1,38 @@
 "use server";
 import { prisma } from "@/lib/prisma";
-import { RecipeType } from "@/types/Recipe";
+import { RecipeFolderType, RecipeType } from "@/types/Recipe";
 import { cacheTag } from "next/cache";
 import { cache } from "react";
+export const getRecipeFolderAtLocation = async ({
+  path,
+  breweryId,
+  // path: string | string[] = [],breweryId
+}: {
+  path: string | string[];
+  breweryId: string;
+}) => {
+  // "use cache";
+  const pathname = Array.isArray(path) ? path.join("/") : path;
+  // cacheTag("recipes");
+  const folder = await prisma.recipeFolder.findFirst({
+    where: {
+      breweryId,
+      pathname,
+    },
+    include: {
+      // children: true,
+      recipeFolders: true,
+      recipes: {
+        select: {
+          id: true,
+          name: true,
+          styleIdentifier: true,
+        },
+      },
+    },
+  });
+  return folder as RecipeFolderType;
+};
 export const getRecipes = async (args: any = {}) => {
   "use cache";
   cacheTag("recipes");
