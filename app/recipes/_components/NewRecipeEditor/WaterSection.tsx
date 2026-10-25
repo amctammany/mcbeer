@@ -26,7 +26,6 @@ export default function WaterSection() {
   const { waterPromise } = useContext(IngredientContext);
   const waterProfiles = use(waterPromise);
   const { register, setValue, getValues } = useFormContext<RecipeType>();
-  console.log(getValues());
   const onChangeCb = (r: any) => {
     // console.log({ src, index, r });
     const profile = waterProfiles.find(({ id }) => id === r);
