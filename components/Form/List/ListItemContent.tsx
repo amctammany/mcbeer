@@ -26,12 +26,13 @@ export type ListItemContentProps = {
 } & VariantProps<typeof listItemContentVariants>;
 export default function ListItemContent({
   children,
+  variant,
   className,
   size,
 }: ListItemContentProps) {
   return (
     <div
-      className={clsx(listItemContentVariants({ size }), className)}
+      className={clsx(listItemContentVariants({ variant, size }), className)}
       data-slot="list-item-content"
     >
       {children}

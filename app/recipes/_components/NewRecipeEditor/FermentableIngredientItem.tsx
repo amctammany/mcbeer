@@ -26,6 +26,8 @@ import {
 } from "@/types/Recipe";
 import {
   BeakerIcon,
+  CopyPlusIcon,
+  ReplaceIcon,
   WheatIcon,
   Icon,
   MenuIcon,
@@ -108,7 +110,7 @@ function FermentableIngredientItemMenu({
           id="fermentable"
           data-index={index}
         >
-          <DeleteIcon />
+          <CopyPlusIcon />
           Duplicate
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -116,7 +118,7 @@ function FermentableIngredientItemMenu({
           id="fermentable"
           data-index={index}
         >
-          <DeleteIcon />
+          <ReplaceIcon />
           Substitute
         </DropdownMenuItem>
         <DropdownMenuItem

@@ -15,14 +15,14 @@ import React from "react";
 
 const MashStep = ({ index, src }: { index: number; src: any }) => {
   return (
-    <ListItem>
+    <ListItem size="sm">
       <ListItemIcon>
         <Avatar size="sm" className="bg-blue-200 ">
           <b className="m-auto">{index}</b>
         </Avatar>
       </ListItemIcon>
 
-      <ListItemContent className="overflow-auto">
+      <ListItemContent variant="grid" className="overflow-auto">
         <ListItemTitle>
           <b>{src?.name}</b>
         </ListItemTitle>

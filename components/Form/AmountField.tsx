@@ -64,8 +64,8 @@ export type AmountFieldProps<T extends FieldValues> = InputProps<T> &
       "id" | "userId" | "fontSize" | "massSystem" | "flow"
     >;
     unit?: UnitNames;
-    min?: number;
-    max?: number;
+    min?: number | string | null;
+    max?: number | string | null;
   };
 const amountFieldStyles = cva(
   "disabled:bg-slate-50 disabled:shadow-none disabled:text-slate-500 disabled:border-slate-200 bg-white",

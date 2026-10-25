@@ -52,7 +52,12 @@ export default function WaterSection() {
         }))}
       />
       <div className="grid grid-cols-2 lg:grid-cols-3">
-        <TextField label="Calcium" type="number" {...register("calcium")} />
+        <AmountField
+          label="Calcium"
+          type="number"
+          {...register("calcium")}
+          unit="ppm"
+        />
         <TextField label="Magnesium" type="number" {...register("magnesium")} />
         <TextField label="Chloride" type="number" {...register("chloride")} />
         <TextField label="Sodium" type="number" {...register("sodium")} />
