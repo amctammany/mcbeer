@@ -23,7 +23,6 @@ export type NewRecipePopoverProps = {
 };
 
 export const NewRecipePopover = ({ folder, userId }: NewRecipePopoverProps) => {
-  const path = folder.pathname;
   return (
     <Popover>
       <PopoverTrigger
@@ -49,7 +48,7 @@ export const NewRecipePopover = ({ folder, userId }: NewRecipePopoverProps) => {
             </Field>
           </FieldGroup>
 
-          <input type="hidden" name="recipeFolderId" value={folder.id} />
+          <input type="hidden" name="recipeFolderId" value={folder?.id} />
           <input type="hidden" name="userId" value={userId} />
           {/* <input type="hidden" name="pathname" value={folder.pathname} /> */}
           <IconButton icon={Save} label="Save" type="submit" />

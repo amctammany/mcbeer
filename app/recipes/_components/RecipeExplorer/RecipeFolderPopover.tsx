@@ -20,7 +20,7 @@ import { createRecipeFolder } from "../../actions";
 export type RecipeFolderPopoverProps = { folder: RecipeFolderType };
 
 export const RecipeFolderPopover = ({ folder }: RecipeFolderPopoverProps) => {
-  const path = folder.pathname;
+  const path = folder?.pathname;
   return (
     <Popover>
       <PopoverTrigger
@@ -46,9 +46,9 @@ export const RecipeFolderPopover = ({ folder }: RecipeFolderPopoverProps) => {
             </Field>
           </FieldGroup>
 
-          <input type="hidden" name="parentId" value={folder.id} />
-          <input type="hidden" name="breweryId" value={folder.breweryId} />
-          <input type="hidden" name="pathname" value={folder.pathname} />
+          <input type="hidden" name="parentId" value={folder?.id} />
+          <input type="hidden" name="breweryId" value={folder?.breweryId} />
+          <input type="hidden" name="pathname" value={folder?.pathname} />
           <IconButton icon={Save} label="Save" type="submit" />
         </form>
       </PopoverContent>
