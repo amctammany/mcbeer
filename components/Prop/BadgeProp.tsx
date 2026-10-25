@@ -1,6 +1,7 @@
 "use client";
 import { MaskContext } from "@/contexts/MaskContext";
 import { UserPreferencesContext } from "@/contexts/UserPreferencesContext";
+import clsx from "clsx";
 import { LucideProps, Thermometer } from "lucide-react";
 import React, { useContext } from "react";
 
@@ -12,8 +13,15 @@ export type BadgePropProps = {
   name: string;
   text: string | React.ReactNode;
   unit?: string | React.ReactNode;
+  className?: string;
 };
-export default function BadgeProp({ Icon, name, text, unit }: BadgePropProps) {
+export default function BadgeProp({
+  Icon,
+  name,
+  text,
+  unit,
+  className,
+}: BadgePropProps) {
   const prefs = useContext(UserPreferencesContext);
   const { mask } = useContext(MaskContext);
   const r1 = mask[name];
@@ -21,7 +29,12 @@ export default function BadgeProp({ Icon, name, text, unit }: BadgePropProps) {
   const s = prefs[r as keyof typeof prefs];
   // console.log(name, r, s, unit);
   return (
-    <div className="border border-black rounded-md inline-flex items-stretch bg-white justify-center m-auto pr-0 *:my-auto *:text-xs">
+    <div
+      className={clsx(
+        "border border-black rounded-md inline-flex items-stretch bg-white justify-center m-uto pr-0 *:my-auto *:text-xs",
+        className,
+      )}
+    >
       <div className="p-1  rounded-l-md border-r-2 bg-accent text-primary">
         {Icon}
       </div>

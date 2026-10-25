@@ -6,6 +6,8 @@ import {
 } from "@/generated/prisma/client";
 import { AmountFields, OptionalNullable } from "@/lib/utils";
 import { BaseUser } from "./User";
+export type IngType = "hop" | "yeast" | "fermentable";
+
 export interface BaseHopType extends Omit<
   OptionalNullable<Hop>,
   "id" | "userId" | "hopInventoryItems"
