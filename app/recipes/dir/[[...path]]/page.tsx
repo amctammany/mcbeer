@@ -17,14 +17,12 @@ export default async function RecipeDirectoryPage({
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
   });
-  const breweryId = session?.user?.defaultBreweryId;
-  console.log(breweryId);
-  if (!breweryId) throw new Error("No valid brewery");
   const path = (_p ?? []).join("/");
   if (!session) {
     return <Login redirectUrl={`/recipes/dir/${path}`} />;
   }
-  console.log({ _p, breweryId, path });
+  const breweryId = session?.user?.defaultBreweryId;
+  if (!breweryId) throw new Error("No valid brewery");
   const folder = await getRecipeFolderAtLocation({ breweryId, path });
   if (path.length === 0 && breweryId && !folder) {
     return await createRootRecipeFolder(breweryId);
