@@ -61,7 +61,6 @@ export default function RecipeListItem({
                 Duplicate
               </DropdownMenuItem>
               <DropdownMenuItem>Move</DropdownMenuItem>
-              <DropdownMenuItem>Duplicate</DropdownMenuItem>
               <DropdownMenuItem
                 onClick={async () => {
                   const res = await removeRecipe(recipe.id!);

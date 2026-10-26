@@ -75,7 +75,7 @@ export default async function RootLayout({
                     select: { name: true, id: true },
                   })}
                   mashPromise={getMashProfiles({
-                    select: { name: true, id: true },
+                    select: { name: true, id: true, steps: true },
                   })}
                   hopPromise={getHops({
                     select: { name: true, id: true, alpha: true },
