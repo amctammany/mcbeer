@@ -1,12 +1,12 @@
 "use client";
 import {
-  Popover,
-  PopoverContent,
-  PopoverDescription,
-  PopoverHeader,
-  PopoverTitle,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Field,
   FieldContent,
@@ -19,15 +19,15 @@ import { Plus, PlusIcon, Save } from "lucide-react";
 import { createNewRecipe } from "../../actions";
 import { Button } from "@/components/ui/button";
 
-export type NewRecipePopoverProps = {
+export type NewRecipeDialogProps = {
   folder: RecipeFolderType;
   userId?: string;
 };
 
-export const NewRecipePopover = ({ folder, userId }: NewRecipePopoverProps) => {
+export const NewRecipeDialog = ({ folder, userId }: NewRecipeDialogProps) => {
   return (
-    <Popover>
-      <PopoverTrigger
+    <Dialog>
+      <DialogTrigger
         render={
           <Button
             // label="Add Recipe"
@@ -39,11 +39,11 @@ export const NewRecipePopover = ({ folder, userId }: NewRecipePopoverProps) => {
       >
         <PlusIcon />
         Add Recipe
-      </PopoverTrigger>
-      <PopoverContent>
-        <PopoverHeader>
-          <PopoverTitle>New Folder</PopoverTitle>
-        </PopoverHeader>
+      </DialogTrigger>
+      <DialogContent className="max-w-42">
+        <DialogHeader>
+          <DialogTitle>New Folder</DialogTitle>
+        </DialogHeader>
         <form action={createNewRecipe}>
           <FieldGroup>
             <Field
@@ -65,7 +65,7 @@ export const NewRecipePopover = ({ folder, userId }: NewRecipePopoverProps) => {
           {/* <input type="hidden" name="pathname" value={folder.pathname} /> */}
           <IconButton icon={Save} label="Save" type="submit" />
         </form>
-      </PopoverContent>
-    </Popover>
+      </DialogContent>
+    </Dialog>
   );
 };

@@ -5,8 +5,8 @@ import RecipeExplorerToolbar from "./RecipeExplorerToolbar";
 import List from "@/components/Form/List/List";
 import RecipeFolderListItem from "./RecipeFolderListItem";
 import Section from "@/components/Section";
-import { RecipeFolderPopover } from "./RecipeFolderPopover";
-import { NewRecipePopover } from "./NewRecipePopover";
+import { RecipeFolderDialog } from "./RecipeFolderDialog";
+import { NewRecipeDialog } from "./NewRecipeDialog";
 
 export type RecipeExplorerProps = {
   folder?: RecipeFolderType;
@@ -27,8 +27,8 @@ export default function RecipeExplorer({
         title={folder?.name}
         actions={
           <div className="flex gap-1">
-            <RecipeFolderPopover folder={folder!} />
-            <NewRecipePopover folder={folder!} userId={userId} />
+            <RecipeFolderDialog folder={folder!} />
+            <NewRecipeDialog folder={folder!} userId={userId} />
           </div>
         }
       >
