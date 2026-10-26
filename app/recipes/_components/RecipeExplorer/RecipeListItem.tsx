@@ -51,8 +51,8 @@ export default function RecipeListItem({
             <DropdownMenuContent>
               <DropdownMenuItem
                 onClick={async () => {
-                  const dupe = await duplicateRecipe(recipe.id!, userId);
-                  console.log(dupe);
+                  const res = await duplicateRecipe(recipe.id!, userId);
+                  if (res?.error) throw new Error("Bad Create");
                 }}
                 id="hop"
                 data-index={index}
@@ -64,8 +64,7 @@ export default function RecipeListItem({
               <DropdownMenuItem>Duplicate</DropdownMenuItem>
               <DropdownMenuItem
                 onClick={async () => {
-                  const dupe = await removeRecipe(recipe.id!);
-                  console.log(dupe);
+                  const res = await removeRecipe(recipe.id!);
                 }}
                 data-index={index}
               >

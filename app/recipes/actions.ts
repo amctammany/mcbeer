@@ -83,17 +83,21 @@ export async function duplicateRecipe(id: string, userId: string) {
     where: { id },
   })) as any;
   const { id: _id, name, userId: _userId, ...data } = orig;
-  const res = await prisma.recipe.create({
-    data: {
-      userId,
-      name: `${name} (copy)`,
-      ...data,
-    },
-    select: {
-      recipeFolder: { select: { pathname: true } },
-    },
-  });
-  redirect(`/recipes/dir/${res.recipeFolder?.pathname}`);
+  try {
+    const res = await prisma.recipe.create({
+      data: {
+        userId,
+        name: `${name} (copy)`,
+        ...data,
+      },
+      select: {
+        recipeFolder: { select: { pathname: true } },
+      },
+    });
+    redirect(`/recipes/dir/${res.recipeFolder?.pathname}`);
+  } catch (e) {
+    return { error: "Uniq fail" };
+  }
 }
 export async function createRecipe(prev: any, formData: FormData) {
   const v = validateSchema(formData, recipeSchema);
