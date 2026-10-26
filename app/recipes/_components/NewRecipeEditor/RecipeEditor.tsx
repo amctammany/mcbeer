@@ -42,7 +42,7 @@ export default function RecipeEditor({ src, action }: RecipeEditorProps) {
           <IngredientsSection src={src} />
         </div>
         <div className="p-1 lg:p-2 lg:gap-2 *:mb-1 grid  lg:grid-cols-2 lg:col-span-2 mx-auto">
-          <MashSection src={src} />
+          <MashSection />
           <WaterSection />
           <FermentationSection />
         </div>

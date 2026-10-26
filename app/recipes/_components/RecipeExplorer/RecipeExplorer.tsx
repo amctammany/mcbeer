@@ -7,6 +7,7 @@ import RecipeFolderListItem from "./RecipeFolderListItem";
 import Section from "@/components/Section";
 import { RecipeFolderDialog } from "./RecipeFolderDialog";
 import { NewRecipeDialog } from "./NewRecipeDialog";
+import FolderTree from "../FolderTree/FolderTree";
 
 export type RecipeExplorerProps = {
   folder?: RecipeFolderType;
@@ -49,6 +50,7 @@ export default function RecipeExplorer({
           ))}
         </List>
       </Section>
+      <FolderTree breweryId={folder?.breweryId!} />
     </div>
   );
 }

@@ -50,6 +50,10 @@ export const getRecipeFolderAtLocation = async ({
   });
   return folder as RecipeFolderType;
 };
+export const getBreweryFolders = async (breweryId: string) => {
+  const folders = await prisma.recipeFolder.findMany({ where: { breweryId } });
+  return folders as RecipeFolderType[];
+};
 export const getRecipes = async (args: any = {}) => {
   "use cache";
   cacheTag("recipes");

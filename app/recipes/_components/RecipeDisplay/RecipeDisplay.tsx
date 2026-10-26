@@ -26,7 +26,7 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
       <div className="lg:p-2 lg:gap-2 *:mb-1 grid  md:grid-cols-2 lg:grid-cols-3 lg:col-span-2 mx-auto">
         <Section title="General" className="col-span-2 lg:col-span-1">
           <Prop label="Name" value={src.name} />
-          <Prop label="Owner" value={src.owner.name} />
+          <Prop label="Owner" value={src.owner?.name} />
           <Prop label="Description" value={src.description} />
         </Section>
         <Section title="Equipment">
