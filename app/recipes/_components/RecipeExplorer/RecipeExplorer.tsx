@@ -32,16 +32,20 @@ export default function RecipeExplorer({
           </div>
         }
       >
-        <h4>Recipes for {folder?.pathname}</h4>
         <List>
           {folder?.recipeFolders?.map((folder) => (
             <RecipeFolderListItem key={folder.name} folder={folder} />
           ))}
         </List>
 
-        <List>
-          {folder?.recipes?.map((recipe) => (
-            <RecipeListItem key={recipe.id} recipe={recipe} />
+        <List size="small">
+          {folder?.recipes?.map((recipe, index) => (
+            <RecipeListItem
+              key={recipe.id}
+              recipe={recipe}
+              userId={userId!}
+              index={index}
+            />
           ))}
         </List>
       </Section>

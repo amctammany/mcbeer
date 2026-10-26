@@ -1,3 +1,4 @@
+"use client";
 import IconButton from "@/components/Button/IconButton";
 import ListItem from "@/components/Form/List/ListItem";
 import ListItemContent from "@/components/Form/List/ListItemContent";
@@ -11,17 +12,29 @@ import {
   DropdownMenuContent,
 } from "@/components/ui/dropdown-menu";
 import { BaseRecipeType, RecipeType } from "@/types/Recipe";
-import { BookOpenIcon, ForkKnifeCrossedIcon, MenuIcon } from "lucide-react";
+import {
+  BookOpenIcon,
+  CopyPlusIcon,
+  ForkKnifeCrossedIcon,
+  MenuIcon,
+} from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { duplicateRecipe } from "../../actions";
 
 export type RecipeListItemProps = {
   recipe: Partial<BaseRecipeType>;
+  userId: string;
+  index: number;
 };
-export default function RecipeListItem({ recipe }: RecipeListItemProps) {
+export default function RecipeListItem({
+  recipe,
+  userId,
+  index,
+}: RecipeListItemProps) {
   return (
     <Link href={`/recipes/${recipe.id}`}>
-      <ListItem>
+      <ListItem size="sm">
         <ListItemIcon>
           <BookOpenIcon />
         </ListItemIcon>
@@ -32,12 +45,24 @@ export default function RecipeListItem({ recipe }: RecipeListItemProps) {
         </ListItemContent>
         <ListItemMenu>
           <DropdownMenu>
-            <DropdownMenuTrigger
-              render={<IconButton icon={MenuIcon} label="Menu" />}
-            ></DropdownMenuTrigger>
+            <DropdownMenuTrigger render={<IconButton icon={MenuIcon} />}>
+              Menu
+            </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>Hi</DropdownMenuItem>
-              <DropdownMenuItem>You</DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={async () => {
+                  const dupe = await duplicateRecipe(recipe.id!, userId);
+                  console.log(dupe);
+                }}
+                id="hop"
+                data-index={index}
+              >
+                <CopyPlusIcon />
+                Duplicate
+              </DropdownMenuItem>
+              <DropdownMenuItem>Move</DropdownMenuItem>
+              <DropdownMenuItem>Duplicate</DropdownMenuItem>
+              <DropdownMenuItem>Delete</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </ListItemMenu>

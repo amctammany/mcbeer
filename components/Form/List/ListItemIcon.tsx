@@ -10,7 +10,7 @@ const listItemIconVariants = cva(
         outlined: [],
       },
       size: {
-        default: [""],
+        default: ["mr-1 md:mg-2"],
         small: [""],
       },
     },

@@ -26,12 +26,14 @@ export interface BaseRecipeType extends Omit<
   OptionalNullable<Recipe>,
   | "id"
   | "userId"
+  | "forkedFrom"
   | "fermentableIngredients"
   | "hopIngredients"
   | "mashSteps"
   | "fermentationSteps"
 > {
   id?: string;
+  forkedFrom?: string;
   userId?: string;
 }
 export interface BaseYeastIngredientType extends Omit<

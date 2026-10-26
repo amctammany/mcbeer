@@ -32,7 +32,9 @@ export const RecipeFolderPopover = ({ folder }: RecipeFolderPopoverProps) => {
             className="bg-green-200 text-black"
           />
         }
-      />
+      >
+        Add Folder
+      </PopoverTrigger>
       <PopoverContent>
         <PopoverHeader>
           <PopoverTitle>New Folder</PopoverTitle>

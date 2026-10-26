@@ -1,5 +1,6 @@
 "use server";
 
+import { Recipe } from "@/generated/prisma/client";
 import { reduceUnits } from "@/lib/Converter/adjustUnits";
 import { prisma } from "@/lib/prisma";
 import slugify from "@/lib/slugify";
@@ -64,6 +65,19 @@ export async function createNewRecipe(formData: FormData) {
     },
   });
   return redirect(`/recipes/dir/${res.recipeFolder?.pathname}`);
+}
+export async function duplicateRecipe(id: string, userId: string) {
+  const orig = (await prisma.recipe.findFirst({
+    where: { id },
+  })) as any;
+  const { id: _id, name, userId: _userId, ...data } = orig;
+  const res = await prisma.recipe.create({
+    data: {
+      userId,
+      name: `${name} (copy)`,
+      ...data,
+    },
+  });
 }
 export async function createRecipe(prev: any, formData: FormData) {
   const v = validateSchema(formData, recipeSchema);

@@ -33,9 +33,9 @@ export default function RecipeListItem({ folder }: RecipeFolderListItemProps) {
         </ListItemContent>
         <ListItemMenu>
           <DropdownMenu>
-            <DropdownMenuTrigger
-              render={<IconButton icon={MenuIcon} label="Menu" />}
-            ></DropdownMenuTrigger>
+            <DropdownMenuTrigger render={<IconButton icon={MenuIcon} />}>
+              Menu
+            </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem>Hi</DropdownMenuItem>
               <DropdownMenuItem>You</DropdownMenuItem>
