@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { duplicateRecipe } from "../../actions";
+import { duplicateRecipe, removeRecipe } from "../../actions";
 
 export type RecipeListItemProps = {
   recipe: Partial<BaseRecipeType>;
@@ -62,7 +62,15 @@ export default function RecipeListItem({
               </DropdownMenuItem>
               <DropdownMenuItem>Move</DropdownMenuItem>
               <DropdownMenuItem>Duplicate</DropdownMenuItem>
-              <DropdownMenuItem>Delete</DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={async () => {
+                  const dupe = await removeRecipe(recipe.id!);
+                  console.log(dupe);
+                }}
+                data-index={index}
+              >
+                Delete
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </ListItemMenu>

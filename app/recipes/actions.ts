@@ -55,7 +55,7 @@ export async function createNewRecipe(formData: FormData) {
 
   const res = await prisma.recipe.create({
     data: v.data,
-    include: {
+    select: {
       recipeFolder: {
         select: {
           pathname: true,
@@ -65,6 +65,18 @@ export async function createNewRecipe(formData: FormData) {
     },
   });
   return redirect(`/recipes/dir/${res.recipeFolder?.pathname}`);
+}
+export async function removeRecipe(id: string) {
+  const orig = await prisma.recipe.delete({
+    where: { id },
+    select: {
+      recipeFolder: {
+        select: { pathname: true },
+      },
+    },
+  });
+  console.log(orig);
+  redirect(`/recipes/dir/${orig.recipeFolder?.pathname}`);
 }
 export async function duplicateRecipe(id: string, userId: string) {
   const orig = (await prisma.recipe.findFirst({
@@ -77,7 +89,11 @@ export async function duplicateRecipe(id: string, userId: string) {
       name: `${name} (copy)`,
       ...data,
     },
+    select: {
+      recipeFolder: { select: { pathname: true } },
+    },
   });
+  redirect(`/recipes/dir/${res.recipeFolder?.pathname}`);
 }
 export async function createRecipe(prev: any, formData: FormData) {
   const v = validateSchema(formData, recipeSchema);

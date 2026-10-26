@@ -14,8 +14,9 @@ import {
 } from "@/components/ui/field";
 import { RecipeFolderType } from "@/types/Recipe";
 import IconButton from "@/components/Button/IconButton";
-import { Plus, Save } from "lucide-react";
+import { Plus, PlusIcon, Save } from "lucide-react";
 import { createRecipeFolder } from "../../actions";
+import { Button } from "@/components/ui/button";
 
 export type RecipeFolderPopoverProps = { folder: RecipeFolderType };
 
@@ -25,15 +26,15 @@ export const RecipeFolderPopover = ({ folder }: RecipeFolderPopoverProps) => {
     <Popover>
       <PopoverTrigger
         render={
-          <IconButton
-            label="Add Folder"
-            icon={Plus}
+          <Button
+            // label="Add Folder"
+            // icon={Plus}
             variant="outline"
             className="bg-green-200 text-black"
           />
         }
       >
-        Add Folder
+        <PlusIcon /> Add Folder
       </PopoverTrigger>
       <PopoverContent>
         <PopoverHeader>
