@@ -1,25 +1,26 @@
+import { LinkButton } from "@/components/Button/LinkButton";
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { ChevronRightIcon, FolderIcon } from "lucide-react";
+import { ChevronRight, ChevronRightIcon, FolderIcon } from "lucide-react";
 import React from "react";
 
 export type TreeProps<
-  S extends { name?: string },
+  S extends { name?: string; pathname?: string },
   T extends S & { children: T[] } = S & { children: [] },
 > = {
   src: T;
 };
 export default function Tree<
-  S extends { name?: string },
+  S extends { name?: string; pathname?: string },
   T extends S & { children: T[] },
 >({ src }: TreeProps<S, T>) {
   const renderBranch = (branch: T) => {
-    return (
-      <Collapsible key={branch.name}>
+    return branch.children.length ? (
+      <Collapsible key={branch.name} className="group/collapsible">
         <CollapsibleTrigger
           render={
             <Button
@@ -27,7 +28,8 @@ export default function Tree<
               size="sm"
               className="group w-full justify-start transition-none hover:bg-accent hover:text-accent-foreground"
             >
-              <ChevronRightIcon className="transition-transform group-data-[state=open]:rotate-90" />
+              <ChevronRight className="transition-transform duration-200 group-data-open/collapsible:rotate-90" />
+              {/* <ChevronRightIcon className="transition-transform group-data-[state=open]:rotate-90" /> */}
               <FolderIcon />
               {branch.name}
             </Button>
@@ -39,6 +41,18 @@ export default function Tree<
           </div>
         </CollapsibleContent>
       </Collapsible>
+    ) : (
+      <LinkButton
+        key={branch.name}
+        href={`/recipes/dir/${branch.pathname}`}
+        variant="ghost"
+        size="sm"
+        className="group w-full justify-start transition-none hover:bg-accent hover:text-accent-foreground"
+      >
+        {/* <ChevronRightIcon className="transition-transform group-data-[state=open]:rotate-90" /> */}
+        <FolderIcon />
+        {branch.name}
+      </LinkButton>
     );
   };
   console.log(src);
