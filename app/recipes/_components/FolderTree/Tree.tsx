@@ -55,10 +55,8 @@ export default function Tree<
       </LinkButton>
     );
   };
-  console.log(src);
   return (
     <div>
-      Tree
       <div className="flex flex-col gap-1">
         {(src.children ?? []).map((item) => renderBranch(item))}
       </div>
