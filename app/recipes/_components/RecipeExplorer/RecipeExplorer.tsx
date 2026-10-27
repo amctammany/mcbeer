@@ -19,7 +19,6 @@ export default function RecipeExplorer({
   userId,
   recipes,
 }: RecipeExplorerProps) {
-  console.log(folder);
   return (
     <div>
       <RecipeExplorerToolbar folder={folder!} userId={userId} />
