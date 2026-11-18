@@ -71,6 +71,7 @@ export function Input<T extends FieldValues>({
   register,
   error,
   className,
+  autoComplete = "off",
   //disabled,
   //label,
   //suffix,
@@ -97,6 +98,7 @@ export function Input<T extends FieldValues>({
       className={clsx(className)}
       onBlur={onBlur}
       type={props.type ?? "text"}
+      autoComplete={autoComplete}
       {...inputProps}
       {...props}
     />

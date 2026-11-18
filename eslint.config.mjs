@@ -15,6 +15,7 @@ const eslintConfig = defineConfig([
   ]),
   {
     rules: {
+      "@typescript-eslint/no-empty-object-type": "warn",
       "@typescript-eslint/no-explicit-any": "warn",
       "react-hooks/refs": "warn",
       "no-console": "warn",

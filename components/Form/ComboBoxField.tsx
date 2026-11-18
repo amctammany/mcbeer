@@ -101,6 +101,7 @@ export function ComboBoxField<T extends FieldValues>({
             </FieldContent>
 
             <ComboBox
+              id={id}
               placeholder={placeholder}
               name={field.name}
               value={field.value}

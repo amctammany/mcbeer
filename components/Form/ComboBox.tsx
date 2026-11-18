@@ -53,6 +53,7 @@ const options = [
 
 export type Option = { value: string; label: string };
 export type ComboBoxProps = {
+  id?: string;
   name?: string;
   options: Option[];
   value?: any;
@@ -63,6 +64,7 @@ export type ComboBoxProps = {
 };
 export function ComboBox({
   placeholder,
+  id,
   name,
   options,
   value,
@@ -88,6 +90,7 @@ export function ComboBox({
       itemToStringValue={itemToStringValue}
     >
       <ComboboxInput
+        id={id}
         className="grow"
         // name={`${name}.name`}
         // value={selectedOption?.value}
