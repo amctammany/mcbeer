@@ -5,7 +5,7 @@ import { TextField } from "@/components/Form/TextField";
 import Section from "@/components/Section";
 import { IngredientContext } from "@/contexts/IngredientContext";
 import { WaterProfile } from "@/generated/prisma/client";
-import { RecipeType } from "@/types/Recipe";
+import { AdjustedRecipeType, RecipeType } from "@/types/Recipe";
 import React, { use, useContext } from "react";
 import { useFormContext } from "react-hook-form";
 
@@ -25,18 +25,19 @@ function WaterSectionToolbar() {
 export default function WaterSection() {
   const { waterPromise } = useContext(IngredientContext);
   const waterProfiles = use(waterPromise);
-  const { register, setValue, getValues } = useFormContext<RecipeType>();
+  const { register, setValue, getValues } =
+    useFormContext<AdjustedRecipeType>();
   const onChangeCb = (r: any) => {
     // console.log({ src, index, r });
     const profile = waterProfiles.find(({ id }) => id === r);
     if (profile) {
-      console.log(profile);
-      setValue("calcium", (profile?.calcium ?? 0) * 1);
-      setValue("magnesium", (profile?.magnesium ?? 0) * 1);
-      setValue("sulfate", (profile?.sulfate ?? 0) * 1);
-      setValue("sodium", (profile?.sodium ?? 0) * 1);
-      setValue("chloride", (profile?.chloride ?? 0) * 1);
-      setValue("bicarbonate", (profile?.bicarbonate ?? 0) * 1);
+      console.log(profile, { calcium: profile.calcium });
+      setValue("calcium.value", (profile?.calcium ?? 0) * 1);
+      setValue("magnesium.value", (profile?.magnesium ?? 0) * 1);
+      setValue("sulfate.value", (profile?.sulfate ?? 0) * 1);
+      setValue("sodium.value", (profile?.sodium ?? 0) * 1);
+      setValue("chloride.value", (profile?.chloride ?? 0) * 1);
+      setValue("bicarbonate.value", (profile?.bicarbonate ?? 0) * 1);
     }
     // handleClose();
   };

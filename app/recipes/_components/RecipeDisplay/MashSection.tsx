@@ -26,8 +26,8 @@ const MashStep = ({ index, src }: { index: number; src: any }) => {
         <ListItemTitle>
           <b>{src?.name}</b>
         </ListItemTitle>
-        <ListItemDescription className="grow w-full md:w-it overflow-auto">
-          <div className="grow flex min-w-52  justify-items-end mx-auto overflow-auto">
+        <ListItemDescription className="grow w-full ">
+          <div className="grow flex min-w-52  justify-items-end mx-auto overflow-x-auto">
             <div className="flex row place-content-center lg:w-fit gap-1 lg:gap-2">
               <BadgeProp
                 Icon={<ThermometerIcon size={12} />}

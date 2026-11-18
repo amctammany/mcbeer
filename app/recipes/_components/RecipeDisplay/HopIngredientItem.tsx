@@ -24,8 +24,8 @@ export function HopIngredientItem({ index, src, onClick }: any) {
 
           <b>{src.hop?.name}</b>
         </ListItemTitle>
-        <ListItemDescription className="grow">
-          <div className="grow min-w-52  grid justify-items-end ">
+        <ListItemDescription className="grow w-full">
+          <div className="grow min-w-52  grid justify-items-end overflow-x-auto">
             <div className="w-full lg:w-fit flex flex-row gap-1 lg:gap-2">
               <BadgeProp
                 Icon={<ScaleIcon size={12} />}

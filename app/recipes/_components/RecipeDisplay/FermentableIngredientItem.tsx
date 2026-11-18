@@ -39,8 +39,8 @@ export function FermentableIngredientItem({
           />
           <b>{src.fermentable?.name}</b>
         </ListItemTitle>
-        <ListItemDescription className="grow">
-          <div className="grow min-w-52  grid justify-items-end ">
+        <ListItemDescription className="grow w-full">
+          <div className="grow min-w-52  grid justify-items-end overflow-x-auto">
             <div className="w-full lg:w-fit flex flex-row gap-1 lg:gap-2">
               <BadgeProp
                 Icon={<TimerIcon size={12} />}

@@ -161,6 +161,12 @@ type RecipeAmountFieldNames =
   | "brewEfficiency"
   | "mashEfficiency"
   | "batchVolume"
+  | "calcium"
+  | "chloride"
+  | "magnesium"
+  | "sodium"
+  | "sulfate"
+  | "bicarbonate"
   | "trubLoss"
   | "mashLoss"
   | "fermenterLoss";
