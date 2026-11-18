@@ -74,7 +74,7 @@ export default function RecipeDisplay({ src }: RecipeDisplayProps) {
             <YeastIngredientItem src={yeast} key={index} />
           ))}
         </Section>
-        <div className="col-span-2 lg:col-span-3 grid grid-cols-2 gap-1 lg:gap-2">
+        <div className="col-span-2 lg:col-span-3 grid md:grid-cols-2 gap-1 lg:gap-2">
           <WaterSection src={src} />
           <MashSection src={src} />
           <FermentationSection src={src} />

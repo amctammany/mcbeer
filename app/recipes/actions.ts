@@ -137,8 +137,6 @@ export async function createRecipe(prev: any, formData: FormData) {
       yeastIngredients: {
         create: yeastIngredients,
       },
-      ...data,
-
       hopIngredients: {
         create: hopIngredients,
       },
@@ -174,11 +172,11 @@ export async function updateRecipe(prev: any, formData: FormData) {
     // equipmentProfileId,
     // waterProfileId,
     // EquipmentProfile,
-    styleIdentifier,
-    forkedFrom,
+    // styleIdentifier,
+    // forkedFrom,
     // origin,
     // forks,
-    userId,
+    // userId,
     // style,
     ...data
   } = r;
