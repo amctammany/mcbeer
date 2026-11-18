@@ -25,9 +25,7 @@ export function FermentableIngredientItem({
 }: FermentableIngredientItemProps) {
   return (
     <ListItem onClick={onClick}>
-      <ListItemIcon>
-        <WheatIcon />
-      </ListItemIcon>
+      <ListItemIcon icon={WheatIcon} />
 
       <ListItemContent className="">
         <ListItemTitle>

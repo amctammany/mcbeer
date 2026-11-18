@@ -9,9 +9,7 @@ import { GermIcon, ScaleIcon } from "lucide-react";
 export function YeastIngredientItem({ index, src, onClick }: any) {
   return (
     <ListItem onClick={onClick}>
-      <ListItemIcon>
-        <GermIcon />
-      </ListItemIcon>
+      <ListItemIcon icon={GermIcon} />
 
       <ListItemContent className="">
         <ListItemTitle>

@@ -9,9 +9,7 @@ import { HopIcon, ScaleIcon, TimerIcon, BeakerIcon } from "lucide-react";
 export function HopIngredientItem({ index, src, onClick }: any) {
   return (
     <ListItem onClick={onClick}>
-      <ListItemIcon>
-        <HopIcon />
-      </ListItemIcon>
+      <ListItemIcon icon={HopIcon} />
 
       <ListItemContent className="">
         <ListItemTitle>

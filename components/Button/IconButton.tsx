@@ -5,7 +5,7 @@ import { LinkButton } from "./LinkButton";
 import { LucideIcon } from "lucide-react";
 import { Route } from "next";
 
-function getIconSize(
+export function getIconSize(
   size:
     | "xs"
     | "sm"

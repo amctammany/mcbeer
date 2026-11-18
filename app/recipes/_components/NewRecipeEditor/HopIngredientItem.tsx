@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { IngredientContext } from "@/contexts/IngredientContext";
 import { RevisionContext } from "@/contexts/RevisionContext";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
 import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
 import { precisionRound } from "@/lib/utils";
@@ -76,10 +77,11 @@ function HopIngredientItemMenu({
   //   removeHop(e);
   // };
 
+  const size = useMediaQuery("(min-width: 768px)") ? "default" : "xs";
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        render={<IconButton icon={MenuIcon} label="Menu" />}
+        render={<IconButton icon={MenuIcon} label="Menu" size={size} />}
       ></DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onClick={handleDuplicate} id="hop" data-index={index}>
@@ -186,9 +188,7 @@ export default function HopIngredientItem({
         // {...form.register(`hopIngredients.${index}.alpha.unit`)}
         value={src?.alpha?.unit}
       />
-      <ListItemIcon>
-        <HopIcon />
-      </ListItemIcon>
+      <ListItemIcon icon={HopIcon} />
 
       <ListItemContent className="">
         <ListItemTitle>
@@ -201,8 +201,8 @@ export default function HopIngredientItem({
 
           <b className="grow">{hop?.name}</b>
         </ListItemTitle>
-        <ListItemDescription className="grow">
-          <div className="grow md:min-w-52  grid justify-items-end ">
+        <ListItemDescription className="grow w-full">
+          <div className="grow md:min-w-52  grid justify-items-end overflow-x-auto ">
             <div className="w-full lg:w-fit flex flex-row gap-0 md:gap-1 lg:gap-2">
               <BadgeProp
                 Icon={<CookingPotIcon size={12} />}

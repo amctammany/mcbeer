@@ -17,6 +17,7 @@ import {
 import { IngredientContext } from "@/contexts/IngredientContext";
 import { RevisionContext } from "@/contexts/RevisionContext";
 import { FermentableIngredientUsage } from "@/generated/prisma/enums";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
 import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
 import {
@@ -98,11 +99,12 @@ function FermentableIngredientItemMenu({
   //   });
   //   removeFermentable(e);
   // };
+  const size = useMediaQuery("(min-width: 768px)") ? "default" : "xs";
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        render={<IconButton icon={MenuIcon} label="Menu" />}
+        render={<IconButton icon={MenuIcon} label="Menu" size={size} />}
       ></DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem
@@ -239,9 +241,7 @@ export default function FermentableIngredientItem({
         value={src?.potential?.unit ?? ""}
       />
 
-      <ListItemIcon>
-        <WheatIcon />
-      </ListItemIcon>
+      <ListItemIcon icon={WheatIcon} />
 
       <ListItemContent className="">
         <ListItemTitle>
@@ -253,8 +253,8 @@ export default function FermentableIngredientItem({
           />
           <b className="grow">{fermentable?.name}</b>
         </ListItemTitle>
-        <ListItemDescription className="grow">
-          <div className="grow min-w-52  grid justify-items-end ">
+        <ListItemDescription className="grow w-full">
+          <div className="grow min-w-52  grid justify-items-end overflow-x-auto">
             <div className="w-full lg:w-fit flex flex-row gap-1 lg:gap-2">
               <BadgeProp
                 Icon={<PaletteIcon size={12} />}
