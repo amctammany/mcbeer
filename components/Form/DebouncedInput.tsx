@@ -15,9 +15,9 @@ export function DebouncedInput({
 }: DebouncedInputProps) {
   const [value, setValue] = useState(initialValue);
 
-  useEffect(() => {
-    setValue(initialValue);
-  }, [initialValue]);
+  // useEffect(() => {
+  //   setValue(initialValue);
+  // }, [initialValue]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -28,7 +28,7 @@ export function DebouncedInput({
   }, [value, onChange, name, debounce]);
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (e) => setValue(e.target.value),
-    [setValue]
+    [setValue],
   );
 
   return (

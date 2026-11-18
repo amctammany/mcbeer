@@ -3,20 +3,20 @@ import { getBreweryFolders } from "../../queries";
 import { RecipeFolderType } from "@/types/Recipe";
 import Tree from "./Tree";
 
+export type TreeType<S> = S & { children: TreeType<S>[] };
 export type FolderTreeProps = {
-  breweryId: string;
+  breweryId?: string;
 };
 function buildTree(
   folders: RecipeFolderType[],
   pId: string | null = null,
-): any {
+): TreeType<RecipeFolderType>[] {
   return folders
     .filter((item) => item.parentId === pId)
     .map((item) => ({
       ...item,
       children: buildTree(folders, item.id),
-    }));
-  //   const branches = folders.find(({ parentId }) => parentId === pId);
+    })); //   const branches = folders.find(({ parentId }) => parentId === pId);
   //   return branches;
 }
 function createFolderTree(folders: RecipeFolderType[]) {
@@ -28,12 +28,25 @@ function createFolderTree(folders: RecipeFolderType[]) {
   return tree;
 }
 export default async function FolderTree({ breweryId }: FolderTreeProps) {
-  const folders = await getBreweryFolders(breweryId);
-  const tree = createFolderTree(folders);
+  const tree = createFolderTree(
+    breweryId ? await getBreweryFolders(breweryId) : [],
+  );
+  const src =
+    tree.length > 0
+      ? tree[0]
+      : ({
+          name: "root",
+          children: [],
+          id: "",
+          recipes: [],
+          breweryId: "",
+          parentId: "",
+          pathname: "",
+        } as TreeType<RecipeFolderType>); //   const src = tree[0] ?? { name: "root", children: [] };
   return (
     <div>
       FolderTree
-      <Tree src={tree[0]} />
+      <Tree src={src} />
     </div>
   );
 }

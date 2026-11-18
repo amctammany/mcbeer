@@ -14,7 +14,7 @@ const listItemIconVariants = cva(
       },
       size: {
         default: ["mr-1 md:mg-2"],
-        small: [""],
+        sm: [""],
       },
     },
     defaultVariants: {
@@ -35,8 +35,8 @@ export default function ListItemIcon({
   size,
   variant,
 }: ListItemIconProps) {
-  const sz = size || useMediaQuery("(min-width: 768px)") ? "default" : "sm";
-  const s = getIconSize(sz);
+  const sz = useMediaQuery("(min-width: 768px)") ? "default" : "sm";
+  const s = getIconSize(size || sz);
   const child = Icon ? <Icon size={s} /> : children;
 
   return (

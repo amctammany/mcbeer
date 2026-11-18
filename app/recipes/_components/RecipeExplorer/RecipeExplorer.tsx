@@ -1,4 +1,4 @@
-import { BaseRecipeType, RecipeFolderType, RecipeType } from "@/types/Recipe";
+import { BaseRecipeType, RecipeFolderType } from "@/types/Recipe";
 import React from "react";
 import RecipeListItem from "./RecipeListItem";
 import RecipeExplorerToolbar from "./RecipeExplorerToolbar";
@@ -17,7 +17,7 @@ export type RecipeExplorerProps = {
 export default function RecipeExplorer({
   folder,
   userId,
-  recipes,
+  // recipes,
 }: RecipeExplorerProps) {
   return (
     <div>
@@ -49,7 +49,7 @@ export default function RecipeExplorer({
           ))}
         </List>
       </Section>
-      <FolderTree breweryId={folder?.breweryId!} />
+      <FolderTree breweryId={folder?.breweryId} />
     </div>
   );
 }

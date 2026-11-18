@@ -6,7 +6,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import clsx from "clsx";
-import { ChevronRight, ChevronRightIcon, FolderIcon } from "lucide-react";
+import { ChevronRight, FolderIcon } from "lucide-react";
 import React from "react";
 
 export type TreeProps<
