@@ -1,3 +1,4 @@
+"use client";
 import IconButton from "@/components/Button/IconButton";
 import ListItem from "@/components/Form/List/ListItem";
 import ListItemContent from "@/components/Form/List/ListItemContent";
@@ -5,9 +6,7 @@ import ListItemDescription from "@/components/Form/List/ListItemDescription";
 import ListItemIcon from "@/components/Form/List/ListItemIcon";
 import ListItemMenu from "@/components/Form/List/ListItemMenu";
 import ListItemTitle from "@/components/Form/List/ListItemTitle";
-import { AmountProp } from "@/components/Prop/AmountProp";
 import BadgeProp from "@/components/Prop/BadgeProp";
-import Prop from "@/components/Prop/Prop";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,11 +17,8 @@ import { IngredientContext } from "@/contexts/IngredientContext";
 import { RevisionContext } from "@/contexts/RevisionContext";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
-import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
-import {
-  AdjustedYeastIngredientType,
-  BaseYeastIngredientType,
-} from "@/types/Recipe";
+import { UnitNames } from "@/lib/Converter/UnitDict";
+import { AdjustedYeastIngredientType } from "@/types/Recipe";
 import {
   GermIcon,
   MenuIcon,
@@ -41,17 +37,18 @@ type YeastIngredientItemMenuProps = {
   handleRemove: React.MouseEventHandler;
 
   index: number;
+  size: "default" | "xs";
 };
 function YeastIngredientItemMenu({
   // removeYeast,
   handleDuplicate,
   handleRemove,
   handleSubstitute,
+  size,
   index,
 }: YeastIngredientItemMenuProps) {
-  const revisionContext = useContext(RevisionContext);
-
-  const f = useFormContext();
+  // const revisionContext = useContext(RevisionContext);
+  // const f = useFormContext();
   // const handlesRemove = (e: any) => {
   //   const old = f.getValues(`yeastIngredients`);
 
@@ -66,7 +63,6 @@ function YeastIngredientItemMenu({
   //   removeYeast(e);
   // };
 
-  const size = useMediaQuery("(min-width: 768px)") ? "default" : "xs";
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -130,6 +126,7 @@ export default function YeastIngredientItem({
   const handleDuplicate = () => actions.duplicate?.(index);
   const handleSubstitute = () => actions.substitute?.(index);
   const handleRemove = () => actions.remove?.(index);
+  const size = useMediaQuery("(min-width: 768px)") ? "default" : "xs";
   return (
     <ListItem onClick={onClick}>
       <input
@@ -168,7 +165,7 @@ export default function YeastIngredientItem({
         {...form.register(`yeastIngredients.${index}.attenuation.unit`)}
         value={src?.attenuation?.unit}
       />
-      <ListItemIcon icon={GermIcon} />
+      <ListItemIcon icon={GermIcon} size={size} />
 
       <ListItemContent className="">
         <ListItemTitle>
@@ -200,6 +197,7 @@ export default function YeastIngredientItem({
       </ListItemContent>
       <ListItemMenu>
         <YeastIngredientItemMenu
+          size={size}
           handleDuplicate={handleDuplicate}
           handleRemove={handleRemove}
           handleSubstitute={handleSubstitute}

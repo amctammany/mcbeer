@@ -1,3 +1,4 @@
+"use client";
 import IconButton from "@/components/Button/IconButton";
 import ListItem from "@/components/Form/List/ListItem";
 import ListItemContent from "@/components/Form/List/ListItemContent";
@@ -45,12 +46,14 @@ export type HopIngredientItemProps = {
   src: AdjustedHopIngredientType & { ibu?: number };
   index: number;
   onClick?: React.MouseEventHandler;
+  // size?: "default" | "xs";
   actions: Record<string, any>;
 };
 type HopIngredientItemMenuProps = {
   handleSubstitute: React.MouseEventHandler;
   handleDuplicate: React.MouseEventHandler;
   handleRemove: React.MouseEventHandler;
+  size: "default" | "xs";
 
   index: number;
 };
@@ -59,6 +62,7 @@ function HopIngredientItemMenu({
   handleRemove,
   handleSubstitute,
   index,
+  size,
 }: HopIngredientItemMenuProps) {
   const revisionContext = useContext(RevisionContext);
 
@@ -77,7 +81,7 @@ function HopIngredientItemMenu({
   //   removeHop(e);
   // };
 
-  const size = useMediaQuery("(min-width: 768px)") ? "default" : "xs";
+  // const size = useMediaQuery("(min-width: 768px)") ? "default" : "xs";
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -125,6 +129,8 @@ export default function HopIngredientItem({
     // form.setValue("hopIngredients", newValue);
   };
   const hop = hops.find((h) => h.id === src.hopId);
+
+  const size = useMediaQuery("(min-width: 768px)") ? "default" : "xs";
   return (
     <ListItem onClick={onClick}>
       <input
@@ -188,7 +194,7 @@ export default function HopIngredientItem({
         // {...form.register(`hopIngredients.${index}.alpha.unit`)}
         value={src?.alpha?.unit}
       />
-      <ListItemIcon icon={HopIcon} />
+      <ListItemIcon icon={HopIcon} size={size} />
 
       <ListItemContent className="">
         <ListItemTitle>
@@ -239,6 +245,7 @@ export default function HopIngredientItem({
           handleSubstitute={handleSubstitute}
           handleRemove={handleRemove}
           index={index}
+          size={size}
         />
       </ListItemMenu>
     </ListItem>

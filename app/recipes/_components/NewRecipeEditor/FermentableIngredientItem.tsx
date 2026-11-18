@@ -1,3 +1,4 @@
+"use client";
 import IconButton from "@/components/Button/IconButton";
 import ListItem from "@/components/Form/List/ListItem";
 import ListItemContent from "@/components/Form/List/ListItemContent";
@@ -5,9 +6,7 @@ import ListItemDescription from "@/components/Form/List/ListItemDescription";
 import ListItemIcon from "@/components/Form/List/ListItemIcon";
 import ListItemMenu from "@/components/Form/List/ListItemMenu";
 import ListItemTitle from "@/components/Form/List/ListItemTitle";
-import { AmountProp } from "@/components/Prop/AmountProp";
 import BadgeProp from "@/components/Prop/BadgeProp";
-import Prop from "@/components/Prop/Prop";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,24 +15,19 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { IngredientContext } from "@/contexts/IngredientContext";
 import { RevisionContext } from "@/contexts/RevisionContext";
-import { FermentableIngredientUsage } from "@/generated/prisma/enums";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { UnitValue } from "@/lib/Converter/adjustUnits";
-import { UnitNames, UnitTypes } from "@/lib/Converter/UnitDict";
+import { UnitNames } from "@/lib/Converter/UnitDict";
 import {
   AdjustedFermentableIngredientType,
   AdjustedRecipeType,
-  BaseFermentableIngredientType,
 } from "@/types/Recipe";
 import {
-  BeakerIcon,
   CopyPlusIcon,
   ReplaceIcon,
   WheatIcon,
-  Icon,
   MenuIcon,
   ScaleIcon,
-  TimerIcon,
   PaletteIcon,
   CookingPotIcon,
   DeleteIcon,
@@ -44,7 +38,7 @@ type FermentableIngredientItemMenuProps = {
   handleSubstitute: React.MouseEventHandler;
   handleDuplicate: React.MouseEventHandler;
   handleRemove: React.MouseEventHandler;
-
+  size: "default" | "xs";
   index: number;
 };
 function FermentableIngredientItemMenu({
@@ -52,9 +46,9 @@ function FermentableIngredientItemMenu({
   handleDuplicate,
   handleRemove,
   index,
+  size,
 }: FermentableIngredientItemMenuProps) {
   const revisionContext = useContext(RevisionContext);
-
   const f = useFormContext();
   // const handleSubstitute = (e: any) => {
   //   const old = f.getValues(`fermentableIngredients`);
@@ -99,7 +93,6 @@ function FermentableIngredientItemMenu({
   //   });
   //   removeFermentable(e);
   // };
-  const size = useMediaQuery("(min-width: 768px)") ? "default" : "xs";
 
   return (
     <DropdownMenu>
@@ -183,6 +176,7 @@ export default function FermentableIngredientItem({
     // const newValue = old.filter(({ id: _id }) => _id !== src.id);
     // form.setValue("fermentableIngredients", newValue);
   };
+  const size = useMediaQuery("(min-width: 768px)") ? "default" : "xs";
   return (
     <ListItem onClick={onClick}>
       <input
@@ -241,7 +235,7 @@ export default function FermentableIngredientItem({
         value={src?.potential?.unit ?? ""}
       />
 
-      <ListItemIcon icon={WheatIcon} />
+      <ListItemIcon icon={WheatIcon} size={size} />
 
       <ListItemContent className="">
         <ListItemTitle>
@@ -282,6 +276,7 @@ export default function FermentableIngredientItem({
       </ListItemContent>
       <ListItemMenu>
         <FermentableIngredientItemMenu
+          size={size}
           handleDuplicate={handleDuplicate}
           handleSubstitute={handleSubstitute}
           handleRemove={handleRemove}

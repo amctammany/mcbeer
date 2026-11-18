@@ -14,7 +14,16 @@ const listItemIconVariants = cva(
       },
       size: {
         default: ["mr-1 md:mg-2"],
+        xs: [""],
         sm: [""],
+        md: [""],
+        lg: [""],
+        xl: [""],
+        icon: ["w-6 h-6"],
+        "icon-sm": ["w-4 h-4"],
+        "icon-xs": ["w-3 h-3"],
+        "icon-md": ["w-5 h-5"],
+        "icon-lg": ["w-7 h-7"],
       },
     },
     defaultVariants: {
@@ -35,9 +44,13 @@ export default function ListItemIcon({
   size,
   variant,
 }: ListItemIconProps) {
-  const sz = useMediaQuery("(min-width: 768px)") ? "default" : "sm";
-  const s = getIconSize(size || sz);
-  const child = Icon ? <Icon size={s} /> : children;
+  // const sz = useMediaQuery("(min-width: 768px)") ? "default" : "sm";
+  // const s = getIconSize(size || sz);
+  const child = Icon ? (
+    <Icon size={getIconSize(size ?? "default")} />
+  ) : (
+    children
+  );
 
   return (
     <div
