@@ -3,8 +3,10 @@ import { UserPreferencesType } from "@/contexts/UserPreferencesContext";
 import { BASE_UNITS } from "@/lib/Converter/UnitDict";
 import { prisma } from "@/lib/prisma";
 import { headers } from "next/headers";
+import { connection } from "next/server";
 
 export async function getPreferences() {
+  await connection();
   const session = await auth.api.getSession({
     headers: await headers(),
   });

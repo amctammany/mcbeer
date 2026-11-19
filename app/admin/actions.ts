@@ -47,7 +47,7 @@ export async function updateUserSettings(prev: any, formData: FormData) {
     return Promise.resolve(v);
   }
   const { UserPreferences, ...data } = v.data;
-  const res = await Promise.all([
+  await Promise.all([
     prisma.user.update({
       where: {
         id: data.id,
@@ -59,7 +59,7 @@ export async function updateUserSettings(prev: any, formData: FormData) {
       data: UserPreferences,
     }),
   ]);
-  console.log(res);
+  // console.log(res);
   return redirect("/admin");
   //  return { success: true, data: res };
 }
@@ -71,4 +71,5 @@ export const signIn = async () => {
       callbackURL: "/admin",
     },
   });
+  return res;
 };

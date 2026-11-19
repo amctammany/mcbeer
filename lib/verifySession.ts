@@ -2,10 +2,11 @@ import { auth } from "@/auth";
 import { Route } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { cache } from "react";
+import { connection } from "next/server";
+// import { cache } from "react";
 
 export const cachedAuth = async function () {
-  "use server";
+  await connection();
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
   });
