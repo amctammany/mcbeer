@@ -1,4 +1,3 @@
-"use client";
 import IconButton from "@/components/Button/IconButton";
 import ListItem from "@/components/Form/List/ListItem";
 import ListItemContent from "@/components/Form/List/ListItemContent";
