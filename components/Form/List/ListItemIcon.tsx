@@ -1,4 +1,5 @@
 import { getIconSize } from "@/components/Button/IconButton";
+import ResponsiveIcon from "@/components/ResponsiveIcon";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
@@ -16,13 +17,10 @@ const listItemIconVariants = cva(
         default: ["mr-1 md:mg-2"],
         xs: [""],
         sm: [""],
-        md: [""],
-        lg: [""],
-        xl: [""],
         icon: ["w-6 h-6"],
         "icon-sm": ["w-4 h-4"],
         "icon-xs": ["w-3 h-3"],
-        "icon-md": ["w-5 h-5"],
+        // "icon-md": ["w-5 h-5"],
         "icon-lg": ["w-7 h-7"],
       },
     },
@@ -36,18 +34,24 @@ export type ListItemIconProps = {
   children?: React.ReactNode | React.ReactNode[];
   icon?: LucideIcon;
   className?: string;
+  responsive?: boolean;
 } & VariantProps<typeof listItemIconVariants>;
 export default function ListItemIcon({
   children,
   className,
   icon: Icon,
   size,
+  responsive = true,
   variant,
 }: ListItemIconProps) {
   // const sz = useMediaQuery("(min-width: 768px)") ? "default" : "sm";
   // const s = getIconSize(size || sz);
   const child = Icon ? (
-    <Icon size={getIconSize(size ?? "default")} />
+    responsive ? (
+      <ResponsiveIcon icon={Icon} size={size} />
+    ) : (
+      <Icon size={getIconSize(size ?? "default")} />
+    )
   ) : (
     children
   );

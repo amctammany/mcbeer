@@ -9,6 +9,7 @@ import ListItemTitle from "@/components/Form/List/ListItemTitle";
 import { AmountProp } from "@/components/Prop/AmountProp";
 import BadgeProp from "@/components/Prop/BadgeProp";
 import Prop from "@/components/Prop/Prop";
+import ResponsiveIcon from "@/components/ResponsiveIcon";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -53,7 +54,6 @@ type HopIngredientItemMenuProps = {
   handleSubstitute: React.MouseEventHandler;
   handleDuplicate: React.MouseEventHandler;
   handleRemove: React.MouseEventHandler;
-  size: "default" | "xs";
 
   index: number;
 };
@@ -62,7 +62,6 @@ function HopIngredientItemMenu({
   handleRemove,
   handleSubstitute,
   index,
-  size,
 }: HopIngredientItemMenuProps) {
   const revisionContext = useContext(RevisionContext);
 
@@ -85,7 +84,7 @@ function HopIngredientItemMenu({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        render={<IconButton icon={MenuIcon} label="Menu" size={size} />}
+        render={<IconButton icon={MenuIcon} label="Menu" size="xs" />}
       ></DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onClick={handleDuplicate} id="hop" data-index={index}>
@@ -130,7 +129,6 @@ export default function HopIngredientItem({
   };
   const hop = hops.find((h) => h.id === src.hopId);
 
-  const size = useMediaQuery("(min-width: 768px)") ? "default" : "xs";
   return (
     <ListItem onClick={onClick}>
       <input
@@ -194,12 +192,12 @@ export default function HopIngredientItem({
         // {...form.register(`hopIngredients.${index}.alpha.unit`)}
         value={src?.alpha?.unit}
       />
-      <ListItemIcon icon={HopIcon} size={size} />
+      <ListItemIcon icon={HopIcon} size="sm" />
 
       <ListItemContent className="">
         <ListItemTitle>
           <BadgeProp
-            Icon={<ScaleIcon size={12} />}
+            Icon={<ResponsiveIcon icon={ScaleIcon} size="sm" />}
             name="amount"
             text={src.amount?.value}
             unit={src.amount?.unit}
@@ -211,26 +209,26 @@ export default function HopIngredientItem({
           <div className="grow md:min-w-52  grid justify-items-end overflow-x-auto ">
             <div className="w-full lg:w-fit flex flex-row gap-0 md:gap-1 lg:gap-2">
               <BadgeProp
-                Icon={<CookingPotIcon size={12} />}
+                Icon={<ResponsiveIcon icon={CookingPotIcon} size="xs" />}
                 name="alpha"
                 text={src.alpha?.value}
                 unit="%"
               />
 
               <BadgeProp
-                Icon={<CookingPotIcon size={12} />}
+                Icon={<ResponsiveIcon icon={CookingPotIcon} size="xs" />}
                 name="usage"
                 text={src.usage}
               />
               <BadgeProp
-                Icon={<TimerIcon size={12} />}
+                Icon={<ResponsiveIcon icon={TimerIcon} size="xs" />}
                 name="duration"
                 text={src.duration.value}
                 unit={src.duration.unit}
               />
 
               <BadgeProp
-                Icon={<ScaleIcon size={12} />}
+                Icon={<ResponsiveIcon icon={ScaleIcon} size="xs" />}
                 name="ibu"
                 text={precisionRound(_src.ibu ?? 0, 2)}
                 unit="ibu"
@@ -245,7 +243,6 @@ export default function HopIngredientItem({
           handleSubstitute={handleSubstitute}
           handleRemove={handleRemove}
           index={index}
-          size={size}
         />
       </ListItemMenu>
     </ListItem>

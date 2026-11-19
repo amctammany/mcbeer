@@ -4,6 +4,7 @@ import { cx, VariantProps } from "class-variance-authority";
 import { LinkButton } from "./LinkButton";
 import { LucideIcon } from "lucide-react";
 import { Route } from "next";
+import ResponsiveIcon from "../ResponsiveIcon";
 
 export function getIconSize(
   size:
@@ -50,11 +51,11 @@ export function getIconSize(
 export type IconButtonProps = {
   icon: LucideIcon;
   href?: string;
-  label?: any;
+  label?: string | React.ReactNode | React.ReactNode[] | null;
 } & React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {};
 export default function IconButton({
-  icon: Icon,
+  icon,
   label,
   children,
   href,
@@ -67,12 +68,12 @@ export default function IconButton({
       size={props.size}
       {...props}
     >
-      <Icon size={getIconSize(props.size ?? "md")} />
+      <ResponsiveIcon icon={icon} size={props.size} />
       <span className={cx("hidden md:block")}>{label ?? children}</span>
     </LinkButton>
   ) : (
     <Button variant="outline" size={props.size} {...props}>
-      <Icon size={getIconSize(props.size ?? "md")} />
+      <ResponsiveIcon icon={icon} size={props.size} />
       <span className={cx("hidden md:block")}>{label ?? children}</span>
     </Button>
   );

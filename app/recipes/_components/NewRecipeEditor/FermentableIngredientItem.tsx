@@ -7,6 +7,7 @@ import ListItemIcon from "@/components/Form/List/ListItemIcon";
 import ListItemMenu from "@/components/Form/List/ListItemMenu";
 import ListItemTitle from "@/components/Form/List/ListItemTitle";
 import BadgeProp from "@/components/Prop/BadgeProp";
+import { ResponsiveIconProps } from "@/components/ResponsiveIcon";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,7 +39,7 @@ type FermentableIngredientItemMenuProps = {
   handleSubstitute: React.MouseEventHandler;
   handleDuplicate: React.MouseEventHandler;
   handleRemove: React.MouseEventHandler;
-  size: "default" | "xs";
+  size?: ResponsiveIconProps["size"];
   index: number;
 };
 function FermentableIngredientItemMenu({
@@ -97,7 +98,7 @@ function FermentableIngredientItemMenu({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        render={<IconButton icon={MenuIcon} label="Menu" size={size} />}
+        render={<IconButton icon={MenuIcon} label="Menu" size="xs" />}
       ></DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem
@@ -176,7 +177,7 @@ export default function FermentableIngredientItem({
     // const newValue = old.filter(({ id: _id }) => _id !== src.id);
     // form.setValue("fermentableIngredients", newValue);
   };
-  const size = useMediaQuery("(min-width: 768px)") ? "default" : "xs";
+  // const size = useMediaQuery("(min-width: 768px)") ? "default" : "xs";
   return (
     <ListItem onClick={onClick}>
       <input
@@ -235,7 +236,7 @@ export default function FermentableIngredientItem({
         value={src?.potential?.unit ?? ""}
       />
 
-      <ListItemIcon icon={WheatIcon} size={size} />
+      <ListItemIcon icon={WheatIcon} size="sm" />
 
       <ListItemContent className="">
         <ListItemTitle>
@@ -276,7 +277,7 @@ export default function FermentableIngredientItem({
       </ListItemContent>
       <ListItemMenu>
         <FermentableIngredientItemMenu
-          size={size}
+          // size={size}
           handleDuplicate={handleDuplicate}
           handleSubstitute={handleSubstitute}
           handleRemove={handleRemove}

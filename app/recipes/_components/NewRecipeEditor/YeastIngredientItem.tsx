@@ -7,6 +7,7 @@ import ListItemIcon from "@/components/Form/List/ListItemIcon";
 import ListItemMenu from "@/components/Form/List/ListItemMenu";
 import ListItemTitle from "@/components/Form/List/ListItemTitle";
 import BadgeProp from "@/components/Prop/BadgeProp";
+import { ResponsiveIconProps } from "@/components/ResponsiveIcon";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,14 +38,14 @@ type YeastIngredientItemMenuProps = {
   handleRemove: React.MouseEventHandler;
 
   index: number;
-  size: "default" | "xs";
+  // size?: ResponsiveIconProps["size"]
 };
 function YeastIngredientItemMenu({
   // removeYeast,
   handleDuplicate,
   handleRemove,
   handleSubstitute,
-  size,
+  // size,
   index,
 }: YeastIngredientItemMenuProps) {
   // const revisionContext = useContext(RevisionContext);
@@ -66,7 +67,7 @@ function YeastIngredientItemMenu({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        render={<IconButton icon={MenuIcon} label="Menu" size={size} />}
+        render={<IconButton icon={MenuIcon} label="Menu" size="xs" />}
       ></DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onClick={handleDuplicate} id="hop" data-index={index}>
@@ -126,7 +127,7 @@ export default function YeastIngredientItem({
   const handleDuplicate = () => actions.duplicate?.(index);
   const handleSubstitute = () => actions.substitute?.(index);
   const handleRemove = () => actions.remove?.(index);
-  const size = useMediaQuery("(min-width: 768px)") ? "default" : "xs";
+  // const size = useMediaQuery("(min-width: 768px)") ? "default" : "xs";
   return (
     <ListItem onClick={onClick}>
       <input
@@ -165,7 +166,7 @@ export default function YeastIngredientItem({
         {...form.register(`yeastIngredients.${index}.attenuation.unit`)}
         value={src?.attenuation?.unit}
       />
-      <ListItemIcon icon={GermIcon} size={size} />
+      <ListItemIcon icon={GermIcon} size="sm" />
 
       <ListItemContent className="">
         <ListItemTitle>
@@ -197,7 +198,6 @@ export default function YeastIngredientItem({
       </ListItemContent>
       <ListItemMenu>
         <YeastIngredientItemMenu
-          size={size}
           handleDuplicate={handleDuplicate}
           handleRemove={handleRemove}
           handleSubstitute={handleSubstitute}
